@@ -52,7 +52,8 @@ dis_locations: Name, dis_location (Guid), dis_geounit (-> dis_geounits). dis_geo
 Sidebar: `Control: CanvasComponent` / `ComponentName: Sidebar`; inputs: activemenu (Text, Required),
 plus Fill, Height, Width, X, Y, Visible, AlignInContainer, FillPortions, LayoutMinHeight (default 640),
 LayoutMinWidth (default 640), LayoutMaxHeight, LayoutMaxWidth. AccessAppScope: true.
-TopBar: `Control: CanvasComponent` / `ComponentName: TopBar`; inputs: ActiveMenu (Text, Required),
+TopBar: `Control: CanvasComponent` / `ComponentName: TopBar`; inputs: ActiveMenu (Text, Required), Subtitle (Text, Required;
+added by the Before-builders change, confirmed with describe_control after the T1 compile),
 same generic inputs as Sidebar.
 NOTE: when placed inside an AutoLayout container, set LayoutMinWidth / LayoutMinHeight explicitly
 (defaults are 640).

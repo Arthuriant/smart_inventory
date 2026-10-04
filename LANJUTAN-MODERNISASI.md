@@ -14,9 +14,9 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 
 | Langkah | Tempat   | Model  | Isi                                                        | Status |
 |---------|----------|--------|------------------------------------------------------------|--------|
-| T0      | Terminal | Sonnet | Cek Studio vs file lokal (sync + diff), push               | digabung ke T1 |
-| W1      | Web      | Opus   | Tulis 12 brief yang belum ada + terapkan "Before builders" | selesai, belum compile |
-| T1      | Terminal | Sonnet | Pull, compile App/Sidebar/TopBar sampai bersih, push       | belum  |
+| T0      | Terminal | Sonnet | Cek Studio vs file lokal (sync + diff), push               | selesai (digabung di T1) |
+| W1      | Web      | Opus   | Tulis 12 brief yang belum ada + terapkan "Before builders" | selesai |
+| T1      | Terminal | Sonnet | Pull, compile App/Sidebar/TopBar sampai bersih, push       | selesai |
 | W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | belum  |
 | T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | belum  |
 | W3      | Web      | Sonnet | Build Template, Area, Add_area                             | belum  |
@@ -60,6 +60,27 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   - Bug lama di luar scope (TIDAK diperbaiki, karena logika form harus tetap sama): di scr_frm_Transaction
     `DataCardValue4.Default` selalu membuat nomor baru, juga saat Edit, sehingga Edit transaksi ikut mengganti
     transaction_number-nya. Putuskan nanti apakah perlu diperbaiki (mis. `If(Form5.Mode = FormMode.New, <rumus>, Parent.Default)`).
+- [T1, 2026-10-04] Cek T0 (digabung): Studio di-sync ke folder sementara di luar repo, lalu di-diff dengan app/ versi
+  f62ebf2. 18 file .pa.yaml identik (hanya beda line ending; pakai `diff --strip-trailing-cr`). `_EditorState.pa.yaml`
+  sengaja di-.gitignore dan sama dengan salinan lokal. Tidak ada perubahan dari Studio. Folder sementara sudah dihapus.
+- [T1] Compile app/ (19 file; compile_canvas jalan langsung di app/ walau ada file .md): App.pa.yaml, Sidebar, dan TopBar
+  BERSIH. Sisa 4 error + 2 warning, semuanya error baseline di screen lama yang belum dibangun ulang (daftar sama dengan
+  canvas-app-requirements.md, kurang satu: error App.OnStart `elv_assigned_area` sudah beres lewat W1):
+  - Log In: Button1 `Navigate(HomeAdmin)` dan ButtonUser `Navigate(HomeUser)`; Register: Subtitle2 `elv_assigned_area`.
+    Hilang setelah W2/T2.
+  - scr_user: warning `locSelectedRecord` Blank() di Button30_4 dan Button33_3. Hilang setelah W4/T4.
+  Jangan diperbaiki di screen lama; biar builder yang menulis ulang. Selama diagnostik hanya 6 ini, compile dianggap bersih.
+- [T1] describe_control setelah compile: Sidebar punya input `activemenu` (Text, Required); TopBar punya `ActiveMenu` dan
+  `Subtitle` (Text, Required). Keduanya `Control: CanvasComponent` + `ComponentName`, tanpa Variant: cocok dengan semua
+  brief. app/canvas-discovery-packet.md diupdate (TopBar + Subtitle).
+- [T1] Efek samping di Studio (BUKAN edit dari Studio; jangan dianggap drift kalau sync lagi):
+  - Sync ulang tidak sama persis dengan app/ karena Studio membuang properti bernilai default saat menulis YAML
+    (GroupContainer/Gallery `FillPortions: =1` dan `AlignInContainer: Stretch`, teks/ikon/gambar `FillPortions: =0`, dst.).
+    Sudah dicek: tidak ada nilai non-default yang hilang di Sidebar/TopBar, dan App.pa.yaml sama persis.
+  - Instance TopBar di 13 screen lama di-reset Studio ke ukuran default komponen baru (Height 80 -> 64, Width
+    `App.Width - 150` -> 912) dan mendapat `Subtitle: ""`. Di scr_category dan scr_frm_category, instance Sidebar/TopBar
+    juga kehilangan isi `activemenu`/`ActiveMenu` (kosong; Sidebar Width 224). File di app/ TIDAK diubah (tetap sumber
+    kebenaran); semua screen ini ditulis ulang di W2-W7 dan tiap builder mengisi input-nya sesuai brief.
 
 ---
 
