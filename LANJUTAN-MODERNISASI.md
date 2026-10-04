@@ -25,7 +25,7 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | selesai |
 | W4b     | Web      | Opus   | Perbaikan: rename control lama, nfLowStock, KPI dashboard  | selesai |
 | T4b     | Terminal | Sonnet | Pull, compile + CEK VISUAL W2-W4b di Studio, push          | selesai (compile; visual belum dicek) |
-| W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | belum  |
+| W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | selesai, belum compile |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | belum  |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | belum  |
@@ -191,6 +191,21 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
 - [Pemulihan, 2026-10-05] Connect (setelah sempat HTTP 422 karena tidak ada tab Studio dengan kontrol edit), sync
   memastikan sesi Studio berisi versi ASLI (tanpa scr_dashboard/nfLowStock). Compile app/ dari repo: PASSED, 20 file.
   Sync ulang: scr_dashboard, nfLowStock, rename control W4b sudah ada di sesi. WAJIB File > Save di Studio oleh user.
+- [W5, 2026-10-05] Ditulis web, BELUM pernah di-compile: app/scr_item.pa.yaml, app/scr_frm_item.pa.yaml,
+  app/scr_find_item.pa.yaml. Mengikuti KOREKSI WAJIB #1-#6 di canvas-app-shared.md sejak awal (warna literal, instance
+  komponen Stretch, form gaya asli, SEMUA control bernama baru, filter Dataverse dengan konstanta).
+  - Rename: Dropdown2_2/inp_search_4/Button31_2/Gallery8_6 -> ddItmLCat/inpItmLSearch/btnItmLAdd/galItmL;
+    Form5_3/Button32_6/Button32_7 -> frmItmF/btnItmFSave/btnItmFBack (+ semua card dan anak card `_ItmF`);
+    dd_Category/dd_Geounit/dd_Location/dd_Area/inp_search_7/Gallery8_9 -> ddFindCat/ddFindGeo/ddFindLoc/ddFindArea/
+    inpFindSearch/galFind. Referensi silang scr_item <-> scr_frm_item ikut diganti; tidak ada screen lain yang memakainya.
+  - scr_item: hapus lewat strip konfirmasi + receipt (sebelumnya langsung hapus); Status jadi badge.
+  - scr_frm_item: form dalam kartu (Height 520, body scroll), tombol di bawah, OnSuccess = receipt + statement asli.
+    Subtree card disalin apa adanya (dicek diff: hanya Width card berubah, 9 card `=Parent.Width / 2`).
+  - scr_find_item: Items galeri sama dengan aslinya (hanya nama kontrol + baris kosong dibuang). Optimasi: dropdown
+    Location/Area dinonaktifkan sampai induknya dipilih dan di-reset saat induk berubah (tidak ada query kosong/kombinasi
+    tidak valid); badge stok merah kalau qty < min_qty (perbandingan per baris, bukan di filter Dataverse).
+  - Self-QA 12 screen: YAML parse, 452 nama control unik, semua properti diawali `=`, tanpa `clr*`/CR/nama lama.
+  T5: compile, cek visual (tabel putih, toolbar berlabel, form item 9 field termasuk upload gambar), lalu File > Save.
 
 ---
 

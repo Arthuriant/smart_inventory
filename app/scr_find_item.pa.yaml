@@ -1,423 +1,834 @@
 Screens:
   scr_find_item:
     Properties:
+      Fill: =RGBA(244, 246, 250, 1)
       LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
     Children:
-      - con_Main_template_5:
+      - conFindRoot:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
             Height: =Parent.Height
-            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            PaddingRight: =8
+            LayoutGap: =0
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
             Width: =Parent.Width
           Children:
-            - con_sidebar_template_5:
-                Control: GroupContainer
-                Variant: ManualLayout
+            - cmpFindSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
                 Properties:
-                  DropShadow: =DropShadow.None
+                  activemenu: ="Find Item"
+                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                  RadiusBottomLeft: =0
-                  RadiusBottomRight: =0
-                  RadiusTopLeft: =0
-                  RadiusTopRight: =0
-                  Width: =180
-                Children:
-                  - com_sidebar_template_5:
-                      Control: CanvasComponent
-                      ComponentName: Sidebar
-                      Properties:
-                        Width: =Parent.Width
-                        activemenu: ="Find Item"
-            - con_content_template_5:
+                  Height: =640
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+            - conFindMain:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
-                  Fill: =RGBA(247, 247, 248, 1)
-                  FillPortions: =0
-                  LayoutAlignItems: =LayoutAlignItems.Center
+                  Fill: =RGBA(244, 246, 250, 1)
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
+                  LayoutGap: =0
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
                   RadiusBottomLeft: =0
                   RadiusBottomRight: =0
                   RadiusTopLeft: =0
                   RadiusTopRight: =0
-                  Width: =Parent.Width - 180
                 Children:
-                  - com_topbar_template_5:
+                  - cmpFindTopBar:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
                         ActiveMenu: ="Find Item"
-                        Height: =80
-                        Width: =App.Width - 150
-                  - Container8_8:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =0
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Cari stok item per lokasi"
+                        Width: =912
+                  - conFindBody:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        BorderColor: =
+                        AlignInContainer: =AlignInContainer.Stretch
                         DropShadow: =DropShadow.None
-                        Fill: =RGBA(247, 247, 248, 1)
-                        LayoutAlignItems: =LayoutAlignItems.Center
+                        Fill: =RGBA(244, 246, 250, 1)
+                        FillPortions: =1
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
                         LayoutOverflowY: =LayoutOverflow.Scroll
-                        PaddingBottom: =20
-                        PaddingLeft: =20
-                        PaddingRight: =20
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
                         PaddingTop: =20
                         RadiusBottomLeft: =0
                         RadiusBottomRight: =0
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                       Children:
-                        - Container13_6:
+                        - conFindCard:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              BorderColor: =
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Light
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =520
-                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
                             Children:
-                              - Container15_6:
+                              - conFindToolbar:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    BorderColor: =
+                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
-                                    Height: =60
-                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    Height: =56
+                                    LayoutAlignItems: =LayoutAlignItems.End
                                     LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =10
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingRight: =8
-                                    PaddingTop: =8
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
                                     RadiusBottomLeft: =0
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - dd_Category:
-                                        Control: ModernDropdown
-                                        Properties:
-                                          BorderColor: =RGBA(40, 134, 222, 1)
-                                          BorderStyle: =BorderStyle.None
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =32
-                                          ItemDisplayText: =ThisItem.code
-                                          Items: =dis_category_items
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =12
-                                          Width: =100
-                                    - dd_Geounit:
-                                        Control: ModernDropdown
-                                        Properties:
-                                          BorderColor: =RGBA(40, 134, 222, 1)
-                                          BorderStyle: =BorderStyle.None
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =32
-                                          ItemDisplayText: =ThisItem.elv_name_long
-                                          Items: =dis_geounits
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =12
-                                          Width: =100
-                                    - dd_Location:
-                                        Control: ModernDropdown
-                                        Properties:
-                                          BorderColor: =RGBA(40, 134, 222, 1)
-                                          BorderStyle: =BorderStyle.None
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =32
-                                          ItemDisplayText: =ThisItem.Name
-                                          Items: |-
-                                            =Filter(
-                                                dis_locations, 
-                                                dis_geounit.dis_geounit = dd_Geounit.Selected.dis_geounit
-                                            )
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =12
-                                          Width: =100
-                                    - dd_Area:
-                                        Control: ModernDropdown
-                                        Properties:
-                                          BorderColor: =RGBA(40, 134, 222, 1)
-                                          BorderStyle: =BorderStyle.None
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =32
-                                          ItemDisplayText: =ThisItem.Name
-                                          Items: |-
-                                            =Filter(
-                                                dis_areas, 
-                                                'elv_location (cr8a3_elv_location)'.dis_location = dd_Location.Selected.dis_location
-                                            )
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =12
-                                          Width: =100
-                                    - Container16_6:
+                                    - conFindCatFld:
                                         Control: GroupContainer
-                                        Variant: ManualLayout
+                                        Variant: AutoLayout
                                         Properties:
+                                          AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                    - inp_search_7:
-                                        Control: ModernTextInput
+                                          Width: =140
+                                        Children:
+                                          - txtFindCatLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Kategori"
+                                                Wrap: =false
+                                          - ddFindCat:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter kategori"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.code
+                                                Items: =dis_category_items
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conFindGeoFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
                                         Properties:
-                                          BasePaletteColor: =RGBA(249, 83, 109, 1)
-                                          BorderColor: =RGBA(247, 247, 248, 1)
-                                          BorderStyle: =BorderStyle.Solid
-                                          Default: =
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          Height: =30
-                                          Placeholder: ="Find For Something"
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =140
+                                        Children:
+                                          - txtFindGeoLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Geounit"
+                                                Wrap: =false
+                                          - ddFindGeo:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter geounit"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.elv_name_long
+                                                Items: =dis_geounits
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnChange: |-
+                                                  =Reset(ddFindLoc);
+                                                  Reset(ddFindArea)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conFindLocFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =140
+                                        Children:
+                                          - txtFindLocLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Location"
+                                                Wrap: =false
+                                          - ddFindLoc:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter lokasi"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                DisplayMode: =If(IsBlank(ddFindGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: |-
+                                                  =Filter(
+                                                      dis_locations, 
+                                                      dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit
+                                                  )
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnChange: =Reset(ddFindArea)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conFindAreaFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =140
+                                        Children:
+                                          - txtFindAreaLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Area"
+                                                Wrap: =false
+                                          - ddFindArea:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter area"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                DisplayMode: =If(IsBlank(ddFindLoc.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: |-
+                                                  =Filter(
+                                                      dis_areas, 
+                                                      'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location
+                                                  )
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conFindSearchFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =1
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtFindSearchLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Cari item"
+                                                Wrap: =false
+                                          - inpFindSearch:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                AccessibleLabel: ="Cari item"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Placeholder: ="Nama atau BPN"
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                TriggerOutput: =TriggerOutput.Delayed
+                                                Type: =TextInputType.Search
+                                    - icoFindReset:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: ="Reset filter"
+                                          AlignInContainer: =AlignInContainer.End
+                                          FillPortions: =0
+                                          Height: =36
+                                          Icon: ="ArrowReset"
+                                          IconColor: =RGBA(100, 112, 130, 1)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =Reset(ddFindCat);
+                                            Reset(ddFindGeo);
+                                            Reset(ddFindLoc);
+                                            Reset(ddFindArea);
+                                            Reset(inpFindSearch)
+                                          PaddingBottom: =8
+                                          PaddingLeft: =8
+                                          PaddingRight: =8
+                                          PaddingTop: =8
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
-                                          Size: =14
-                                          TriggerOutput: =TriggerOutput.Delayed
-                                          Width: =300
-                              - Container20_7:
+                                          Tooltip: ="Reset filter"
+                                          Width: =36
+                              - conFindTable:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(180, 214, 250, 1)
+                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
-                                    Height: =35
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingRight: =8
-                                    PaddingTop: =8
+                                    Height: =420
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
                                     RadiusBottomLeft: =0
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - Label21_35:
-                                        Control: Label
+                                    - conFindHead:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
                                         Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =10
-                                          Text: ="Name"
-                                          Width: =125
-                                    - Label21_42:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =10
-                                          Text: ="BPN"
-                                          Width: =145
-                                    - Label21_43:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =10
-                                          Text: ="SPN"
-                                          Width: =150
-                                    - Label21_47:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =10
-                                          Text: ="Category"
-                                          Width: =110
-                                    - Label21_44:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =10
-                                          Text: ="Stock"
-                                          Width: =50
-                                    - Label21_45:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =10
-                                          Text: ="UoM"
-                                          Width: =60
-                                    - Label21_46:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =10
-                                          Text: ="Location"
-                                          Width: =100
-                              - Container10_8:
-                                  Control: GroupContainer
-                                  Variant: ManualLayout
-                                  Properties:
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: =Parent.Height - Container15_6.Height - Container20_7.Height
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingRight: =8
-                                    PaddingTop: =8
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Parent.Width
-                                  Children:
-                                    - Gallery8_9:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =13
+                                          PaddingRight: =13
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                        Children:
+                                          - txtFindHName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="NAMA"
+                                                Wrap: =false
+                                          - txtFindHBpn:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="BPN"
+                                                Wrap: =false
+                                          - txtFindHSpn:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="SPN"
+                                                Wrap: =false
+                                          - txtFindHCat:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="KATEGORI"
+                                                Wrap: =false
+                                          - txtFindHStock:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="STOK"
+                                                Width: =80
+                                                Wrap: =false
+                                          - txtFindHUom:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="UOM"
+                                                Width: =56
+                                                Wrap: =false
+                                          - txtFindHLoc:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="LOKASI"
+                                                Wrap: =false
+                                    - galFind:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Height: =Parent.Height
-                                          Items: "=Filter(\n\n    dis_stocks,\n\n   \n\n    // 1. Filter Kategori (Langsung 1 level)\n\n    IsBlank(dd_Category.Selected) Or dis_item_v2.dis_category_item.dis_category_item = dd_Category.Selected.dis_category_item,\n\n   \n\n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n\n    IsBlank(dd_Area.Selected) Or dis_area.dis_area = dd_Area.Selected.dis_area,\n\n   \n\n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n\n    IsBlank(inp_search_7.Text) Or\n\n    StartsWith(dis_item_v2.name, inp_search_7.Text) Or\n\n    StartsWith(dis_item_v2.part_number, inp_search_7.Text)\n\n)"
-                                          TemplateSize: =50
-                                          Width: =Parent.Width
+                                          AccessibleLabel: ="Stok item per lokasi"
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderThickness: =0
+                                          Fill: =RGBA(226, 230, 239, 1)
+                                          FillPortions: =0
+                                          Height: =380
+                                          Items: |-
+                                            =Filter(
+                                                dis_stocks,
+                                                // 1. Filter Kategori (Langsung 1 level)
+                                                IsBlank(ddFindCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddFindCat.Selected.dis_category_item,
+                                                // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
+                                                IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
+                                                // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
+                                                IsBlank(inpFindSearch.Text) Or
+                                                StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
+                                                StartsWith(dis_item_v2.part_number, inpFindSearch.Text)
+                                            )
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          ShowScrollbar: =true
+                                          TabIndex: =0
+                                          TemplatePadding: =1
+                                          TemplateSize: =52
+                                          Visible: |-
+                                            =!IsEmpty(Filter(
+                                                dis_stocks,
+                                                // 1. Filter Kategori (Langsung 1 level)
+                                                IsBlank(ddFindCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddFindCat.Selected.dis_category_item,
+                                                // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
+                                                IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
+                                                // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
+                                                IsBlank(inpFindSearch.Text) Or
+                                                StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
+                                                StartsWith(dis_item_v2.part_number, inpFindSearch.Text)
+                                            ))
                                         Children:
-                                          - Container11_8:
+                                          - conFindRow:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
-                                                Fill: |-
-                                                  =If(
-                                                      ThisItem.IsSelected,
-                                                      RGBA(234, 243, 255, 1), 
-                                                      RGBA(255, 255, 255, 1)  
-                                                  )
-                                                Height: =50
+                                                DropShadow: =DropShadow.None
+                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
-                                                PaddingBottom: =8
-                                                PaddingLeft: =8
-                                                PaddingRight: =8
-                                                PaddingTop: =8
+                                                LayoutGap: =8
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingLeft: =12
+                                                PaddingRight: =12
                                                 RadiusBottomLeft: =0
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Width: =906
+                                                Width: =Parent.TemplateWidth
                                               Children:
-                                                - Text1_16:
+                                                - txtFindName:
                                                     Control: ModernText
                                                     Properties:
-                                                      Size: =12
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
                                                       Text: =ThisItem.dis_item_v2.name
-                                                      Width: =120
-                                                - Text1_17:
+                                                      Wrap: =false
+                                                - txtFindBpn:
                                                     Control: ModernText
                                                     Properties:
-                                                      Size: =12
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
                                                       Text: =ThisItem.dis_item_v2.part_number
-                                                      Width: =150
-                                                - Type_29:
+                                                      Wrap: =false
+                                                - txtFindSpn:
                                                     Control: ModernText
                                                     Properties:
-                                                      Color: =RGBA(53, 61, 63, 1)
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
                                                       Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      RadiusBottomLeft: =4
-                                                      RadiusBottomRight: =4
-                                                      RadiusTopLeft: =4
-                                                      RadiusTopRight: =4
-                                                      Size: =12
+                                                      Size: =13
                                                       Text: =ThisItem.dis_item_v2.client_number
-                                                      Width: =150
-                                                - Type_30:
+                                                      Wrap: =false
+                                                - txtFindCat:
                                                     Control: ModernText
                                                     Properties:
-                                                      Color: =RGBA(53, 61, 63, 1)
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
                                                       Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      RadiusBottomLeft: =4
-                                                      RadiusBottomRight: =4
-                                                      RadiusTopLeft: =4
-                                                      RadiusTopRight: =4
-                                                      Size: =12
+                                                      Size: =13
                                                       Text: =ThisItem.dis_item_v2.dis_category_item.name
-                                                      Width: =100
-                                                - Type_25:
+                                                      Wrap: =false
+                                                - bdgFindStock:
+                                                    Control: Badge
+                                                    Properties:
+                                                      AccessibleLabel: ="Stok " & Text(ThisItem.qty) & If(ThisItem.qty < ThisItem.dis_item_v2.min_qty, ", di bawah minimum", "")
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                      Content: =Text(ThisItem.qty)
+                                                      FillPortions: =0
+                                                      FontSize: =12
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =24
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      Shape: ='BadgeCanvas.Shape'.Rounded
+                                                      ThemeColor: =If(ThisItem.qty < ThisItem.dis_item_v2.min_qty, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Success)
+                                                      Width: =80
+                                                - txtFindUom:
                                                     Control: ModernText
                                                     Properties:
-                                                      PaddingLeft: =20
-                                                      Size: =12
-                                                      Text: =ThisItem.qty
-                                                      Width: =50
-                                                - Type_26:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =0
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =Text(ThisItem.dis_item_v2.uom)
+                                                      Width: =56
+                                                      Wrap: =false
+                                                - txtFindLoc:
                                                     Control: ModernText
                                                     Properties:
-                                                      PaddingLeft: =20
-                                                      Size: =12
-                                                      Text: =ThisItem.dis_item_v2.uom
-                                                      Width: =50
-                                                - Type_27:
-                                                    Control: ModernText
-                                                    Properties:
-                                                      PaddingLeft: =20
-                                                      Size: =12
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
                                                       Text: =ThisItem.dis_area.'elv_location (cr8a3_elv_location)'.Name & " - " & ThisItem.dis_area.Name
-                                                      Width: =300
+                                                      Wrap: =false
+                                    - txtFindEmpty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =380
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="Tidak ada stok yang cocok dengan filter."
+                                          VerticalAlign: =VerticalAlign.Middle
+                                          Visible: |-
+                                            =IsEmpty(Filter(
+                                                dis_stocks,
+                                                // 1. Filter Kategori (Langsung 1 level)
+                                                IsBlank(ddFindCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddFindCat.Selected.dis_category_item,
+                                                // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
+                                                IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
+                                                // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
+                                                IsBlank(inpFindSearch.Text) Or
+                                                StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
+                                                StartsWith(dis_item_v2.part_number, inpFindSearch.Text)
+                                            ))
+                                          Wrap: =false
