@@ -28,8 +28,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | selesai |
 | W5b     | Web      | Opus   | Perbaikan: tabel hitam (container bersarang di baris galeri) | selesai |
 | T5b     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | selesai (compile; Save + visual menunggu user) |
-| W5c     | Web      | Opus   | Perbaikan: ikon di baris galeri, dropdown form kosong       | selesai, belum compile |
-| T5c     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | belum  |
+| W5c     | Web      | Opus   | Perbaikan: ikon di baris galeri, dropdown form kosong       | selesai |
+| T5c     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | selesai (compile; Save + visual menunggu user) |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | belum  |
@@ -244,6 +244,10 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   DataCardValue64_UsrL (ThisItem.Name), DataCardValue47_ItmF (ThisItem.name). Nama, posisi, Update card tidak berubah.
   Aturan shared #7 ditulis ulang, #8 ditambah. T5c: compile, cek tabel Area/Register/User/Category/Item putih dengan ikon
   pensil/tempat sampah, dropdown Geounit/Location/Business Line/Assigned area/Category berisi teks, lalu File > Save.
+- [T5c, 2026-10-05] Compile app/ (20 file) setelah W5c: PASSED, tanpa perbaikan; tidak ada file app/ diubah. Sync ke
+  scratchpad: tombol btnAreaLEdit/btnUsrLEdit/btnCatLEdit/btnItmLEdit/btnRegMail ada di sesi; 5 dropdown (3 di Add_area,
+  1 di scr_user, 1 di scr_frm_item) sudah ModernCombobox. ModernIcon yang tersisa hanya di luar galeri (ikon receipt,
+  konfirmasi, reset filter). Save + cek visual menunggu user.
 
 ---
 
