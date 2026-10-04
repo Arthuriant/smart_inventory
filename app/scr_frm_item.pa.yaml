@@ -591,22 +591,30 @@ Screens:
                                                 X: =24
                                                 Y: =10
                                           - DataCardValue47_ItmF:
-                                              Control: ModernCombobox
+                                              Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =Parent.DisplayName
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
                                                 BorderColor: =RGBA(0, 18, 107, 1)
-                                                Color: =RGBA(0, 0, 0, 1)
-                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                ChevronBackground: =RGBA(56, 96, 178, 1)
+                                                ChevronFill: =RGBA(255, 255, 255, 1)
+                                                ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["cr8a3_name"]
                                                 DisplayMode: =Parent.DisplayMode
-                                                Fill: =RGBA(255, 255, 255, 1)
+                                                Font: =Font.'Open Sans'
                                                 Height: =32
-                                                InputTextPlaceholder: ="Pilih..."
-                                                IsSearchable: =true
-                                                ItemDisplayText: =ThisItem.name
+                                                HoverFill: =RGBA(186, 202, 226, 1)
                                                 Items: =Choices([@dis_item_v2S].dis_category_item)
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(0, 18, 107, 1)
+                                                SearchFields: =["cr8a3_name"]
                                                 SelectMultiple: =false
-                                                Size: =12
+                                                SelectionColor: =RGBA(255, 255, 255, 1)
+                                                SelectionFill: =RGBA(56, 96, 178, 1)
+                                                Size: =10.5
+                                                Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey48_ItmF.Y + DataCardKey48_ItmF.Height + 4

@@ -248,6 +248,14 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   scratchpad: tombol btnAreaLEdit/btnUsrLEdit/btnCatLEdit/btnItmLEdit/btnRegMail ada di sesi; 5 dropdown (3 di Add_area,
   1 di scr_user, 1 di scr_frm_item) sudah ModernCombobox. ModernIcon yang tersisa hanya di luar galeri (ikon receipt,
   konfirmasi, reset filter). Save + cek visual menunggu user.
+- [T5c-lanjutan, 2026-10-05] LAPORAN USER setelah T5c: tabel MASIH hitam, form dengan dropdown layoutnya rusak, dan
+  data dropdown tetap kosong. Jadi W5b (hapus container bersarang) dan W5c (ModernIcon -> ModernButton, ComboBox ->
+  ModernCombobox) TIDAK mengenai akar masalah. Tindakan: bagian ComboBox dari W5c di-revert (Add_area, scr_frm_item,
+  DataCardValue64_UsrL di scr_user kembali ke Classic/ComboBox versi sebelum W5c, sama dengan app asli). Compile PASSED.
+  Tombol ikon W5c tetap ada (tidak merusak). Analisis YAML hasil sync: galAreaL/galRegAdmins identik strukturnya dengan
+  galDashRecent (gallery Fill, TemplatePadding 1, baris GroupContainer AutoLayout Width/Height Template*), leluhur juga
+  sama. Penyebab tabel hitam dan teks dropdown kosong TIDAK bisa ditentukan dari YAML; perlu observasi langsung di Studio.
+  JANGAN menebak perbaikan lagi di sesi web sebelum data itu ada.
 
 ---
 
