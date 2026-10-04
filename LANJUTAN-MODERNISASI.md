@@ -17,8 +17,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T0      | Terminal | Sonnet | Cek Studio vs file lokal (sync + diff), push               | selesai (digabung di T1) |
 | W1      | Web      | Opus   | Tulis 12 brief yang belum ada + terapkan "Before builders" | selesai |
 | T1      | Terminal | Sonnet | Pull, compile App/Sidebar/TopBar sampai bersih, push       | selesai |
-| W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | selesai, belum compile |
-| T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | belum  |
+| W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | selesai |
+| T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | selesai |
 | W3      | Web      | Sonnet | Build Template, Area, Add_area                             | belum  |
 | T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | belum  |
 | W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category             | belum  |
@@ -94,6 +94,13 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   - Caption KPI (txtDashKpi*Cap) Height 14 untuk Size 11 mengikuti budget brief (18 + 2 + 36 + 2 + 14 = 72); kalau
     teksnya terpotong di Studio, naikkan ke 16 dan conDashKpi*Txt ke 74.
   - Delegation warning di dashboard (`qty < dis_item_v2.min_qty`, kolom relasi) sudah diterima di brief.
+
+- [T2, 2026-10-04] Compile app/ (20 file) setelah W2: 0 error. 3 error baseline Log In/Register (HomeAdmin, HomeUser,
+  elv_assigned_area) hilang. scr_dashboard, Log In, Register bersih tanpa perbaikan, kecuali satu warning:
+  `CountRows(dis_item_v2S)` di txtDashKpiItemsVal (Text dan AccessibleLabel) diganti `CountIf(dis_item_v2S, true)` karena
+  warning "CountRows may return a cached value". Sisa diagnostik: 2 warning baseline `locSelectedRecord` Blank() di
+  scr_user (Button30_4, Button33_3), hilang setelah W4/T4. Tidak ada drift dari Studio yang dicek di T2.
+  Catatan: parameter compile_canvas bernama `directoryPath`. Caption KPI Height 14 belum dicek visual di Studio.
 
 ---
 

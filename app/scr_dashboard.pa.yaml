@@ -191,7 +191,7 @@ Screens:
                                           - txtDashKpiItemsVal:
                                               Control: ModernText
                                               Properties:
-                                                AccessibleLabel: ="Total Item " & Text(CountRows(dis_item_v2S))
+                                                AccessibleLabel: ="Total Item " & Text(CountIf(dis_item_v2S, true))
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =clrText
                                                 FillPortions: =0
@@ -205,7 +205,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =28
-                                                Text: =Text(CountRows(dis_item_v2S))
+                                                Text: =Text(CountIf(dis_item_v2S, true))
                                                 Wrap: =false
                                           - txtDashKpiItemsCap:
                                               Control: ModernText
