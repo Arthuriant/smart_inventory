@@ -31,8 +31,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | W5c     | Web      | Opus   | Perbaikan: ikon di baris galeri, dropdown form kosong       | selesai |
 | T5c     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | selesai (compile; Save + visual menunggu user) |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
-| W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | selesai, belum compile |
-| T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | belum  |
+| W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | selesai |
+| T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | selesai (compile; Save + uji stok menunggu user) |
 | W7      | Web      | Sonnet | Build scr_History + "After builders" + "Editor State"      | belum  |
 | T7      | Terminal | Sonnet | Pull, compile final, validasi, push                        | belum  |
 
@@ -300,6 +300,13 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
         dis_trx_details,
         header_id.dis_trx_header = Form5.LastSubmit.dis_trx_header
     );
+- [T6, 2026-10-05] Compile app/ (20 file) setelah W6: PASSED, tanpa perbaikan; tidak ada file app/ diubah. Sync ke
+  scratchpad: semua control scr_Transaction (74), scr_frm_Transaction (61), scr_consume (64) sama dengan repo;
+  btnDashNewTrx sudah NewForm(frmTrxF). Review statis btnConsSubmit: guard area/qty/qty>stok, header tipe Consume +
+  area_form, stok dikurangi dari LookUp terbaru; tidak ada temuan. Uji runtime (Receive 3, Consume 2, qty > stok),
+  perbaikan "binding" (Fill conTrxLRow/conTrxLDRow/conTrxFCartRow/conConsRow/conConsRcRow, Depends on DataCardValue9_TrxF)
+  dan File > Save menunggu user. Masalah layout form scr_frm_item (laporan user) masih terbuka: screenshot dari sesi
+  web tidak pernah tercatat di repo; perlu deskripsi.
 
     // 2. Simpan ulang semua detail dari keranjang 
     ForAll(
