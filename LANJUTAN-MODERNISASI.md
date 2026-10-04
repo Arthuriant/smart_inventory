@@ -17,7 +17,7 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T0      | Terminal | Sonnet | Cek Studio vs file lokal (sync + diff), push               | selesai (digabung di T1) |
 | W1      | Web      | Opus   | Tulis 12 brief yang belum ada + terapkan "Before builders" | selesai |
 | T1      | Terminal | Sonnet | Pull, compile App/Sidebar/TopBar sampai bersih, push       | selesai |
-| W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | belum  |
+| W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | selesai, belum compile |
 | T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | belum  |
 | W3      | Web      | Sonnet | Build Template, Area, Add_area                             | belum  |
 | T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | belum  |
@@ -81,6 +81,19 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
     `App.Width - 150` -> 912) dan mendapat `Subtitle: ""`. Di scr_category dan scr_frm_category, instance Sidebar/TopBar
     juga kehilangan isi `activemenu`/`ActiveMenu` (kosong; Sidebar Width 224). File di app/ TIDAK diubah (tetap sumber
     kebenaran); semua screen ini ditulis ulang di W2-W7 dan tiap builder mengisi input-nya sesuai brief.
+
+- [W2, 2026-10-04] Ditulis web, BELUM pernah di-compile: app/scr_dashboard.pa.yaml (BARU), app/Log In.pa.yaml,
+  app/Register.pa.yaml (keduanya ditulis ulang total sesuai brief; semua control lama dihapus, termasuk Button1/ButtonUser
+  HomeAdmin/HomeUser dan Subtitle2 elv_assigned_area, jadi 3 error baseline itu harusnya hilang di T2).
+  Self-QA: YAML bisa di-parse, root tiap screen hanya con<P>Root, 55/12/18 control dengan nama unik (juga antar file),
+  semua properti diawali `=`, nilai yang berisi `: ` di-quote, hanya control/properti dari discovery packet.
+  Hal yang perlu diperhatikan di T2:
+  - scr_dashboard BELUM ada di Editor State (ScreensOrder diatur di W7); Studio mungkin menaruhnya di urutan terakhir.
+  - fxMenuItems "Dashboard" masih ke scr_consume (sesuai plan, diganti di W7). Log In -> scr_dashboard sudah aktif.
+  - btnLoginEnter sengaja tanpa Width (AlignInContainer Stretch, LayoutMinWidth 0) supaya selebar kartu.
+  - Caption KPI (txtDashKpi*Cap) Height 14 untuk Size 11 mengikuti budget brief (18 + 2 + 36 + 2 + 14 = 72); kalau
+    teksnya terpotong di Studio, naikkan ke 16 dan conDashKpi*Txt ke 74.
+  - Delegation warning di dashboard (`qty < dis_item_v2.min_qty`, kolom relasi) sudah diterima di brief.
 
 ---
 

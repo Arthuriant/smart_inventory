@@ -1,165 +1,355 @@
 Screens:
   Register:
     Properties:
-      Fill: =RGBA(0, 18, 107, 1)
-      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      Fill: =clrBg
+      LoadingSpinnerColor: =clrAccent
     Children:
-      - Label13:
-          Control: Label
+      - conRegRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
           Properties:
-            Align: =Align.Center
-            BorderColor: =RGBA(0, 18, 107, 1)
-            Color: =RGBA(255, 255, 255, 1)
-            Font: =Font.'Lato Black'
-            FontWeight: =FontWeight.Semibold
-            Size: =30
-            Text: ="Hello New User"
-            X: =287
-            Y: =35
-      - Label15:
-          Control: Label
-          Properties:
-            Align: =Align.Center
-            BorderColor: =RGBA(0, 18, 107, 1)
-            Color: =RGBA(255, 255, 255, 1)
-            Font: =Font.'Open Sans'
-            FontWeight: =FontWeight.Semibold
-            Height: =75
-            Text: |-
-              ="To use Digital Inventory App for 
-              Well Construction Equipment & Fluid,"
-            Width: =612
-            X: =265
-            Y: =133
-      - Label16:
-          Control: Label
-          Properties:
-            Align: =Align.Center
-            BorderColor: =RGBA(0, 18, 107, 1)
-            Color: =RGBA(241, 244, 249, 1)
-            Font: =Font.'Open Sans'
-            Height: =40
-            Text: ="Please register yourself by contacting any of these Administrators :"
-            Width: =965
-            X: =85
-            Y: =223
-      - Image3_1:
-          Control: Image
-          Properties:
-            BorderColor: =RGBA(0, 18, 107, 1)
-            Height: =57
-            Image: ='slb logo white'
-            Width: =130
-            X: =16
-            Y: =568
-      - Gallery5:
-          Control: Gallery
-          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
-          Properties:
-            BorderColor: =RGBA(0, 18, 107, 1)
-            Fill: =RGBA(0, 18, 107, 1)
-            Height: =230
-            Items: =Filter(dis_users, role = dis_role.administrator)
-            TemplateSize: =60
-            Width: =850
-            X: =146
-            Y: =318
+            DropShadow: =DropShadow.None
+            Fill: =clrBg
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =0
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
           Children:
-            - Title2:
-                Control: Label
+            - conRegBrand:
+                Control: GroupContainer
+                Variant: AutoLayout
                 Properties:
-                  BorderColor: =RGBA(0, 0, 0, 1)
-                  Color: =RGBA(255, 255, 255, 1)
-                  DisabledColor: =RGBA(186, 186, 186, 1)
-                  Font: =Font.'Open Sans'
-                  FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-                  Height: =37
-                  OnSelect: =Select(Parent)
-                  PaddingBottom: =0
-                  PaddingLeft: =0
-                  PaddingRight: =0
-                  PaddingTop: =0
-                  Size: =16
-                  Text: =ThisItem.Name
-                  VerticalAlign: =VerticalAlign.Top
-                  Width: =275
-                  X: =24
-                  Y: =10
-            - Subtitle2:
-                Control: Label
+                  AlignInContainer: =AlignInContainer.Stretch
+                  DropShadow: =DropShadow.None
+                  Fill: =clrNavy
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =48
+                  PaddingLeft: =48
+                  PaddingRight: =48
+                  PaddingTop: =48
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - imgRegLogo:
+                      Control: Image
+                      Properties:
+                        AccessibleLabel: ="SLB logo"
+                        AlignInContainer: =AlignInContainer.Start
+                        FillPortions: =0
+                        Height: =56
+                        Image: ='slb logo white'
+                        ImagePosition: =ImagePosition.Fit
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Width: =140
+                  - txtRegTitle:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =92
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =30
+                        Text: ="DIGITAL INVENTORY SYSTEM"
+                        Wrap: =true
+                  - txtRegTag:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(255, 255, 255, 0.8)
+                        FillPortions: =0
+                        Font: =Font.'Segoe UI'
+                        Height: =42
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Well Construction Equipment & Fluid - ING - TLM"
+                        Wrap: =true
+            - conRegRight:
+                Control: GroupContainer
+                Variant: AutoLayout
                 Properties:
-                  BorderColor: =RGBA(0, 0, 0, 1)
-                  Color: =RGBA(255, 255, 255, 1)
-                  DisabledColor: =RGBA(186, 186, 186, 1)
-                  Font: =Font.'Open Sans'
-                  FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-                  Height: =36
-                  OnSelect: =Select(Parent)
-                  PaddingBottom: =0
-                  PaddingLeft: =0
-                  PaddingRight: =0
-                  PaddingTop: =0
-                  Size: =16
-                  Text: =ThisItem.elv_assigned_area.Name
-                  VerticalAlign: =VerticalAlign.Top
-                  Width: =288
-                  X: =550
-                  Y: =11
-            - NextArrow1:
-                Control: Classic/Icon
-                Properties:
-                  AccessibleLabel: =Self.Tooltip
-                  BorderColor: =RGBA(0, 0, 0, 1)
-                  Color: =RGBA(166, 166, 166, 1)
-                  DisabledBorderColor: =RGBA(56, 56, 56, 1)
-                  DisabledColor: =RGBA(119, 119, 119, 1)
-                  Height: =50
-                  Icon: =Icon.ChevronRight
-                  OnSelect: =Launch("outlook.com", {q:""} , LaunchTarget.New)
-                  PaddingBottom: =16
-                  PaddingLeft: =16
-                  PaddingRight: =16
-                  PaddingTop: =16
-                  Tooltip: ="Lihat detail item"
-                  Width: =50
-                  X: =Parent.TemplateWidth - Self.Width - 12
-            - Separator3:
-                Control: Rectangle
-                Properties:
-                  BorderColor: =RGBA(0, 0, 255, 1)
-                  Fill: =If(ThisItem.IsSelected, RGBA(136, 160, 209, 1), RGBA(255, 255, 255, 1))
-                  Height: =8
-                  OnSelect: =Select(Parent)
-                  Width: =Parent.TemplateWidth
-                  Y: =52
-            - Rectangle13:
-                Control: Rectangle
-                Properties:
-                  BorderColor: =RGBA(0, 18, 107, 1)
-                  Fill: =If(ThisItem.IsSelected, RGBA(136, 160, 209, 1), RGBA(204, 231, 246, 1))
-                  Height: =Parent.TemplateHeight - Separator3.Height
-                  OnSelect: =Select(Parent)
-                  Visible: =If(ThisItem.IsSelected, true, false)
-                  Width: =10
-            - Label40:
-                Control: Label
-                Properties:
-                  BorderColor: =RGBA(0, 18, 107, 1)
-                  Color: =RGBA(255, 255, 255, 1)
-                  Font: =Font.'Open Sans'
-                  Height: =28
-                  OnSelect: =Select(Parent)
-                  Size: =12
-                  Text: =ThisItem.email
-                  Width: =281
-                  X: =Title2.X + Title2.Width
-                  Y: =10
-            - Rectangle8_2:
-                Control: Rectangle
-                Properties:
-                  BorderColor: =RGBA(0, 18, 107, 1)
-                  Fill: =RGBA(241, 244, 249, 1)
-                  Height: =5
-                  OnSelect: =Select(Parent)
-                  X: =299
-                  Y: =42
+                  AlignInContainer: =AlignInContainer.Stretch
+                  DropShadow: =DropShadow.None
+                  Fill: =clrBg
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =0
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =48
+                  PaddingLeft: =48
+                  PaddingRight: =48
+                  PaddingTop: =48
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - conRegCard:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =clrBorder
+                        BorderStyle: =BorderStyle.Solid
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.Light
+                        Fill: =clrSurface
+                        FillPortions: =0
+                        Height: =466
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =12
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =28
+                        PaddingLeft: =28
+                        PaddingRight: =28
+                        PaddingTop: =28
+                        RadiusBottomLeft: =16
+                        RadiusBottomRight: =16
+                        RadiusTopLeft: =16
+                        RadiusTopRight: =16
+                        Width: =472
+                      Children:
+                        - txtRegHello:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Color: =clrText
+                              FillPortions: =0
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =32
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =24
+                              Text: ="Halo, pengguna baru"
+                              Wrap: =false
+                        - txtRegIntro:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Color: =clrTextMuted
+                              FillPortions: =0
+                              Font: =Font.'Segoe UI'
+                              Height: =54
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =13
+                              Text: ="Untuk menggunakan Digital Inventory App, silakan hubungi salah satu Administrator berikut untuk pendaftaran akun:"
+                              Wrap: =true
+                        - galRegAdmins:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="Daftar administrator"
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderThickness: =0
+                              Fill: =clrBorder
+                              FillPortions: =0
+                              Height: =300
+                              Items: =Filter(dis_users, role = dis_role.administrator)
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              Selectable: =false
+                              ShowScrollbar: =true
+                              TabIndex: =0
+                              TemplatePadding: =1
+                              TemplateSize: =72
+                              Visible: =!IsEmpty(Filter(dis_users, role = dis_role.administrator))
+                            Children:
+                              - conRegRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =If(ThisItem.IsSelected, clrRowSelected, clrSurface)
+                                    Height: =Parent.TemplateHeight
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =12
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =8
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.TemplateWidth
+                                  Children:
+                                    - icoRegAvatar:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: ="Administrator"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Fill: =clrRowSelected
+                                          FillPortions: =0
+                                          Height: =40
+                                          Icon: ="Person"
+                                          IconColor: =clrNavy
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =9
+                                          PaddingLeft: =9
+                                          PaddingRight: =9
+                                          PaddingTop: =9
+                                          RadiusBottomLeft: =20
+                                          RadiusBottomRight: =20
+                                          RadiusTopLeft: =20
+                                          RadiusTopRight: =20
+                                          Width: =40
+                                    - conRegRowTxt:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =1
+                                          Height: =60
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =2
+                                          LayoutJustifyContent: =LayoutJustifyContent.Center
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtRegName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =clrText
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: =ThisItem.Name
+                                                Wrap: =false
+                                          - txtRegEmail:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =ThisItem.email
+                                                Wrap: =false
+                                          - txtRegArea:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: '="Area: " & Coalesce(ThisItem.Assigned_area.Name, "-")'
+                                                Wrap: =false
+                                    - icoRegMail:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: ="Kirim email ke " & ThisItem.Name
+                                          AlignInContainer: =AlignInContainer.Center
+                                          FillPortions: =0
+                                          Height: =36
+                                          Icon: ="Mail"
+                                          IconColor: =clrAccent
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: =Launch("mailto:" & ThisItem.email)
+                                          PaddingBottom: =7
+                                          PaddingLeft: =7
+                                          PaddingRight: =7
+                                          PaddingTop: =7
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Tooltip: ="Kirim email ke " & ThisItem.Name
+                                          Width: =36
+                        - txtRegEmpty:
+                            Control: ModernText
+                            Properties:
+                              Align: =Align.Center
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Color: =clrTextMuted
+                              FillPortions: =0
+                              Font: =Font.'Segoe UI'
+                              Height: =300
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =13
+                              Text: ="Belum ada administrator terdaftar."
+                              VerticalAlign: =VerticalAlign.Middle
+                              Visible: =IsEmpty(Filter(dis_users, role = dis_role.administrator))
+                              Wrap: =false
