@@ -28,6 +28,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | selesai |
 | W5b     | Web      | Opus   | Perbaikan: tabel hitam (container bersarang di baris galeri) | selesai |
 | T5b     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | selesai (compile; Save + visual menunggu user) |
+| W5c     | Web      | Opus   | Perbaikan: ikon di baris galeri, dropdown form kosong       | selesai, belum compile |
+| T5c     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | belum  |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | belum  |
@@ -229,6 +231,19 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   formula. Dropdown form kosong: penyebab masih belum diketahui. DataCardValue47_ItmF identik dengan versi sebelum W5
   (Items =Choices([@dis_item_v2S].dis_category_item), DisplayFields/SearchFields sama), dan form versi lama juga sudah
   ada di dalam GroupContainer bersarang. Tetap butuh screenshot dari Studio. Save + cek visual menunggu user.
+- [W5c, 2026-10-05] LAPORAN USER (screenshot setelah T5b): tabel Area/Register MASIH hitam walau container bersarang sudah
+  dihapus -> dugaan W5b salah. Perbandingan YAML galDashRecent (benar) vs galAreaL/galRegAdmins (hitam): properti galeri dan
+  baris identik, satu-satunya beda adalah isi baris. Semua baris yang berisi ModernIcon hitam (ikon jadi lingkaran kosong);
+  baris tanpa ModernIcon benar; tombol ModernButton di baris (Transaction versi lama) juga benar.
+  Perbaikan: ikon Edit/Hapus di Area, User, Category, Item dan ikon mail di Register diganti ModernButton IconOnly Subtle
+  (btnAreaLEdit/btnAreaLDelete, btnUsrLEdit/btnUsrLDelete, btnCatLEdit/btnCatLDelete, btnItmLEdit/btnItmLDelete, btnRegMail;
+  OnSelect sama). Avatar dekoratif di Register dihapus.
+  Dropdown form kosong (screenshot Geounit Add_area: baris daftar ada tapi teksnya kosong): Classic/ComboBox yang dibuat
+  ulang tidak membaca DisplayFields logical name. Diganti ModernCombobox dengan pola DataCardValue33 (sudah terbukti di app):
+  DataCardValue56_AreaF (ThisItem.elv_name_short), DataCardValue48_AreaF dan DataCardValue57_AreaF (ThisItem.Name),
+  DataCardValue64_UsrL (ThisItem.Name), DataCardValue47_ItmF (ThisItem.name). Nama, posisi, Update card tidak berubah.
+  Aturan shared #7 ditulis ulang, #8 ditambah. T5c: compile, cek tabel Area/Register/User/Category/Item putih dengan ikon
+  pensil/tempat sampah, dropdown Geounit/Location/Business Line/Assigned area/Category berisi teks, lalu File > Save.
 
 ---
 
