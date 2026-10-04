@@ -180,6 +180,14 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   T4b: compile, lalu cek visual Area, Add_area (form 5 field, bisa simpan), User (edit/hapus), Category, Form Category,
   Dashboard (KPI stok minimum + Stok Menipis tanpa error, tanpa scrollbar di KPI).
 - [T4b, 2026-10-05] Compile app/ (20 file) setelah W4b: 0 error, 0 warning. Rename 76 control, named formula nfLowStock (`AddColumns` tanpa kutip diterima compiler) dan perubahan KPI dashboard bersih tanpa perbaikan; tidak ada file app/ yang diubah. Compile tidak membuktikan tampilan: BELUM dicek visual di Studio (Area, Add_area, User, Category, Form Category, KPI Dashboard tanpa scrollbar/error). Tombol Primary ungu (BasePaletteColor) masih BELUM TERSELESAIKAN: perlu data dari Studio (btnDashNewTrx, tab Advanced). Tidak ada drift dari Studio yang dicek.
+- [2026-10-05, setelah T4b] LAPORAN USER: Studio tiba-tiba menampilkan versi lama (Sidebar logo gelap, role "User",
+  Transaction lama dengan tombol Update/Delete). Screenshot memperlihatkan banner "This app is read-only because you
+  already have editing control elsewhere": tab itu BUKAN sesi edit, hanya menampilkan versi app terakhir yang disimpan.
+  Perubahan W1-W4b tidak hilang: semuanya ada di repo (`main`). Hasil compile T1-T4b hanya ada di sesi Studio yang
+  terhubung ke MCP dan sepertinya belum pernah di-Save, jadi app yang tersimpan masih versi asli.
+  Langkah pemulihan (sesi terminal berikutnya): buka SATU tab Studio (tutup yang lain; pakai Override hanya kalau tab
+  pemegang kontrol edit sudah ditutup), connect, compile app/ dari repo, cek visual, lalu File > Save. Prompt T sudah
+  ditambah langkah Save.
 
 ---
 
@@ -262,7 +270,10 @@ Saya sudah git pull. File berikut baru ditulis di sesi web dan BELUM pernah di-c
    app 87f60c80-e3c1-45bf-ba27-93eb0c079759, login ARianto2@slb.com).
 2. Compile app/ dan perbaiki error sampai bersih. Error di screen yang memang belum dibangun
    boleh diabaikan. Pakai describe_control bila ada properti yang tidak valid.
-3. Update status langkah W dan T ini jadi "selesai", isi Catatan tambahan, update memory
+3. Setelah compile bersih: SIMPAN app di Studio (File > Save / Ctrl+S) di tab Studio yang memegang kontrol edit,
+   lalu tutup/refresh tab Studio lain. Compile hanya mengubah sesi Studio yang terhubung; tanpa Save, perubahan
+   tidak tersimpan ke app dan tab lain tetap menampilkan versi lama.
+4. Update status langkah W dan T ini jadi "selesai", isi Catatan tambahan, update memory
    canvas-modernize-progress, lalu commit dan push ke main. Beri ringkasan singkat.
 ```
 Tambahan khusus T6: "Bandingkan Form5.OnSuccess sebelum dan sesudah; logika update stok
