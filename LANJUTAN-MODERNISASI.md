@@ -268,26 +268,26 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   Rumus yang diketik ulang sama persis, jadi repo tidak berubah. Setelah setiap compile T berikutnya, cek lagi gejala
   ini di screen yang baru di-compile. Sesi web JANGAN mengubah struktur YAML untuk gejala ini.
 - [W6, 2026-10-05] Ditulis web, BELUM pernah di-compile: app/scr_Transaction.pa.yaml, app/scr_frm_Transaction.pa.yaml,
-  app/scr_consume.pa.yaml, plus 1 baris di app/scr_dashboard.pa.yaml (btnDashNewTrx:  -> ).
+  app/scr_consume.pa.yaml, plus 1 baris di app/scr_dashboard.pa.yaml (btnDashNewTrx: `NewForm(Form5)` -> `NewForm(frmTrxF)`).
   Ikuti KOREKSI WAJIB #1-#8: semua control bernama baru, warna literal, tanpa ModernIcon/container bersarang di baris galeri
   (aksi baris = ModernButton IconOnly), form gaya asli, tipe control di dalam form TIDAK diubah (DataCardValue9_TrxF tetap
   Classic/ComboBox, DataCardValue33_TrxF/DataCardValue7_TrxF tetap ModernCombobox).
   Rename utama: Gallery8_1/Gallery8_3 -> galTrxL/galTrxLD; Dropdown2 diganti segmen tipe (locTrxType); inp_search_1/2 ->
   inpTrxLSearch/inpTrxLDSearch; Dropdown2_1 -> ddTrxLDCat; Button31 -> btnTrxLAdd; Button15_2/15_3 -> btnTrxLEdit/btnTrxLDelete;
-  Form5 -> frmTrxF (+ semua card dan anak card ); Combobox1_1/TextInput12_1/Button15/Gallery7 -> cmbTrxFItem/inpTrxFQty/
+  Form5 -> frmTrxF (+ semua card dan anak card `_TrxF`); Combobox1_1/TextInput12_1/Button15/Gallery7 -> cmbTrxFItem/inpTrxFQty/
   btnTrxFAdd/galTrxFCart; Button32/Button32_1 -> btnTrxFSave/btnTrxFBack; dd_*_1/inp_search_8/Gallery8_11/NumberInput1/Button38 ->
   ddConsCat/ddConsGeo/ddConsLoc/ddConsArea/inpConsSearch/galCons/numConsQty/btnConsSubmit.
-  - frmTrxF.OnSuccess: dicek dengan diff terhadap aslinya = IDENTIK baris per baris kecuali (a) 8 referensi  jadi
-     (rename wajib) dan (b) SATU statement  disisipkan tepat sebelum
-    . Logika Receive/Consume/Transfer (RemoveIf detail, ForAll Patch detail, With
+  - frmTrxF.OnSuccess: dicek dengan diff terhadap aslinya = IDENTIK baris per baris kecuali (a) 8 referensi `Form5` jadi
+    `frmTrxF` (rename wajib) dan (b) SATU statement `Set(gblReceipt, ...)` disisipkan tepat sebelum
+    `// 4. Bersihkan Keranjang & Notifikasi`. Logika Receive/Consume/Transfer (RemoveIf detail, ForAll Patch detail, With
     varTrxType/idAreaFrom/idAreaTo, tambah/kurang dis_stocks) tidak berubah. Subtree card frmTrxF: hanya Width + nama.
-  - Bug Consume diperbaiki di btnConsSubmit: header Patch sekarang  + 
-    + ; qty > stok diblokir (DisplayMode tombol + guard ketiga di OnSelect + teks merah
+  - Bug Consume diperbaiki di btnConsSubmit: header Patch sekarang `transaction_number` + `type: 'type (dis_trx_headers)'.Consume`
+    + `area_form: ddConsArea.Selected`; qty > stok diblokir (DisplayMode tombol + guard ketiga di OnSelect + teks merah
     "Qty melebihi stok" + ValidationState input); stok dikurangi dari LookUp terbaru (bukan nilai galeri), dan receipt per
     baris (stok awal / jumlah / ekspektasi / aktual) di conConsReceipt.
   - Optimasi: Transaction list diurutkan terbaru dulu; inpTrxLDSearch (dulu tidak tersambung) sekarang memfilter detail;
     dropdown cascade Consume di-reset dan dikunci sampai induk dipilih; tombol "Tambah ke Keranjang" mati kalau item/qty kosong.
-  Self-QA 15 screen: YAML parse, 641 nama control unik, semua properti diawali , tanpa /CR/nama lama, tidak ada
+  Self-QA 15 screen: YAML parse, 641 nama control unik, semua properti diawali `=`, tanpa `clr*`/CR/nama lama, tidak ada
   ModernIcon atau GroupContainer bersarang di baris galeri.
   T6 (setelah compile, sebelum Save): cek gejala "binding" T5c pada screen baru: Fill baris conTrxLRow, conTrxLDRow,
   conTrxFCartRow, conConsRow, conConsRcRow (potong + tempel rumus Fill kalau hitam) dan Depends on DataCardValue9_TrxF
