@@ -26,6 +26,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | W4b     | Web      | Opus   | Perbaikan: rename control lama, nfLowStock, KPI dashboard  | selesai |
 | T4b     | Terminal | Sonnet | Pull, compile + CEK VISUAL W2-W4b di Studio, push          | selesai (compile; visual belum dicek) |
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | selesai |
+| W5b     | Web      | Opus   | Perbaikan: tabel hitam (container bersarang di baris galeri) | selesai, belum compile |
+| T5b     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | belum  |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | belum  |
@@ -211,6 +213,16 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   juga ada. PENTING: Studio sering jadi putih setelah compile; JANGAN refresh sebelum Save (refresh membuang sesi yang
   belum disimpan, itu penyebab app "ke-reset" ke versi asli). Tunggu sampai tampil lalu File > Save. Save oleh user dan
   cek visual W2-W5 BELUM dikonfirmasi.
+- [W5b, 2026-10-05] LAPORAN USER: beberapa tabel masih hitam; semua dropdown di form kosong/tidak bisa dipilih.
+  Pola tabel hitam: SEMUA galeri yang barisnya berisi GroupContainer AutoLayout bersarang rusak (Area, Category, User, Item:
+  grup ikon aksi; Register: tumpukan 3 teks; Dashboard Stok Menipis: tumpukan 2 teks). Galeri tanpa container bersarang
+  tampil benar (Dashboard Transaksi Terbaru, menu Sidebar). Perbaikan: conAreaLRowActs/conCatLRowActs/conItmLRowActs/
+  conUsrLRowActs dihapus (ikon jadi anak langsung baris, lebar kolom AKSI tetap 72); conRegRowTxt -> satu teks txtRegInfo
+  (3 baris dengan Char(10)); conDashLowTxt -> satu teks txtDashLowInfo (2 baris). Aturan #7 ditambah di canvas-app-shared.md.
+  Dropdown form kosong: BELUM diperbaiki, penyebabnya belum bisa dipastikan dari repo (rumus Items card sama persis dengan
+  aslinya). Butuh data dari Studio: screenshot salah satu dropdown yang kosong (nama control di Tree view + rumus Items di
+  formula bar + ikon error kalau ada).
+  T5b: compile, tunggu Studio tampil (JANGAN refresh), cek tabel Area/Category/User/Item/Register/Dashboard, File > Save.
 
 ---
 

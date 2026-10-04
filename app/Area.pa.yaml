@@ -941,73 +941,53 @@ Screens:
                                                       Text: =ThisItem.elv_geounit.elv_name_short
                                                       Width: =96
                                                       Wrap: =false
-                                                - conAreaLRowActs:
-                                                    Control: GroupContainer
-                                                    Variant: AutoLayout
+                                                - icoAreaLEdit:
+                                                    Control: ModernIcon
                                                     Properties:
+                                                      AccessibleLabel: ="Edit " & ThisItem.Name
                                                       AlignInContainer: =AlignInContainer.Center
-                                                      DropShadow: =DropShadow.None
-                                                      Fill: =RGBA(0, 0, 0, 0)
                                                       FillPortions: =0
                                                       Height: =32
-                                                      LayoutAlignItems: =LayoutAlignItems.Center
-                                                      LayoutDirection: =LayoutDirection.Horizontal
-                                                      LayoutGap: =8
+                                                      Icon: ="Edit"
+                                                      IconColor: =RGBA(56, 96, 178, 1)
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      RadiusBottomLeft: =0
-                                                      RadiusBottomRight: =0
-                                                      RadiusTopLeft: =0
-                                                      RadiusTopRight: =0
-                                                      Width: =72
-                                                    Children:
-                                                      - icoAreaLEdit:
-                                                          Control: ModernIcon
-                                                          Properties:
-                                                            AccessibleLabel: ="Edit " & ThisItem.Name
-                                                            AlignInContainer: =AlignInContainer.Center
-                                                            FillPortions: =0
-                                                            Height: =32
-                                                            Icon: ="Edit"
-                                                            IconColor: =RGBA(56, 96, 178, 1)
-                                                            LayoutMinHeight: =0
-                                                            LayoutMinWidth: =0
-                                                            OnSelect: |-
-                                                              =Set(gblFormMode, "Update");
-                                                              EditForm(frmAreaF);
-                                                              Navigate(Add_area, ScreenTransition.None)
-                                                            PaddingBottom: =6
-                                                            PaddingLeft: =6
-                                                            PaddingRight: =6
-                                                            PaddingTop: =6
-                                                            RadiusBottomLeft: =6
-                                                            RadiusBottomRight: =6
-                                                            RadiusTopLeft: =6
-                                                            RadiusTopRight: =6
-                                                            Tooltip: ="Edit " & ThisItem.Name
-                                                            Width: =32
-                                                      - icoAreaLDelete:
-                                                          Control: ModernIcon
-                                                          Properties:
-                                                            AccessibleLabel: ="Hapus " & ThisItem.Name
-                                                            AlignInContainer: =AlignInContainer.Center
-                                                            FillPortions: =0
-                                                            Height: =32
-                                                            Icon: ="Delete"
-                                                            IconColor: =RGBA(196, 43, 28, 1)
-                                                            LayoutMinHeight: =0
-                                                            LayoutMinWidth: =0
-                                                            OnSelect: '=UpdateContext({locSelectedRecord: ThisItem, locShowDeleteConfirm: true})'
-                                                            PaddingBottom: =6
-                                                            PaddingLeft: =6
-                                                            PaddingRight: =6
-                                                            PaddingTop: =6
-                                                            RadiusBottomLeft: =6
-                                                            RadiusBottomRight: =6
-                                                            RadiusTopLeft: =6
-                                                            RadiusTopRight: =6
-                                                            Tooltip: ="Hapus " & ThisItem.Name
-                                                            Width: =32
+                                                      OnSelect: |-
+                                                        =Set(gblFormMode, "Update");
+                                                        EditForm(frmAreaF);
+                                                        Navigate(Add_area, ScreenTransition.None)
+                                                      PaddingBottom: =6
+                                                      PaddingLeft: =6
+                                                      PaddingRight: =6
+                                                      PaddingTop: =6
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Tooltip: ="Edit " & ThisItem.Name
+                                                      Width: =32
+                                                - icoAreaLDelete:
+                                                    Control: ModernIcon
+                                                    Properties:
+                                                      AccessibleLabel: ="Hapus " & ThisItem.Name
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      FillPortions: =0
+                                                      Height: =32
+                                                      Icon: ="Delete"
+                                                      IconColor: =RGBA(196, 43, 28, 1)
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      OnSelect: '=UpdateContext({locSelectedRecord: ThisItem, locShowDeleteConfirm: true})'
+                                                      PaddingBottom: =6
+                                                      PaddingLeft: =6
+                                                      PaddingRight: =6
+                                                      PaddingTop: =6
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Tooltip: ="Hapus " & ThisItem.Name
+                                                      Width: =32
                                     - txtAreaLEmpty:
                                         Control: ModernText
                                         Properties:

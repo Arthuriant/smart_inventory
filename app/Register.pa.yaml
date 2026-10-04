@@ -239,78 +239,25 @@ Screens:
                                           RadiusTopLeft: =20
                                           RadiusTopRight: =20
                                           Width: =40
-                                    - conRegRowTxt:
-                                        Control: GroupContainer
-                                        Variant: AutoLayout
+                                    - txtRegInfo:
+                                        Control: ModernText
                                         Properties:
+                                          AccessibleLabel: ="Administrator " & ThisItem.Name & ", " & ThisItem.email
                                           AlignInContainer: =AlignInContainer.Center
-                                          DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
+                                          Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                                          Font: =Font.'Segoe UI'
                                           Height: =60
-                                          LayoutAlignItems: =LayoutAlignItems.Stretch
-                                          LayoutDirection: =LayoutDirection.Vertical
-                                          LayoutGap: =2
-                                          LayoutJustifyContent: =LayoutJustifyContent.Center
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          RadiusBottomLeft: =0
-                                          RadiusBottomRight: =0
-                                          RadiusTopLeft: =0
-                                          RadiusTopRight: =0
-                                        Children:
-                                          - txtRegName:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Stretch
-                                                Color: =RGBA(31, 41, 55, 1)
-                                                FillPortions: =0
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =20
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =14
-                                                Text: =ThisItem.Name
-                                                Wrap: =false
-                                          - txtRegEmail:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Stretch
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
-                                                Font: =Font.'Segoe UI'
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =12
-                                                Text: =ThisItem.email
-                                                Wrap: =false
-                                          - txtRegArea:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Stretch
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
-                                                Font: =Font.'Segoe UI'
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =12
-                                                Text: '="Area: " & Coalesce(ThisItem.Assigned_area.Name, "-")'
-                                                Wrap: =false
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: '=ThisItem.Name & Char(10) & ThisItem.email & Char(10) & "Area: " & Coalesce(ThisItem.Assigned_area.Name, "-")'
+                                          VerticalAlign: =VerticalAlign.Middle
+                                          Wrap: =true
                                     - icoRegMail:
                                         Control: ModernIcon
                                         Properties:

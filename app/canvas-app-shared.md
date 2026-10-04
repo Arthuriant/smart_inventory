@@ -26,6 +26,10 @@ baris galeri dan Form hitam, tombol Primary ungu (BasePaletteColor default). Atu
 6. **Filter Dataverse**: sisi kanan perbandingan harus konstanta. `qty < dis_item_v2.min_qty` di Filter atas tabel
    ditolak server; pakai named formula `nfLowStock` (App.Formulas, dihitung lokal dengan AddColumns) atau bandingkan per
    baris (`ThisItem.qty < ThisItem.dis_item_v2.min_qty` di galeri boleh).
+7. **Baris galeri TANPA GroupContainer bersarang** (koreksi W5b). Semua galeri yang barisnya berisi container AutoLayout
+   lain (grup ikon aksi, tumpukan teks 2-3 baris) tampil hitam/rusak di Studio; galeri dengan isi baris langsung
+   (teks, badge, ikon) tampil benar. Ikon Edit/Hapus langsung jadi anak `con<P>Row` (32 + gap 8 + 32 = kolom AKSI 72).
+   Teks bertingkat ditulis dalam SATU ModernText dengan `Char(10)` dan `Wrap: =true`.
 
 
 ## Aesthetic Direction

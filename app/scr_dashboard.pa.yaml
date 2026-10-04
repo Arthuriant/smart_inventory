@@ -984,61 +984,25 @@ Screens:
                                                 RadiusTopRight: =0
                                                 Width: =Parent.TemplateWidth
                                               Children:
-                                                - conDashLowTxt:
-                                                    Control: GroupContainer
-                                                    Variant: AutoLayout
+                                                - txtDashLowInfo:
+                                                    Control: ModernText
                                                     Properties:
+                                                      AccessibleLabel: ="Stok menipis " & ThisItem.dis_item_v2.name & " di " & ThisItem.dis_area.Name
                                                       AlignInContainer: =AlignInContainer.Center
-                                                      DropShadow: =DropShadow.None
-                                                      Fill: =RGBA(0, 0, 0, 0)
+                                                      Color: =RGBA(31, 41, 55, 1)
                                                       FillPortions: =1
+                                                      Font: =Font.'Segoe UI'
                                                       Height: =40
-                                                      LayoutAlignItems: =LayoutAlignItems.Stretch
-                                                      LayoutDirection: =LayoutDirection.Vertical
-                                                      LayoutGap: =2
-                                                      LayoutJustifyContent: =LayoutJustifyContent.Center
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      RadiusBottomLeft: =0
-                                                      RadiusBottomRight: =0
-                                                      RadiusTopLeft: =0
-                                                      RadiusTopRight: =0
-                                                    Children:
-                                                      - txtDashLowName:
-                                                          Control: ModernText
-                                                          Properties:
-                                                            AlignInContainer: =AlignInContainer.Stretch
-                                                            Color: =RGBA(31, 41, 55, 1)
-                                                            FillPortions: =0
-                                                            Font: =Font.'Segoe UI'
-                                                            FontWeight: =FontWeight.Semibold
-                                                            Height: =20
-                                                            LayoutMinHeight: =0
-                                                            LayoutMinWidth: =0
-                                                            PaddingBottom: =0
-                                                            PaddingLeft: =0
-                                                            PaddingRight: =0
-                                                            PaddingTop: =0
-                                                            Size: =13
-                                                            Text: =ThisItem.dis_item_v2.name
-                                                            Wrap: =false
-                                                      - txtDashLowArea:
-                                                          Control: ModernText
-                                                          Properties:
-                                                            AlignInContainer: =AlignInContainer.Stretch
-                                                            Color: =RGBA(100, 112, 130, 1)
-                                                            FillPortions: =0
-                                                            Font: =Font.'Segoe UI'
-                                                            Height: =18
-                                                            LayoutMinHeight: =0
-                                                            LayoutMinWidth: =0
-                                                            PaddingBottom: =0
-                                                            PaddingLeft: =0
-                                                            PaddingRight: =0
-                                                            PaddingTop: =0
-                                                            Size: =12
-                                                            Text: =ThisItem.dis_area.Name
-                                                            Wrap: =false
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =12
+                                                      Text: =ThisItem.dis_item_v2.name & Char(10) & ThisItem.dis_area.Name
+                                                      VerticalAlign: =VerticalAlign.Middle
+                                                      Wrap: =true
                                                 - bdgDashLowQty:
                                                     Control: Badge
                                                     Properties:
