@@ -1,0 +1,813 @@
+Screens:
+  scr_frm_item:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - con_Main_trans_3:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingRight: =8
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - con_sidebar_trans_3:
+                Control: GroupContainer
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =180
+                Children:
+                  - com_sidebar_trans_3:
+                      Control: CanvasComponent
+                      ComponentName: Sidebar
+                      Properties:
+                        Width: =Parent.Width
+                        activemenu: ="Item"
+            - con_content_trans_3:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(247, 247, 248, 1)
+                  FillPortions: =0
+                  Height: =250
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =955
+                Children:
+                  - com_topbar_trans_3:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Item"
+                        Height: =80
+                        Width: =App.Width - 150
+                  - Container8_6:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(247, 247, 248, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =20
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =20
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - Container26_3:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =455
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Form5_3:
+                                  Control: Form
+                                  Variant: Modern
+                                  Layout: Vertical
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    DataSource: =dis_item_v2S
+                                    Height: =Parent.Height
+                                    Item: =Gallery8_6.Selected
+                                    NumberOfColumns: =2
+                                    OnSuccess: |-
+                                      =Notify("Item berhasil disimpan!", NotificationType.Success);
+                                      Back();
+                                    Width: =Parent.Width
+                                  Children:
+                                    - name_DataCard2:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_name"
+                                          Default: =ThisItem.name
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,name)
+                                          MaxLength: =DataSourceInfo([@dis_item_v2S], DataSourceInfo.MaxLength, name)
+                                          Required: =true
+                                          Update: =DataCardValue49.Text
+                                          Width: =449
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey50:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Name"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue49:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey50.Y + DataCardKey50.Height + 4
+                                          - ErrorMessage47:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue49.Y + DataCardValue49.Height
+                                          - StarVisible48:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey50.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey50.Y
+                                    - min_qty_DataCard3:
+                                        Control: TypedDataCard
+                                        Variant: ModernNumberEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_min_qty"
+                                          Default: =ThisItem.min_qty
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,min_qty)
+                                          Max: =DataSourceInfo([@dis_item_v2S], DataSourceInfo.MaxValue, min_qty)
+                                          Min: =DataSourceInfo([@dis_item_v2S], DataSourceInfo.MinValue, min_qty)
+                                          Required: =true
+                                          Update: =DataCardValue53.Value
+                                          Width: =449
+                                          X: =1
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey54:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Qty Minimum"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue53:
+                                              Control: ModernNumberInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                Max: =Parent.Max
+                                                Min: =Parent.Min
+                                                Size: =12
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey54.Y + DataCardKey54.Height + 4
+                                          - ErrorMessage51:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue53.Y + DataCardValue53.Height
+                                          - StarVisible52:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey54.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey54.Y
+                                    - part_number_DataCard3:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_part_number"
+                                          Default: =ThisItem.part_number
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,part_number)
+                                          MaxLength: =DataSourceInfo([@dis_item_v2S], DataSourceInfo.MaxLength, part_number)
+                                          Required: =false
+                                          Update: =DataCardValue50.Text
+                                          Width: =449
+                                          X: =0
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey51:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="BPN"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue50:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey51.Y + DataCardKey51.Height + 4
+                                          - ErrorMessage48:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue50.Y + DataCardValue50.Height
+                                          - StarVisible49:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey51.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey51.Y
+                                    - client_number_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_client_number"
+                                          Default: =ThisItem.client_number
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,client_number)
+                                          MaxLength: =DataSourceInfo([@dis_item_v2S], DataSourceInfo.MaxLength, client_number)
+                                          Required: =false
+                                          Update: =DataCardValue51.Text
+                                          Width: =449
+                                          X: =1
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey52:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="SPN"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue51:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey52.Y + DataCardKey52.Height + 4
+                                          - ErrorMessage49:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue51.Y + DataCardValue51.Height
+                                          - StarVisible50:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey52.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey52.Y
+                                    - uom_DataCard3:
+                                        Control: TypedDataCard
+                                        Variant: ModernComboBoxOptionSetSingleEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_uom"
+                                          Default: =ThisItem.uom
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,uom)
+                                          Required: =true
+                                          Update: =DataCardValue54.Selected.Value
+                                          Width: =449
+                                          X: =0
+                                          Y: =2
+                                        Children:
+                                          - DataCardKey55:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Unit of Measure"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue54:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Value
+                                                Items: =Choices([@dis_item_v2S].uom)
+                                                SelectMultiple: =false
+                                                Size: =12
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey55.Y + DataCardKey55.Height + 4
+                                          - ErrorMessage52:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue54.Y + DataCardValue54.Height
+                                          - StarVisible53:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey55.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey55.Y
+                                    - status_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ModernComboBoxOptionSetSingleEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_status"
+                                          Default: =ThisItem.status
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,status)
+                                          Required: =true
+                                          Update: =DataCardValue55.Selected.Value
+                                          Width: =449
+                                          X: =1
+                                          Y: =2
+                                        Children:
+                                          - DataCardKey56:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Status"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue55:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Value
+                                                Items: =Choices([@dis_item_v2S].status)
+                                                SelectMultiple: =false
+                                                Size: =12
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey56.Y + DataCardKey56.Height + 4
+                                          - ErrorMessage53:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue55.Y + DataCardValue55.Height
+                                          - StarVisible54:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey56.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey56.Y
+                                    - dis_category_item_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_dis_category_item"
+                                          Default: =ThisItem.dis_category_item
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,dis_category_item)
+                                          Required: =true
+                                          Update: =DataCardValue47.Selected
+                                          Width: =449
+                                          X: =0
+                                          Y: =3
+                                        Children:
+                                          - DataCardKey48:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                FontSize: =9
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =22
+                                                Text: ="Category Item"
+                                                Tooltip: =Parent.DisplayName
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue47:
+                                              Control: Classic/ComboBox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                ChevronBackground: =RGBA(56, 96, 178, 1)
+                                                ChevronFill: =RGBA(255, 255, 255, 1)
+                                                ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["cr8a3_name"]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Open Sans'
+                                                Height: =32
+                                                HoverFill: =RGBA(186, 202, 226, 1)
+                                                Items: =Choices([@dis_item_v2S].dis_category_item)
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(0, 18, 107, 1)
+                                                SearchFields: =["cr8a3_name"]
+                                                SelectMultiple: =false
+                                                SelectionColor: =RGBA(255, 255, 255, 1)
+                                                SelectionFill: =RGBA(56, 96, 178, 1)
+                                                Size: =10.5
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey48.Y + DataCardKey48.Height + 4
+                                          - ErrorMessage46:
+                                              Control: FluentV8/Label
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                FontSize: =9
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Tooltip: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue47.Y + DataCardValue47.Height
+                                          - StarVisible47:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey48.Y
+                                    - description_DataCard4:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualMultilineEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_description"
+                                          Default: =ThisItem.description
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,description)
+                                          Height: =143
+                                          MaxLength: =DataSourceInfo([@dis_item_v2S], DataSourceInfo.MaxLength, description)
+                                          Required: =false
+                                          Update: =DataCardValue52.Text
+                                          Width: =455
+                                          X: =0
+                                          Y: =4
+                                        Children:
+                                          - DataCardKey53:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue52:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =120
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                Type: =TextInputType.Multiline
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey53.Y + DataCardKey53.Height + 4
+                                          - ErrorMessage50:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue52.Y + DataCardValue52.Height
+                                          - StarVisible51:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey53.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey53.Y
+                                    - Image_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ClassicLargePicture
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_image"
+                                          Default: =ThisItem.Image
+                                          DisplayName: =DataSourceInfo([@dis_item_v2S],DataSourceInfo.DisplayName,Image)
+                                          Height: =100
+                                          Required: =false
+                                          Update: =Image6.Image
+                                          Width: =400
+                                          X: =1
+                                          Y: =4
+                                        Children:
+                                          - DataCardKey40:
+                                              Control: Label
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 1)
+                                                Color: =RGBA(0, 18, 107, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - Image6:
+                                              Control: Image
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =AddPicture1.Height
+                                                Image: =If(IsBlank(AddPicture1.Media), Parent.Default, AddPicture1.Media)
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =AddPicture1.Width
+                                                X: =AddPicture1.X
+                                                Y: =AddPicture1.Y
+                                          - AddPicture1:
+                                              Control: AddMedia
+                                              MetadataKey: AddPicture
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Height: =50
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =DataCardKey40.Y + DataCardKey40.Height + 5
+                                          - ErrorMessage41:
+                                              Control: Label
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 1)
+                                                Color: =RGBA(168, 0, 0, 1)
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =24
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =Image6.Y + Image6.Height
+                                          - StarVisible43:
+                                              Control: Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 1)
+                                                Color: =RGBA(0, 18, 107, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =DataCardKey40.Height
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =DataCardKey40.Y
+                        - Container12_8:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =50
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutJustifyContent: =LayoutJustifyContent.End
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Button32_6:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: =
+                                    BasePaletteColor: =If(Form5_3.Mode = FormMode.Edit, RGBA(8, 222, 8, 1), RGBA(15, 108, 189, 1))
+                                    Height: =35
+                                    Icon: =If(Form5_3.Mode = FormMode.Edit, "Save", "Add")
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: =SubmitForm(Form5_3)
+                                    Size: =12
+                                    Text: =If(Form5_3.Mode = FormMode.Edit, "Update", "Confirm")
+                                    Width: =100
+                              - Button32_7:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: =
+                                    BasePaletteColor: =RGBA(189, 178, 176, 1)
+                                    Height: =35
+                                    Icon: ="ArrowLeft"
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: "=ResetForm(Form5_3);\nBack(); "
+                                    Size: =12
+                                    Text: ="Back"
+                                    Width: =100

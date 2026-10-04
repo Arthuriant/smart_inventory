@@ -1,0 +1,574 @@
+Screens:
+  Add_area:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - con_Main_template_2:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingRight: =8
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - con_sidebar_template_2:
+                Control: GroupContainer
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =180
+                Children:
+                  - com_sidebar_template_2:
+                      Control: CanvasComponent
+                      ComponentName: Sidebar
+                      Properties:
+                        Width: =Parent.Width
+                        activemenu: ="Area"
+            - con_content_template_2:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(247, 247, 248, 1)
+                  FillPortions: =0
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =975
+                Children:
+                  - com_topbar_template_2:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Add Area"
+                        Height: =80
+                        Width: =App.Width - 150
+                  - Container8_2:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(247, 247, 248, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =20
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =20
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - Container12_4:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =50
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutJustifyContent: =LayoutJustifyContent.End
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Button32_2:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: =
+                                    Height: =35
+                                    Icon: ="Add"
+                                    Layout: =ButtonLayout.TextOnly
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: =SubmitForm(Form5_1)
+                                    Size: =12
+                                    Text: =If(gblFormMode = "Add", "+ Add Area", "Save")
+                                    Width: =100
+                              - Button32_3:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: =
+                                    BasePaletteColor: =RGBA(189, 178, 176, 1)
+                                    Height: =35
+                                    Icon: ="ArrowLeft"
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: "=ResetForm(Form5_1);\nClear(colTempDetails);\nBack(); "
+                                    Size: =12
+                                    Text: ="Back"
+                                    Width: =100
+                        - Container26_1:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =320
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Container22:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =153
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =935
+                              - Form5_1:
+                                  Control: Form
+                                  Variant: Modern
+                                  Layout: Vertical
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    DataSource: =dis_areas
+                                    Height: =308
+                                    Item: =Gallery8_12.Selected
+                                    NumberOfColumns: =2
+                                    OnSuccess: |-
+                                      =Notify("Data area berhasil ditambahkan!", NotificationType.Success);
+                                      ResetForm(Self);
+                                      Back()
+                                    Width: =Parent.Width
+                                  Children:
+                                    - Name_DataCard9:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="elv_name"
+                                          Default: =ThisItem.Name
+                                          DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,Name)
+                                          MaxLength: =DataSourceInfo([@dis_areas], DataSourceInfo.MaxLength, Name)
+                                          Required: =true
+                                          Update: =DataCardValue58.Text
+                                          Width: =467
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey59:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue58:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey59.Y + DataCardKey59.Height + 4
+                                          - ErrorMessage57:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue58.Y + DataCardValue58.Height
+                                          - StarVisible58:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey59.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey59.Y
+                                    - elv_geounit_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_elv_geounit"
+                                          Default: =ThisItem.elv_geounit
+                                          DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,elv_geounit)
+                                          Required: =false
+                                          Update: =DataCardValue56.Selected
+                                          Width: =467
+                                          X: =1
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey57:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                FontSize: =9
+                                                Height: =22
+                                                Text: ="Geounit"
+                                                Tooltip: =Parent.DisplayName
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue56:
+                                              Control: Classic/ComboBox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                ChevronBackground: =RGBA(56, 96, 178, 1)
+                                                ChevronFill: =RGBA(255, 255, 255, 1)
+                                                ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["cr8a3_elv_name_short"]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Open Sans'
+                                                Height: =32
+                                                HoverFill: =RGBA(186, 202, 226, 1)
+                                                Items: =Choices([@dis_areas].elv_geounit)
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(0, 18, 107, 1)
+                                                SearchFields: =["cr8a3_elv_name_short"]
+                                                SelectMultiple: =false
+                                                SelectionColor: =RGBA(255, 255, 255, 1)
+                                                SelectionFill: =RGBA(56, 96, 178, 1)
+                                                Size: =10
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey57.Y + DataCardKey57.Height + 4
+                                          - ErrorMessage55:
+                                              Control: FluentV8/Label
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                FontSize: =9
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Tooltip: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue56.Y + DataCardValue56.Height
+                                          - StarVisible56:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey57.Y
+                                    - elv_location_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_elv_location"
+                                          Default: =ThisItem.location
+                                          DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,'elv_location (cr8a3_elv_location)')
+                                          Required: =false
+                                          Update: =DataCardValue48.Selected
+                                          Width: =467
+                                          X: =0
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey49:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Align: ="left"
+                                                AutoHeight: =true
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =22
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(9) * 4/3
+                                                Text: ="Location"
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue48:
+                                              Control: Classic/ComboBox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                ChevronBackground: =RGBA(56, 96, 178, 1)
+                                                ChevronFill: =RGBA(255, 255, 255, 1)
+                                                ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["elv_name"]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Open Sans'
+                                                Height: =32
+                                                HoverFill: =RGBA(186, 202, 226, 1)
+                                                Items: =Choices([@dis_areas].'elv_location (cr8a3_elv_location)')
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(0, 18, 107, 1)
+                                                SearchFields: =["elv_name"]
+                                                SelectMultiple: =false
+                                                SelectionColor: =RGBA(255, 255, 255, 1)
+                                                SelectionFill: =RGBA(56, 96, 178, 1)
+                                                Size: =10
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey49.Y + DataCardKey49.Height + 4
+                                          - ErrorMessage54:
+                                              Control: FluentV8/Label
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                FontSize: =9
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Tooltip: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue48.Y + DataCardValue48.Height
+                                          - StarVisible55:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey49.Y
+                                    - elv_dis_subblid_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_elv_dis_subblid"
+                                          Default: =ThisItem.elv_dis_subblid
+                                          DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,elv_dis_subblid)
+                                          Required: =false
+                                          Update: =DataCardValue57.Selected
+                                          Width: =467
+                                          X: =1
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey58:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                FontSize: =9
+                                                Height: =22
+                                                Text: ="Bussines Line"
+                                                Tooltip: =Parent.DisplayName
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue57:
+                                              Control: Classic/ComboBox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                ChevronBackground: =RGBA(56, 96, 178, 1)
+                                                ChevronFill: =RGBA(255, 255, 255, 1)
+                                                ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["elv_name"]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Open Sans'
+                                                Height: =32
+                                                HoverFill: =RGBA(186, 202, 226, 1)
+                                                Items: =Choices([@dis_areas].elv_dis_subblid)
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(0, 18, 107, 1)
+                                                SearchFields: =["elv_name"]
+                                                SelectMultiple: =false
+                                                SelectionColor: =RGBA(255, 255, 255, 1)
+                                                SelectionFill: =RGBA(56, 96, 178, 1)
+                                                Size: =10
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey58.Y + DataCardKey58.Height + 4
+                                          - ErrorMessage56:
+                                              Control: FluentV8/Label
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                FontSize: =9
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Tooltip: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue57.Y + DataCardValue57.Height
+                                          - StarVisible57:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey58.Y
+                                    - elv_detail_DataCard2:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualMultilineEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_elv_detail"
+                                          Default: =ThisItem.elv_detail
+                                          DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,elv_detail)
+                                          MaxLength: =DataSourceInfo([@dis_areas], DataSourceInfo.MaxLength, elv_detail)
+                                          Required: =false
+                                          Update: =DataCardValue59.Text
+                                          Width: =467
+                                          WidthFit: =true
+                                          X: =0
+                                          Y: =2
+                                        Children:
+                                          - DataCardKey60:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AccessibleLabel: =
+                                                ContentLanguage: ="Detail"
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Detail"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue59:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                ContentLanguage: ="Detail"
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =117
+                                                MaxLength: =Parent.MaxLength
+                                                Placeholder: ="detail storage"
+                                                RadiusBottomLeft: =12
+                                                RadiusBottomRight: =12
+                                                RadiusTopLeft: =12
+                                                RadiusTopRight: =12
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                Type: =TextInputType.Multiline
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey60.Y + DataCardKey60.Height + 4
+                                          - ErrorMessage59:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                ContentLanguage: ="Detail"
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue59.Y + DataCardValue59.Height
+                                          - StarVisible60:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                ContentLanguage: ="Detail"
+                                                Height: =DataCardKey60.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey60.Y

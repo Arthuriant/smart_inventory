@@ -1,0 +1,840 @@
+Screens:
+  scr_frm_Transaction:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - con_Main_trans_1:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingRight: =8
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - con_sidebar_trans_1:
+                Control: GroupContainer
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =180
+                Children:
+                  - com_sidebar_trans_1:
+                      Control: CanvasComponent
+                      ComponentName: Sidebar
+                      Properties:
+                        Width: =Parent.Width
+                        activemenu: ="Transaction"
+            - con_content_trans_1:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(247, 247, 248, 1)
+                  FillPortions: =0
+                  Height: =250
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =955
+                Children:
+                  - com_topbar_trans_1:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Add Transaction"
+                        Height: =80
+                        Width: =App.Width - 150
+                  - Container8_1:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(247, 247, 248, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =20
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =20
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - Container12:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =50
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutJustifyContent: =LayoutJustifyContent.End
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Button32:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: =
+                                    BasePaletteColor: =If(Form5.Mode = FormMode.Edit, RGBA(8, 222, 8, 1), RGBA(15, 108, 189, 1))
+                                    Height: =35
+                                    Icon: =If(Form5.Mode = FormMode.Edit, "Save", "Add")
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: =SubmitForm(Form5)
+                                    Size: =12
+                                    Text: =If(Form5.Mode = FormMode.Edit, "Update", "Confirm")
+                                    Width: =100
+                              - Button32_1:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: =
+                                    BasePaletteColor: =RGBA(189, 178, 176, 1)
+                                    Height: =35
+                                    Icon: ="ArrowLeft"
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnSelect: "=ResetForm(Form5);\nClear(colTempDetails);\nBack(); "
+                                    Size: =12
+                                    Text: ="Back"
+                                    Width: =100
+                        - Container26:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =400
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Form5:
+                                  Control: Form
+                                  Variant: Modern
+                                  Layout: Vertical
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    DataSource: =dis_trx_headers
+                                    Height: =380
+                                    Item: =Gallery8_1.Selected
+                                    NumberOfColumns: =2
+                                    OnSuccess: "=// 1. Hapus semua detail lama bawaan transaksi ini (Metode Sapu Bersih)\nRemoveIf(\n    dis_trx_details,\n    header_id.dis_trx_header = Form5.LastSubmit.dis_trx_header\n);\n\n// 2. Simpan ulang semua detail dari keranjang \nForAll(\n    colTempDetails As TempRecord,\n    Patch(\n        dis_trx_details,\n        Defaults(dis_trx_details),\n        {\n            header_id: Form5.LastSubmit, \n            PK: Form5.LastSubmit.transaction_number & \"/\" & Text(TempRecord.Urutan, \"0000\"),\n            item: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n            qty: TempRecord.Qty\n        }\n    )\n);\n\n// ==========================================================\n// 3. UPDATE STOK MANUAL (Pengganti Power Automate)\n// ==========================================================\nWith(\n    {\n        varTrxType: Text(Form5.LastSubmit.type),\n        \n        // Simpan Record utuh untuk keperluan menembak Patch\n        recAreaFrom: Form5.LastSubmit.area_form,\n        recAreaTo: Form5.LastSubmit.area_to,\n        \n        // Ekstrak ID-nya saja untuk mengelabui bug pencarian LookUp Dataverse\n        idAreaFrom: Form5.LastSubmit.area_form.dis_area,\n        idAreaTo: Form5.LastSubmit.area_to.dis_area\n    },\n    ForAll(\n        colTempDetails As TempRecord,\n        \n        // --- A. LOGIKA BARANG MASUK (Receive & Transfer) ---\n        If(\n            varTrxType = \"Receive\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockTo: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaTo\n                    )\n                },\n                If(\n                    IsBlank(varStockTo),\n                    // Jika stok KOSONG, buat baris baru\n                    Patch(\n                        dis_stocks,\n                        Defaults(dis_stocks),\n                        {\n                            PK: \"STK-\" & Text(Now(), \"yyMMddHHmmss\") & \"-\" & Text(TempRecord.Urutan, \"00\"),\n                            dis_item_v2: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n                            dis_area: recAreaTo, \n                            qty: TempRecord.Qty\n                        }\n                    ),\n                    // Jika stok SUDAH ADA, tambahkan angkanya\n                    Patch(\n                        dis_stocks,\n                        varStockTo,\n                        {\n                            qty: varStockTo.qty + TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        );\n        \n        // --- B. LOGIKA BARANG KELUAR (Consume & Transfer) ---\n        If(\n            varTrxType = \"Consume\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockFrom: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaFrom\n                    )\n                },\n                If(\n                    !IsBlank(varStockFrom), // Hanya kurangi jika barangnya memang ada\n                    Patch(\n                        dis_stocks,\n                        varStockFrom,\n                        {\n                            qty: varStockFrom.qty - TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        )\n    )\n);\n\n// 4. Bersihkan Keranjang & Notifikasi\nClear(colTempDetails);\nNotify(\"Transaksi berhasil disimpan & Stok terupdate!\", NotificationType.Success);\nBack();"
+                                    Width: =Parent.Width
+                                  Children:
+                                    - transaction_number_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_transaction_number"
+                                          Default: =ThisItem.transaction_number
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_transaction_number')
+                                          MaxLength: =DataSourceInfo([@dis_trx_headers], DataSourceInfo.MaxLength, 'cr8a3_transaction_number')
+                                          Required: =true
+                                          Update: =DataCardValue4.Text
+                                          Width: =443
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey4:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Transaction Number"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue4:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: |-
+                                                  =With(
+                                                      {
+                                                          varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).cr8a3_transaction_number
+                                                      },
+                                                      With(
+                                                          {
+                                                              varNextIndex: If(IsBlank(varLastTrx), 1, Value(Right(varLastTrx, 4)) + 1)
+                                                          },
+                                                          Text(Now(), "dd/mm/yy/") & Text(varNextIndex, "0000")
+                                                      )
+                                                  )
+                                                DisplayMode: =DisplayMode.View
+                                                Height: =32
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey4.Y + DataCardKey4.Height + 4
+                                          - ErrorMessage5:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue4.Y + DataCardValue4.Height
+                                          - StarVisible5:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey4.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey4.Y
+                                    - type_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ModernComboBoxOptionSetSingleEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_type"
+                                          Default: =ThisItem.type
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_type')
+                                          Required: =true
+                                          Update: =DataCardValue7.Selected.Value
+                                          Width: =443
+                                          X: =1
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey7:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Transaction Type"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue7:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Value
+                                                Items: =Choices([@dis_trx_headers].'cr8a3_type')
+                                                SelectMultiple: =false
+                                                Size: =12
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey7.Y + DataCardKey7.Height + 4
+                                          - ErrorMessage8:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue7.Y + DataCardValue7.Height
+                                          - StarVisible8:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey7.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey7.Y
+                                    - area_form_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(180, 214, 250, 1)
+                                          DataField: ="cr8a3_area_from"
+                                          Default: =ThisItem.area_form
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_area_from')
+                                          Required: =false
+                                          Update: =DataCardValue9.Selected
+                                          Width: =443
+                                          WidthFit: =false
+                                          X: =0
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey9:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                FontSize: =10
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =22
+                                                Text: ="Form"
+                                                Tooltip: =Parent.DisplayName
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue9:
+                                              Control: Classic/ComboBox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                ChevronBackground: =RGBA(40, 134, 222, 1)
+                                                ChevronFill: =RGBA(255, 255, 255, 1)
+                                                ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["elv_name"]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Open Sans'
+                                                Height: =32
+                                                HoverFill: =RGBA(186, 202, 226, 1)
+                                                Items: =Choices([@dis_trx_headers].'cr8a3_area_from')
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(0, 18, 107, 1)
+                                                SearchFields: =["elv_name"]
+                                                SelectMultiple: =false
+                                                SelectionColor: =RGBA(255, 255, 255, 1)
+                                                SelectionFill: =RGBA(40, 134, 222, 1)
+                                                Size: =10.5
+                                                Tooltip: =Parent.DisplayName
+                                                Visible: =Text(DataCardValue7.Selected.Value) = "Transfer" Or Text(DataCardValue7.Selected.Value) = "Consume"
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey9.Y + DataCardKey9.Height + 4
+                                          - ErrorMessage32:
+                                              Control: FluentV8/Label
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                FontSize: =9
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Tooltip: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue9.Y + DataCardValue9.Height
+                                          - StarVisible32:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey9.Y
+                                    - area_to_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_area_to"
+                                          Default: =ThisItem.area_to
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_area_to')
+                                          Required: =false
+                                          Update: =DataCardValue33.Selected
+                                          Width: =443
+                                          WidthFit: =false
+                                          X: =1
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey33:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                FontSize: =10
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =22
+                                                Text: ="To"
+                                                Tooltip: =Parent.DisplayName
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - StarVisible33:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey33.Y
+                                          - DataCardValue33:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Color: =RGBA(0, 0, 0, 1)
+                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                DisplayMode: =Parent.DisplayMode
+                                                Fill: =RGBA(255, 255, 255, 1)
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Choices([@dis_trx_headers].'cr8a3_area_to')
+                                                SelectMultiple: =false
+                                                Size: =12
+                                                Visible: =Text(DataCardValue7.Selected.Value) = "Transfer" Or Text(DataCardValue7.Selected.Value) = "Receive"
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey33.Y + DataCardKey33.Height + 4
+                                          - ErrorMessage33:
+                                              Control: FluentV8/Label
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                FontSize: =9
+                                                Height: =30
+                                                Text: =Parent.Error
+                                                Tooltip: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue33.Y + DataCardValue33.Height
+                                    - note_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualMultilineEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_note"
+                                          Default: =ThisItem.note
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_note')
+                                          MaxLength: =DataSourceInfo([@dis_trx_headers], DataSourceInfo.MaxLength, 'cr8a3_note')
+                                          Required: =false
+                                          Update: =DataCardValue8.Text
+                                          Width: =898
+                                          X: =0
+                                          Y: =2
+                                        Children:
+                                          - DataCardKey8:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Note"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue8:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =95
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                Size: =12
+                                                Type: =TextInputType.Multiline
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey8.Y + DataCardKey8.Height + 4
+                                          - ErrorMessage9:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue8.Y + DataCardValue8.Height
+                                          - StarVisible9:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey8.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey8.Y
+                        - Container27:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(255, 255, 255, 1)
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =500
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingTop: =8
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - Container28:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =80
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Container31:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          PaddingBottom: =8
+                                          PaddingLeft: =8
+                                          PaddingRight: =8
+                                          PaddingTop: =8
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =200
+                                        Children:
+                                          - Label37:
+                                              Control: Label
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =10
+                                                Text: ="Item"
+                                                Width: =Parent.Width
+                                          - Combobox1_1:
+                                              Control: ModernCombobox
+                                              Properties:
+                                                AccessibleLabel: =
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.name
+                                                Items: =dis_item_v2S
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =12
+                                                Width: =200
+                                    - Container31_1:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          PaddingBottom: =8
+                                          PaddingLeft: =8
+                                          PaddingRight: =8
+                                          PaddingTop: =8
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =200
+                                        Children:
+                                          - Label37_1:
+                                              Control: Label
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =30
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =10
+                                                Text: ="Quantity"
+                                                Width: =Parent.Width
+                                          - TextInput12_1:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                Height: =32
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =12
+                                                Width: =200
+                                    - Container30:
+                                        Control: GroupContainer
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                    - Button15:
+                                        Control: ModernButton
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Height: =32
+                                          Icon: ="Add"
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          OnSelect: "=Collect(\n    colTempDetails, \n    {\n        // Generate nomor urut otomatis (1, 2, 3, dst.)\n        Urutan: CountRows(colTempDetails) + 1,\n        \n        Id: Combobox1_1.Selected.dis_item_v2, \n        name: Combobox1_1.Selected.name, \n        description :  Combobox1_1.Selected.description,\n        Qty: Value(TextInput12_1.Text)\n    }\n);\nReset(Combobox1_1);\nReset(TextInput12_1);"
+                                          Size: =12
+                                          Text: ="Add Item"
+                                          Width: =100
+                              - Container32:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Container33:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(180, 214, 250, 1)
+                                          FillPortions: =0
+                                          Height: =40
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          PaddingBottom: =8
+                                          PaddingLeft: =8
+                                          PaddingRight: =8
+                                          PaddingTop: =8
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - Text4:
+                                              Control: ModernText
+                                              Properties:
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =14
+                                                Text: ="Item"
+                                          - Text4_1:
+                                              Control: ModernText
+                                              Properties:
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =14
+                                                Text: ="Quantity"
+                                                Width: =195
+                                          - Text4_3:
+                                              Control: ModernText
+                                              Properties:
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =14
+                                                Text: ="Description"
+                                                Width: =305
+                                          - Text4_4:
+                                              Control: ModernText
+                                              Properties:
+                                                LayoutMinHeight: =16
+                                                LayoutMinWidth: =16
+                                                Size: =14
+                                                Text: ="Action"
+                                    - Container34:
+                                        Control: GroupContainer
+                                        Variant: ManualLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Start
+                                          DropShadow: =DropShadow.None
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - Gallery7:
+                                              Control: Gallery
+                                              Variant: Vertical
+                                              Properties:
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                Height: =348
+                                                Items: =colTempDetails
+                                                TemplateSize: =30
+                                                Width: =Parent.Width
+                                              Children:
+                                                - Container4:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      Height: =30
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      PaddingBottom: =8
+                                                      PaddingLeft: =8
+                                                      PaddingRight: =8
+                                                      PaddingTop: =8
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - Text4_7:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            Color: =RGBA(0, 0, 0, 1)
+                                                            Height: =30
+                                                            Size: =14
+                                                            Text: =ThisItem.name
+                                                            Width: =195
+                                                            X: =28
+                                                      - Text4_8:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            Color: =RGBA(0, 0, 0, 1)
+                                                            Height: =30
+                                                            Size: =14
+                                                            Text: =ThisItem.Qty
+                                                            Width: =195
+                                                            X: =28
+                                                      - Text4_9:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            Color: =RGBA(0, 0, 0, 1)
+                                                            Height: =30
+                                                            Size: =14
+                                                            Text: =ThisItem.description
+                                                            Width: =300
+                                                            X: =28
+                                                      - Container10:
+                                                          Control: GroupContainer
+                                                          Variant: ManualLayout
+                                                          Properties:
+                                                            DropShadow: =DropShadow.None
+                                                            FillPortions: =0
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                            Width: =10
+                                                      - Button30_2:
+                                                          Control: ModernButton
+                                                          Properties:
+                                                            BasePaletteColor: =RGBA(249, 83, 109, 1)
+                                                            Height: =30
+                                                            Icon: =
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            OnSelect: =Remove(colTempDetails, ThisItem)
+                                                            Size: =12
+                                                            Text: ="Delete"
+                                                            Width: =70

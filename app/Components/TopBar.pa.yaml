@@ -1,0 +1,41 @@
+ComponentDefinitions:
+  TopBar:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      ActiveMenu:
+        PropertyKind: Input
+        DisplayName: ActiveMenu
+        Description: A custom property
+        DataType: Text
+        Default: ="Text"
+    Properties:
+      Height: =80
+      Width: =App.Width - 150
+    Children:
+      - Container6:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =TopBar.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =TopBar.Width
+          Children:
+            - Text1_1:
+                Control: ModernText
+                Properties:
+                  Color: =RGBA(44, 62, 80, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =TopBar.Height
+                  PaddingLeft: =50
+                  Size: =28
+                  Text: =TopBar.ActiveMenu
+                  Width: =TopBar.Width
+                  X: =

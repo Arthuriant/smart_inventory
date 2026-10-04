@@ -1,0 +1,443 @@
+Screens:
+  scr_item:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - con_Main_template_4:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingRight: =8
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - con_sidebar_template_4:
+                Control: GroupContainer
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =180
+                Children:
+                  - com_sidebar_template_4:
+                      Control: CanvasComponent
+                      ComponentName: Sidebar
+                      Properties:
+                        Width: =Parent.Width
+                        activemenu: ="Item"
+            - con_content_template_4:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(247, 247, 248, 1)
+                  FillPortions: =0
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width - 180
+                Children:
+                  - com_topbar_template_4:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Item"
+                        Height: =80
+                        Width: =App.Width - 150
+                  - Container8_5:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(247, 247, 248, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =20
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - Container13_3:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =520
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                            Children:
+                              - Container15_3:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderColor: =
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FillPortions: =0
+                                    Height: =60
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Dropdown2_2:
+                                        Control: ModernDropdown
+                                        Properties:
+                                          BorderColor: =RGBA(40, 134, 222, 1)
+                                          BorderStyle: =BorderStyle.None
+                                          Fill: =RGBA(247, 247, 248, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =32
+                                          ItemDisplayText: =ThisItem.code
+                                          Items: =Choices(dis_item_v2S.dis_category_item)
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Width: =100
+                                    - inp_search_4:
+                                        Control: ModernTextInput
+                                        Properties:
+                                          BasePaletteColor: =RGBA(249, 83, 109, 1)
+                                          BorderColor: =RGBA(247, 247, 248, 1)
+                                          BorderStyle: =BorderStyle.Solid
+                                          Default: =
+                                          Fill: =RGBA(247, 247, 248, 1)
+                                          Height: =30
+                                          Placeholder: ="Find For Something"
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =14
+                                          TriggerOutput: =TriggerOutput.Delayed
+                                          Width: =300
+                                    - Container16_3:
+                                        Control: GroupContainer
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                    - Button31_2:
+                                        Control: ModernButton
+                                        Properties:
+                                          Height: =32
+                                          Icon: ="Add"
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          OnSelect: |-
+                                            =NewForm(Form5_3);
+                                            Navigate(scr_frm_item);
+                                          Size: =12
+                                          Text: ="Add Item"
+                                          Width: =140
+                              - Container20_4:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(180, 214, 250, 1)
+                                    FillPortions: =0
+                                    Height: =35
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Label21_21:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: ="Name"
+                                          Width: =125
+                                    - Label21_27:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: ="BPN"
+                                          Width: =145
+                                    - Label21_28:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: ="SPN"
+                                          Width: =170
+                                    - Label21_29:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: |-
+                                            ="Category
+                                            "
+                                          Width: =80
+                                    - Label21_23:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: |-
+                                            ="Min QTY
+                                            "
+                                          Width: =64
+                                    - Label21_24:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: ="Uom"
+                                          Width: =65
+                                    - Label21_25:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: ="Status"
+                                          Width: =75
+                                    - Label21_26:
+                                        Control: Label
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =10
+                                          Text: ="Action"
+                                          Width: =65
+                              - Container10_5:
+                                  Control: GroupContainer
+                                  Variant: ManualLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Parent.Height - Container15_3.Height - Container20_4.Height
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - Gallery8_6:
+                                        Control: Gallery
+                                        Variant: Vertical
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Height: =Parent.Height
+                                          Items: |-
+                                            =Search(
+                                                Filter(
+                                                    dis_item_v2S,
+                                                    IsBlank(Dropdown2_2.Selected) Or 
+                                                    dis_category_item.dis_category_item = Dropdown2_2.Selected.dis_category_item
+                                                ),
+                                                inp_search_4.Text,
+                                                name,         
+                                                description
+                                            )
+                                          TemplateSize: =50
+                                          Width: =Parent.Width
+                                        Children:
+                                          - Container11_5:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                Fill: |-
+                                                  =If(
+                                                      ThisItem.IsSelected,
+                                                      RGBA(234, 243, 255, 1), 
+                                                      RGBA(255, 255, 255, 1)  
+                                                  )
+                                                Height: =50
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                PaddingBottom: =8
+                                                PaddingLeft: =8
+                                                PaddingRight: =8
+                                                PaddingTop: =8
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =Parent.Width
+                                              Children:
+                                                - Text1_10:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      Size: =12
+                                                      Text: =ThisItem.name
+                                                      Width: =120
+                                                - Text1_11:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      Size: =12
+                                                      Text: =ThisItem.part_number
+                                                      Width: =150
+                                                - Type_13:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      Color: =RGBA(53, 61, 63, 1)
+                                                      Height: =20
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =4
+                                                      RadiusBottomRight: =4
+                                                      RadiusTopLeft: =4
+                                                      RadiusTopRight: =4
+                                                      Size: =12
+                                                      Text: =ThisItem.client_number
+                                                      Width: =150
+                                                - Type_14:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      PaddingLeft: =20
+                                                      Size: =12
+                                                      Text: =ThisItem.dis_category_item.name
+                                                      Width: =100
+                                                - Type_15:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      PaddingLeft: =20
+                                                      Size: =12
+                                                      Text: =ThisItem.min_qty
+                                                      Width: =50
+                                                - Type_16:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      PaddingLeft: =20
+                                                      Size: =12
+                                                      Text: =ThisItem.uom
+                                                      Width: =60
+                                                - Type_17:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      Color: |-
+                                                        =Switch(
+                                                            Text(ThisItem.status),
+                                                            "Active", RGBA(16, 124, 65, 1),       // Hijau gelap (Nyaman dibaca)
+                                                            "Non-Active", RGBA(249, 83, 109, 1),  // Merah
+                                                            RGBA(53, 61, 63, 1)                   // Default (Abu-abu kehitaman)
+                                                        )
+                                                      PaddingLeft: =20
+                                                      Size: =12
+                                                      Text: =ThisItem.status
+                                                      Width: =90
+                                                - Button15_8:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      BasePaletteColor: =RGBA(8, 222, 8, 1)
+                                                      FontWeight: =FontWeight.Bold
+                                                      Height: =32
+                                                      OnSelect: |-
+                                                        =EditForm(Form5_3);
+                                                        Navigate(scr_frm_item);
+                                                      Size: =12
+                                                      Text: ="Update"
+                                                      Width: =70
+                                                - Container12_7:
+                                                    Control: GroupContainer
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =0
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Width: =10
+                                                - Button15_9:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      BasePaletteColor: =RGBA(249, 83, 109, 1)
+                                                      FontWeight: =FontWeight.Bold
+                                                      Height: =32
+                                                      OnSelect: |-
+                                                        =Remove(dis_item_v2S, ThisItem);
+                                                        Notify("Item berhasil dihapus.", NotificationType.Success);
+                                                      Size: =12
+                                                      Text: ="Delete"
+                                                      Width: =70
