@@ -1,941 +1,1141 @@
 Screens:
   scr_user:
     Properties:
+      Fill: =RGBA(244, 246, 250, 1)
       LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
     Children:
-      - con_Main_template_6:
+      - conUsrLRoot:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
             Height: =Parent.Height
-            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            PaddingRight: =8
+            LayoutGap: =0
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
             Width: =Parent.Width
           Children:
-            - con_sidebar_template_6:
-                Control: GroupContainer
-                Variant: ManualLayout
+            - cmpUsrLSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
                 Properties:
-                  DropShadow: =DropShadow.None
+                  activemenu: ="User"
+                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                  RadiusBottomLeft: =0
-                  RadiusBottomRight: =0
-                  RadiusTopLeft: =0
-                  RadiusTopRight: =0
-                  Width: =180
-                Children:
-                  - com_sidebar_template_6:
-                      Control: CanvasComponent
-                      ComponentName: Sidebar
-                      Properties:
-                        Width: =Parent.Width
-                        activemenu: ="User"
-            - con_content_template_6:
+                  Height: =640
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+            - conUsrLMain:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
-                  Fill: =RGBA(247, 247, 248, 1)
-                  FillPortions: =0
-                  LayoutAlignItems: =LayoutAlignItems.Center
+                  Fill: =RGBA(244, 246, 250, 1)
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
+                  LayoutGap: =0
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
                   RadiusBottomLeft: =0
                   RadiusBottomRight: =0
                   RadiusTopLeft: =0
                   RadiusTopRight: =0
-                  Width: =975
                 Children:
-                  - com_topbar_template_6:
+                  - cmpUsrLTopBar:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
                         ActiveMenu: ="User"
-                        Height: =80
-                        Width: =App.Width - 150
-                  - Container7_1:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =0
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Kelola pengguna dan peran"
+                        Width: =912
+                  - conUsrLBody:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        AlignInContainer: =AlignInContainer.Start
-                        BorderColor: =ColorValue("#E5E7EB")
-                        BorderThickness: =1
+                        AlignInContainer: =AlignInContainer.Stretch
                         DropShadow: =DropShadow.None
-                        Fill: =RGBA(247, 247, 248, 1)
-                        FillPortions: =0
-                        Height: =550
+                        Fill: =RGBA(244, 246, 250, 1)
+                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        PaddingBottom: =20
-                        PaddingLeft: =20
-                        PaddingRight: =20
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
                         PaddingTop: =20
-                        RadiusBottomLeft: =12
-                        RadiusBottomRight: =12
-                        RadiusTopLeft: =12
-                        RadiusTopRight: =12
-                        Width: =950
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
                       Children:
-                        - Container3:
+                        - conUsrLReceipt:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(180, 222, 196, 1)
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
                               DropShadow: =DropShadow.None
-                              Fill: =RGBA(255, 255, 255, 1)
+                              Fill: =RGBA(232, 246, 238, 1)
+                              FillPortions: =0
+                              Height: =80
                               LayoutAlignItems: =LayoutAlignItems.Center
-                              LayoutDirection: =LayoutDirection.Vertical
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              RadiusBottomLeft: =0
-                              RadiusBottomRight: =0
-                              RadiusTopLeft: =0
-                              RadiusTopRight: =0
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =10
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              PaddingTop: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =gblReceipt.Screen = "User"
                             Children:
-                              - Container20_11:
+                              - icoUsrLRcIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Berhasil"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    FillPortions: =0
+                                    Height: =24
+                                    Icon: ="CheckmarkCircle"
+                                    IconColor: =RGBA(16, 124, 65, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =24
+                              - conUsrLRcText:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
+                                    AlignInContainer: =AlignInContainer.Center
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(180, 214, 250, 1)
-                                    FillPortions: =0
-                                    Height: =35
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingTop: =8
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =1
+                                    Height: =58
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =2
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
                                     RadiusBottomLeft: =0
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - Label21_59:
-                                        Control: Label
+                                    - txtUsrLRcTitle:
+                                        Control: ModernText
                                         Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="NAME"
-                                          Width: =190
-                                    - Label21_60:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="EMAIL"
-                                          Width: =190
-                                    - Label21_61:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="ROLE"
-                                          Width: =120
-                                    - Label21_62:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="ASSIGNED AREA"
-                                          Width: =150
-                                    - Container21_6:
-                                        Control: GroupContainer
-                                        Variant: ManualLayout
-                                        Properties:
-                                          DropShadow: =DropShadow.None
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =0
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          RadiusBottomLeft: =0
-                                          RadiusBottomRight: =0
-                                          RadiusTopLeft: =0
-                                          RadiusTopRight: =0
-                                          Width: =40
-                                    - Label21_63:
-                                        Control: Label
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: =gblReceipt.Action & " - " & gblReceipt.Title
+                                          Wrap: =false
+                                    - txtUsrLRcDetail:
+                                        Control: ModernText
                                         Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="ACTION"
-                                          Width: =100
-                              - Container10_12:
-                                  Control: GroupContainer
-                                  Variant: ManualLayout
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =gblReceipt.Detail
+                                          Wrap: =true
+                              - icoUsrLRcClose:
+                                  Control: ModernIcon
                                   Properties:
-                                    DropShadow: =DropShadow.None
+                                    AccessibleLabel: ="Tutup"
+                                    AlignInContainer: =AlignInContainer.Center
                                     FillPortions: =0
-                                    Height: =430
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingRight: =8
-                                    PaddingTop: =8
+                                    Height: =32
+                                    Icon: ="Dismiss"
+                                    IconColor: =RGBA(100, 112, 130, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: '=Set(gblReceipt, {Screen: "", Action: "", Title: "", Detail: ""})'
+                                    PaddingBottom: =6
+                                    PaddingLeft: =6
+                                    PaddingRight: =6
+                                    PaddingTop: =6
                                     RadiusBottomLeft: =0
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
+                                    Tooltip: ="Tutup"
+                                    Width: =32
+                        - conUsrLEditor:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Light
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =316
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Visible: =locShowUserPopUp
+                            Children:
+                              - txtUsrLEdTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Edit Pengguna - " & locSelectedRecord.Name
+                                    Wrap: =false
+                              - Form4:
+                                  Control: Form
+                                  Variant: Modern
+                                  Layout: Vertical
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    DataSource: =dis_users
+                                    FillPortions: =0
+                                    Height: =200
+                                    Item: =locSelectedRecord
+                                    NumberOfColumns: =2
+                                    OnSuccess: |-
+                                      =Set(
+                                          gblReceipt,
+                                          {
+                                              Screen: "User",
+                                              Action: "Disimpan",
+                                              Title: Form4.LastSubmit.Name,
+                                              Detail: "Email " & Form4.LastSubmit.email & " | Role " & Text(Form4.LastSubmit.role) & " | Area " & Coalesce(Form4.LastSubmit.Assigned_area.Name, "-")
+                                          }
+                                      );
+                                      Notify("Data user berhasil disimpan!", NotificationType.Success);
+                                      ResetForm(Self);
+                                      UpdateContext({locShowUserPopUp: false})
                                     Width: =Parent.Width
                                   Children:
+                                    - Name_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="elv_name"
+                                          Default: =ThisItem.Name
+                                          DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,Name)
+                                          MaxLength: =DataSourceInfo([@dis_users], DataSourceInfo.MaxLength, Name)
+                                          Required: =true
+                                          Update: =DataCardValue60.Text
+                                          Width: =Parent.Width / 2
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey61:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue60:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey61.Y + DataCardKey61.Height + 4
+                                          - ErrorMessage60:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue60.Y + DataCardValue60.Height
+                                          - StarVisible61:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey61.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey61.Y
+                                    - email_DataCard2:
+                                        Control: TypedDataCard
+                                        Variant: ModernTextualEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="elv_email"
+                                          Default: =ThisItem.email
+                                          DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,email)
+                                          MaxLength: =DataSourceInfo([@dis_users], DataSourceInfo.MaxLength, email)
+                                          Required: =false
+                                          Update: =DataCardValue62.Text
+                                          Width: =Parent.Width / 2
+                                          X: =1
+                                          Y: =0
+                                        Children:
+                                          - DataCardKey63:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue62:
+                                              Control: ModernTextInput
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Default: =Parent.Default
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                MaxLength: =Parent.MaxLength
+                                                Required: =Parent.Required
+                                                ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey63.Y + DataCardKey63.Height + 4
+                                          - ErrorMessage61:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue62.Y + DataCardValue62.Height
+                                          - StarVisible62:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey63.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey63.Y
+                                    - role_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: ModernComboBoxOptionSetSingleEdit
+                                        IsLocked: true
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="elv_role"
+                                          Default: =ThisItem.role
+                                          DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,role)
+                                          Required: =false
+                                          Update: =DataCardValue63.Selected.Value
+                                          Width: =Parent.Width / 2
+                                          X: =0
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey64:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue63:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                DefaultSelectedItems: =[Parent.Default]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Value
+                                                Items: =Choices([@dis_users].role)
+                                                SelectMultiple: =false
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey64.Y + DataCardKey64.Height + 4
+                                          - ErrorMessage62:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue63.Y + DataCardValue63.Height
+                                          - StarVisible63:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKey64.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey64.Y
+                                    - Assigned_area_DataCard1:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_Assigned_area"
+                                          Default: =ThisItem.Assigned_area
+                                          DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,Assigned_area)
+                                          Required: =false
+                                          Update: =DataCardValue64.Selected
+                                          Width: =Parent.Width / 2
+                                          X: =1
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey65:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Align: ="left"
+                                                AutoHeight: =true
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =22
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(9) * 4/3
+                                                Text: =Parent.DisplayName
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValue64:
+                                              Control: Classic/ComboBox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(0, 18, 107, 1)
+                                                ChevronBackground: =RGBA(56, 96, 178, 1)
+                                                ChevronFill: =RGBA(255, 255, 255, 1)
+                                                ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["elv_name"]
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Open Sans'
+                                                Height: =32
+                                                HoverFill: =RGBA(186, 202, 226, 1)
+                                                Items: =Choices([@dis_users].Assigned_area)
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(0, 18, 107, 1)
+                                                SearchFields: =["elv_name"]
+                                                SelectMultiple: =false
+                                                SelectionColor: =RGBA(255, 255, 255, 1)
+                                                SelectionFill: =RGBA(56, 96, 178, 1)
+                                                Size: =10.5
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey65.Y + DataCardKey65.Height + 4
+                                          - ErrorMessage63:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Align: ="left"
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =30
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(9) * 4/3
+                                                Text: =Parent.Error
+                                                VerticalAlign: ="middle"
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValue64.Y + DataCardValue64.Height
+                                          - StarVisible64:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =20
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(10.5) * 4/3
+                                                Text: ="*"
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey65.Y
+                              - conUsrLEdActions:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =12
+                                    LayoutJustifyContent: =LayoutJustifyContent.End
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - Button37:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Batal"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =ButtonAppearance.Secondary
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Dismiss"
+                                          Layout: =ButtonLayout.IconBefore
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =96
+                                          OnSelect: |-
+                                            =ResetForm(Form4);
+                                            UpdateContext({locShowUserPopUp: false})
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Batal"
+                                          Width: =96
+                                    - Button36:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Simpan pengguna"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =ButtonAppearance.Primary
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Save"
+                                          Layout: =ButtonLayout.IconBefore
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =120
+                                          OnSelect: =SubmitForm(Form4)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Simpan"
+                                          Width: =120
+                        - conUsrLConfirm:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(240, 180, 176, 1)
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(253, 237, 236, 1)
+                              FillPortions: =0
+                              Height: =56
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =locShowDeleteConfirm_1
+                            Children:
+                              - icoUsrLConfirmIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Peringatan"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    FillPortions: =0
+                                    Height: =24
+                                    Icon: ="Warning"
+                                    IconColor: =RGBA(196, 43, 28, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =24
+                              - txtUsrLConfirmMsg:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Hapus pengguna " & locSelectedRecord.Name & " (" & locSelectedRecord.email & ")?"
+                                    Wrap: =false
+                              - btnUsrLConfirmDel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Hapus"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Primary
+                                    BasePaletteColor: =RGBA(196, 43, 28, 1)
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Delete"
+                                    Layout: =ButtonLayout.IconBefore
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =104
+                                    OnSelect: |-
+                                      =With(
+                                          {target: locSelectedRecord},
+                                          Remove(dis_users, target);
+                                          If(
+                                              IsEmpty(Errors(dis_users)),
+                                              Set(
+                                                  gblReceipt,
+                                                  {
+                                                      Screen: "User",
+                                                      Action: "Dihapus",
+                                                      Title: target.Name,
+                                                      Detail: "Email " & target.email & " | Role " & Text(target.role)
+                                                  }
+                                              );
+                                              UpdateContext({locShowDeleteConfirm_1: false});
+                                              Notify("Data user berhasil dihapus!", NotificationType.Success),
+                                              Notify("Gagal menghapus user. " & First(Errors(dis_users)).Message, NotificationType.Error)
+                                          )
+                                      )
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Hapus"
+                                    Width: =104
+                              - btnUsrLConfirmCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Batal"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Secondary
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Dismiss"
+                                    Layout: =ButtonLayout.IconBefore
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =96
+                                    OnSelect: '=UpdateContext({locShowDeleteConfirm_1: false})'
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Batal"
+                                    Width: =96
+                        - conUsrLListCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Light
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =488
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - txtUsrLCardTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Daftar Pengguna"
+                                    Wrap: =false
+                              - conUsrLTable:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =0
+                                    Height: =420
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conUsrLHead:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =13
+                                          PaddingRight: =13
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                        Children:
+                                          - txtUsrLHName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="NAMA"
+                                                Wrap: =false
+                                          - txtUsrLHEmail:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="EMAIL"
+                                                Wrap: =false
+                                          - txtUsrLHRole:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="ROLE"
+                                                Width: =112
+                                                Wrap: =false
+                                          - txtUsrLHArea:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="AREA"
+                                                Wrap: =false
+                                          - txtUsrLHAct:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="AKSI"
+                                                Width: =72
+                                                Wrap: =false
                                     - Gallery8_13:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Height: =430
+                                          AccessibleLabel: ="Daftar pengguna"
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderThickness: =0
+                                          Fill: =RGBA(226, 230, 239, 1)
+                                          FillPortions: =0
+                                          Height: =380
                                           Items: =dis_users
-                                          TemplateSize: =50
-                                          Width: =Parent.Width
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          ShowScrollbar: =true
+                                          TabIndex: =0
+                                          TemplatePadding: =1
+                                          TemplateSize: =52
+                                          Visible: =!IsEmpty(dis_users)
                                         Children:
-                                          - Container11_11:
+                                          - conUsrLRow:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
-                                                Fill: |-
-                                                  =If(
-                                                      ThisItem.IsSelected,
-                                                      RGBA(234, 243, 255, 1), 
-                                                      RGBA(255, 255, 255, 1)  
-                                                  )
-                                                Height: =50
+                                                DropShadow: =DropShadow.None
+                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
-                                                PaddingBottom: =8
-                                                PaddingLeft: =8
-                                                PaddingRight: =8
-                                                PaddingTop: =8
+                                                LayoutGap: =8
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingLeft: =12
+                                                PaddingRight: =12
                                                 RadiusBottomLeft: =0
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Width: =Parent.Width
+                                                Width: =Parent.TemplateWidth
                                               Children:
-                                                - Text1_23:
+                                                - txtUsrLName:
                                                     Control: ModernText
                                                     Properties:
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
-                                                      Size: =12
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
                                                       Text: =ThisItem.Name
-                                                      Width: =190
-                                                - Text1_24:
+                                                      Wrap: =false
+                                                - txtUsrLEmail:
                                                     Control: ModernText
                                                     Properties:
-                                                      AlignInContainer: =AlignInContainer.Stretch
-                                                      Color: =RGBA(0, 0, 0, 1)
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      RadiusBottomLeft: =6
-                                                      RadiusBottomRight: =6
-                                                      RadiusTopLeft: =6
-                                                      RadiusTopRight: =6
-                                                      Size: =12
+                                                      Size: =13
                                                       Text: =ThisItem.email
-                                                      Width: =190
-                                                - Type_35:
+                                                      Wrap: =false
+                                                - bdgUsrLRole:
+                                                    Control: Badge
+                                                    Properties:
+                                                      AccessibleLabel: ="Role " & Text(ThisItem.role)
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                      Content: =Proper(Text(ThisItem.role))
+                                                      FillPortions: =0
+                                                      FontSize: =12
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =24
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      Shape: ='BadgeCanvas.Shape'.Rounded
+                                                      ThemeColor: =Switch(Text(ThisItem.role), "administrator", 'BadgeCanvas.ThemeColor'.Brand, "approval", 'BadgeCanvas.ThemeColor'.Success, "notifier", 'BadgeCanvas.ThemeColor'.Warning, 'BadgeCanvas.ThemeColor'.Subtle)
+                                                      Width: =112
+                                                - txtUsrLArea:
                                                     Control: ModernText
                                                     Properties:
-                                                      AlignInContainer: =AlignInContainer.Stretch
-                                                      Color: =RGBA(53, 61, 63, 1)
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      RadiusBottomLeft: =6
-                                                      RadiusBottomRight: =6
-                                                      RadiusTopLeft: =6
-                                                      RadiusTopRight: =6
-                                                      Size: =12
-                                                      Text: |
-                                                        =ThisItem.role
-                                                      Width: =100
-                                                - Type_36:
-                                                    Control: ModernText
-                                                    Properties:
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
-                                                      PaddingLeft: =20
-                                                      Size: =12
-                                                      Text: =ThisItem.Assigned_area.Name
-                                                      Width: =120
-                                                - Type_37:
-                                                    Control: ModernText
-                                                    Properties:
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
-                                                      Size: =18
-                                                      Text: =
-                                                      Width: =80
-                                                - Button30_4:
-                                                    Control: ModernButton
-                                                    Properties:
-                                                      BasePaletteColor: =RGBA(8, 222, 8, 1)
-                                                      Height: =35
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
-                                                      OnSelect: |-
-                                                        =Set(gblFormMode, "Update");
-                                                        EditForm(Form4);
-                                                        UpdateContext({
-                                                            locShowUserPopUp: true,
-                                                            locSelectedRecord: Blank()
-                                                        })
-                                                      Size: =15
-                                                      Text: ="Update"
-                                                      Width: =80
-                                                      X: =40
-                                                      Y: =40
-                                                - Container24_2:
+                                                      Size: =13
+                                                      Text: =Coalesce(ThisItem.Assigned_area.Name, "-")
+                                                      Wrap: =false
+                                                - conUsrLRowActs:
                                                     Control: GroupContainer
-                                                    Variant: ManualLayout
+                                                    Variant: AutoLayout
                                                     Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
                                                       DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(0, 0, 0, 0)
                                                       FillPortions: =0
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
+                                                      Height: =32
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutGap: =8
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       RadiusBottomLeft: =0
                                                       RadiusBottomRight: =0
                                                       RadiusTopLeft: =0
                                                       RadiusTopRight: =0
-                                                      Width: =10
-                                                - Button33_3:
-                                                    Control: ModernButton
-                                                    Properties:
-                                                      BasePaletteColor: =RGBA(249, 83, 109, 1)
-                                                      Height: =35
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
-                                                      OnSelect: |-
-                                                        =UpdateContext({
-                                                            locShowDeleteConfirm_1: true,
-                                                            locSelectedRecord: Blank()
-                                                        })
-                                                      Size: =15
-                                                      Text: ="Delete"
-                                                      Width: =80
-                                                      X: =40
-                                                      Y: =40
-      - cntDeleteConfirm_1:
-          Control: GroupContainer
-          Variant: ManualLayout
-          Properties:
-            BorderThickness: =2
-            DropShadow: =DropShadow.ExtraBold
-            Fill: =RGBA(240, 240, 240, 1)
-            Height: =200
-            RadiusBottomLeft: =12
-            RadiusBottomRight: =12
-            RadiusTopLeft: =12
-            RadiusTopRight: =12
-            Visible: =locShowDeleteConfirm_1
-            Width: =300
-            X: =500
-            Y: =250
-          Children:
-            - Container36_1:
-                Control: GroupContainer
-                Variant: AutoLayout
-                Properties:
-                  DropShadow: =DropShadow.None
-                  Height: =200
-                  LayoutAlignItems: =LayoutAlignItems.Center
-                  LayoutDirection: =LayoutDirection.Vertical
-                  PaddingBottom: =8
-                  PaddingLeft: =8
-                  PaddingRight: =8
-                  PaddingTop: =8
-                  RadiusBottomLeft: =0
-                  RadiusBottomRight: =0
-                  RadiusTopLeft: =0
-                  RadiusTopRight: =0
-                  Width: =300
-                Children:
-                  - Container37_1:
-                      Control: GroupContainer
-                      Variant: ManualLayout
-                      Properties:
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: =40
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                  - Text1_20:
-                      Control: ModernText
-                      Properties:
-                        Align: =Align.Center
-                        PaddingTop: =
-                        Text: ="Are you sure ?"
-                        X: =40
-                        Y: =40
-                  - Container35_1:
-                      Control: GroupContainer
-                      Variant: AutoLayout
-                      Properties:
-                        AlignInContainer: =AlignInContainer.SetByContainer
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: =68
-                        LayoutAlignItems: =LayoutAlignItems.Center
-                        LayoutDirection: =LayoutDirection.Horizontal
-                        PaddingBottom: =8
-                        PaddingLeft: =8
-                        PaddingRight: =8
-                        PaddingTop: =8
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =250
-                        X: =40
-                        Y: =40
-                      Children:
-                        - Button34_1:
-                            Control: ModernButton
-                            Properties:
-                              BasePaletteColor: =RGBA(249, 83, 109, 1)
-                              Height: =40
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              OnSelect: |-
-                                =Remove(dis_users, Gallery8_13.Selected);
-                                Notify("Data area berhasil dihapus!", NotificationType.Success);
-                                UpdateContext({locShowDeleteConfirm_1: false})
-                              Size: =20
-                              Text: ="Delete"
-                              Width: =100
-                        - Container38_1:
-                            Control: GroupContainer
-                            Variant: ManualLayout
-                            Properties:
-                              DropShadow: =DropShadow.None
-                              FillPortions: =0
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              RadiusBottomLeft: =0
-                              RadiusBottomRight: =0
-                              RadiusTopLeft: =0
-                              RadiusTopRight: =0
-                              Width: =34
-                        - Button35_1:
-                            Control: ModernButton
-                            Properties:
-                              Height: =40
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              OnSelect: |-
-                                =UpdateContext({locShowDeleteConfirm_1: false})
-                              Size: =20
-                              Text: ="Cancle"
-                              Width: =100
-      - form_data:
-          Control: GroupContainer
-          Variant: ManualLayout
-          Properties:
-            BorderThickness: =1
-            DropShadow: =DropShadow.ExtraBold
-            Fill: =RGBA(255, 255, 255, 1)
-            Height: =450
-            RadiusBottomLeft: =12
-            RadiusBottomRight: =12
-            RadiusTopLeft: =12
-            RadiusTopRight: =12
-            Visible: =locShowUserPopUp
-            Width: =700
-            X: =300
-            Y: =150
-          Children:
-            - Container43:
-                Control: GroupContainer
-                Variant: AutoLayout
-                Properties:
-                  DropShadow: =DropShadow.None
-                  Height: =450
-                  LayoutAlignItems: =LayoutAlignItems.Center
-                  LayoutDirection: =LayoutDirection.Vertical
-                  PaddingBottom: =8
-                  PaddingLeft: =8
-                  PaddingRight: =8
-                  PaddingTop: =8
-                  RadiusBottomLeft: =0
-                  RadiusBottomRight: =0
-                  RadiusTopLeft: =0
-                  RadiusTopRight: =0
-                  Width: =Parent.Width
-                Children:
-                  - Container44:
-                      Control: GroupContainer
-                      Variant: AutoLayout
-                      Properties:
-                        DropShadow: =DropShadow.None
-                        Fill: =RGBA(40, 134, 222, 1)
-                        FillPortions: =0
-                        Height: =50
-                        LayoutAlignItems: =LayoutAlignItems.Center
-                        LayoutDirection: =LayoutDirection.Horizontal
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        PaddingBottom: =8
-                        PaddingLeft: =8
-                        PaddingRight: =8
-                        PaddingTop: =8
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                      Children:
-                        - Text5:
-                            Control: ModernText
-                            Properties:
-                              FontWeight: =FontWeight.Bold
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              Size: =20
-                              Text: =If(Form4.Mode = FormMode.Edit, "Update User", "Add User")
-                  - Form4:
-                      Control: Form
-                      Variant: Modern
-                      Layout: Vertical
-                      Properties:
-                        BorderColor: =RGBA(0, 18, 107, 1)
-                        DataSource: =dis_users
-                        FillPortions: =0
-                        Height: =330
-                        Item: =Gallery8_13.Selected
-                        NumberOfColumns: =2
-                        OnSuccess: |-
-                          =Notify("Data user berhasil disimpan!", NotificationType.Success);
-                          ResetForm(Self);
-                          UpdateContext({locShowUserPopUp: false})
-                        Width: =Parent.Width
-                      Children:
-                        - Name_DataCard1:
-                            Control: TypedDataCard
-                            Variant: ModernTextualEdit
-                            Properties:
-                              BorderColor: =RGBA(0, 18, 107, 1)
-                              DataField: ="elv_name"
-                              Default: =ThisItem.Name
-                              DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,Name)
-                              MaxLength: =DataSourceInfo([@dis_users], DataSourceInfo.MaxLength, Name)
-                              Required: =true
-                              Update: =DataCardValue60.Text
-                              Width: =Parent.Width
-                              X: =0
-                              Y: =0
-                            Children:
-                              - DataCardKey61:
-                                  Control: ModernText
-                                  MetadataKey: FieldName
-                                  Properties:
-                                    FontWeight: =FontWeight.Semibold
-                                    Height: =22
-                                    PaddingBottom: =0
-                                    PaddingTop: =0
-                                    Size: =14
-                                    Text: =Parent.DisplayName
-                                    Width: =Parent.Width - 48
-                                    Wrap: =false
-                                    X: =24
-                                    Y: =10
-                              - DataCardValue60:
-                                  Control: ModernTextInput
-                                  MetadataKey: FieldValue
-                                  Properties:
-                                    AccessibleLabel: =Parent.DisplayName
-                                    Default: =Parent.Default
-                                    DisplayMode: =Parent.DisplayMode
-                                    Height: =32
-                                    MaxLength: =Parent.MaxLength
-                                    Required: =Parent.Required
-                                    ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardKey61.Y + DataCardKey61.Height + 4
-                              - ErrorMessage60:
-                                  Control: ModernText
-                                  MetadataKey: ErrorMessage
-                                  Properties:
-                                    Height: =30
-                                    Size: =14
-                                    Text: =Parent.Error
-                                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardValue60.Y + DataCardValue60.Height
-                              - StarVisible61:
-                                  Control: ModernText
-                                  MetadataKey: FieldRequired
-                                  Properties:
-                                    Align: =Align.Center
-                                    Color: =Color.Red
-                                    Height: =DataCardKey61.Height
-                                    PaddingBottom: =0
-                                    PaddingTop: =0
-                                    Text: ="*"
-                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =30
-                                    Y: =DataCardKey61.Y
-                        - email_DataCard2:
-                            Control: TypedDataCard
-                            Variant: ModernTextualEdit
-                            IsLocked: true
-                            Properties:
-                              BorderColor: =RGBA(0, 18, 107, 1)
-                              DataField: ="elv_email"
-                              Default: =ThisItem.email
-                              DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,email)
-                              MaxLength: =DataSourceInfo([@dis_users], DataSourceInfo.MaxLength, email)
-                              Required: =false
-                              Update: =DataCardValue62.Text
-                              Width: =Parent.Width
-                              X: =1
-                              Y: =0
-                            Children:
-                              - DataCardKey63:
-                                  Control: ModernText
-                                  MetadataKey: FieldName
-                                  Properties:
-                                    FontWeight: =FontWeight.Semibold
-                                    Height: =22
-                                    PaddingBottom: =0
-                                    PaddingTop: =0
-                                    Size: =14
-                                    Text: =Parent.DisplayName
-                                    Width: =Parent.Width - 48
-                                    Wrap: =false
-                                    X: =24
-                                    Y: =10
-                              - DataCardValue62:
-                                  Control: ModernTextInput
-                                  MetadataKey: FieldValue
-                                  Properties:
-                                    AccessibleLabel: =Parent.DisplayName
-                                    Default: =Parent.Default
-                                    DisplayMode: =Parent.DisplayMode
-                                    Height: =32
-                                    MaxLength: =Parent.MaxLength
-                                    Required: =Parent.Required
-                                    ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardKey63.Y + DataCardKey63.Height + 4
-                              - ErrorMessage61:
-                                  Control: ModernText
-                                  MetadataKey: ErrorMessage
-                                  Properties:
-                                    Height: =30
-                                    Size: =14
-                                    Text: =Parent.Error
-                                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardValue62.Y + DataCardValue62.Height
-                              - StarVisible62:
-                                  Control: ModernText
-                                  MetadataKey: FieldRequired
-                                  Properties:
-                                    Align: =Align.Center
-                                    Color: =Color.Red
-                                    Height: =DataCardKey63.Height
-                                    PaddingBottom: =0
-                                    PaddingTop: =0
-                                    Text: ="*"
-                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =30
-                                    Y: =DataCardKey63.Y
-                        - role_DataCard1:
-                            Control: TypedDataCard
-                            Variant: ModernComboBoxOptionSetSingleEdit
-                            IsLocked: true
-                            Properties:
-                              BorderColor: =RGBA(0, 18, 107, 1)
-                              DataField: ="elv_role"
-                              Default: =ThisItem.role
-                              DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,role)
-                              Required: =false
-                              Update: =DataCardValue63.Selected.Value
-                              Width: =320
-                              X: =0
-                              Y: =1
-                            Children:
-                              - DataCardKey64:
-                                  Control: ModernText
-                                  MetadataKey: FieldName
-                                  Properties:
-                                    FontWeight: =FontWeight.Semibold
-                                    Height: =22
-                                    PaddingBottom: =0
-                                    PaddingTop: =0
-                                    Size: =14
-                                    Text: =Parent.DisplayName
-                                    Width: =Parent.Width - 48
-                                    Wrap: =false
-                                    X: =24
-                                    Y: =10
-                              - DataCardValue63:
-                                  Control: ModernCombobox
-                                  MetadataKey: FieldValue
-                                  Properties:
-                                    AccessibleLabel: =Parent.DisplayName
-                                    DefaultSelectedItems: =[Parent.Default]
-                                    DisplayMode: =Parent.DisplayMode
-                                    Height: =32
-                                    ItemDisplayText: =ThisItem.Value
-                                    Items: =Choices([@dis_users].role)
-                                    SelectMultiple: =false
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardKey64.Y + DataCardKey64.Height + 4
-                              - ErrorMessage62:
-                                  Control: ModernText
-                                  MetadataKey: ErrorMessage
-                                  Properties:
-                                    Height: =30
-                                    Size: =14
-                                    Text: =Parent.Error
-                                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardValue63.Y + DataCardValue63.Height
-                              - StarVisible63:
-                                  Control: ModernText
-                                  MetadataKey: FieldRequired
-                                  Properties:
-                                    Align: =Align.Center
-                                    Color: =Color.Red
-                                    Height: =DataCardKey64.Height
-                                    PaddingBottom: =0
-                                    PaddingTop: =0
-                                    Text: ="*"
-                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =30
-                                    Y: =DataCardKey64.Y
-                        - Assigned_area_DataCard1:
-                            Control: TypedDataCard
-                            Variant: PcfCoreComboBoxEditCard
-                            Properties:
-                              BorderColor: =RGBA(0, 18, 107, 1)
-                              DataField: ="cr8a3_Assigned_area"
-                              Default: =ThisItem.Assigned_area
-                              DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,Assigned_area)
-                              Required: =false
-                              Update: =DataCardValue64.Selected
-                              Width: =320
-                              X: =1
-                              Y: =1
-                            Children:
-                              - DataCardKey65:
-                                  Control: ModernText
-                                  MetadataKey: FieldName
-                                  Properties:
-                                    Align: ="left"
-                                    AutoHeight: =true
-                                    Font: ="'Segoe UI', 'Open Sans', sans-serif"
-                                    FontWeight: ="normal"
-                                    Height: =22
-                                    PaddingLeft: =0
-                                    PaddingRight: =0
-                                    Size: =(9) * 4/3
-                                    Text: =Parent.DisplayName
-                                    VerticalAlign: =VerticalAlign.Bottom
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =10
-                              - DataCardValue64:
-                                  Control: Classic/ComboBox
-                                  MetadataKey: FieldValue
-                                  Properties:
-                                    AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
-                                    BorderColor: =RGBA(0, 18, 107, 1)
-                                    ChevronBackground: =RGBA(56, 96, 178, 1)
-                                    ChevronFill: =RGBA(255, 255, 255, 1)
-                                    ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
-                                    ChevronHoverFill: =RGBA(255, 255, 255, 1)
-                                    DefaultSelectedItems: =Parent.Default
-                                    DisplayFields: =["elv_name"]
-                                    DisplayMode: =Parent.DisplayMode
-                                    Font: =Font.'Open Sans'
-                                    Height: =32
-                                    HoverFill: =RGBA(186, 202, 226, 1)
-                                    Items: =Choices([@dis_users].Assigned_area)
-                                    PressedColor: =RGBA(255, 255, 255, 1)
-                                    PressedFill: =RGBA(0, 18, 107, 1)
-                                    SearchFields: =["elv_name"]
-                                    SelectMultiple: =false
-                                    SelectionColor: =RGBA(255, 255, 255, 1)
-                                    SelectionFill: =RGBA(56, 96, 178, 1)
-                                    Size: =10.5
-                                    Tooltip: =Parent.DisplayName
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardKey65.Y + DataCardKey65.Height + 4
-                              - ErrorMessage63:
-                                  Control: ModernText
-                                  MetadataKey: ErrorMessage
-                                  Properties:
-                                    Align: ="left"
-                                    AutoHeight: =true
-                                    Color: =Color.Red
-                                    Font: ="'Segoe UI', 'Open Sans', sans-serif"
-                                    FontWeight: ="normal"
-                                    Height: =30
-                                    PaddingLeft: =0
-                                    PaddingRight: =0
-                                    Size: =(9) * 4/3
-                                    Text: =Parent.Error
-                                    VerticalAlign: ="middle"
-                                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =Parent.Width - 48
-                                    X: =24
-                                    Y: =DataCardValue64.Y + DataCardValue64.Height
-                              - StarVisible64:
-                                  Control: ModernText
-                                  MetadataKey: FieldRequired
-                                  Properties:
-                                    Align: =Align.Center
-                                    Font: ="'Segoe UI', 'Open Sans', sans-serif"
-                                    FontWeight: ="normal"
-                                    Height: =20
-                                    PaddingLeft: =0
-                                    PaddingRight: =0
-                                    Size: =(10.5) * 4/3
-                                    Text: ="*"
-                                    VerticalAlign: =VerticalAlign.Bottom
-                                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                    Width: =30
-                                    Y: =DataCardKey65.Y
-                  - Container45:
-                      Control: GroupContainer
-                      Variant: AutoLayout
-                      Properties:
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: =50
-                        LayoutAlignItems: =LayoutAlignItems.Center
-                        LayoutDirection: =LayoutDirection.Horizontal
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        PaddingBottom: =8
-                        PaddingLeft: =8
-                        PaddingRight: =8
-                        PaddingTop: =8
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                      Children:
-                        - Container46_1:
-                            Control: GroupContainer
-                            Variant: ManualLayout
-                            Properties:
-                              DropShadow: =DropShadow.None
-                              FillPortions: =0
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              RadiusBottomLeft: =0
-                              RadiusBottomRight: =0
-                              RadiusTopLeft: =0
-                              RadiusTopRight: =0
-                              Width: =15
-                        - Button36:
-                            Control: ModernButton
-                            Properties:
-                              Height: =40
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              OnSelect: =SubmitForm(Form4)
-                              RadiusBottomLeft: =12
-                              RadiusBottomRight: =12
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
-                              Size: =18
-                              Text: =If(Form4.Mode = FormMode.Edit, "Save", "Add")
-                              Width: =150
-                        - Container46:
-                            Control: GroupContainer
-                            Variant: ManualLayout
-                            Properties:
-                              DropShadow: =DropShadow.None
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              RadiusBottomLeft: =0
-                              RadiusBottomRight: =0
-                              RadiusTopLeft: =0
-                              RadiusTopRight: =0
-                        - Button37:
-                            Control: ModernButton
-                            Properties:
-                              Height: =40
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              OnSelect: |-
-                                =ResetForm(Form4);
-                                UpdateContext({locShowUserPopUp: false})
-                              RadiusBottomLeft: =12
-                              RadiusBottomRight: =12
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
-                              Size: =18
-                              Text: ="Cancle"
-                              Width: =150
-                        - Container46_2:
-                            Control: GroupContainer
-                            Variant: ManualLayout
-                            Properties:
-                              DropShadow: =DropShadow.None
-                              FillPortions: =0
-                              Height: =34
-                              RadiusBottomLeft: =0
-                              RadiusBottomRight: =0
-                              RadiusTopLeft: =0
-                              RadiusTopRight: =0
-                              Width: =15
-                              X: =40
-                              Y: =40
+                                                      Width: =72
+                                                    Children:
+                                                      - icoUsrLEdit:
+                                                          Control: ModernIcon
+                                                          Properties:
+                                                            AccessibleLabel: ="Edit " & ThisItem.Name
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            FillPortions: =0
+                                                            Height: =32
+                                                            Icon: ="Edit"
+                                                            IconColor: =RGBA(56, 96, 178, 1)
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            OnSelect: |-
+                                                              =UpdateContext({locSelectedRecord: ThisItem, locShowUserPopUp: true, locShowDeleteConfirm_1: false});
+                                                              Set(gblFormMode, "Update");
+                                                              EditForm(Form4)
+                                                            PaddingBottom: =6
+                                                            PaddingLeft: =6
+                                                            PaddingRight: =6
+                                                            PaddingTop: =6
+                                                            RadiusBottomLeft: =6
+                                                            RadiusBottomRight: =6
+                                                            RadiusTopLeft: =6
+                                                            RadiusTopRight: =6
+                                                            Tooltip: ="Edit " & ThisItem.Name
+                                                            Width: =32
+                                                      - icoUsrLDelete:
+                                                          Control: ModernIcon
+                                                          Properties:
+                                                            AccessibleLabel: ="Hapus " & ThisItem.Name
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            FillPortions: =0
+                                                            Height: =32
+                                                            Icon: ="Delete"
+                                                            IconColor: =RGBA(196, 43, 28, 1)
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            OnSelect: '=UpdateContext({locSelectedRecord: ThisItem, locShowDeleteConfirm_1: true, locShowUserPopUp: false})'
+                                                            PaddingBottom: =6
+                                                            PaddingLeft: =6
+                                                            PaddingRight: =6
+                                                            PaddingTop: =6
+                                                            RadiusBottomLeft: =6
+                                                            RadiusBottomRight: =6
+                                                            RadiusTopLeft: =6
+                                                            RadiusTopRight: =6
+                                                            Tooltip: ="Hapus " & ThisItem.Name
+                                                            Width: =32
+                                    - txtUsrLEmpty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =380
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="Belum ada pengguna."
+                                          VerticalAlign: =VerticalAlign.Middle
+                                          Visible: =IsEmpty(dis_users)
+                                          Wrap: =false

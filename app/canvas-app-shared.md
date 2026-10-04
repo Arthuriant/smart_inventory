@@ -1,5 +1,22 @@
 # Canvas App Shared Plan
 
+## KOREKSI WAJIB (W4, setelah uji visual di Studio) - berlaku di atas semua aturan dan brief di bawah
+
+Hasil W2/W3 compile bersih tetapi tampilannya rusak di Studio: TopBar hanya ~500 px, Sidebar hanya ~220 px tinggi,
+baris galeri dan Form hitam, tombol Primary ungu (BasePaletteColor default). Aturan pengganti:
+
+1. **Warna = literal `RGBA(...)`**, jangan pakai nama `clr*` di properti control (screen maupun komponen). Nilainya tetap
+   sesuai tabel palet di bawah (clrNavy -> `RGBA(0, 18, 107, 1)`, dst.). Named formula `clr*` di App.Formulas boleh tetap
+   ada, tapi tidak dipakai.
+2. **Instance komponen di Shell**: `cmp<P>Sidebar` pakai `AlignInContainer: =AlignInContainer.Stretch` dan `Height: =640`
+   (bukan `=Parent.Height`); `cmp<P>TopBar` pakai `AlignInContainer: =AlignInContainer.Stretch` dan `Width: =912`
+   (bukan `=Parent.Width`). Ukuran instance komponen dari rumus `Parent.*` tidak diterapkan di dalam AutoLayout.
+3. **Form yang dipertahankan**: ikuti gaya form asli yang dulu tampil benar: `Width: =Parent.Width`, `FillPortions: =0`,
+   `Height` dari brief; JANGAN set `Fill`, `BorderThickness`, `AlignInContainer`, `LayoutMin*` di level Form.
+4. Baris galeri: `Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))`; galeri
+   `Fill: =RGBA(226, 230, 239, 1)`.
+
+
 ## Aesthetic Direction
 
 Refined industrial dashboard: SLB navy brand rail, cool-grey page, crisp white cards with 12px radius and a light

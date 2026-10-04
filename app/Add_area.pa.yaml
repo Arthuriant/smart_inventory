@@ -1,15 +1,15 @@
 Screens:
   Add_area:
     Properties:
-      Fill: =clrBg
-      LoadingSpinnerColor: =clrAccent
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
     Children:
       - conAreaFRoot:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
-            Fill: =clrBg
+            Fill: =RGBA(244, 246, 250, 1)
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
@@ -27,9 +27,9 @@ Screens:
                 ComponentName: Sidebar
                 Properties:
                   activemenu: ="Area"
-                  AlignInContainer: =AlignInContainer.Start
+                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
-                  Height: =Parent.Height
+                  Height: =640
                   LayoutMinHeight: =0
                   LayoutMinWidth: =224
                   Width: =224
@@ -39,7 +39,7 @@ Screens:
                 Properties:
                   AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
-                  Fill: =clrBg
+                  Fill: =RGBA(244, 246, 250, 1)
                   FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
@@ -56,20 +56,20 @@ Screens:
                       ComponentName: TopBar
                       Properties:
                         ActiveMenu: =If(gblFormMode = "Add", "Tambah Area", "Edit Area")
-                        AlignInContainer: =AlignInContainer.Start
+                        AlignInContainer: =AlignInContainer.Stretch
                         FillPortions: =0
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
                         Subtitle: ="Lengkapi data area"
-                        Width: =Parent.Width
+                        Width: =912
                   - conAreaFBody:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
                         AlignInContainer: =AlignInContainer.Stretch
                         DropShadow: =DropShadow.None
-                        Fill: =clrBg
+                        Fill: =RGBA(244, 246, 250, 1)
                         FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
@@ -91,11 +91,11 @@ Screens:
                             Variant: AutoLayout
                             Properties:
                               AlignInContainer: =AlignInContainer.Stretch
-                              BorderColor: =clrBorder
+                              BorderColor: =RGBA(226, 230, 239, 1)
                               BorderStyle: =BorderStyle.Solid
                               BorderThickness: =1
                               DropShadow: =DropShadow.Light
-                              Fill: =clrSurface
+                              Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =408
                               LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -116,7 +116,7 @@ Screens:
                                   Control: ModernText
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
-                                    Color: =clrText
+                                    Color: =RGBA(31, 41, 55, 1)
                                     FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Semibold
@@ -135,16 +135,11 @@ Screens:
                                   Variant: Modern
                                   Layout: Vertical
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     BorderColor: =RGBA(0, 18, 107, 1)
-                                    BorderThickness: =0
                                     DataSource: =dis_areas
-                                    Fill: =clrSurface
                                     FillPortions: =0
                                     Height: =340
                                     Item: =Gallery8_12.Selected
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =0
                                     NumberOfColumns: =2
                                     OnSuccess: |-
                                       =Set(
@@ -159,6 +154,7 @@ Screens:
                                       Notify("Data area berhasil ditambahkan!", NotificationType.Success);
                                       ResetForm(Self);
                                       Back()
+                                    Width: =Parent.Width
                                   Children:
                                     - Name_DataCard9:
                                         Control: TypedDataCard
@@ -578,7 +574,7 @@ Screens:
                                     AccessibleLabel: ="Kembali"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
-                                    Color: =clrText
+                                    Color: =RGBA(31, 41, 55, 1)
                                     FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     Height: =36
@@ -603,7 +599,7 @@ Screens:
                                     AccessibleLabel: ="Simpan area"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Primary
-                                    BasePaletteColor: =clrNavy
+                                    BasePaletteColor: =RGBA(0, 18, 107, 1)
                                     FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     Height: =36

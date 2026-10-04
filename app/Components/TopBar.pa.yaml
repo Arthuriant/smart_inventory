@@ -24,7 +24,7 @@ ComponentDefinitions:
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
-            Fill: =clrSurface
+            Fill: =RGBA(255, 255, 255, 1)
             Height: =TopBar.Height
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Horizontal
@@ -67,7 +67,7 @@ ComponentDefinitions:
                       Properties:
                         AccessibleLabel: =TopBar.ActiveMenu
                         AlignInContainer: =AlignInContainer.Stretch
-                        Color: =clrText
+                        Color: =RGBA(31, 41, 55, 1)
                         FillPortions: =0
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
@@ -86,7 +86,7 @@ ComponentDefinitions:
                       Properties:
                         AccessibleLabel: =TopBar.Subtitle
                         AlignInContainer: =AlignInContainer.Stretch
-                        Color: =clrTextMuted
+                        Color: =RGBA(100, 112, 130, 1)
                         FillPortions: =0
                         Font: =Font.'Segoe UI'
                         Height: =18
@@ -106,7 +106,7 @@ ComponentDefinitions:
                   AccessibleLabel: ="Tanggal hari ini"
                   Align: =Align.Right
                   AlignInContainer: =AlignInContainer.Center
-                  Color: =clrTextMuted
+                  Color: =RGBA(100, 112, 130, 1)
                   FillPortions: =0
                   Font: =Font.'Segoe UI'
                   Height: =20

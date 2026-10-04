@@ -1,15 +1,15 @@
 Screens:
   Register:
     Properties:
-      Fill: =clrBg
-      LoadingSpinnerColor: =clrAccent
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
     Children:
       - conRegRoot:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
-            Fill: =clrBg
+            Fill: =RGBA(244, 246, 250, 1)
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
@@ -28,7 +28,7 @@ Screens:
                 Properties:
                   AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
-                  Fill: =clrNavy
+                  Fill: =RGBA(0, 18, 107, 1)
                   FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
@@ -98,7 +98,7 @@ Screens:
                 Properties:
                   AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
-                  Fill: =clrBg
+                  Fill: =RGBA(244, 246, 250, 1)
                   FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
@@ -121,11 +121,11 @@ Screens:
                       Variant: AutoLayout
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        BorderColor: =clrBorder
+                        BorderColor: =RGBA(226, 230, 239, 1)
                         BorderStyle: =BorderStyle.Solid
                         BorderThickness: =1
                         DropShadow: =DropShadow.Light
-                        Fill: =clrSurface
+                        Fill: =RGBA(255, 255, 255, 1)
                         FillPortions: =0
                         Height: =466
                         LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -147,7 +147,7 @@ Screens:
                             Control: ModernText
                             Properties:
                               AlignInContainer: =AlignInContainer.Stretch
-                              Color: =clrText
+                              Color: =RGBA(31, 41, 55, 1)
                               FillPortions: =0
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
@@ -165,7 +165,7 @@ Screens:
                             Control: ModernText
                             Properties:
                               AlignInContainer: =AlignInContainer.Stretch
-                              Color: =clrTextMuted
+                              Color: =RGBA(100, 112, 130, 1)
                               FillPortions: =0
                               Font: =Font.'Segoe UI'
                               Height: =54
@@ -185,7 +185,7 @@ Screens:
                               AccessibleLabel: ="Daftar administrator"
                               AlignInContainer: =AlignInContainer.Stretch
                               BorderThickness: =0
-                              Fill: =clrBorder
+                              Fill: =RGBA(226, 230, 239, 1)
                               FillPortions: =0
                               Height: =300
                               Items: =Filter(dis_users, role = dis_role.administrator)
@@ -203,7 +203,7 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
-                                    Fill: =If(ThisItem.IsSelected, clrRowSelected, clrSurface)
+                                    Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                     Height: =Parent.TemplateHeight
                                     LayoutAlignItems: =LayoutAlignItems.Center
                                     LayoutDirection: =LayoutDirection.Horizontal
@@ -223,11 +223,11 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Administrator"
                                           AlignInContainer: =AlignInContainer.Center
-                                          Fill: =clrRowSelected
+                                          Fill: =RGBA(232, 238, 252, 1)
                                           FillPortions: =0
                                           Height: =40
                                           Icon: ="Person"
-                                          IconColor: =clrNavy
+                                          IconColor: =RGBA(0, 18, 107, 1)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           PaddingBottom: =9
@@ -263,7 +263,7 @@ Screens:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
-                                                Color: =clrText
+                                                Color: =RGBA(31, 41, 55, 1)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
@@ -281,7 +281,7 @@ Screens:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
-                                                Color: =clrTextMuted
+                                                Color: =RGBA(100, 112, 130, 1)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =18
@@ -298,7 +298,7 @@ Screens:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
-                                                Color: =clrTextMuted
+                                                Color: =RGBA(100, 112, 130, 1)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =18
@@ -319,7 +319,7 @@ Screens:
                                           FillPortions: =0
                                           Height: =36
                                           Icon: ="Mail"
-                                          IconColor: =clrAccent
+                                          IconColor: =RGBA(56, 96, 178, 1)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           OnSelect: =Launch("mailto:" & ThisItem.email)
@@ -338,7 +338,7 @@ Screens:
                             Properties:
                               Align: =Align.Center
                               AlignInContainer: =AlignInContainer.Stretch
-                              Color: =clrTextMuted
+                              Color: =RGBA(100, 112, 130, 1)
                               FillPortions: =0
                               Font: =Font.'Segoe UI'
                               Height: =300

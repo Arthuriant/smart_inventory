@@ -18,7 +18,7 @@ ComponentDefinitions:
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
-            Fill: =clrNavy
+            Fill: =RGBA(0, 18, 107, 1)
             Height: =Sidebar.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Vertical

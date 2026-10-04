@@ -21,7 +21,7 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | selesai |
 | W3      | Web      | Sonnet | Build Template, Area, Add_area                             | selesai |
 | T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | selesai |
-| W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category             | belum  |
+| W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category + fix visual W2/W3 | selesai, belum compile |
 | T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | belum  |
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | belum  |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | belum  |
@@ -120,6 +120,34 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   di Add_area: compile). Sisa diagnostik: 2 warning baseline `locSelectedRecord` Blank() di scr_user (Button30_4, Button33_3),
   hilang setelah W4/T4. Tidak ada drift dari Studio yang dicek di T3; tidak ada file yang diubah selain dokumen status.
   Belum dicek visual di Studio (layout Area galeri/dropdown cascade, Add_area form).
+- [W4, 2026-10-05] LAPORAN USER (screenshot Studio): semua tabel hitam, Area dan Add_area tidak jalan baik. Compile T2/T3
+  memang bersih, tapi tampilan belum pernah dicek. Diagnosis dari screenshot:
+  1. TopBar hanya ~500 px lebar dan Sidebar ~220 px tinggi (menu hilang): ukuran instance komponen dari `=Parent.Width`
+     / `=Parent.Height` tidak diterapkan di dalam AutoLayout, jadi menyusut ke ukuran minimum isinya.
+  2. Baris galeri dan Form hitam, tombol Primary ungu (BasePaletteColor default): nama warna `clr*` dari App.Formulas
+     tidak terpakai di sebagian properti (di kartu terpakai, jadi tidak konsisten).
+  3. Form5_1 tidak lagi memakai ukuran gaya form asli (`Width: =Parent.Width`, tanpa Fill).
+  Perbaikan (aturan baru ditulis di bagian paling atas app/canvas-app-shared.md, berlaku untuk W5-W7):
+  - Semua warna di screen DAN komponen diganti literal `RGBA(...)` (nilai palet yang sama). Juga lebih ringan: tidak ada
+    evaluasi named formula per baris galeri.
+  - cmp*Sidebar: `AlignInContainer: Stretch`, `Height: =640`; cmp*TopBar: `AlignInContainer: Stretch`, `Width: =912`.
+  - Form level: `Width: =Parent.Width`, `FillPortions: =0`, Height dari brief; tanpa Fill/BorderThickness/AlignInContainer.
+  Diterapkan ke file yang sudah dibangun: scr_dashboard, Log In, Register, Template, Area, Add_area, Components/Sidebar,
+  Components/TopBar (rumus logika tidak berubah; perubahan T2 `CountIf` tetap).
+  PENTING untuk T4: ini perbaikan berdasarkan screenshot, BELUM terverifikasi. Setelah compile, buka di Studio dan cek
+  visual: (a) Sidebar penuh setinggi layar dengan 9 menu, (b) TopBar selebar kolom kanan, (c) baris galeri putih dengan
+  garis pemisah abu (Register, Area, Dashboard, User, Category), (d) tombol Primary navy, (e) Add_area: form tampil
+  dengan 5 field, (f) toolbar Area: label kecil di atas tiap dropdown/kotak cari (sebelumnya kotak abu tanpa label).
+  Kalau masih ada yang rusak, catat nama control + properti yang salah di sini supaya web bisa memperbaikinya.
+- [W4] Ditulis web, BELUM pernah di-compile: app/scr_user.pa.yaml, app/scr_category.pa.yaml, app/scr_frm_category.pa.yaml.
+  - scr_user: bug diperbaiki (Edit/Delete simpan `locSelectedRecord: ThisItem`, `Form4.Item: =locSelectedRecord`,
+    hapus `Remove(dis_users, target)` + receipt). Popup lama jadi kartu editor inline di atas list. 2 warning baseline
+    `Blank()` (Button30_4, Button33_3) harusnya hilang. Button36/Button37 namanya dipertahankan.
+  - scr_category: hapus lewat strip konfirmasi + receipt; gal_cat_list.Items disalin (token identik).
+  - scr_frm_category: form dalam kartu, tombol di bawah; OnSuccess = receipt + statement asli.
+  - Subtree data card Form4 dan frm_catFrm_category disalin apa adanya; yang berubah hanya Width card (dicek dengan diff).
+  - Self-QA 9 screen yang sudah dibangun: YAML parse, nama control unik antar screen, semua properti diawali `=`,
+    tidak ada `clr*` dan tidak ada CR.
 
 ---
 
