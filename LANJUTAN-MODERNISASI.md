@@ -256,6 +256,17 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   galDashRecent (gallery Fill, TemplatePadding 1, baris GroupContainer AutoLayout Width/Height Template*), leluhur juga
   sama. Penyebab tabel hitam dan teks dropdown kosong TIDAK bisa ditentukan dari YAML; perlu observasi langsung di Studio.
   JANGAN menebak perbaikan lagi di sesi web sebelum data itu ada.
+- [T5c-akar masalah, 2026-10-05] TEMUAN USER: tabel hitam juga di Preview; Fill baris tampil hitam padahal rumusnya
+  benar. Hilang setelah rumus Fill baris DIHAPUS lalu DIKETIK ULANG di Studio (galeri Transaksi lalu juga mengambil
+  data). Dropdown form: baris bisa diklik tapi tidak memilih apa-apa; beres setelah klik "Depends on" lalu menghapusnya.
+  KESIMPULAN: bukan kesalahan YAML. Control yang dibuat lewat compile MCP kadang tidak di-"bind" benar oleh Studio
+  sampai propertinya disentuh manual. Perbaikan = sentuh manual di Studio, lalu File > Save:
+  - Fill baris galeri: conAreaLRow, conRegRow, conUsrLRow, conCatLRow, conItmLRow, conFindRow, conDashRecentRow,
+    conDashLowRow (hapus rumus Fill, tempel/ketik ulang rumus yang sama).
+  - Dropdown (Depends on): DataCardValue56_AreaF, DataCardValue48_AreaF, DataCardValue57_AreaF, DataCardValue64_UsrL,
+    DataCardValue47_ItmF.
+  Rumus yang diketik ulang sama persis, jadi repo tidak berubah. Setelah setiap compile T berikutnya, cek lagi gejala
+  ini di screen yang baru di-compile. Sesi web JANGAN mengubah struktur YAML untuk gejala ini.
 
 ---
 
