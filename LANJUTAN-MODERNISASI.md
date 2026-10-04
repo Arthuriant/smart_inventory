@@ -23,8 +23,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | selesai |
 | W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category + fix visual W2/W3 | selesai |
 | T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | selesai |
-| W4b     | Web      | Opus   | Perbaikan: rename control lama, nfLowStock, KPI dashboard  | selesai, belum compile |
-| T4b     | Terminal | Sonnet | Pull, compile + CEK VISUAL W2-W4b di Studio, push          | belum  |
+| W4b     | Web      | Opus   | Perbaikan: rename control lama, nfLowStock, KPI dashboard  | selesai |
+| T4b     | Terminal | Sonnet | Pull, compile + CEK VISUAL W2-W4b di Studio, push          | selesai (compile; visual belum dicek) |
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | belum  |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | belum  |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
@@ -179,6 +179,7 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   Studio: pilih btnDashNewTrx, tab Advanced, cek apakah properti BasePaletteColor ada dan nilainya apa.
   T4b: compile, lalu cek visual Area, Add_area (form 5 field, bisa simpan), User (edit/hapus), Category, Form Category,
   Dashboard (KPI stok minimum + Stok Menipis tanpa error, tanpa scrollbar di KPI).
+- [T4b, 2026-10-05] Compile app/ (20 file) setelah W4b: 0 error, 0 warning. Rename 76 control, named formula nfLowStock (`AddColumns` tanpa kutip diterima compiler) dan perubahan KPI dashboard bersih tanpa perbaikan; tidak ada file app/ yang diubah. Compile tidak membuktikan tampilan: BELUM dicek visual di Studio (Area, Add_area, User, Category, Form Category, KPI Dashboard tanpa scrollbar/error). Tombol Primary ungu (BasePaletteColor) masih BELUM TERSELESAIKAN: perlu data dari Studio (btnDashNewTrx, tab Advanced). Tidak ada drift dari Studio yang dicek.
 
 ---
 
