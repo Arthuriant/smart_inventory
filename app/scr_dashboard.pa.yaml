@@ -497,7 +497,7 @@ Screens:
                                     LayoutMinWidth: =168
                                     OnSelect: |-
                                       =Clear(colTempDetails);
-                                      NewForm(Form5);
+                                      NewForm(frmTrxF);
                                       Navigate(scr_frm_Transaction)
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
