@@ -15,6 +15,17 @@ baris galeri dan Form hitam, tombol Primary ungu (BasePaletteColor default). Atu
    `Height` dari brief; JANGAN set `Fill`, `BorderThickness`, `AlignInContainer`, `LayoutMin*` di level Form.
 4. Baris galeri: `Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))`; galeri
    `Fill: =RGBA(226, 230, 239, 1)`.
+5. **JANGAN pertahankan nama control lama** (koreksi W4b; menggantikan semua kalimat "keep name" / "(kept)" di brief).
+   Control yang namanya dipakai ulang di struktur baru tampil dengan properti default di Studio (form "isn't connected
+   to any data", galeri hitam ukuran default, dropdown/tombol kotak polos). Beri nama baru ber-prefix: form -> `frm<P>`,
+   galeri -> `gal<P>...`, input -> `inp<P>...` / `dd<P>...` / `cmb<P>...` / `num<P>...`, tombol -> `btn<P>...`. Data card dan
+   SEMUA anak card di dalam form: nama lama + `_<P>` (mis. `DataCardValue58_AreaF`), dan ganti juga referensinya di
+   dalam form (Update, Y, dst.). Logika/rumus tetap sama, hanya namanya. Update semua referensi lintas screen di file
+   yang sudah dibangun (mis. W6: `Form5` -> `frmTrxF` berarti `btnDashNewTrx.OnSelect` di scr_dashboard ikut diganti;
+   W5: `Form5_3`/`Gallery8_6` dipakai scr_item + scr_frm_item).
+6. **Filter Dataverse**: sisi kanan perbandingan harus konstanta. `qty < dis_item_v2.min_qty` di Filter atas tabel
+   ditolak server; pakai named formula `nfLowStock` (App.Formulas, dihitung lokal dengan AddColumns) atau bandingkan per
+   baris (`ThisItem.qty < ThisItem.dis_item_v2.min_qty` di galeri boleh).
 
 
 ## Aesthetic Direction

@@ -418,7 +418,7 @@ Screens:
                                                 Size: =11
                                                 Text: ="Cari kategori"
                                                 Wrap: =false
-                                          - inp_cat_search:
+                                          - inpCatLSearch:
                                               Control: ModernTextInput
                                               Properties:
                                                 AccessibleLabel: ="Cari kategori"
@@ -437,7 +437,7 @@ Screens:
                                                 Size: =13
                                                 TriggerOutput: =TriggerOutput.Delayed
                                                 Type: =TextInputType.Search
-                                    - btn_cat_add:
+                                    - btnCatLAdd:
                                         Control: ModernButton
                                         Properties:
                                           AccessibleLabel: ="Tambah Kategori"
@@ -452,7 +452,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =168
                                           OnSelect: |-
-                                            =NewForm(frm_catFrm_category);
+                                            =NewForm(frmCatF);
                                             Navigate(scr_frm_category);
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
@@ -594,7 +594,7 @@ Screens:
                                                 Text: ="AKSI"
                                                 Width: =72
                                                 Wrap: =false
-                                    - gal_cat_list:
+                                    - galCatL:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
@@ -607,7 +607,7 @@ Screens:
                                           Items: |-
                                             =Search(
                                                 dis_category_items,
-                                                inp_cat_search.Text,
+                                                inpCatLSearch.Text,
                                                 name,  
                                                 code,
                                                 description 
@@ -621,7 +621,7 @@ Screens:
                                           Visible: |-
                                             =!IsEmpty(Search(
                                                 dis_category_items,
-                                                inp_cat_search.Text,
+                                                inpCatLSearch.Text,
                                                 name,  
                                                 code,
                                                 description 
@@ -750,7 +750,7 @@ Screens:
                                                             LayoutMinHeight: =0
                                                             LayoutMinWidth: =0
                                                             OnSelect: |-
-                                                              =EditForm(frm_catFrm_category);
+                                                              =EditForm(frmCatF);
                                                               Navigate(scr_frm_category)
                                                             PaddingBottom: =6
                                                             PaddingLeft: =6
@@ -805,7 +805,7 @@ Screens:
                                           Visible: |-
                                             =IsEmpty(Search(
                                                 dis_category_items,
-                                                inp_cat_search.Text,
+                                                inpCatLSearch.Text,
                                                 name,  
                                                 code,
                                                 description 

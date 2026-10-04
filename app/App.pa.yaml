@@ -3,6 +3,7 @@ App:
     BackEnabled: =false
     Formulas: |-
       =nfMe = LookUp(dis_users, email = User().Email);
+      nfLowStock = Filter(AddColumns(dis_stocks, MinQty, dis_item_v2.min_qty), qty < MinQty);
       clrNavy = RGBA(0, 18, 107, 1);
       clrAccent = RGBA(56, 96, 178, 1);
       clrBg = RGBA(244, 246, 250, 1);

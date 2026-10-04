@@ -55,7 +55,7 @@ Screens:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
-                        ActiveMenu: =If(frm_catFrm_category.Mode = FormMode.Edit, "Edit Kategori", "Tambah Kategori")
+                        ActiveMenu: =If(frmCatF.Mode = FormMode.Edit, "Edit Kategori", "Tambah Kategori")
                         AlignInContainer: =AlignInContainer.Stretch
                         FillPortions: =0
                         Height: =64
@@ -128,9 +128,9 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: =If(frm_catFrm_category.Mode = FormMode.Edit, "Edit Kategori - " & gal_cat_list.Selected.name, "Kategori Baru")
+                                    Text: =If(frmCatF.Mode = FormMode.Edit, "Edit Kategori - " & galCatL.Selected.name, "Kategori Baru")
                                     Wrap: =false
-                              - frm_catFrm_category:
+                              - frmCatF:
                                   Control: Form
                                   Variant: Modern
                                   Layout: Vertical
@@ -139,7 +139,7 @@ Screens:
                                     DataSource: =dis_category_items
                                     FillPortions: =0
                                     Height: =260
-                                    Item: =gal_cat_list.Selected
+                                    Item: =galCatL.Selected
                                     NumberOfColumns: =2
                                     OnSuccess: |-
                                       =Set(
@@ -147,15 +147,15 @@ Screens:
                                           {
                                               Screen: "Category",
                                               Action: "Disimpan",
-                                              Title: frm_catFrm_category.LastSubmit.name,
-                                              Detail: "Kode " & frm_catFrm_category.LastSubmit.code & " | Deskripsi " & Coalesce(frm_catFrm_category.LastSubmit.description, "-")
+                                              Title: frmCatF.LastSubmit.name,
+                                              Detail: "Kode " & frmCatF.LastSubmit.code & " | Deskripsi " & Coalesce(frmCatF.LastSubmit.description, "-")
                                           }
                                       );
                                       Notify("Kategori berhasil disimpan!", NotificationType.Success);
                                       Back();
                                     Width: =Parent.Width
                                   Children:
-                                    - dc_catFrm_name:
+                                    - dc_catFrm_name_CatF:
                                         Control: TypedDataCard
                                         Variant: ModernTextualEdit
                                         Properties:
@@ -165,12 +165,12 @@ Screens:
                                           DisplayName: =DataSourceInfo([@dis_category_items],DataSourceInfo.DisplayName,'cr8a3_name')
                                           MaxLength: =DataSourceInfo([@dis_category_items], DataSourceInfo.MaxLength, 'cr8a3_name')
                                           Required: =true
-                                          Update: =inp_catFrm_name.Text
+                                          Update: =inp_catFrm_name_CatF.Text
                                           Width: =Parent.Width / 2
                                           X: =0
                                           Y: =0
                                         Children:
-                                          - txt_catFrm_nameLabel:
+                                          - txt_catFrm_nameLabel_CatF:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -184,7 +184,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - inp_catFrm_name:
+                                          - inp_catFrm_name_CatF:
                                               Control: ModernTextInput
                                               MetadataKey: FieldValue
                                               Properties:
@@ -198,8 +198,8 @@ Screens:
                                                 ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =txt_catFrm_nameLabel.Y + txt_catFrm_nameLabel.Height + 4
-                                          - txt_catFrm_nameError:
+                                                Y: =txt_catFrm_nameLabel_CatF.Y + txt_catFrm_nameLabel_CatF.Height + 4
+                                          - txt_catFrm_nameError_CatF:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -209,21 +209,21 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =inp_catFrm_name.Y + inp_catFrm_name.Height
-                                          - txt_catFrm_nameStar:
+                                                Y: =inp_catFrm_name_CatF.Y + inp_catFrm_name_CatF.Height
+                                          - txt_catFrm_nameStar_CatF:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
-                                                Height: =txt_catFrm_nameLabel.Height
+                                                Height: =txt_catFrm_nameLabel_CatF.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =txt_catFrm_nameLabel.Y
-                                    - dc_catFrm_code:
+                                                Y: =txt_catFrm_nameLabel_CatF.Y
+                                    - dc_catFrm_code_CatF:
                                         Control: TypedDataCard
                                         Variant: ModernTextualEdit
                                         Properties:
@@ -233,12 +233,12 @@ Screens:
                                           DisplayName: =DataSourceInfo([@dis_category_items],DataSourceInfo.DisplayName,'cr8a3_code')
                                           MaxLength: =DataSourceInfo([@dis_category_items], DataSourceInfo.MaxLength, 'cr8a3_code')
                                           Required: =true
-                                          Update: =inp_catFrm_code.Text
+                                          Update: =inp_catFrm_code_CatF.Text
                                           Width: =Parent.Width / 2
                                           X: =1
                                           Y: =0
                                         Children:
-                                          - txt_catFrm_codeLabel:
+                                          - txt_catFrm_codeLabel_CatF:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -252,7 +252,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - inp_catFrm_code:
+                                          - inp_catFrm_code_CatF:
                                               Control: ModernTextInput
                                               MetadataKey: FieldValue
                                               Properties:
@@ -266,8 +266,8 @@ Screens:
                                                 ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =txt_catFrm_codeLabel.Y + txt_catFrm_codeLabel.Height + 4
-                                          - txt_catFrm_codeError:
+                                                Y: =txt_catFrm_codeLabel_CatF.Y + txt_catFrm_codeLabel_CatF.Height + 4
+                                          - txt_catFrm_codeError_CatF:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -277,21 +277,21 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =inp_catFrm_code.Y + inp_catFrm_code.Height
-                                          - txt_catFrm_codeStar:
+                                                Y: =inp_catFrm_code_CatF.Y + inp_catFrm_code_CatF.Height
+                                          - txt_catFrm_codeStar_CatF:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
-                                                Height: =txt_catFrm_codeLabel.Height
+                                                Height: =txt_catFrm_codeLabel_CatF.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =txt_catFrm_codeLabel.Y
-                                    - dc_catFrm_desc:
+                                                Y: =txt_catFrm_codeLabel_CatF.Y
+                                    - dc_catFrm_desc_CatF:
                                         Control: TypedDataCard
                                         Variant: ModernTextualMultilineEdit
                                         IsLocked: true
@@ -302,12 +302,12 @@ Screens:
                                           DisplayName: =DataSourceInfo([@dis_category_items],DataSourceInfo.DisplayName,'cr8a3_description')
                                           MaxLength: =DataSourceInfo([@dis_category_items], DataSourceInfo.MaxLength, 'cr8a3_description')
                                           Required: =false
-                                          Update: =inp_catFrm_desc.Text
+                                          Update: =inp_catFrm_desc_CatF.Text
                                           Width: =Parent.Width
                                           X: =0
                                           Y: =1
                                         Children:
-                                          - txt_catFrm_descLabel:
+                                          - txt_catFrm_descLabel_CatF:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -321,7 +321,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - inp_catFrm_desc:
+                                          - inp_catFrm_desc_CatF:
                                               Control: ModernTextInput
                                               MetadataKey: FieldValue
                                               Properties:
@@ -336,8 +336,8 @@ Screens:
                                                 ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =txt_catFrm_descLabel.Y + txt_catFrm_descLabel.Height + 4
-                                          - txt_catFrm_descError:
+                                                Y: =txt_catFrm_descLabel_CatF.Y + txt_catFrm_descLabel_CatF.Height + 4
+                                          - txt_catFrm_descError_CatF:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -347,20 +347,20 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =inp_catFrm_desc.Y + inp_catFrm_desc.Height
-                                          - txt_catFrm_descStar:
+                                                Y: =inp_catFrm_desc_CatF.Y + inp_catFrm_desc_CatF.Height
+                                          - txt_catFrm_descStar_CatF:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
-                                                Height: =txt_catFrm_descLabel.Height
+                                                Height: =txt_catFrm_descLabel_CatF.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =txt_catFrm_descLabel.Y
+                                                Y: =txt_catFrm_descLabel_CatF.Y
                         - conCatFActions:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -381,7 +381,7 @@ Screens:
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
                             Children:
-                              - btn_catFrm_back:
+                              - btnCatFBack:
                                   Control: ModernButton
                                   Properties:
                                     AccessibleLabel: ="Kembali"
@@ -396,7 +396,7 @@ Screens:
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =120
                                     OnSelect: |-
-                                      =ResetForm(frm_catFrm_category);
+                                      =ResetForm(frmCatF);
                                       Back();
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
@@ -405,7 +405,7 @@ Screens:
                                     Size: =13
                                     Text: ="Kembali"
                                     Width: =120
-                              - btn_catFrm_submit:
+                              - btnCatFSave:
                                   Control: ModernButton
                                   Properties:
                                     AccessibleLabel: ="Simpan kategori"
@@ -419,11 +419,11 @@ Screens:
                                     Layout: =ButtonLayout.IconBefore
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =168
-                                    OnSelect: =SubmitForm(frm_catFrm_category)
+                                    OnSelect: =SubmitForm(frmCatF)
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: =If(frm_catFrm_category.Mode = FormMode.Edit, "Simpan", "Tambah Kategori")
+                                    Text: =If(frmCatF.Mode = FormMode.Edit, "Simpan", "Tambah Kategori")
                                     Width: =168

@@ -121,10 +121,10 @@ Screens:
                                     LayoutGap: =14
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
-                                    PaddingBottom: =16
+                                    PaddingBottom: =12
                                     PaddingLeft: =16
                                     PaddingRight: =16
-                                    PaddingTop: =16
+                                    PaddingTop: =12
                                     RadiusBottomLeft: =12
                                     RadiusBottomRight: =12
                                     RadiusTopLeft: =12
@@ -159,7 +159,7 @@ Screens:
                                           DropShadow: =DropShadow.None
                                           Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =1
-                                          Height: =72
+                                          Height: =76
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =2
@@ -214,7 +214,7 @@ Screens:
                                                 Color: =RGBA(100, 112, 130, 1)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
-                                                Height: =14
+                                                Height: =16
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 PaddingBottom: =0
@@ -240,10 +240,10 @@ Screens:
                                     LayoutGap: =14
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
-                                    PaddingBottom: =16
+                                    PaddingBottom: =12
                                     PaddingLeft: =16
                                     PaddingRight: =16
-                                    PaddingTop: =16
+                                    PaddingTop: =12
                                     RadiusBottomLeft: =12
                                     RadiusBottomRight: =12
                                     RadiusTopLeft: =12
@@ -278,7 +278,7 @@ Screens:
                                           DropShadow: =DropShadow.None
                                           Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =1
-                                          Height: =72
+                                          Height: =76
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =2
@@ -310,7 +310,7 @@ Screens:
                                           - txtDashKpiLowVal:
                                               Control: ModernText
                                               Properties:
-                                                AccessibleLabel: ="Stok di bawah minimum " & Text(CountRows(Filter(dis_stocks, qty < dis_item_v2.min_qty)))
+                                                AccessibleLabel: ="Stok di bawah minimum " & Text(CountRows(nfLowStock))
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(31, 41, 55, 1)
                                                 FillPortions: =0
@@ -324,7 +324,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =28
-                                                Text: =Text(CountRows(Filter(dis_stocks, qty < dis_item_v2.min_qty)))
+                                                Text: =Text(CountRows(nfLowStock))
                                                 Wrap: =false
                                           - txtDashKpiLowCap:
                                               Control: ModernText
@@ -333,7 +333,7 @@ Screens:
                                                 Color: =RGBA(100, 112, 130, 1)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
-                                                Height: =14
+                                                Height: =16
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 PaddingBottom: =0
@@ -359,10 +359,10 @@ Screens:
                                     LayoutGap: =14
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
-                                    PaddingBottom: =16
+                                    PaddingBottom: =12
                                     PaddingLeft: =16
                                     PaddingRight: =16
-                                    PaddingTop: =16
+                                    PaddingTop: =12
                                     RadiusBottomLeft: =12
                                     RadiusBottomRight: =12
                                     RadiusTopLeft: =12
@@ -397,7 +397,7 @@ Screens:
                                           DropShadow: =DropShadow.None
                                           Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =1
-                                          Height: =72
+                                          Height: =76
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =2
@@ -452,7 +452,7 @@ Screens:
                                                 Color: =RGBA(100, 112, 130, 1)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
-                                                Height: =14
+                                                Height: =16
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 PaddingBottom: =0
@@ -954,7 +954,7 @@ Screens:
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =288
-                                          Items: =FirstN(Sort(Filter(dis_stocks, qty < dis_item_v2.min_qty), qty, SortOrder.Ascending), 10)
+                                          Items: =FirstN(Sort(nfLowStock, qty, SortOrder.Ascending), 10)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           Selectable: =false
@@ -962,7 +962,7 @@ Screens:
                                           TabIndex: =0
                                           TemplatePadding: =1
                                           TemplateSize: =56
-                                          Visible: =!IsEmpty(Filter(dis_stocks, qty < dis_item_v2.min_qty))
+                                          Visible: =!IsEmpty(nfLowStock)
                                         Children:
                                           - conDashLowRow:
                                               Control: GroupContainer
@@ -1073,5 +1073,5 @@ Screens:
                                           Size: =13
                                           Text: ="Semua stok di atas minimum."
                                           VerticalAlign: =VerticalAlign.Middle
-                                          Visible: =IsEmpty(Filter(dis_stocks, qty < dis_item_v2.min_qty))
+                                          Visible: =IsEmpty(nfLowStock)
                                           Wrap: =false

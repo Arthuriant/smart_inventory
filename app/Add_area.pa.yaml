@@ -128,9 +128,9 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: =If(gblFormMode = "Add", "Data Area Baru", "Edit Area - " & Gallery8_12.Selected.Name)
+                                    Text: =If(gblFormMode = "Add", "Data Area Baru", "Edit Area - " & galAreaL.Selected.Name)
                                     Wrap: =false
-                              - Form5_1:
+                              - frmAreaF:
                                   Control: Form
                                   Variant: Modern
                                   Layout: Vertical
@@ -139,7 +139,7 @@ Screens:
                                     DataSource: =dis_areas
                                     FillPortions: =0
                                     Height: =340
-                                    Item: =Gallery8_12.Selected
+                                    Item: =galAreaL.Selected
                                     NumberOfColumns: =2
                                     OnSuccess: |-
                                       =Set(
@@ -147,8 +147,8 @@ Screens:
                                           {
                                               Screen: "Area",
                                               Action: "Disimpan",
-                                              Title: Form5_1.LastSubmit.Name,
-                                              Detail: "Geounit " & Coalesce(Form5_1.LastSubmit.elv_geounit.elv_name_short, "-") & " | Lokasi " & Coalesce(Form5_1.LastSubmit.'elv_location (cr8a3_elv_location)'.Name, "-") & " | Business Line " & Coalesce(Form5_1.LastSubmit.elv_dis_subblid.Name, "-") & " | Detail " & Coalesce(Form5_1.LastSubmit.elv_detail, "-")
+                                              Title: frmAreaF.LastSubmit.Name,
+                                              Detail: "Geounit " & Coalesce(frmAreaF.LastSubmit.elv_geounit.elv_name_short, "-") & " | Lokasi " & Coalesce(frmAreaF.LastSubmit.'elv_location (cr8a3_elv_location)'.Name, "-") & " | Business Line " & Coalesce(frmAreaF.LastSubmit.elv_dis_subblid.Name, "-") & " | Detail " & Coalesce(frmAreaF.LastSubmit.elv_detail, "-")
                                           }
                                       );
                                       Notify("Data area berhasil ditambahkan!", NotificationType.Success);
@@ -156,7 +156,7 @@ Screens:
                                       Back()
                                     Width: =Parent.Width
                                   Children:
-                                    - Name_DataCard9:
+                                    - Name_DataCard9_AreaF:
                                         Control: TypedDataCard
                                         Variant: ModernTextualEdit
                                         Properties:
@@ -166,12 +166,12 @@ Screens:
                                           DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,Name)
                                           MaxLength: =DataSourceInfo([@dis_areas], DataSourceInfo.MaxLength, Name)
                                           Required: =true
-                                          Update: =DataCardValue58.Text
+                                          Update: =DataCardValue58_AreaF.Text
                                           Width: =Parent.Width / 2
                                           X: =0
                                           Y: =0
                                         Children:
-                                          - DataCardKey59:
+                                          - DataCardKey59_AreaF:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -185,7 +185,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue58:
+                                          - DataCardValue58_AreaF:
                                               Control: ModernTextInput
                                               MetadataKey: FieldValue
                                               Properties:
@@ -199,8 +199,8 @@ Screens:
                                                 ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey59.Y + DataCardKey59.Height + 4
-                                          - ErrorMessage57:
+                                                Y: =DataCardKey59_AreaF.Y + DataCardKey59_AreaF.Height + 4
+                                          - ErrorMessage57_AreaF:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -210,21 +210,21 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue58.Y + DataCardValue58.Height
-                                          - StarVisible58:
+                                                Y: =DataCardValue58_AreaF.Y + DataCardValue58_AreaF.Height
+                                          - StarVisible58_AreaF:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
-                                                Height: =DataCardKey59.Height
+                                                Height: =DataCardKey59_AreaF.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey59.Y
-                                    - elv_geounit_DataCard1:
+                                                Y: =DataCardKey59_AreaF.Y
+                                    - elv_geounit_DataCard1_AreaF:
                                         Control: TypedDataCard
                                         Variant: PcfCoreComboBoxEditCard
                                         Properties:
@@ -233,12 +233,12 @@ Screens:
                                           Default: =ThisItem.elv_geounit
                                           DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,elv_geounit)
                                           Required: =false
-                                          Update: =DataCardValue56.Selected
+                                          Update: =DataCardValue56_AreaF.Selected
                                           Width: =Parent.Width / 2
                                           X: =1
                                           Y: =0
                                         Children:
-                                          - DataCardKey57:
+                                          - DataCardKey57_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: FieldName
                                               Properties:
@@ -251,7 +251,7 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue56:
+                                          - DataCardValue56_AreaF:
                                               Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
@@ -278,8 +278,8 @@ Screens:
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey57.Y + DataCardKey57.Height + 4
-                                          - ErrorMessage55:
+                                                Y: =DataCardKey57_AreaF.Y + DataCardKey57_AreaF.Height + 4
+                                          - ErrorMessage55_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -292,8 +292,8 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue56.Y + DataCardValue56.Height
-                                          - StarVisible56:
+                                                Y: =DataCardValue56_AreaF.Y + DataCardValue56_AreaF.Height
+                                          - StarVisible56_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: FieldRequired
                                               Properties:
@@ -303,8 +303,8 @@ Screens:
                                                 VerticalAlignment: =VerticalAlign.Bottom
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey57.Y
-                                    - elv_location_DataCard1:
+                                                Y: =DataCardKey57_AreaF.Y
+                                    - elv_location_DataCard1_AreaF:
                                         Control: TypedDataCard
                                         Variant: PcfCoreComboBoxEditCard
                                         Properties:
@@ -313,12 +313,12 @@ Screens:
                                           Default: =ThisItem.location
                                           DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,'elv_location (cr8a3_elv_location)')
                                           Required: =false
-                                          Update: =DataCardValue48.Selected
+                                          Update: =DataCardValue48_AreaF.Selected
                                           Width: =Parent.Width / 2
                                           X: =0
                                           Y: =1
                                         Children:
-                                          - DataCardKey49:
+                                          - DataCardKey49_AreaF:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -335,7 +335,7 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue48:
+                                          - DataCardValue48_AreaF:
                                               Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
@@ -362,8 +362,8 @@ Screens:
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey49.Y + DataCardKey49.Height + 4
-                                          - ErrorMessage54:
+                                                Y: =DataCardKey49_AreaF.Y + DataCardKey49_AreaF.Height + 4
+                                          - ErrorMessage54_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -376,8 +376,8 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue48.Y + DataCardValue48.Height
-                                          - StarVisible55:
+                                                Y: =DataCardValue48_AreaF.Y + DataCardValue48_AreaF.Height
+                                          - StarVisible55_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: FieldRequired
                                               Properties:
@@ -387,8 +387,8 @@ Screens:
                                                 VerticalAlignment: =VerticalAlign.Bottom
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey49.Y
-                                    - elv_dis_subblid_DataCard1:
+                                                Y: =DataCardKey49_AreaF.Y
+                                    - elv_dis_subblid_DataCard1_AreaF:
                                         Control: TypedDataCard
                                         Variant: PcfCoreComboBoxEditCard
                                         Properties:
@@ -397,12 +397,12 @@ Screens:
                                           Default: =ThisItem.elv_dis_subblid
                                           DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,elv_dis_subblid)
                                           Required: =false
-                                          Update: =DataCardValue57.Selected
+                                          Update: =DataCardValue57_AreaF.Selected
                                           Width: =Parent.Width / 2
                                           X: =1
                                           Y: =1
                                         Children:
-                                          - DataCardKey58:
+                                          - DataCardKey58_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: FieldName
                                               Properties:
@@ -415,7 +415,7 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue57:
+                                          - DataCardValue57_AreaF:
                                               Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
@@ -442,8 +442,8 @@ Screens:
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey58.Y + DataCardKey58.Height + 4
-                                          - ErrorMessage56:
+                                                Y: =DataCardKey58_AreaF.Y + DataCardKey58_AreaF.Height + 4
+                                          - ErrorMessage56_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -456,8 +456,8 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue57.Y + DataCardValue57.Height
-                                          - StarVisible57:
+                                                Y: =DataCardValue57_AreaF.Y + DataCardValue57_AreaF.Height
+                                          - StarVisible57_AreaF:
                                               Control: FluentV8/Label
                                               MetadataKey: FieldRequired
                                               Properties:
@@ -467,8 +467,8 @@ Screens:
                                                 VerticalAlignment: =VerticalAlign.Bottom
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey58.Y
-                                    - elv_detail_DataCard2:
+                                                Y: =DataCardKey58_AreaF.Y
+                                    - elv_detail_DataCard2_AreaF:
                                         Control: TypedDataCard
                                         Variant: ModernTextualMultilineEdit
                                         Properties:
@@ -478,13 +478,13 @@ Screens:
                                           DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,elv_detail)
                                           MaxLength: =DataSourceInfo([@dis_areas], DataSourceInfo.MaxLength, elv_detail)
                                           Required: =false
-                                          Update: =DataCardValue59.Text
+                                          Update: =DataCardValue59_AreaF.Text
                                           Width: =Parent.Width
                                           WidthFit: =true
                                           X: =0
                                           Y: =2
                                         Children:
-                                          - DataCardKey60:
+                                          - DataCardKey60_AreaF:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -500,7 +500,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue59:
+                                          - DataCardValue59_AreaF:
                                               Control: ModernTextInput
                                               MetadataKey: FieldValue
                                               Properties:
@@ -521,8 +521,8 @@ Screens:
                                                 ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey60.Y + DataCardKey60.Height + 4
-                                          - ErrorMessage59:
+                                                Y: =DataCardKey60_AreaF.Y + DataCardKey60_AreaF.Height + 4
+                                          - ErrorMessage59_AreaF:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -533,21 +533,21 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue59.Y + DataCardValue59.Height
-                                          - StarVisible60:
+                                                Y: =DataCardValue59_AreaF.Y + DataCardValue59_AreaF.Height
+                                          - StarVisible60_AreaF:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
                                                 ContentLanguage: ="Detail"
-                                                Height: =DataCardKey60.Height
+                                                Height: =DataCardKey60_AreaF.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey60.Y
+                                                Y: =DataCardKey60_AreaF.Y
                         - conAreaFActions:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -583,7 +583,7 @@ Screens:
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =120
                                     OnSelect: |-
-                                      =ResetForm(Form5_1);
+                                      =ResetForm(frmAreaF);
                                       Clear(colTempDetails);
                                       Back()
                                     RadiusBottomLeft: =8
@@ -607,7 +607,7 @@ Screens:
                                     Layout: =ButtonLayout.IconBefore
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =160
-                                    OnSelect: =SubmitForm(Form5_1)
+                                    OnSelect: =SubmitForm(frmAreaF)
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8

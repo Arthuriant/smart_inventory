@@ -255,7 +255,7 @@ Screens:
                                     Size: =16
                                     Text: ="Edit Pengguna - " & locSelectedRecord.Name
                                     Wrap: =false
-                              - Form4:
+                              - frmUsrL:
                                   Control: Form
                                   Variant: Modern
                                   Layout: Vertical
@@ -272,8 +272,8 @@ Screens:
                                           {
                                               Screen: "User",
                                               Action: "Disimpan",
-                                              Title: Form4.LastSubmit.Name,
-                                              Detail: "Email " & Form4.LastSubmit.email & " | Role " & Text(Form4.LastSubmit.role) & " | Area " & Coalesce(Form4.LastSubmit.Assigned_area.Name, "-")
+                                              Title: frmUsrL.LastSubmit.Name,
+                                              Detail: "Email " & frmUsrL.LastSubmit.email & " | Role " & Text(frmUsrL.LastSubmit.role) & " | Area " & Coalesce(frmUsrL.LastSubmit.Assigned_area.Name, "-")
                                           }
                                       );
                                       Notify("Data user berhasil disimpan!", NotificationType.Success);
@@ -281,7 +281,7 @@ Screens:
                                       UpdateContext({locShowUserPopUp: false})
                                     Width: =Parent.Width
                                   Children:
-                                    - Name_DataCard1:
+                                    - Name_DataCard1_UsrL:
                                         Control: TypedDataCard
                                         Variant: ModernTextualEdit
                                         Properties:
@@ -291,12 +291,12 @@ Screens:
                                           DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,Name)
                                           MaxLength: =DataSourceInfo([@dis_users], DataSourceInfo.MaxLength, Name)
                                           Required: =true
-                                          Update: =DataCardValue60.Text
+                                          Update: =DataCardValue60_UsrL.Text
                                           Width: =Parent.Width / 2
                                           X: =0
                                           Y: =0
                                         Children:
-                                          - DataCardKey61:
+                                          - DataCardKey61_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -310,7 +310,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue60:
+                                          - DataCardValue60_UsrL:
                                               Control: ModernTextInput
                                               MetadataKey: FieldValue
                                               Properties:
@@ -323,8 +323,8 @@ Screens:
                                                 ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey61.Y + DataCardKey61.Height + 4
-                                          - ErrorMessage60:
+                                                Y: =DataCardKey61_UsrL.Y + DataCardKey61_UsrL.Height + 4
+                                          - ErrorMessage60_UsrL:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -334,21 +334,21 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue60.Y + DataCardValue60.Height
-                                          - StarVisible61:
+                                                Y: =DataCardValue60_UsrL.Y + DataCardValue60_UsrL.Height
+                                          - StarVisible61_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
-                                                Height: =DataCardKey61.Height
+                                                Height: =DataCardKey61_UsrL.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey61.Y
-                                    - email_DataCard2:
+                                                Y: =DataCardKey61_UsrL.Y
+                                    - email_DataCard2_UsrL:
                                         Control: TypedDataCard
                                         Variant: ModernTextualEdit
                                         IsLocked: true
@@ -359,12 +359,12 @@ Screens:
                                           DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,email)
                                           MaxLength: =DataSourceInfo([@dis_users], DataSourceInfo.MaxLength, email)
                                           Required: =false
-                                          Update: =DataCardValue62.Text
+                                          Update: =DataCardValue62_UsrL.Text
                                           Width: =Parent.Width / 2
                                           X: =1
                                           Y: =0
                                         Children:
-                                          - DataCardKey63:
+                                          - DataCardKey63_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -378,7 +378,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue62:
+                                          - DataCardValue62_UsrL:
                                               Control: ModernTextInput
                                               MetadataKey: FieldValue
                                               Properties:
@@ -391,8 +391,8 @@ Screens:
                                                 ValidationState: =If(IsBlank(Parent.Error), ValidationState.None, ValidationState.Error)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey63.Y + DataCardKey63.Height + 4
-                                          - ErrorMessage61:
+                                                Y: =DataCardKey63_UsrL.Y + DataCardKey63_UsrL.Height + 4
+                                          - ErrorMessage61_UsrL:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -402,21 +402,21 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue62.Y + DataCardValue62.Height
-                                          - StarVisible62:
+                                                Y: =DataCardValue62_UsrL.Y + DataCardValue62_UsrL.Height
+                                          - StarVisible62_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
-                                                Height: =DataCardKey63.Height
+                                                Height: =DataCardKey63_UsrL.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey63.Y
-                                    - role_DataCard1:
+                                                Y: =DataCardKey63_UsrL.Y
+                                    - role_DataCard1_UsrL:
                                         Control: TypedDataCard
                                         Variant: ModernComboBoxOptionSetSingleEdit
                                         IsLocked: true
@@ -426,12 +426,12 @@ Screens:
                                           Default: =ThisItem.role
                                           DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,role)
                                           Required: =false
-                                          Update: =DataCardValue63.Selected.Value
+                                          Update: =DataCardValue63_UsrL.Selected.Value
                                           Width: =Parent.Width / 2
                                           X: =0
                                           Y: =1
                                         Children:
-                                          - DataCardKey64:
+                                          - DataCardKey64_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -445,7 +445,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue63:
+                                          - DataCardValue63_UsrL:
                                               Control: ModernCombobox
                                               MetadataKey: FieldValue
                                               Properties:
@@ -458,8 +458,8 @@ Screens:
                                                 SelectMultiple: =false
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey64.Y + DataCardKey64.Height + 4
-                                          - ErrorMessage62:
+                                                Y: =DataCardKey64_UsrL.Y + DataCardKey64_UsrL.Height + 4
+                                          - ErrorMessage62_UsrL:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -469,21 +469,21 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue63.Y + DataCardValue63.Height
-                                          - StarVisible63:
+                                                Y: =DataCardValue63_UsrL.Y + DataCardValue63_UsrL.Height
+                                          - StarVisible63_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
                                                 Align: =Align.Center
                                                 Color: =Color.Red
-                                                Height: =DataCardKey64.Height
+                                                Height: =DataCardKey64_UsrL.Height
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Text: ="*"
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey64.Y
-                                    - Assigned_area_DataCard1:
+                                                Y: =DataCardKey64_UsrL.Y
+                                    - Assigned_area_DataCard1_UsrL:
                                         Control: TypedDataCard
                                         Variant: PcfCoreComboBoxEditCard
                                         Properties:
@@ -492,12 +492,12 @@ Screens:
                                           Default: =ThisItem.Assigned_area
                                           DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,Assigned_area)
                                           Required: =false
-                                          Update: =DataCardValue64.Selected
+                                          Update: =DataCardValue64_UsrL.Selected
                                           Width: =Parent.Width / 2
                                           X: =1
                                           Y: =1
                                         Children:
-                                          - DataCardKey65:
+                                          - DataCardKey65_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldName
                                               Properties:
@@ -514,7 +514,7 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =10
-                                          - DataCardValue64:
+                                          - DataCardValue64_UsrL:
                                               Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
@@ -541,8 +541,8 @@ Screens:
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardKey65.Y + DataCardKey65.Height + 4
-                                          - ErrorMessage63:
+                                                Y: =DataCardKey65_UsrL.Y + DataCardKey65_UsrL.Height + 4
+                                          - ErrorMessage63_UsrL:
                                               Control: ModernText
                                               MetadataKey: ErrorMessage
                                               Properties:
@@ -560,8 +560,8 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue64.Y + DataCardValue64.Height
-                                          - StarVisible64:
+                                                Y: =DataCardValue64_UsrL.Y + DataCardValue64_UsrL.Height
+                                          - StarVisible64_UsrL:
                                               Control: ModernText
                                               MetadataKey: FieldRequired
                                               Properties:
@@ -576,7 +576,7 @@ Screens:
                                                 VerticalAlign: =VerticalAlign.Bottom
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
-                                                Y: =DataCardKey65.Y
+                                                Y: =DataCardKey65_UsrL.Y
                               - conUsrLEdActions:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -597,7 +597,7 @@ Screens:
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - Button37:
+                                    - btnUsrLCancel:
                                         Control: ModernButton
                                         Properties:
                                           AccessibleLabel: ="Batal"
@@ -612,7 +612,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =96
                                           OnSelect: |-
-                                            =ResetForm(Form4);
+                                            =ResetForm(frmUsrL);
                                             UpdateContext({locShowUserPopUp: false})
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
@@ -621,7 +621,7 @@ Screens:
                                           Size: =13
                                           Text: ="Batal"
                                           Width: =96
-                                    - Button36:
+                                    - btnUsrLSave:
                                         Control: ModernButton
                                         Properties:
                                           AccessibleLabel: ="Simpan pengguna"
@@ -635,7 +635,7 @@ Screens:
                                           Layout: =ButtonLayout.IconBefore
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =120
-                                          OnSelect: =SubmitForm(Form4)
+                                          OnSelect: =SubmitForm(frmUsrL)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
@@ -945,7 +945,7 @@ Screens:
                                                 Text: ="AKSI"
                                                 Width: =72
                                                 Wrap: =false
-                                    - Gallery8_13:
+                                    - galUsrL:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
@@ -1086,7 +1086,7 @@ Screens:
                                                             OnSelect: |-
                                                               =UpdateContext({locSelectedRecord: ThisItem, locShowUserPopUp: true, locShowDeleteConfirm_1: false});
                                                               Set(gblFormMode, "Update");
-                                                              EditForm(Form4)
+                                                              EditForm(frmUsrL)
                                                             PaddingBottom: =6
                                                             PaddingLeft: =6
                                                             PaddingRight: =6

@@ -23,6 +23,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | selesai |
 | W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category + fix visual W2/W3 | selesai |
 | T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | selesai |
+| W4b     | Web      | Opus   | Perbaikan: rename control lama, nfLowStock, KPI dashboard  | selesai, belum compile |
+| T4b     | Terminal | Sonnet | Pull, compile + CEK VISUAL W2-W4b di Studio, push          | belum  |
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | belum  |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | belum  |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
@@ -153,6 +155,30 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   bersih tanpa perbaikan; 2 warning baseline `locSelectedRecord` Blank() di scr_user hilang. Tidak ada file app/ yang diubah.
   BELUM dicek visual di Studio: checklist (a)-(f) di catatan W4 (Sidebar penuh tinggi, TopBar selebar kolom, baris galeri putih,
   tombol Primary navy, form Add_area 5 field, label toolbar Area) masih perlu dicek manual; catat control + properti yang salah di sini.
+- [W4b, 2026-10-05] LAPORAN USER (screenshot setelah T4): Sidebar/TopBar dan galeri dashboard sudah benar, tapi Area,
+  Add_area, User, Category, Form Category masih rusak; KPI "Stok di bawah minimum" dan "Stok Menipis" error.
+  Diagnosis: SEMUA control yang namanya dipakai ulang dari versi lama tampil dengan properti default (btn_cat_add kotak
+  biru polos 280x56, inp_cat_search/dd_* kotak abu menutupi label, gal_cat_list/Gallery8_12 hitam ukuran default,
+  Form5_1 "This form isn't connected to any data yet" = DataSource hilang). Control bernama baru tampil benar.
+  Perbaikan:
+  - 76 control di-rename (logika sama): Area dd_Geounit_2/dd_Location_2/dd_Area_2/inp_search_9/Gallery8_12 ->
+    ddAreaLGeo/ddAreaLLoc/ddAreaLArea/inpAreaLSearch/galAreaL; Form5_1 -> frmAreaF; Gallery8_13 -> galUsrL; Form4 ->
+    frmUsrL; Button36/Button37 -> btnUsrLSave/btnUsrLCancel; inp_cat_search/btn_cat_add/gal_cat_list -> inpCatLSearch/
+    btnCatLAdd/galCatL; frm_catFrm_category/btn_catFrm_submit/btn_catFrm_back -> frmCatF/btnCatFSave/btnCatFBack;
+    semua data card + anak card di 3 form -> nama lama + `_AreaF` / `_UsrL` / `_CatF`. Referensi lintas screen
+    (Area <-> Add_area, scr_category <-> scr_frm_category) ikut diganti. Tidak ada referensi dari screen lain.
+  - Dashboard: Dataverse menolak `qty < dis_item_v2.min_qty` ("right side of LessThan must be a constant"). Ditambah
+    named formula `nfLowStock = Filter(AddColumns(dis_stocks, MinQty, dis_item_v2.min_qty), qty < MinQty)` di App.Formulas;
+    KPI, galeri Stok Menipis dan teks kosongnya memakai nfLowStock (dihitung sekali, lokal; batas baris delegasi tetap
+    berlaku dan sudah diterima di brief). Kalau Studio menolak sintaks AddColumns tanpa kutip, pakai
+    `AddColumns(dis_stocks, "MinQty", dis_item_v2.min_qty)`.
+  - KPI dashboard menampilkan scrollbar (isi 72 px pas di batas): padding atas/bawah kartu 12, kontainer teks 76,
+    caption 16.
+  - Aturan baru #5 (rename) dan #6 (filter Dataverse) ditulis di "KOREKSI WAJIB" app/canvas-app-shared.md untuk W5-W7.
+  BELUM TERSELESAIKAN: tombol Primary tetap ungu walau `BasePaletteColor: =RGBA(0, 18, 107, 1)` literal. Perlu data dari
+  Studio: pilih btnDashNewTrx, tab Advanced, cek apakah properti BasePaletteColor ada dan nilainya apa.
+  T4b: compile, lalu cek visual Area, Add_area (form 5 field, bisa simpan), User (edit/hapus), Category, Form Category,
+  Dashboard (KPI stok minimum + Stok Menipis tanpa error, tanpa scrollbar di KPI).
 
 ---
 

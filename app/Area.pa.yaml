@@ -419,7 +419,7 @@ Screens:
                                                 Size: =11
                                                 Text: ="Geounit"
                                                 Wrap: =false
-                                          - dd_Geounit_2:
+                                          - ddAreaLGeo:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter geounit"
@@ -433,8 +433,8 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: |-
-                                                  =Reset(dd_Location_2);
-                                                  Reset(dd_Area_2)
+                                                  =Reset(ddAreaLLoc);
+                                                  Reset(ddAreaLArea)
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -478,13 +478,13 @@ Screens:
                                                 Size: =11
                                                 Text: ="Location"
                                                 Wrap: =false
-                                          - dd_Location_2:
+                                          - ddAreaLLoc:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter lokasi"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                DisplayMode: =If(IsBlank(dd_Geounit_2.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                DisplayMode: =If(IsBlank(ddAreaLGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
@@ -492,11 +492,11 @@ Screens:
                                                 Items: |-
                                                   =Filter(
                                                       dis_locations, 
-                                                      dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit
+                                                      dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                OnChange: =Reset(dd_Area_2)
+                                                OnChange: =Reset(ddAreaLArea)
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -540,13 +540,13 @@ Screens:
                                                 Size: =11
                                                 Text: ="Area"
                                                 Wrap: =false
-                                          - dd_Area_2:
+                                          - ddAreaLArea:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter area"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                DisplayMode: =If(IsBlank(dd_Location_2.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                DisplayMode: =If(IsBlank(ddAreaLLoc.Selected), DisplayMode.Disabled, DisplayMode.Edit)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
@@ -554,7 +554,7 @@ Screens:
                                                 Items: |-
                                                   =Filter(
                                                       dis_areas, 
-                                                      'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location
+                                                      'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -600,7 +600,7 @@ Screens:
                                                 Size: =11
                                                 Text: ="Cari"
                                                 Wrap: =false
-                                          - inp_search_9:
+                                          - inpAreaLSearch:
                                               Control: ModernTextInput
                                               Properties:
                                                 AccessibleLabel: ="Cari area"
@@ -631,10 +631,10 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           OnSelect: |-
-                                            =Reset(dd_Geounit_2);
-                                            Reset(dd_Location_2);
-                                            Reset(dd_Area_2);
-                                            Reset(inp_search_9)
+                                            =Reset(ddAreaLGeo);
+                                            Reset(ddAreaLLoc);
+                                            Reset(ddAreaLArea);
+                                            Reset(inpAreaLSearch)
                                           PaddingBottom: =8
                                           PaddingLeft: =8
                                           PaddingRight: =8
@@ -661,7 +661,7 @@ Screens:
                                           LayoutMinWidth: =140
                                           OnSelect: |-
                                             =Set(gblFormMode, "Add");
-                                            NewForm(Form5_1);
+                                            NewForm(frmAreaF);
                                             Navigate(Add_area, ScreenTransition.None)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
@@ -802,7 +802,7 @@ Screens:
                                                 Text: ="AKSI"
                                                 Width: =72
                                                 Wrap: =false
-                                    - Gallery8_12:
+                                    - galAreaL:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
@@ -817,16 +817,16 @@ Screens:
                                                 dis_areas,
                                                 
                                                 // 1. Filter berdasarkan Geounit
-                                                IsBlank(dd_Geounit_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit,
+                                                IsBlank(ddAreaLGeo.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit,
                                                 
                                                 // 2. Filter berdasarkan Location
-                                                IsBlank(dd_Location_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location,
+                                                IsBlank(ddAreaLLoc.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location,
                                                 
                                                 // 3. Filter berdasarkan Area
-                                                IsBlank(dd_Area_2.Selected) Or dis_area = dd_Area_2.Selected.dis_area,
+                                                IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,
                                                 
                                                 // 4. Pencarian Teks (Meniru referensi yang berhasil)
-                                                IsBlank(inp_search_9.Text) Or StartsWith(Name, inp_search_9.Text)
+                                                IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)
                                             )
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
@@ -839,16 +839,16 @@ Screens:
                                                 dis_areas,
                                                 
                                                 // 1. Filter berdasarkan Geounit
-                                                IsBlank(dd_Geounit_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit,
+                                                IsBlank(ddAreaLGeo.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit,
                                                 
                                                 // 2. Filter berdasarkan Location
-                                                IsBlank(dd_Location_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location,
+                                                IsBlank(ddAreaLLoc.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location,
                                                 
                                                 // 3. Filter berdasarkan Area
-                                                IsBlank(dd_Area_2.Selected) Or dis_area = dd_Area_2.Selected.dis_area,
+                                                IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,
                                                 
                                                 // 4. Pencarian Teks (Meniru referensi yang berhasil)
-                                                IsBlank(inp_search_9.Text) Or StartsWith(Name, inp_search_9.Text)
+                                                IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)
                                             ))
                                         Children:
                                           - conAreaLRow:
@@ -974,7 +974,7 @@ Screens:
                                                             LayoutMinWidth: =0
                                                             OnSelect: |-
                                                               =Set(gblFormMode, "Update");
-                                                              EditForm(Form5_1);
+                                                              EditForm(frmAreaF);
                                                               Navigate(Add_area, ScreenTransition.None)
                                                             PaddingBottom: =6
                                                             PaddingLeft: =6
@@ -1031,15 +1031,15 @@ Screens:
                                                 dis_areas,
                                                 
                                                 // 1. Filter berdasarkan Geounit
-                                                IsBlank(dd_Geounit_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit,
+                                                IsBlank(ddAreaLGeo.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit,
                                                 
                                                 // 2. Filter berdasarkan Location
-                                                IsBlank(dd_Location_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location,
+                                                IsBlank(ddAreaLLoc.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location,
                                                 
                                                 // 3. Filter berdasarkan Area
-                                                IsBlank(dd_Area_2.Selected) Or dis_area = dd_Area_2.Selected.dis_area,
+                                                IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,
                                                 
                                                 // 4. Pencarian Teks (Meniru referensi yang berhasil)
-                                                IsBlank(inp_search_9.Text) Or StartsWith(Name, inp_search_9.Text)
+                                                IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)
                                             ))
                                           Wrap: =false
