@@ -25,8 +25,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | selesai |
 | W4b     | Web      | Opus   | Perbaikan: rename control lama, nfLowStock, KPI dashboard  | selesai |
 | T4b     | Terminal | Sonnet | Pull, compile + CEK VISUAL W2-W4b di Studio, push          | selesai (compile; visual belum dicek) |
-| W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | selesai, belum compile |
-| T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | belum  |
+| W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | selesai |
+| T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | belum  |
 | W7      | Web      | Sonnet | Build scr_History + "After builders" + "Editor State"      | belum  |
@@ -206,6 +206,11 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
     tidak valid); badge stok merah kalau qty < min_qty (perbandingan per baris, bukan di filter Dataverse).
   - Self-QA 12 screen: YAML parse, 452 nama control unik, semua properti diawali `=`, tanpa `clr*`/CR/nama lama.
   T5: compile, cek visual (tabel putih, toolbar berlabel, form item 9 field termasuk upload gambar), lalu File > Save.
+- [T5, 2026-10-05] Compile app/ (20 file) setelah W5: PASSED, 0 error, tanpa perbaikan; tidak ada file app/ diubah.
+  Sync ke scratchpad: semua control scr_item (49), scr_frm_item (57), scr_find_item (42) sama dengan repo, scr_dashboard
+  juga ada. PENTING: Studio sering jadi putih setelah compile; JANGAN refresh sebelum Save (refresh membuang sesi yang
+  belum disimpan, itu penyebab app "ke-reset" ke versi asli). Tunggu sampai tampil lalu File > Save. Save oleh user dan
+  cek visual W2-W5 BELUM dikonfirmasi.
 
 ---
 
