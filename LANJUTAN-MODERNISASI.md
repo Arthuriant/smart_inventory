@@ -19,8 +19,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T1      | Terminal | Sonnet | Pull, compile App/Sidebar/TopBar sampai bersih, push       | selesai |
 | W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | selesai |
 | T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | selesai |
-| W3      | Web      | Sonnet | Build Template, Area, Add_area                             | selesai, belum compile |
-| T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | belum  |
+| W3      | Web      | Sonnet | Build Template, Area, Add_area                             | selesai |
+| T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | selesai |
 | W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category             | belum  |
 | T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | belum  |
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | belum  |
@@ -114,6 +114,12 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
     `elv_location_DataCard1.Default: =ThisItem.location` tetap tidak diubah; cek apakah receipt
     `LastSubmit.'elv_location (cr8a3_elv_location)'.Name` compile.
   - Pelajaran T2 dipakai: tidak ada `CountRows(<tabel Dataverse>)` di W3.
+
+- [T3, 2026-10-04] Compile app/ (20 file) setelah W3: 0 error. Template, Area, Add_area bersih tanpa perbaikan
+  (termasuk `elv_location_DataCard1.Default: =ThisItem.location` dan receipt `LastSubmit.'elv_location (cr8a3_elv_location)'.Name`
+  di Add_area: compile). Sisa diagnostik: 2 warning baseline `locSelectedRecord` Blank() di scr_user (Button30_4, Button33_3),
+  hilang setelah W4/T4. Tidak ada drift dari Studio yang dicek di T3; tidak ada file yang diubah selain dokumen status.
+  Belum dicek visual di Studio (layout Area galeri/dropdown cascade, Add_area form).
 
 ---
 
