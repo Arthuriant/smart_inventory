@@ -188,6 +188,9 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   Langkah pemulihan (sesi terminal berikutnya): buka SATU tab Studio (tutup yang lain; pakai Override hanya kalau tab
   pemegang kontrol edit sudah ditutup), connect, compile app/ dari repo, cek visual, lalu File > Save. Prompt T sudah
   ditambah langkah Save.
+- [Pemulihan, 2026-10-05] Connect (setelah sempat HTTP 422 karena tidak ada tab Studio dengan kontrol edit), sync
+  memastikan sesi Studio berisi versi ASLI (tanpa scr_dashboard/nfLowStock). Compile app/ dari repo: PASSED, 20 file.
+  Sync ulang: scr_dashboard, nfLowStock, rename control W4b sudah ada di sesi. WAJIB File > Save di Studio oleh user.
 
 ---
 
