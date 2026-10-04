@@ -21,8 +21,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | selesai |
 | W3      | Web      | Sonnet | Build Template, Area, Add_area                             | selesai |
 | T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | selesai |
-| W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category + fix visual W2/W3 | selesai, belum compile |
-| T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | belum  |
+| W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category + fix visual W2/W3 | selesai |
+| T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | selesai |
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | belum  |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | belum  |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
@@ -148,6 +148,11 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   - Subtree data card Form4 dan frm_catFrm_category disalin apa adanya; yang berubah hanya Width card (dicek dengan diff).
   - Self-QA 9 screen yang sudah dibangun: YAML parse, nama control unik antar screen, semua properti diawali `=`,
     tidak ada `clr*` dan tidak ada CR.
+
+- [T4, 2026-10-05] Compile app/ (20 file) setelah W4: 0 error, 0 warning. scr_user, scr_category, scr_frm_category
+  bersih tanpa perbaikan; 2 warning baseline `locSelectedRecord` Blank() di scr_user hilang. Tidak ada file app/ yang diubah.
+  BELUM dicek visual di Studio: checklist (a)-(f) di catatan W4 (Sidebar penuh tinggi, TopBar selebar kolom, baris galeri putih,
+  tombol Primary navy, form Add_area 5 field, label toolbar Area) masih perlu dicek manual; catat control + properti yang salah di sini.
 
 ---
 
