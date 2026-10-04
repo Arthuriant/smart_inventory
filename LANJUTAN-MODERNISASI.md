@@ -19,7 +19,7 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T1      | Terminal | Sonnet | Pull, compile App/Sidebar/TopBar sampai bersih, push       | selesai |
 | W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | selesai |
 | T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | selesai |
-| W3      | Web      | Sonnet | Build Template, Area, Add_area                             | belum  |
+| W3      | Web      | Sonnet | Build Template, Area, Add_area                             | selesai, belum compile |
 | T3      | Terminal | Sonnet | Pull, compile + fix W3, push                               | belum  |
 | W4      | Web      | Sonnet | Build scr_user, scr_category, scr_frm_category             | belum  |
 | T4      | Terminal | Sonnet | Pull, compile + fix W4, push                               | belum  |
@@ -101,6 +101,19 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   warning "CountRows may return a cached value". Sisa diagnostik: 2 warning baseline `locSelectedRecord` Blank() di
   scr_user (Button30_4, Button33_3), hilang setelah W4/T4. Tidak ada drift dari Studio yang dicek di T2.
   Catatan: parameter compile_canvas bernama `directoryPath`. Caption KPI Height 14 belum dicek visual di Studio.
+- [W3, 2026-10-04] Ditulis web, BELUM pernah di-compile: app/Template.pa.yaml, app/Area.pa.yaml, app/Add_area.pa.yaml
+  (ditulis ulang sesuai brief). Self-QA: YAML bisa di-parse, root tiap screen hanya con<P>Root, 8/49/36 control,
+  nama unik di semua 6 screen yang sudah dibangun, semua properti diawali `=`.
+  - Area: Gallery8_12.Items, dropdown cascade (Items/ItemDisplayText/OnChange/DisplayMode) disalin dari file lama (token
+    identik). Bug Delete diperbaiki: icoAreaLDelete menyimpan `locSelectedRecord: ThisItem`; btnAreaLConfirmDel
+    `Remove(dis_areas, target)` + receipt gblReceipt "Area" (hanya kalau `Errors(dis_areas)` kosong). Overlay lama
+    cntDeleteConfirm dan Button2/Button30_1/Button33_2 dihapus (Button2 -> btnAreaLAdd, OnSelect sama).
+  - Add_area: subtree data card Form5_1 disalin apa adanya dari file lama; yang berubah hanya Width tiap card
+    (4 card `=Parent.Width / 2`, elv_detail_DataCard2 `=Parent.Width`) dan properti level Form (Height 340, Fill, border,
+    AlignInContainer/FillPortions/LayoutMin*, X/Y/Width dihapus, OnSuccess = receipt + 3 statement asli).
+    `elv_location_DataCard1.Default: =ThisItem.location` tetap tidak diubah; cek apakah receipt
+    `LastSubmit.'elv_location (cr8a3_elv_location)'.Name` compile.
+  - Pelajaran T2 dipakai: tidak ada `CountRows(<tabel Dataverse>)` di W3.
 
 ---
 

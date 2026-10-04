@@ -1,64 +1,149 @@
 Screens:
   Template:
     Properties:
-      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      Fill: =clrBg
+      LoadingSpinnerColor: =clrAccent
     Children:
-      - con_Main_template:
+      - conTplRoot:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
+            Fill: =clrBg
             Height: =Parent.Height
-            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            PaddingRight: =8
+            LayoutGap: =0
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
             Width: =Parent.Width
           Children:
-            - con_sidebar_template:
-                Control: GroupContainer
-                Variant: ManualLayout
+            - cmpTplSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
                 Properties:
-                  DropShadow: =DropShadow.None
+                  activemenu: =""
+                  AlignInContainer: =AlignInContainer.Start
                   FillPortions: =0
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                  RadiusBottomLeft: =0
-                  RadiusBottomRight: =0
-                  RadiusTopLeft: =0
-                  RadiusTopRight: =0
-                  Width: =180
-                Children:
-                  - com_sidebar_template:
-                      Control: CanvasComponent
-                      ComponentName: Sidebar
-                      Properties:
-                        Width: =Parent.Width
-                        activemenu: ="Transaction"
-            - con_content_template:
+                  Height: =Parent.Height
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+            - conTplMain:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
-                  Fill: =RGBA(247, 247, 248, 1)
-                  FillPortions: =0
-                  LayoutAlignItems: =LayoutAlignItems.Center
+                  Fill: =clrBg
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
+                  LayoutGap: =0
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
                   RadiusBottomLeft: =0
                   RadiusBottomRight: =0
                   RadiusTopLeft: =0
                   RadiusTopRight: =0
-                  Width: =975
                 Children:
-                  - com_topbar_template:
+                  - cmpTplTopBar:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
-                        ActiveMenu: ="Transaction"
-                        Height: =80
-                        Width: =App.Width - 150
+                        ActiveMenu: ="Template"
+                        AlignInContainer: =AlignInContainer.Start
+                        FillPortions: =0
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Kerangka halaman baru"
+                        Width: =Parent.Width
+                  - conTplBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        DropShadow: =DropShadow.None
+                        Fill: =clrBg
+                        FillPortions: =1
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - conTplCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =clrBorder
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Light
+                              Fill: =clrSurface
+                              FillPortions: =0
+                              Height: =200
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - txtTplCardTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =clrText
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Area konten"
+                                    Wrap: =false
+                              - txtTplCardBody:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =clrTextMuted
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    Height: =60
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: '="Salin layar ini untuk membuat halaman baru: sidebar, top bar dan body yang dapat di-scroll sudah tersedia. Tambahkan kartu konten di dalam body."'
+                                    Wrap: =true

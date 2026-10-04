@@ -1,576 +1,1045 @@
 Screens:
   Area:
     Properties:
-      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      Fill: =clrBg
+      LoadingSpinnerColor: =clrAccent
     Children:
-      - con_Main_template_1:
+      - conAreaLRoot:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
             DropShadow: =DropShadow.None
+            Fill: =clrBg
             Height: =Parent.Height
-            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            PaddingRight: =8
+            LayoutGap: =0
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
             Width: =Parent.Width
           Children:
-            - con_sidebar_template_1:
-                Control: GroupContainer
-                Variant: ManualLayout
+            - cmpAreaLSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
                 Properties:
-                  DropShadow: =DropShadow.None
+                  activemenu: ="Area"
+                  AlignInContainer: =AlignInContainer.Start
                   FillPortions: =0
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
-                  RadiusBottomLeft: =0
-                  RadiusBottomRight: =0
-                  RadiusTopLeft: =0
-                  RadiusTopRight: =0
-                  Width: =180
-                Children:
-                  - com_sidebar_template_1:
-                      Control: CanvasComponent
-                      ComponentName: Sidebar
-                      Properties:
-                        Width: =Parent.Width
-                        activemenu: ="Area"
-            - con_content_template_1:
+                  Height: =Parent.Height
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+            - conAreaLMain:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
-                  Fill: =RGBA(247, 247, 248, 1)
-                  FillPortions: =0
-                  LayoutAlignItems: =LayoutAlignItems.Center
+                  Fill: =clrBg
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutMinHeight: =16
-                  LayoutMinWidth: =16
+                  LayoutGap: =0
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
                   RadiusBottomLeft: =0
                   RadiusBottomRight: =0
                   RadiusTopLeft: =0
                   RadiusTopRight: =0
-                  Width: =975
                 Children:
-                  - com_topbar_template_1:
+                  - cmpAreaLTopBar:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
                         ActiveMenu: ="Area"
-                        Height: =80
-                        Width: =App.Width - 150
-                  - Container7:
+                        AlignInContainer: =AlignInContainer.Start
+                        FillPortions: =0
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Kelola area penyimpanan"
+                        Width: =Parent.Width
+                  - conAreaLBody:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        AlignInContainer: =AlignInContainer.Start
-                        BorderColor: =ColorValue("#E5E7EB")
-                        BorderThickness: =1
+                        AlignInContainer: =AlignInContainer.Stretch
                         DropShadow: =DropShadow.None
-                        Fill: =RGBA(247, 247, 248, 1)
-                        FillPortions: =0
-                        Height: =550
+                        Fill: =clrBg
+                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        PaddingBottom: =20
-                        PaddingLeft: =20
-                        PaddingRight: =8
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
                         PaddingTop: =20
-                        RadiusBottomLeft: =12
-                        RadiusBottomRight: =12
-                        RadiusTopLeft: =12
-                        RadiusTopRight: =12
-                        Width: =950
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
                       Children:
-                        - Container1:
+                        - conAreaLReceipt:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(180, 222, 196, 1)
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
                               DropShadow: =DropShadow.None
-                              Fill: =RGBA(255, 255, 255, 1)
+                              Fill: =clrSuccessTint
+                              FillPortions: =0
+                              Height: =80
                               LayoutAlignItems: =LayoutAlignItems.Center
-                              LayoutDirection: =LayoutDirection.Vertical
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =10
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              PaddingTop: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =gblReceipt.Screen = "Area"
                             Children:
-                              - Container15_8:
+                              - icoAreaLRcIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Berhasil"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    FillPortions: =0
+                                    Height: =24
+                                    Icon: ="CheckmarkCircle"
+                                    IconColor: =clrSuccess
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =24
+                              - conAreaLRcText:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    BorderColor: =
+                                    AlignInContainer: =AlignInContainer.Center
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(255, 255, 255, 1)
-                                    FillPortions: =0
-                                    Height: =60
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =10
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingRight: =8
-                                    PaddingTop: =8
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =1
+                                    Height: =58
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =2
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
                                     RadiusBottomLeft: =0
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - Button2:
-                                        Control: ModernButton
+                                    - txtAreaLRcTitle:
+                                        Control: ModernText
                                         Properties:
-                                          Height: =32
-                                          Icon: ="Add"
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          OnSelect: |-
-                                            =Set(gblFormMode, "Add");
-                                            NewForm(Form5_1);
-                                            Navigate(Add_area, ScreenTransition.None)
-                                          Size: =12
-                                          Text: ="Area"
-                                          Width: =100
-                                    - dd_Geounit_2:
-                                        Control: ModernDropdown
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =clrText
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: =gblReceipt.Action & " - " & gblReceipt.Title
+                                          Wrap: =false
+                                    - txtAreaLRcDetail:
+                                        Control: ModernText
                                         Properties:
-                                          BorderColor: =RGBA(40, 134, 222, 1)
-                                          BorderStyle: =BorderStyle.None
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =32
-                                          ItemDisplayText: =ThisItem.elv_name_long
-                                          Items: =dis_geounits
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          OnChange: |-
-                                            =Reset(dd_Location_2);
-                                            Reset(dd_Area_2)
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =clrTextMuted
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
                                           Size: =12
-                                          Width: =100
-                                    - dd_Location_2:
-                                        Control: ModernDropdown
-                                        Properties:
-                                          BorderColor: =RGBA(40, 134, 222, 1)
-                                          BorderStyle: =BorderStyle.None
-                                          DisplayMode: =If(IsBlank(dd_Geounit_2.Selected), DisplayMode.Disabled, DisplayMode.Edit)
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =32
-                                          ItemDisplayText: =ThisItem.Name
-                                          Items: |-
-                                            =Filter(
-                                                dis_locations, 
-                                                dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit
-                                            )
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          OnChange: =Reset(dd_Area_2)
-                                          Size: =12
-                                          Width: =100
-                                    - dd_Area_2:
-                                        Control: ModernDropdown
-                                        Properties:
-                                          BorderColor: =RGBA(40, 134, 222, 1)
-                                          BorderStyle: =BorderStyle.None
-                                          DisplayMode: =If(IsBlank(dd_Location_2.Selected), DisplayMode.Disabled, DisplayMode.Edit)
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =32
-                                          ItemDisplayText: =ThisItem.Name
-                                          Items: |-
-                                            =Filter(
-                                                dis_areas, 
-                                                'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location
-                                            )
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =12
-                                          Width: =100
-                                    - Container16_8:
+                                          Text: =gblReceipt.Detail
+                                          Wrap: =true
+                              - icoAreaLRcClose:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Tutup"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    FillPortions: =0
+                                    Height: =32
+                                    Icon: ="Dismiss"
+                                    IconColor: =clrTextMuted
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: '=Set(gblReceipt, {Screen: "", Action: "", Title: "", Detail: ""})'
+                                    PaddingBottom: =6
+                                    PaddingLeft: =6
+                                    PaddingRight: =6
+                                    PaddingTop: =6
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Tooltip: ="Tutup"
+                                    Width: =32
+                        - conAreaLConfirm:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(240, 180, 176, 1)
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =clrDangerTint
+                              FillPortions: =0
+                              Height: =56
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =locShowDeleteConfirm
+                            Children:
+                              - icoAreaLConfirmIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Peringatan"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    FillPortions: =0
+                                    Height: =24
+                                    Icon: ="Warning"
+                                    IconColor: =clrDanger
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =24
+                              - txtAreaLConfirmMsg:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Color: =clrText
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Hapus area " & locSelectedRecord.Name & "? Data yang dihapus tidak dapat dikembalikan."
+                                    Wrap: =false
+                              - btnAreaLConfirmDel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Hapus"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Primary
+                                    BasePaletteColor: =clrDanger
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Delete"
+                                    Layout: =ButtonLayout.IconBefore
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =104
+                                    OnSelect: |-
+                                      =With(
+                                          {target: locSelectedRecord},
+                                          Remove(dis_areas, target);
+                                          If(
+                                              IsEmpty(Errors(dis_areas)),
+                                              Set(
+                                                  gblReceipt,
+                                                  {
+                                                      Screen: "Area",
+                                                      Action: "Dihapus",
+                                                      Title: target.Name,
+                                                      Detail: "Lokasi " & Coalesce(target.'elv_location (cr8a3_elv_location)'.Name, "-") & " | Geounit " & Coalesce(target.elv_geounit.elv_name_short, "-")
+                                                  }
+                                              );
+                                              UpdateContext({locShowDeleteConfirm: false});
+                                              Notify("Data area berhasil dihapus!", NotificationType.Success),
+                                              Notify("Gagal menghapus area. " & First(Errors(dis_areas)).Message, NotificationType.Error)
+                                          )
+                                      )
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Hapus"
+                                    Width: =104
+                              - btnAreaLConfirmCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Batal"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Secondary
+                                    Color: =clrText
+                                    FillPortions: =0
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Dismiss"
+                                    Layout: =ButtonLayout.IconBefore
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =96
+                                    OnSelect: '=UpdateContext({locShowDeleteConfirm: false})'
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Batal"
+                                    Width: =96
+                        - conAreaLListCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =clrBorder
+                              BorderStyle: =BorderStyle.Solid
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Light
+                              Fill: =clrSurface
+                              FillPortions: =0
+                              Height: =520
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - conAreaLToolbar:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =0
+                                    Height: =56
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conAreaLGeoFld:
                                         Control: GroupContainer
-                                        Variant: ManualLayout
+                                        Variant: AutoLayout
                                         Properties:
+                                          AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                    - inp_search_9:
-                                        Control: ModernTextInput
+                                          Width: =150
+                                        Children:
+                                          - txtAreaLGeoLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Geounit"
+                                                Wrap: =false
+                                          - dd_Geounit_2:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter geounit"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.elv_name_long
+                                                Items: =dis_geounits
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnChange: |-
+                                                  =Reset(dd_Location_2);
+                                                  Reset(dd_Area_2)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conAreaLLocFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
                                         Properties:
-                                          BasePaletteColor: =RGBA(249, 83, 109, 1)
-                                          BorderColor: =RGBA(247, 247, 248, 1)
-                                          BorderStyle: =BorderStyle.Solid
-                                          Default: =
-                                          Fill: =RGBA(247, 247, 248, 1)
-                                          Height: =30
-                                          Placeholder: ="Find For Something"
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =150
+                                        Children:
+                                          - txtAreaLLocLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Location"
+                                                Wrap: =false
+                                          - dd_Location_2:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter lokasi"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                DisplayMode: =If(IsBlank(dd_Geounit_2.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: |-
+                                                  =Filter(
+                                                      dis_locations, 
+                                                      dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit
+                                                  )
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnChange: =Reset(dd_Area_2)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conAreaLAreaFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =150
+                                        Children:
+                                          - txtAreaLAreaLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Area"
+                                                Wrap: =false
+                                          - dd_Area_2:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter area"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                DisplayMode: =If(IsBlank(dd_Location_2.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: |-
+                                                  =Filter(
+                                                      dis_areas, 
+                                                      'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location
+                                                  )
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conAreaLSearchFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          FillPortions: =1
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtAreaLSearchLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Cari"
+                                                Wrap: =false
+                                          - inp_search_9:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                AccessibleLabel: ="Cari area"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Placeholder: ="Cari nama area"
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                TriggerOutput: =TriggerOutput.Delayed
+                                                Type: =TextInputType.Search
+                                    - icoAreaLReset:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: ="Reset filter"
+                                          AlignInContainer: =AlignInContainer.End
+                                          FillPortions: =0
+                                          Height: =36
+                                          Icon: ="ArrowReset"
+                                          IconColor: =clrTextMuted
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =Reset(dd_Geounit_2);
+                                            Reset(dd_Location_2);
+                                            Reset(dd_Area_2);
+                                            Reset(inp_search_9)
+                                          PaddingBottom: =8
+                                          PaddingLeft: =8
+                                          PaddingRight: =8
+                                          PaddingTop: =8
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
-                                          Size: =14
-                                          TriggerOutput: =TriggerOutput.Delayed
-                                          Width: =300
-                              - Container20_10:
+                                          Tooltip: ="Reset filter"
+                                          Width: =36
+                                    - btnAreaLAdd:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Tambah Area"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Appearance: =ButtonAppearance.Primary
+                                          BasePaletteColor: =clrNavy
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Add"
+                                          Layout: =ButtonLayout.IconBefore
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =140
+                                          OnSelect: |-
+                                            =Set(gblFormMode, "Add");
+                                            NewForm(Form5_1);
+                                            Navigate(Add_area, ScreenTransition.None)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Tambah Area"
+                                          Width: =140
+                              - conAreaLTable:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(180, 214, 250, 1)
+                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
-                                    Height: |
-                                      =35
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingRight: =8
-                                    PaddingTop: =8
+                                    Height: =420
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
                                     RadiusBottomLeft: =0
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - Label21_53:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="NAME"
-                                          Width: =195
-                                    - Label21_54:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="LOCATION"
-                                          Width: =160
-                                    - Label21_55:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="BUSSINES LINE"
-                                          Width: =145
-                                    - Label21_56:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="GEOUNIT"
-                                          Width: =100
-                                    - Container21_5:
+                                    - conAreaLHead:
                                         Control: GroupContainer
-                                        Variant: ManualLayout
+                                        Variant: AutoLayout
                                         Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
                                           DropShadow: =DropShadow.None
+                                          Fill: =clrHeaderBg
                                           FillPortions: =0
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          RadiusBottomLeft: =0
-                                          RadiusBottomRight: =0
-                                          RadiusTopLeft: =0
-                                          RadiusTopRight: =0
-                                          Width: =40
-                                    - Label21_58:
-                                        Control: Label
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Color: =RGBA(53, 61, 63, 1)
-                                          Font: =Font.'Open Sans'
-                                          FontWeight: =FontWeight.Semibold
-                                          LayoutMinHeight: =16
-                                          LayoutMinWidth: =16
-                                          Size: =10
-                                          Text: ="ACTION"
-                                          Width: =100
-                              - Container10_11:
-                                  Control: GroupContainer
-                                  Variant: ManualLayout
-                                  Properties:
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: =430
-                                    LayoutMinHeight: =16
-                                    LayoutMinWidth: =16
-                                    PaddingBottom: =8
-                                    PaddingLeft: =8
-                                    PaddingRight: =8
-                                    PaddingTop: =8
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                    Width: =Parent.Width
-                                  Children:
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =13
+                                          PaddingRight: =13
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                        Children:
+                                          - txtAreaLHName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =clrTextMuted
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="NAMA"
+                                                Wrap: =false
+                                          - txtAreaLHLoc:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =clrTextMuted
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="LOKASI"
+                                                Wrap: =false
+                                          - txtAreaLHBl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =clrTextMuted
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="BUSINESS LINE"
+                                                Wrap: =false
+                                          - txtAreaLHGeo:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="GEOUNIT"
+                                                Width: =96
+                                                Wrap: =false
+                                          - txtAreaLHAct:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =clrTextMuted
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="AKSI"
+                                                Width: =72
+                                                Wrap: =false
                                     - Gallery8_12:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          Height: =430
-                                          Items: "=Filter(\r\n    dis_areas,\r\n    \r\n    // 1. Filter berdasarkan Geounit\r\n    IsBlank(dd_Geounit_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit,\r\n    \r\n    // 2. Filter berdasarkan Location\r\n    IsBlank(dd_Location_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location,\r\n    \r\n    // 3. Filter berdasarkan Area\r\n    IsBlank(dd_Area_2.Selected) Or dis_area = dd_Area_2.Selected.dis_area,\r\n    \r\n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\r\n    IsBlank(inp_search_9.Text) Or StartsWith(Name, inp_search_9.Text)\r\n)"
-                                          TemplateSize: =50
-                                          Width: =Parent.Width
+                                          AccessibleLabel: ="Daftar area"
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderThickness: =0
+                                          Fill: =clrBorder
+                                          FillPortions: =0
+                                          Height: =380
+                                          Items: |-
+                                            =Filter(
+                                                dis_areas,
+                                                
+                                                // 1. Filter berdasarkan Geounit
+                                                IsBlank(dd_Geounit_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit,
+                                                
+                                                // 2. Filter berdasarkan Location
+                                                IsBlank(dd_Location_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location,
+                                                
+                                                // 3. Filter berdasarkan Area
+                                                IsBlank(dd_Area_2.Selected) Or dis_area = dd_Area_2.Selected.dis_area,
+                                                
+                                                // 4. Pencarian Teks (Meniru referensi yang berhasil)
+                                                IsBlank(inp_search_9.Text) Or StartsWith(Name, inp_search_9.Text)
+                                            )
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          ShowScrollbar: =true
+                                          TabIndex: =0
+                                          TemplatePadding: =1
+                                          TemplateSize: =52
+                                          Visible: |-
+                                            =!IsEmpty(Filter(
+                                                dis_areas,
+                                                
+                                                // 1. Filter berdasarkan Geounit
+                                                IsBlank(dd_Geounit_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit,
+                                                
+                                                // 2. Filter berdasarkan Location
+                                                IsBlank(dd_Location_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location,
+                                                
+                                                // 3. Filter berdasarkan Area
+                                                IsBlank(dd_Area_2.Selected) Or dis_area = dd_Area_2.Selected.dis_area,
+                                                
+                                                // 4. Pencarian Teks (Meniru referensi yang berhasil)
+                                                IsBlank(inp_search_9.Text) Or StartsWith(Name, inp_search_9.Text)
+                                            ))
                                         Children:
-                                          - Container11_10:
+                                          - conAreaLRow:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
-                                                Fill: |-
-                                                  =If(
-                                                      ThisItem.IsSelected,
-                                                      RGBA(234, 243, 255, 1), 
-                                                      RGBA(255, 255, 255, 1)  
-                                                  )
-                                                Height: =50
+                                                DropShadow: =DropShadow.None
+                                                Fill: =If(ThisItem.IsSelected, clrRowSelected, clrSurface)
+                                                Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
-                                                PaddingBottom: =8
-                                                PaddingLeft: =8
-                                                PaddingRight: =8
-                                                PaddingTop: =8
+                                                LayoutGap: =8
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingLeft: =12
+                                                PaddingRight: =12
                                                 RadiusBottomLeft: =0
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Width: =Parent.Width
+                                                Width: =Parent.TemplateWidth
                                               Children:
-                                                - Text1_21:
+                                                - txtAreaLName:
                                                     Control: ModernText
                                                     Properties:
-                                                      Size: =12
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =clrText
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
                                                       Text: =ThisItem.Name
-                                                      Width: =160
-                                                - Text1_22:
+                                                      Wrap: =false
+                                                - txtAreaLLoc:
                                                     Control: ModernText
                                                     Properties:
-                                                      Align: =Align.Center
-                                                      Color: =RGBA(0, 0, 0, 1)
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =clrText
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      RadiusBottomLeft: =6
-                                                      RadiusBottomRight: =6
-                                                      RadiusTopLeft: =6
-                                                      RadiusTopRight: =6
-                                                      Size: =12
+                                                      Size: =13
                                                       Text: =ThisItem.'elv_location (cr8a3_elv_location)'.Name
-                                                      Width: =160
-                                                - Type_33:
+                                                      Wrap: =false
+                                                - txtAreaLBl:
                                                     Control: ModernText
                                                     Properties:
-                                                      Align: =Align.Center
-                                                      Color: =RGBA(53, 61, 63, 1)
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =clrText
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      RadiusBottomLeft: =6
-                                                      RadiusBottomRight: =6
-                                                      RadiusTopLeft: =6
-                                                      RadiusTopRight: =6
-                                                      Size: =12
-                                                      Text: |
-                                                        =ThisItem.elv_dis_subblid.Name
-                                                      Width: =160
-                                                - Type_34:
+                                                      Size: =13
+                                                      Text: =ThisItem.elv_dis_subblid.Name
+                                                      Wrap: =false
+                                                - txtAreaLGeo:
                                                     Control: ModernText
                                                     Properties:
-                                                      PaddingLeft: =20
-                                                      Size: =12
-                                                      Text: =ThisItem.elv_geounit.elv_name_short
-                                                      Width: =160
-                                                - Button30_1:
-                                                    Control: ModernButton
-                                                    Properties:
-                                                      BasePaletteColor: =RGBA(8, 222, 8, 1)
-                                                      Height: =32
-                                                      OnSelect: |-
-                                                        =Set(gblFormMode, "Update");
-                                                        EditForm(Form5_1);
-                                                        Navigate(Add_area, ScreenTransition.None);
-                                                      Size: =12
-                                                      Text: ="Update"
-                                                      Width: =80
-                                                      X: =40
-                                                      Y: =40
-                                                - Container2:
-                                                    Control: GroupContainer
-                                                    Variant: ManualLayout
-                                                    Properties:
-                                                      DropShadow: =DropShadow.None
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =clrText
                                                       FillPortions: =0
-                                                      LayoutMinHeight: =16
-                                                      LayoutMinWidth: =16
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.elv_geounit.elv_name_short
+                                                      Width: =96
+                                                      Wrap: =false
+                                                - conAreaLRowActs:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(0, 0, 0, 0)
+                                                      FillPortions: =0
+                                                      Height: =32
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutGap: =8
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
                                                       RadiusBottomLeft: =0
                                                       RadiusBottomRight: =0
                                                       RadiusTopLeft: =0
                                                       RadiusTopRight: =0
-                                                      Width: =10
-                                                - Button33_2:
-                                                    Control: ModernButton
-                                                    Properties:
-                                                      BasePaletteColor: =RGBA(249, 83, 109, 1)
-                                                      Height: =32
-                                                      OnSelect: |-
-                                                        =UpdateContext({
-                                                            locShowDeleteConfirm: true,
-                                                            locSelectedRecord: Defaults(Users)
-                                                        })
-                                                      Size: =12
-                                                      Text: ="Delete"
-                                                      Width: =80
-                                                      X: =40
-                                                      Y: =40
-      - cntDeleteConfirm:
-          Control: GroupContainer
-          Variant: ManualLayout
-          Properties:
-            BorderThickness: =2
-            DropShadow: =DropShadow.ExtraBold
-            Fill: =RGBA(240, 240, 240, 1)
-            Height: =200
-            RadiusBottomLeft: =12
-            RadiusBottomRight: =12
-            RadiusTopLeft: =12
-            RadiusTopRight: =12
-            Visible: =locShowDeleteConfirm
-            Width: =300
-            X: =500
-            Y: =250
-          Children:
-            - Container36:
-                Control: GroupContainer
-                Variant: AutoLayout
-                Properties:
-                  DropShadow: =DropShadow.None
-                  Height: =200
-                  LayoutAlignItems: =LayoutAlignItems.Center
-                  LayoutDirection: =LayoutDirection.Vertical
-                  PaddingBottom: =8
-                  PaddingLeft: =8
-                  PaddingRight: =8
-                  PaddingTop: =8
-                  RadiusBottomLeft: =0
-                  RadiusBottomRight: =0
-                  RadiusTopLeft: =0
-                  RadiusTopRight: =0
-                  Width: =300
-                Children:
-                  - Container37:
-                      Control: GroupContainer
-                      Variant: ManualLayout
-                      Properties:
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: =40
-                        LayoutMinHeight: =16
-                        LayoutMinWidth: =16
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                  - Text1:
-                      Control: ModernText
-                      Properties:
-                        Align: =Align.Center
-                        PaddingTop: =
-                        Text: ="Are you sure ?"
-                        X: =40
-                        Y: =40
-                  - Container35:
-                      Control: GroupContainer
-                      Variant: AutoLayout
-                      Properties:
-                        AlignInContainer: =AlignInContainer.SetByContainer
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: =68
-                        LayoutAlignItems: =LayoutAlignItems.Center
-                        LayoutDirection: =LayoutDirection.Horizontal
-                        PaddingBottom: =8
-                        PaddingLeft: =8
-                        PaddingRight: =8
-                        PaddingTop: =8
-                        RadiusBottomLeft: =0
-                        RadiusBottomRight: =0
-                        RadiusTopLeft: =0
-                        RadiusTopRight: =0
-                        Width: =250
-                        X: =40
-                        Y: =40
-                      Children:
-                        - Button34:
-                            Control: ModernButton
-                            Properties:
-                              BasePaletteColor: =RGBA(249, 83, 109, 1)
-                              Height: =40
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              OnSelect: |-
-                                =Remove(dis_areas, Gallery8_12.Selected);
-                                Notify("Data area berhasil dihapus!", NotificationType.Success);
-                                UpdateContext({locShowDeleteConfirm: false})
-                              Size: =20
-                              Text: ="Delete"
-                              Width: =100
-                        - Container38:
-                            Control: GroupContainer
-                            Variant: ManualLayout
-                            Properties:
-                              DropShadow: =DropShadow.None
-                              FillPortions: =0
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              RadiusBottomLeft: =0
-                              RadiusBottomRight: =0
-                              RadiusTopLeft: =0
-                              RadiusTopRight: =0
-                              Width: =34
-                        - Button35:
-                            Control: ModernButton
-                            Properties:
-                              Height: =40
-                              LayoutMinHeight: =16
-                              LayoutMinWidth: =16
-                              OnSelect: |-
-                                =UpdateContext({locShowDeleteConfirm: false})
-                              Size: =20
-                              Text: ="Cancle"
-                              Width: =100
+                                                      Width: =72
+                                                    Children:
+                                                      - icoAreaLEdit:
+                                                          Control: ModernIcon
+                                                          Properties:
+                                                            AccessibleLabel: ="Edit " & ThisItem.Name
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            FillPortions: =0
+                                                            Height: =32
+                                                            Icon: ="Edit"
+                                                            IconColor: =clrAccent
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            OnSelect: |-
+                                                              =Set(gblFormMode, "Update");
+                                                              EditForm(Form5_1);
+                                                              Navigate(Add_area, ScreenTransition.None)
+                                                            PaddingBottom: =6
+                                                            PaddingLeft: =6
+                                                            PaddingRight: =6
+                                                            PaddingTop: =6
+                                                            RadiusBottomLeft: =6
+                                                            RadiusBottomRight: =6
+                                                            RadiusTopLeft: =6
+                                                            RadiusTopRight: =6
+                                                            Tooltip: ="Edit " & ThisItem.Name
+                                                            Width: =32
+                                                      - icoAreaLDelete:
+                                                          Control: ModernIcon
+                                                          Properties:
+                                                            AccessibleLabel: ="Hapus " & ThisItem.Name
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            FillPortions: =0
+                                                            Height: =32
+                                                            Icon: ="Delete"
+                                                            IconColor: =clrDanger
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            OnSelect: '=UpdateContext({locSelectedRecord: ThisItem, locShowDeleteConfirm: true})'
+                                                            PaddingBottom: =6
+                                                            PaddingLeft: =6
+                                                            PaddingRight: =6
+                                                            PaddingTop: =6
+                                                            RadiusBottomLeft: =6
+                                                            RadiusBottomRight: =6
+                                                            RadiusTopLeft: =6
+                                                            RadiusTopRight: =6
+                                                            Tooltip: ="Hapus " & ThisItem.Name
+                                                            Width: =32
+                                    - txtAreaLEmpty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =clrTextMuted
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =380
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="Tidak ada area yang cocok dengan filter."
+                                          VerticalAlign: =VerticalAlign.Middle
+                                          Visible: |-
+                                            =IsEmpty(Filter(
+                                                dis_areas,
+                                                
+                                                // 1. Filter berdasarkan Geounit
+                                                IsBlank(dd_Geounit_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = dd_Geounit_2.Selected.dis_geounit,
+                                                
+                                                // 2. Filter berdasarkan Location
+                                                IsBlank(dd_Location_2.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = dd_Location_2.Selected.dis_location,
+                                                
+                                                // 3. Filter berdasarkan Area
+                                                IsBlank(dd_Area_2.Selected) Or dis_area = dd_Area_2.Selected.dis_area,
+                                                
+                                                // 4. Pencarian Teks (Meniru referensi yang berhasil)
+                                                IsBlank(inp_search_9.Text) Or StartsWith(Name, inp_search_9.Text)
+                                            ))
+                                          Wrap: =false
