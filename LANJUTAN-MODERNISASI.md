@@ -26,8 +26,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | W4b     | Web      | Opus   | Perbaikan: rename control lama, nfLowStock, KPI dashboard  | selesai |
 | T4b     | Terminal | Sonnet | Pull, compile + CEK VISUAL W2-W4b di Studio, push          | selesai (compile; visual belum dicek) |
 | W5      | Web      | Sonnet | Build scr_item, scr_frm_item, scr_find_item                | selesai |
-| W5b     | Web      | Opus   | Perbaikan: tabel hitam (container bersarang di baris galeri) | selesai, belum compile |
-| T5b     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | belum  |
+| W5b     | Web      | Opus   | Perbaikan: tabel hitam (container bersarang di baris galeri) | selesai |
+| T5b     | Terminal | Sonnet | Pull, compile, CEK VISUAL, File > Save (jangan refresh dulu) | selesai (compile; Save + visual menunggu user) |
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | belum  |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | belum  |
@@ -223,6 +223,12 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   aslinya). Butuh data dari Studio: screenshot salah satu dropdown yang kosong (nama control di Tree view + rumus Items di
   formula bar + ikon error kalau ada).
   T5b: compile, tunggu Studio tampil (JANGAN refresh), cek tabel Area/Category/User/Item/Register/Dashboard, File > Save.
+- [T5b, 2026-10-05] Compile app/ (20 file) setelah W5b: PASSED, tanpa perbaikan; tidak ada file app/ diubah.
+  App Checker: 23 peringatan Medium/Performance saja (variabel tidak dipakai imyid/imyarea/imyemail, referensi lintas
+  screen di tombol Add/Edit dan Form.Item, ForAll+mutasi di Button15_2/Button38/Form5.OnSuccess); tidak ada error
+  formula. Dropdown form kosong: penyebab masih belum diketahui. DataCardValue47_ItmF identik dengan versi sebelum W5
+  (Items =Choices([@dis_item_v2S].dis_category_item), DisplayFields/SearchFields sama), dan form versi lama juga sudah
+  ada di dalam GroupContainer bersarang. Tetap butuh screenshot dari Studio. Save + cek visual menunggu user.
 
 ---
 
