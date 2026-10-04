@@ -14,8 +14,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 
 | Langkah | Tempat   | Model  | Isi                                                        | Status |
 |---------|----------|--------|------------------------------------------------------------|--------|
-| T0      | Terminal | Sonnet | Cek Studio vs file lokal (sync + diff), push               | belum  |
-| W1      | Web      | Opus   | Tulis 12 brief yang belum ada + terapkan "Before builders" | belum  |
+| T0      | Terminal | Sonnet | Cek Studio vs file lokal (sync + diff), push               | digabung ke T1 |
+| W1      | Web      | Opus   | Tulis 12 brief yang belum ada + terapkan "Before builders" | selesai, belum compile |
 | T1      | Terminal | Sonnet | Pull, compile App/Sidebar/TopBar sampai bersih, push       | belum  |
 | W2      | Web      | Sonnet | Build scr_dashboard, Log In, Register                      | belum  |
 | T2      | Terminal | Sonnet | Pull, compile + fix W2, push                               | belum  |
@@ -31,7 +31,35 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T7      | Terminal | Sonnet | Pull, compile final, validasi, push                        | belum  |
 
 Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan penting):
-- (kosong)
+- [W1, 2026-10-04] T0 dilewati, pengecekannya digabung ke T1: sebelum compile, lakukan dulu langkah T0
+  (sync Studio ke folder baru, diff dengan app/, laporkan kalau ada perubahan dari Studio), baru compile.
+- [W1] File yang ditulis web dan BELUM pernah di-compile: app/App.pa.yaml, app/Components/Sidebar.pa.yaml,
+  app/Components/TopBar.pa.yaml (disalin verbatim dari "### Before builders" di canvas-app-plan.md; YAML-nya
+  sudah dicek bisa di-parse). Setelah compile T1, jalankan describe_control untuk Sidebar dan TopBar (TopBar
+  sekarang punya input `Subtitle`). Menu "Dashboard" di fxMenuItems sengaja masih ke scr_consume (diubah di W7).
+  Screen lama masih memakai instance Sidebar/TopBar lama (lebar 180/975, tanpa Subtitle); error/peringatan
+  layout di screen yang belum dibangun boleh diabaikan di T1.
+- [W1] 12 brief baru: Area, Add_area, scr_user, scr_category, scr_frm_category, scr_item, scr_frm_item,
+  scr_Transaction, scr_frm_Transaction, scr_consume, scr_find_item, scr_History (*.screen-plan.md).
+  Cek konsistensi 16 brief (dengan skrip) terhadap Dispatch (target file, YAML key, prefix), tabel Cross-Screen
+  (activemenu/TopBar/Subtitle), nama control di plan, Action Contracts, dan Mutation Field Ledger: semua cocok.
+  Nama control baru unik dan memakai prefix screen masing-masing.
+  Satu catatan kecil: brief scr_dashboard menamai control KPI Low/Today lewat pola `...KpiLow...` /
+  `...KpiToday...` (contoh: txtDashKpiLowVal); builder W2 cukup mengikuti pola dari baris Items.
+- [W1] Keputusan di brief:
+  - Toolbar scr_consume pakai ikon reset 36 (shared), bukan 32 (angka budget di plan): 636 <= 832, tetap muat.
+  - Kartu daftar scr_user tidak punya toolbar (tidak ada filter di aslinya), jadi tingginya 488.
+  - Pilih baris di scr_Transaction / scr_History lewat tombol nomor (btnTrxLOpen / btnHistOpen). Mengklik
+    control di dalam baris galeri otomatis memilih baris itu; OnSelect diisi aksi ringan (tutup strip konfirmasi
+    / `false`).
+  - Delete memakai `With({target: locSelectedRecord}, ...)` + `Errors(<source>)`: receipt hanya muncul kalau
+    berhasil; kalau gagal (mis. kategori masih dipakai item) muncul Notify error.
+- [W1] Yang perlu dicek saat compile:
+  - Add_area: `elv_location_DataCard1.Default: =ThisItem.location` dipertahankan (tidak diubah). Receipt
+    memakai `LastSubmit.'elv_location (cr8a3_elv_location)'.Name`, sama dengan kolom galeri Area.
+  - Bug lama di luar scope (TIDAK diperbaiki, karena logika form harus tetap sama): di scr_frm_Transaction
+    `DataCardValue4.Default` selalu membuat nomor baru, juga saat Edit, sehingga Edit transaksi ikut mengganti
+    transaction_number-nya. Putuskan nanti apakah perlu diperbaiki (mis. `If(Form5.Mode = FormMode.New, <rumus>, Parent.Default)`).
 
 ---
 

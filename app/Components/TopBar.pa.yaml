@@ -6,36 +6,117 @@ ComponentDefinitions:
       ActiveMenu:
         PropertyKind: Input
         DisplayName: ActiveMenu
-        Description: A custom property
+        Description: Page title
         DataType: Text
-        Default: ="Text"
+        Default: =""
+      Subtitle:
+        PropertyKind: Input
+        DisplayName: Subtitle
+        Description: Optional page subtitle
+        DataType: Text
+        Default: =""
     Properties:
-      Height: =80
-      Width: =App.Width - 150
+      Height: =64
+      Width: =912
     Children:
-      - Container6:
+      - conTbRoot:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            Fill: =RGBA(255, 255, 255, 1)
+            DropShadow: =DropShadow.None
+            Fill: =clrSurface
             Height: =TopBar.Height
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =16
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
             PaddingBottom: =8
-            PaddingLeft: =8
-            PaddingRight: =8
+            PaddingLeft: =24
+            PaddingRight: =24
             PaddingTop: =8
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
             Width: =TopBar.Width
+            X: =0
+            Y: =0
           Children:
-            - Text1_1:
+            - conTbTitles:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  DropShadow: =DropShadow.None
+                  FillPortions: =1
+                  Height: =46
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =0
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - txtTbTitle:
+                      Control: ModernText
+                      Properties:
+                        AccessibleLabel: =TopBar.ActiveMenu
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =clrText
+                        FillPortions: =0
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =27
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =18
+                        Text: =TopBar.ActiveMenu
+                        Wrap: =false
+                  - txtTbSubtitle:
+                      Control: ModernText
+                      Properties:
+                        AccessibleLabel: =TopBar.Subtitle
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =clrTextMuted
+                        FillPortions: =0
+                        Font: =Font.'Segoe UI'
+                        Height: =18
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: =TopBar.Subtitle
+                        Visible: =!IsBlank(TopBar.Subtitle)
+                        Wrap: =false
+            - txtTbDate:
                 Control: ModernText
                 Properties:
-                  Color: =RGBA(44, 62, 80, 1)
-                  Font: =Font.'Open Sans'
-                  FontWeight: =FontWeight.Semibold
-                  Height: =TopBar.Height
-                  PaddingLeft: =50
-                  Size: =28
-                  Text: =TopBar.ActiveMenu
-                  Width: =TopBar.Width
-                  X: =
+                  AccessibleLabel: ="Tanggal hari ini"
+                  Align: =Align.Right
+                  AlignInContainer: =AlignInContainer.Center
+                  Color: =clrTextMuted
+                  FillPortions: =0
+                  Font: =Font.'Segoe UI'
+                  Height: =20
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: =Text(Today(), "dddd, dd mmmm yyyy", "id-ID")
+                  Width: =240
+                  Wrap: =false
