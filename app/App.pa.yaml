@@ -23,7 +23,7 @@ App:
           {
               TextValue: "Dashboard",
               Icon: "Home",
-              NavigateScreen: scr_consume
+              NavigateScreen: scr_dashboard
           },
           {
               TextValue: "Category Item",

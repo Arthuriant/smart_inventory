@@ -33,7 +33,7 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | selesai |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | selesai (compile; Save + uji stok menunggu user) |
-| W7      | Web      | Sonnet | Build scr_History + "After builders" + "Editor State"      | belum  |
+| W7      | Web      | Sonnet | Build scr_History + "After builders" + "Editor State"      | selesai, belum compile (Editor State -> T7) |
 | T7      | Terminal | Sonnet | Pull, compile final, validasi, push                        | belum  |
 
 Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan penting):
@@ -406,6 +406,21 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
     Notify("Transaksi berhasil disimpan & Stok terupdate!", NotificationType.Success);
     Back();
   ```
+- [W7, 2026-10-05] Ditulis web, BELUM pernah di-compile: app/scr_History.pa.yaml (ditulis ulang) dan app/App.pa.yaml.
+  - scr_History: segmen tipe (locHistType), filter tanggal + tombol hapus tanggal, cari transaksi, daftar terbaru dulu,
+    kartu detail dengan filter kategori dan cari item (inp_search_6 lama tidak tersambung, sekarang tersambung).
+    Rename: Gallery8_7/Gallery8_8 -> galHist/galHistD; Dropdown2_3 diganti segmen; DatePicker2 -> datHistDate;
+    Icon2 -> icoHistDateClear; inp_search_5/inp_search_6 -> inpHistSearch/inpHistDSearch; Dropdown2_4 -> ddHistDCat.
+    Tidak ada screen lain yang memakai nama lama. Baris galeri tanpa ModernIcon dan tanpa container bersarang.
+  - After builders: entri "Dashboard" di fxMenuItems sekarang `NavigateScreen: scr_dashboard` (entri "Consume" tetap
+    scr_consume). StartScreen tidak berubah.
+  - Editor State Changes TIDAK bisa dikerjakan web: app/_EditorState.pa.yaml ada di .gitignore. T7 tolong atur di Studio
+    (atau di file lokal itu sebelum compile) ScreensOrder: Register, Log In, scr_dashboard, Template, Area, Add_area,
+    scr_user, scr_Transaction, scr_frm_Transaction, scr_category, scr_frm_category, scr_item, scr_frm_item, scr_find_item,
+    scr_History, scr_consume; ComponentDefinitionsOrder: Sidebar, TopBar.
+  - Self-QA 16 screen: YAML parse (juga App), 704 nama control unik, semua properti diawali `=`, tanpa `clr*`/CR.
+  T7: compile final, atur Editor State, cek gejala "binding" di scr_History (Fill conHistRow / conHistDRow), uji navigasi
+  menu Dashboard, lalu File > Save. Daftar cek manual seluruh app ada di poin-poin T2-T6 di atas.
 
 ---
 
