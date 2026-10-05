@@ -357,3 +357,14 @@ Logika Patch btnConsSubmit (header, detail, stok, receipt) TIDAK diubah. Perubah
 - `numConsQty.DisplayMode` Disabled kalau stok <= 0 (tidak bisa salah isi barang habis).
 - Footer: `btnConsClear` Secondary "Kosongkan" (ArrowReset, W 132), `OnSelect: =Reset(galCons)`, Disabled kalau
   belum ada qty.
+
+## Revisi 2026-10-05 (TERMINAL): grid kartu ala online shop
+
+- galCons jadi grid: `WrapCount: =4`, `TemplateSize: =346`, `TemplatePadding: =8`, Fill RGBA(244, 246, 250, 1),
+  Height 720 (2 baris kartu terlihat, sisanya scroll). conConsTable 720, conConsCard 508 -> 876 (body scroll).
+- Header kolom `conConsHead` + `txtConsH*` dihapus (tidak cocok untuk grid).
+- Kartu `conConsRow` (AutoLayout vertikal, Stretch, pad 8, gap 6, radius 12, Fill putih, border biru 2 kalau
+  numConsQty > 0): imgConsItem 176 (Stretch, Fit), txtConsName 36 (nama, wrap 2 baris), bdgConsStock 24
+  ("Stok n uom", Start, W 120), txtConsArea 16 ("BPN x · area", abu 11), numConsQty 32, txtConsWarn 16.
+  Budget: 16 + 176 + 36 + 24 + 16 + 32 + 16 + 5 x 6 = 346. Tanpa container bersarang (KOREKSI #7).
+- ModernText tidak punya Tooltip (compile menolak); jangan ditambahkan.

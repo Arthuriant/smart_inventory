@@ -543,7 +543,7 @@ Screens:
                               DropShadow: =DropShadow.Light
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
-                              Height: =508
+                              Height: =876
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =12
@@ -917,7 +917,7 @@ Screens:
                                     DropShadow: =DropShadow.None
                                     Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
-                                    Height: =352
+                                    Height: =720
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =4
@@ -928,139 +928,6 @@ Screens:
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - conConsHead:
-                                        Control: GroupContainer
-                                        Variant: AutoLayout
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          DropShadow: =DropShadow.None
-                                          Fill: =RGBA(241, 244, 250, 1)
-                                          FillPortions: =0
-                                          Height: =36
-                                          LayoutAlignItems: =LayoutAlignItems.Center
-                                          LayoutDirection: =LayoutDirection.Horizontal
-                                          LayoutGap: =8
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
-                                          PaddingLeft: =13
-                                          PaddingRight: =13
-                                          RadiusBottomLeft: =8
-                                          RadiusBottomRight: =8
-                                          RadiusTopLeft: =8
-                                          RadiusTopRight: =8
-                                        Children:
-                                          - txtConsHImg:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="FOTO"
-                                                Width: =56
-                                                Wrap: =false
-                                          - txtConsHItem:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =3
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="ITEM"
-                                                Wrap: =false
-                                          - txtConsHArea:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =2
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="AREA"
-                                                Wrap: =false
-                                          - txtConsHStock:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="STOK"
-                                                Width: =88
-                                                Wrap: =false
-                                          - txtConsHWarn:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: =""
-                                                Width: =120
-                                                Wrap: =false
-                                          - txtConsHQty:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="QTY PAKAI"
-                                                Width: =120
-                                                Wrap: =false
                                     - galCons:
                                         Control: Gallery
                                         Variant: Vertical
@@ -1068,9 +935,9 @@ Screens:
                                           AccessibleLabel: ="Stok yang bisa dipakai"
                                           AlignInContainer: =AlignInContainer.Stretch
                                           BorderThickness: =0
-                                          Fill: =RGBA(226, 230, 239, 1)
+                                          Fill: =RGBA(244, 246, 250, 1)
                                           FillPortions: =0
-                                          Height: =312
+                                          Height: =720
                                           Items: |-
                                             =Filter(
                                                 dis_stocks,
@@ -1090,8 +957,8 @@ Screens:
                                           LayoutMinWidth: =0
                                           ShowScrollbar: =true
                                           TabIndex: =0
-                                          TemplatePadding: =1
-                                          TemplateSize: =72
+                                          TemplatePadding: =8
+                                          TemplateSize: =346
                                           Visible: |-
                                             =!IsEmpty(Filter(
                                                 dis_stocks,
@@ -1107,60 +974,63 @@ Screens:
                                                 StartsWith(dis_item_v2.name, inpConsSearch.Text) Or 
                                                 StartsWith(dis_item_v2.part_number, inpConsSearch.Text)
                                             ))
+                                          WrapCount: =4
                                         Children:
                                           - conConsRow:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
+                                                BorderColor: =If(numConsQty.Value > 0, RGBA(15, 108, 189, 1), RGBA(226, 230, 239, 1))
+                                                BorderStyle: =BorderStyle.Solid
+                                                BorderThickness: =If(numConsQty.Value > 0, 2, 1)
                                                 DropShadow: =DropShadow.None
-                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Fill: =RGBA(255, 255, 255, 1)
                                                 Height: =Parent.TemplateHeight
-                                                LayoutAlignItems: =LayoutAlignItems.Center
-                                                LayoutDirection: =LayoutDirection.Horizontal
-                                                LayoutGap: =8
+                                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                                LayoutDirection: =LayoutDirection.Vertical
+                                                LayoutGap: =6
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                PaddingLeft: =12
-                                                PaddingRight: =12
-                                                RadiusBottomLeft: =0
-                                                RadiusBottomRight: =0
-                                                RadiusTopLeft: =0
-                                                RadiusTopRight: =0
+                                                PaddingBottom: =8
+                                                PaddingLeft: =8
+                                                PaddingRight: =8
+                                                PaddingTop: =8
+                                                RadiusBottomLeft: =12
+                                                RadiusBottomRight: =12
+                                                RadiusTopLeft: =12
+                                                RadiusTopRight: =12
                                                 Width: =Parent.TemplateWidth
                                               Children:
                                                 - imgConsItem:
                                                     Control: Image
                                                     Properties:
                                                       AccessibleLabel: ="Foto " & ThisItem.dis_item_v2.name
-                                                      AlignInContainer: =AlignInContainer.Center
-                                                      BorderColor: =RGBA(226, 230, 239, 1)
-                                                      BorderStyle: =BorderStyle.Solid
-                                                      BorderThickness: =1
+                                                      AlignInContainer: =AlignInContainer.Stretch
+                                                      BorderThickness: =0
                                                       Fill: =RGBA(241, 244, 250, 1)
                                                       FillPortions: =0
-                                                      Height: =56
+                                                      Height: =176
                                                       Image: =ThisItem.dis_item_v2.Image
                                                       ImagePosition: =ImagePosition.Fit
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      PaddingBottom: =2
-                                                      PaddingLeft: =2
-                                                      PaddingRight: =2
-                                                      PaddingTop: =2
+                                                      PaddingBottom: =4
+                                                      PaddingLeft: =4
+                                                      PaddingRight: =4
+                                                      PaddingTop: =4
                                                       RadiusBottomLeft: =8
                                                       RadiusBottomRight: =8
                                                       RadiusTopLeft: =8
                                                       RadiusTopRight: =8
                                                       Tooltip: =ThisItem.dis_item_v2.name
-                                                      Width: =56
                                                 - txtConsName:
                                                     Control: ModernText
                                                     Properties:
-                                                      AlignInContainer: =AlignInContainer.Center
+                                                      AlignInContainer: =AlignInContainer.Stretch
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =3
+                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
-                                                      Height: =40
+                                                      Height: =36
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       PaddingBottom: =0
@@ -1168,33 +1038,16 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =ThisItem.dis_item_v2.name & Char(10) & "BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-")
-                                                      VerticalAlign: =VerticalAlign.Middle
+                                                      Text: =ThisItem.dis_item_v2.name
+                                                      VerticalAlign: =VerticalAlign.Top
                                                       Wrap: =true
-                                                - txtConsArea:
-                                                    Control: ModernText
-                                                    Properties:
-                                                      AlignInContainer: =AlignInContainer.Center
-                                                      Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =2
-                                                      Font: =Font.'Segoe UI'
-                                                      Height: =20
-                                                      LayoutMinHeight: =0
-                                                      LayoutMinWidth: =0
-                                                      PaddingBottom: =0
-                                                      PaddingLeft: =0
-                                                      PaddingRight: =0
-                                                      PaddingTop: =0
-                                                      Size: =13
-                                                      Text: =ThisItem.dis_area.Name
-                                                      Wrap: =false
                                                 - bdgConsStock:
                                                     Control: Badge
                                                     Properties:
                                                       AccessibleLabel: ="Stok " & Text(ThisItem.qty)
-                                                      AlignInContainer: =AlignInContainer.Center
+                                                      AlignInContainer: =AlignInContainer.Start
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
-                                                      Content: =Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
+                                                      Content: ="Stok " & Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
                                                       FillPortions: =0
                                                       FontSize: =12
                                                       FontWeight: =FontWeight.Semibold
@@ -1203,38 +1056,35 @@ Screens:
                                                       LayoutMinWidth: =0
                                                       Shape: ='BadgeCanvas.Shape'.Rounded
                                                       ThemeColor: =If(ThisItem.qty <= 0, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Informative)
-                                                      Width: =88
-                                                - txtConsWarn:
+                                                      Width: =120
+                                                - txtConsArea:
                                                     Control: ModernText
                                                     Properties:
-                                                      AlignInContainer: =AlignInContainer.Center
-                                                      Color: =RGBA(196, 43, 28, 1)
+                                                      AlignInContainer: =AlignInContainer.Stretch
+                                                      Color: =RGBA(100, 112, 130, 1)
                                                       FillPortions: =0
                                                       Font: =Font.'Segoe UI'
-                                                      FontWeight: =FontWeight.Semibold
-                                                      Height: =20
+                                                      Height: =16
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      Size: =12
-                                                      Text: ="Qty melebihi stok"
-                                                      Visible: =numConsQty.Value > ThisItem.qty
-                                                      Width: =120
+                                                      Size: =11
+                                                      Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · " & ThisItem.dis_area.Name
                                                       Wrap: =false
                                                 - numConsQty:
                                                     Control: ModernNumberInput
                                                     Properties:
                                                       AccessibleLabel: ="Qty pakai " & ThisItem.dis_item_v2.name
-                                                      AlignInContainer: =AlignInContainer.Center
+                                                      AlignInContainer: =AlignInContainer.Stretch
                                                       Appearance: =Appearance.Outline
                                                       Default: =0
                                                       DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
                                                       FillPortions: =0
                                                       Font: =Font.'Segoe UI'
-                                                      Height: =36
+                                                      Height: =32
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       Min: =0
@@ -1245,7 +1095,25 @@ Screens:
                                                       Size: =13
                                                       Step: =1
                                                       ValidationState: =If(Self.Value > ThisItem.qty || Self.Value < 0, ValidationState.Error, ValidationState.None)
-                                                      Width: =120
+                                                - txtConsWarn:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Stretch
+                                                      Color: =RGBA(196, 43, 28, 1)
+                                                      FillPortions: =0
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =16
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =11
+                                                      Text: ="Qty melebihi stok"
+                                                      Visible: =numConsQty.Value > ThisItem.qty
+                                                      Wrap: =false
                                     - txtConsEmpty:
                                         Control: ModernText
                                         Properties:
@@ -1254,7 +1122,7 @@ Screens:
                                           Color: =RGBA(100, 112, 130, 1)
                                           FillPortions: =0
                                           Font: =Font.'Segoe UI'
-                                          Height: =312
+                                          Height: =720
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           PaddingBottom: =0

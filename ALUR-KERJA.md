@@ -54,8 +54,14 @@ Kalau tidak ada perubahan file dan hanya mau bertanya/cek sesuatu di Studio, cuk
 1. Studio terbuka dalam mode edit di SATU tab (URL di bawah). `git pull`.
 2. Connect: environment `c2194d0b-89b3-ed3b-b65a-1db58a779659`, app `87f60c80-e3c1-45bf-ba27-93eb0c079759`,
    login `ARianto2@slb.com`.
-3. `compile_canvas` dengan `directoryPath` = `C:\Project\Powerapps\app` (jangan `sync_canvas` ke app/; kalau perlu
-   sync, pakai folder sementara lalu hapus).
+3. JANGAN compile langsung `app/`. Compile mengirim SEMUA file ke Studio; teks repo beda format dengan Studio
+   (Studio membuang properti default), jadi setiap screen dibangun ulang dan tabel yang sudah dibetulkan user jadi
+   hitam lagi (gejala "binding"). Caranya:
+   a. `sync_canvas` ke folder sementara baru (mis. scratchpad `studio`), JANGAN ke app/.
+   b. Salin ke folder itu HANYA file `.pa.yaml` yang diubah entri WEB (`git diff --name-only <commit compile
+      terakhir> HEAD -- app/`).
+   c. `compile_canvas` dengan `directoryPath` = folder sementara itu. Perbaikan kecil dibuat di app/ lalu disalin ulang.
+   d. Hapus folder sementara setelah selesai.
 4. Error kecil dan jelas: perbaiki lalu compile ulang. Error yang butuh analisis: jangan dikejar, catat di Log
    (nama control + properti + pesan error) untuk WEB.
 5. Ingatkan user: tunggu Studio tampil (sering putih sebentar), JANGAN refresh, cek gejala "binding" di screen yang
@@ -87,3 +93,12 @@ Format: `- [tanggal, WEB/TERMINAL] file yang diubah | ringkasan | status: belum 
   `imgConsItem.OnSelect = Select(Parent)` (Parent = GroupContainer conConsRow, tanpa OnSelect). Diperbaiki: OnSelect
   dihapus (foto hanya tampilan). Catatan untuk WEB: jangan pakai Select(Parent) di control dalam container baris
   galeri. | status: compile OK | cek manual di Studio: sama dengan entri WEB di atas, lalu File > Save.
+- [2026-10-05, TERMINAL] app/scr_consume.pa.yaml, app/scr_consume.screen-plan.md, ALUR-KERJA.md | (1) Sebab tabel
+  hitam lagi: compile `app/` mengirim semua 20 file, semuanya beda format dengan Studio, jadi Studio membangun ulang
+  semua screen (termasuk Area yang sudah dibetulkan user). Aturan TERMINAL #3 diganti: sync Studio ke folder
+  sementara, salin hanya file yang berubah, compile folder itu. (2) Consume jadi grid kartu ala online shop: galCons
+  WrapCount 4, kartu 346 tinggi (foto 176 penuh lebar kartu, nama 2 baris, badge "Stok n uom", BPN · area, qty,
+  peringatan), header kolom conConsHead dihapus, galeri 720 tinggi (2 baris kartu), conConsCard 876. Nama control
+  dan logika Consume/Kosongkan tidak berubah; kartu ber-border biru kalau qty > 0. | status: compile OK (cara baru)
+  | cek manual di Studio: Area tetap normal; kartu Consume tidak hitam (kalau hitam: ketik ulang Fill conConsRow),
+  foto besar, isi qty -> border biru, Consume & Kosongkan jalan; lalu File > Save.
