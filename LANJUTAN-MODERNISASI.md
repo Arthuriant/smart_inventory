@@ -1,5 +1,8 @@
 # Panduan Melanjutkan Modernisasi App (Digital Inventory)
 
+> **SELESAI (2026-10-05).** Semua langkah W1-T7 sudah dikerjakan. Untuk pekerjaan baru pakai **ALUR-KERJA.md**
+> (prompt WEB/TERMINAL yang sederhana). File ini hanya arsip riwayat dan catatan teknis.
+
 Kerja dibagi dua, bergantian:
 - **WEB** (claude.ai/code, repo `Arthuriant/smart_inventory`): hanya menulis/mengedit file
   (.pa.yaml dan .md). Tidak bisa connect, sync, atau compile ke Power Apps Studio.
