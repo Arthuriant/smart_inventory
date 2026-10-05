@@ -10,7 +10,6 @@ ComponentDefinitions:
         DataType: Text
         Default: =""
     Properties:
-      Height: =640
       Width: =224
     Children:
       - conSbRoot:
@@ -23,8 +22,6 @@ ComponentDefinitions:
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Vertical
             LayoutGap: =8
-            LayoutMinHeight: =0
-            LayoutMinWidth: =0
             PaddingBottom: =16
             PaddingLeft: =12
             PaddingRight: =12
@@ -34,14 +31,11 @@ ComponentDefinitions:
             RadiusTopLeft: =0
             RadiusTopRight: =0
             Width: =Sidebar.Width
-            X: =0
-            Y: =0
           Children:
             - conSbBrand:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
                   FillPortions: =0
                   Height: =48
@@ -61,10 +55,8 @@ ComponentDefinitions:
                       Properties:
                         AccessibleLabel: ="SLB logo"
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =32
                         Image: ='slb logo white'
-                        ImagePosition: =ImagePosition.Fit
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         Width: =64
@@ -86,15 +78,12 @@ ComponentDefinitions:
                         PaddingTop: =0
                         Size: =13
                         Text: ="Digital Inventory"
-                        VerticalAlign: =VerticalAlign.Middle
-                        Wrap: =true
             - txtSbSection:
                 Control: ModernText
                 Properties:
                   AccessibleLabel: ="Menu"
                   AlignInContainer: =AlignInContainer.Stretch
                   Color: =RGBA(255, 255, 255, 0.55)
-                  FillPortions: =0
                   Font: =Font.'Segoe UI'
                   FontWeight: =FontWeight.Semibold
                   Height: =24
@@ -113,10 +102,6 @@ ComponentDefinitions:
                 Variant: Vertical
                 Properties:
                   AccessibleLabel: ="Menu navigasi"
-                  AlignInContainer: =AlignInContainer.Stretch
-                  BorderThickness: =0
-                  Fill: =RGBA(0, 0, 0, 0)
-                  FillPortions: =1
                   Items: =fxMenuItems
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
@@ -135,8 +120,6 @@ ComponentDefinitions:
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =12
-                        LayoutMinHeight: =0
-                        LayoutMinWidth: =0
                         PaddingLeft: =12
                         PaddingRight: =8
                         RadiusBottomLeft: =8
@@ -150,7 +133,6 @@ ComponentDefinitions:
                             Properties:
                               AccessibleLabel: =ThisItem.TextValue
                               AlignInContainer: =AlignInContainer.Center
-                              FillPortions: =0
                               Height: =20
                               Icon: =ThisItem.Icon
                               IconColor: =If(ThisItem.TextValue = Sidebar.activemenu, RGBA(255, 255, 255, 1), RGBA(255, 255, 255, 0.72))
@@ -176,13 +158,11 @@ ComponentDefinitions:
                               PaddingTop: =0
                               Size: =14
                               Text: =ThisItem.TextValue
-                              VerticalAlign: =VerticalAlign.Middle
                               Wrap: =false
             - conSbProfile:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
                   Fill: =RGBA(255, 255, 255, 0.08)
                   FillPortions: =0
@@ -204,7 +184,6 @@ ComponentDefinitions:
                       Properties:
                         AccessibleLabel: ="Foto profil"
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =36
                         Image: =User().Image
                         ImagePosition: =ImagePosition.Fill
@@ -221,7 +200,6 @@ ComponentDefinitions:
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
                         DropShadow: =DropShadow.None
-                        FillPortions: =1
                         Height: =40
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
@@ -240,7 +218,6 @@ ComponentDefinitions:
                               AccessibleLabel: ="Pengguna " & Coalesce(nfMe.Name, User().FullName)
                               AlignInContainer: =AlignInContainer.Stretch
                               Color: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Semibold
                               Height: =20
@@ -259,7 +236,6 @@ ComponentDefinitions:
                               AccessibleLabel: ="Peran " & If(IsBlank(imyrole), "Belum terdaftar", Proper(Text(imyrole)))
                               AlignInContainer: =AlignInContainer.Stretch
                               Color: =RGBA(255, 255, 255, 0.72)
-                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               Height: =18
                               LayoutMinHeight: =0

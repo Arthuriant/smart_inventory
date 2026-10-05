@@ -13,9 +13,6 @@ Screens:
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            LayoutGap: =0
-            LayoutMinHeight: =0
-            LayoutMinWidth: =0
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
@@ -26,24 +23,19 @@ Screens:
                 Control: CanvasComponent
                 ComponentName: Sidebar
                 Properties:
-                  activemenu: ="Consume"
                   AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =0
-                  Height: =640
                   LayoutMinHeight: =0
                   LayoutMinWidth: =224
                   Width: =224
+                  activemenu: ="Consume"
             - conConsMain:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
                   Fill: =RGBA(244, 246, 250, 1)
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutGap: =0
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
                   RadiusBottomLeft: =0
@@ -57,7 +49,6 @@ Screens:
                       Properties:
                         ActiveMenu: ="Consume"
                         AlignInContainer: =AlignInContainer.Stretch
-                        FillPortions: =0
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
@@ -67,10 +58,8 @@ Screens:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        AlignInContainer: =AlignInContainer.Stretch
                         DropShadow: =DropShadow.None
                         Fill: =RGBA(244, 246, 250, 1)
-                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -90,9 +79,7 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               BorderColor: =RGBA(180, 222, 196, 1)
-                              BorderStyle: =BorderStyle.Solid
                               BorderThickness: =1
                               DropShadow: =DropShadow.None
                               Fill: =RGBA(232, 246, 238, 1)
@@ -117,9 +104,7 @@ Screens:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =44
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -137,16 +122,11 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Berhasil"
                                           AlignInContainer: =AlignInContainer.Center
-                                          FillPortions: =0
                                           Height: =24
                                           Icon: ="CheckmarkCircle"
                                           IconColor: =RGBA(16, 124, 65, 1)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
@@ -158,8 +138,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Center
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
-                                          FillPortions: =1
                                           Height: =40
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -177,7 +155,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(31, 41, 55, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Bold
                                                 Height: =20
@@ -195,7 +172,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =18
                                                 LayoutMinHeight: =0
@@ -212,7 +188,6 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Tutup"
                                           AlignInContainer: =AlignInContainer.Center
-                                          FillPortions: =0
                                           Height: =32
                                           Icon: ="Dismiss"
                                           IconColor: =RGBA(100, 112, 130, 1)
@@ -235,9 +210,7 @@ Screens:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =152
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -254,7 +227,6 @@ Screens:
                                         Control: GroupContainer
                                         Variant: AutoLayout
                                         Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
                                           DropShadow: =DropShadow.None
                                           Fill: =RGBA(241, 244, 250, 1)
                                           FillPortions: =0
@@ -294,7 +266,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =18
@@ -313,7 +284,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =18
@@ -332,7 +302,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =18
@@ -351,7 +320,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =18
@@ -370,7 +338,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =18
@@ -389,8 +356,6 @@ Screens:
                                         Variant: Vertical
                                         Properties:
                                           AccessibleLabel: ="Hasil consume per item"
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderThickness: =0
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =120
@@ -398,7 +363,6 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           Selectable: =false
-                                          ShowScrollbar: =true
                                           TabIndex: =0
                                           TemplatePadding: =1
                                           TemplateSize: =32
@@ -413,8 +377,6 @@ Screens:
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
                                                 LayoutGap: =8
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
                                                 PaddingLeft: =12
                                                 PaddingRight: =12
                                                 RadiusBottomLeft: =0
@@ -446,7 +408,6 @@ Screens:
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =20
                                                       LayoutMinHeight: =0
@@ -464,7 +425,6 @@ Screens:
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =20
                                                       LayoutMinHeight: =0
@@ -482,7 +442,6 @@ Screens:
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =20
                                                       LayoutMinHeight: =0
@@ -500,7 +459,6 @@ Screens:
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =20
                                                       LayoutMinHeight: =0
@@ -518,7 +476,6 @@ Screens:
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =If(ThisItem.ActualQty = ThisItem.ExpectedQty, RGBA(16, 124, 65, 1), RGBA(196, 43, 28, 1))
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =20
@@ -536,11 +493,8 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               BorderColor: =RGBA(226, 230, 239, 1)
-                              BorderStyle: =BorderStyle.Solid
                               BorderThickness: =1
-                              DropShadow: =DropShadow.Light
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =876
@@ -562,9 +516,7 @@ Screens:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =56
                                     LayoutAlignItems: =LayoutAlignItems.End
@@ -583,7 +535,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =0
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -602,7 +553,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =16
@@ -621,7 +571,6 @@ Screens:
                                                 AccessibleLabel: ="Filter kategori"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.code
@@ -639,7 +588,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =0
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -658,7 +606,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =16
@@ -678,7 +625,6 @@ Screens:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Default: =nfMe.Assigned_area.'elv_location (cr8a3_elv_location)'.dis_geounit
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.elv_name_long
@@ -699,7 +645,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =0
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -718,7 +663,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =16
@@ -743,7 +687,6 @@ Screens:
                                                       nfMe.Assigned_area.'elv_location (cr8a3_elv_location)'
                                                   )
                                                 DisplayMode: =If(IsBlank(ddConsGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
@@ -766,7 +709,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =0
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -785,7 +727,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =16
@@ -810,7 +751,6 @@ Screens:
                                                       nfMe.Assigned_area
                                                   )
                                                 DisplayMode: =If(IsBlank(ddConsLoc.Selected), DisplayMode.Disabled, DisplayMode.Edit)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
@@ -832,8 +772,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
-                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -850,7 +788,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =16
@@ -869,7 +806,6 @@ Screens:
                                                 AccessibleLabel: ="Cari item"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 LayoutMinHeight: =0
@@ -887,7 +823,6 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Reset filter"
                                           AlignInContainer: =AlignInContainer.End
-                                          FillPortions: =0
                                           Height: =36
                                           Icon: ="ArrowReset"
                                           IconColor: =RGBA(100, 112, 130, 1)
@@ -913,9 +848,7 @@ Screens:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =720
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -933,47 +866,16 @@ Screens:
                                         Variant: Vertical
                                         Properties:
                                           AccessibleLabel: ="Stok yang bisa dipakai"
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderThickness: =0
                                           Fill: =RGBA(244, 246, 250, 1)
                                           FillPortions: =0
                                           Height: =720
-                                          Items: |-
-                                            =Filter(
-                                                dis_stocks,
-                                                
-                                                // 1. Filter Kategori (Langsung 1 level)
-                                                IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,
-                                                
-                                                // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
-                                                IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,
-                                                
-                                                // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
-                                                IsBlank(inpConsSearch.Text) Or 
-                                                StartsWith(dis_item_v2.name, inpConsSearch.Text) Or 
-                                                StartsWith(dis_item_v2.part_number, inpConsSearch.Text)
-                                            )
+                                          Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          ShowScrollbar: =true
                                           TabIndex: =0
                                           TemplatePadding: =8
                                           TemplateSize: =346
-                                          Visible: |-
-                                            =!IsEmpty(Filter(
-                                                dis_stocks,
-                                                
-                                                // 1. Filter Kategori (Langsung 1 level)
-                                                IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,
-                                                
-                                                // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
-                                                IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,
-                                                
-                                                // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
-                                                IsBlank(inpConsSearch.Text) Or 
-                                                StartsWith(dis_item_v2.name, inpConsSearch.Text) Or 
-                                                StartsWith(dis_item_v2.part_number, inpConsSearch.Text)
-                                            ))
+                                          Visible: "=!IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           WrapCount: =4
                                         Children:
                                           - conConsRow:
@@ -981,7 +883,6 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 BorderColor: =If(numConsQty.Value > 0, RGBA(15, 108, 189, 1), RGBA(226, 230, 239, 1))
-                                                BorderStyle: =BorderStyle.Solid
                                                 BorderThickness: =If(numConsQty.Value > 0, 2, 1)
                                                 DropShadow: =DropShadow.None
                                                 Fill: =RGBA(255, 255, 255, 1)
@@ -989,8 +890,6 @@ Screens:
                                                 LayoutAlignItems: =LayoutAlignItems.Stretch
                                                 LayoutDirection: =LayoutDirection.Vertical
                                                 LayoutGap: =6
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
                                                 PaddingBottom: =8
                                                 PaddingLeft: =8
                                                 PaddingRight: =8
@@ -1006,12 +905,9 @@ Screens:
                                                     Properties:
                                                       AccessibleLabel: ="Foto " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
-                                                      BorderThickness: =0
                                                       Fill: =RGBA(241, 244, 250, 1)
-                                                      FillPortions: =0
                                                       Height: =176
                                                       Image: =ThisItem.dis_item_v2.Image
-                                                      ImagePosition: =ImagePosition.Fit
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       PaddingBottom: =4
@@ -1028,7 +924,6 @@ Screens:
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =36
                                                       LayoutMinHeight: =0
@@ -1040,7 +935,6 @@ Screens:
                                                       Size: =13
                                                       Text: =ThisItem.dis_item_v2.name
                                                       VerticalAlign: =VerticalAlign.Top
-                                                      Wrap: =true
                                                 - bdgConsStock:
                                                     Control: Badge
                                                     Properties:
@@ -1048,7 +942,6 @@ Screens:
                                                       AlignInContainer: =AlignInContainer.Start
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: ="Stok " & Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
-                                                      FillPortions: =0
                                                       FontSize: =12
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
@@ -1062,7 +955,6 @@ Screens:
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Color: =RGBA(100, 112, 130, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =16
                                                       LayoutMinHeight: =0
@@ -1080,9 +972,7 @@ Screens:
                                                       AccessibleLabel: ="Qty pakai " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Appearance: =Appearance.Outline
-                                                      Default: =0
                                                       DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =32
                                                       LayoutMinHeight: =0
@@ -1093,14 +983,12 @@ Screens:
                                                       RadiusTopLeft: =8
                                                       RadiusTopRight: =8
                                                       Size: =13
-                                                      Step: =1
                                                       ValidationState: =If(Self.Value > ThisItem.qty || Self.Value < 0, ValidationState.Error, ValidationState.None)
                                                 - txtConsWarn:
                                                     Control: ModernText
                                                     Properties:
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Color: =RGBA(196, 43, 28, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =16
@@ -1120,7 +1008,6 @@ Screens:
                                           Align: =Align.Center
                                           AlignInContainer: =AlignInContainer.Stretch
                                           Color: =RGBA(100, 112, 130, 1)
-                                          FillPortions: =0
                                           Font: =Font.'Segoe UI'
                                           Height: =720
                                           LayoutMinHeight: =0
@@ -1131,30 +1018,13 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: ="Tidak ada stok yang cocok dengan filter."
-                                          VerticalAlign: =VerticalAlign.Middle
-                                          Visible: |-
-                                            =IsEmpty(Filter(
-                                                dis_stocks,
-                                                
-                                                // 1. Filter Kategori (Langsung 1 level)
-                                                IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,
-                                                
-                                                // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
-                                                IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,
-                                                
-                                                // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
-                                                IsBlank(inpConsSearch.Text) Or 
-                                                StartsWith(dis_item_v2.name, inpConsSearch.Text) Or 
-                                                StartsWith(dis_item_v2.part_number, inpConsSearch.Text)
-                                            ))
+                                          Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           Wrap: =false
                               - conConsFooter:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =44
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -1192,11 +1062,9 @@ Screens:
                                           Appearance: =ButtonAppearance.Secondary
                                           Color: =RGBA(31, 41, 55, 1)
                                           DisplayMode: =If(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0, DisplayMode.Disabled, DisplayMode.Edit)
-                                          FillPortions: =0
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           Icon: ="ArrowReset"
-                                          Layout: =ButtonLayout.IconBefore
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =132
                                           OnSelect: =Reset(galCons)
@@ -1213,7 +1081,6 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Consume"
                                           AlignInContainer: =AlignInContainer.Center
-                                          Appearance: =ButtonAppearance.Primary
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
                                           DisplayMode: |-
                                             =If(
@@ -1223,11 +1090,9 @@ Screens:
                                                 DisplayMode.Disabled,
                                                 DisplayMode.Edit
                                             )
-                                          FillPortions: =0
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           Icon: ="Cart"
-                                          Layout: =ButtonLayout.IconBefore
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =140
                                           OnSelect: |-

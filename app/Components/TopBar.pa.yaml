@@ -29,8 +29,6 @@ ComponentDefinitions:
             LayoutAlignItems: =LayoutAlignItems.Center
             LayoutDirection: =LayoutDirection.Horizontal
             LayoutGap: =16
-            LayoutMinHeight: =0
-            LayoutMinWidth: =0
             PaddingBottom: =8
             PaddingLeft: =24
             PaddingRight: =24
@@ -40,8 +38,6 @@ ComponentDefinitions:
             RadiusTopLeft: =0
             RadiusTopRight: =0
             Width: =TopBar.Width
-            X: =0
-            Y: =0
           Children:
             - conTbTitles:
                 Control: GroupContainer
@@ -49,11 +45,9 @@ ComponentDefinitions:
                 Properties:
                   AlignInContainer: =AlignInContainer.Center
                   DropShadow: =DropShadow.None
-                  FillPortions: =1
                   Height: =46
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutGap: =0
                   LayoutJustifyContent: =LayoutJustifyContent.Center
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
@@ -68,7 +62,6 @@ ComponentDefinitions:
                         AccessibleLabel: =TopBar.ActiveMenu
                         AlignInContainer: =AlignInContainer.Stretch
                         Color: =RGBA(31, 41, 55, 1)
-                        FillPortions: =0
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =27
@@ -87,7 +80,6 @@ ComponentDefinitions:
                         AccessibleLabel: =TopBar.Subtitle
                         AlignInContainer: =AlignInContainer.Stretch
                         Color: =RGBA(100, 112, 130, 1)
-                        FillPortions: =0
                         Font: =Font.'Segoe UI'
                         Height: =18
                         LayoutMinHeight: =0
@@ -107,7 +99,6 @@ ComponentDefinitions:
                   Align: =Align.Right
                   AlignInContainer: =AlignInContainer.Center
                   Color: =RGBA(100, 112, 130, 1)
-                  FillPortions: =0
                   Font: =Font.'Segoe UI'
                   Height: =20
                   LayoutMinHeight: =0

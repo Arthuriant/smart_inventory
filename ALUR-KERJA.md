@@ -102,3 +102,8 @@ Format: `- [tanggal, WEB/TERMINAL] file yang diubah | ringkasan | status: belum 
   dan logika Consume/Kosongkan tidak berubah; kartu ber-border biru kalau qty > 0. | status: compile OK (cara baru)
   | cek manual di Studio: Area tetap normal; kartu Consume tidak hitam (kalau hitam: ketik ulang Fill conConsRow),
   foto besar, isi qty -> border biru, Consume & Kosongkan jalan; lalu File > Save.
+- [2026-10-05, TERMINAL] semua app/*.pa.yaml (+ Components) | Repo disamakan dengan Studio setelah user membetulkan
+  dropdown ("Depends on") dan warna hitam (ketik ulang Fill) secara manual: hasil `sync_canvas` disalin ke app/.
+  Mulai sekarang file di app/ memakai format tulis Studio (properti default tidak ditulis, rumus panjang jadi string
+  satu baris dengan \n). Itu normal; WEB tetap boleh menulis gaya biasa. | status: compile OK (repo = sesi Studio)
+  | cek manual di Studio: pastikan sudah File > Save.

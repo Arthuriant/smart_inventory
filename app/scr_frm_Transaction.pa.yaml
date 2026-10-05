@@ -13,9 +13,6 @@ Screens:
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            LayoutGap: =0
-            LayoutMinHeight: =0
-            LayoutMinWidth: =0
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
@@ -26,24 +23,19 @@ Screens:
                 Control: CanvasComponent
                 ComponentName: Sidebar
                 Properties:
-                  activemenu: ="Transaction"
                   AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =0
-                  Height: =640
                   LayoutMinHeight: =0
                   LayoutMinWidth: =224
                   Width: =224
+                  activemenu: ="Transaction"
             - conTrxFMain:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
                   Fill: =RGBA(244, 246, 250, 1)
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutGap: =0
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
                   RadiusBottomLeft: =0
@@ -57,7 +49,6 @@ Screens:
                       Properties:
                         ActiveMenu: =If(frmTrxF.Mode = FormMode.Edit, "Edit Transaksi", "Transaksi Baru")
                         AlignInContainer: =AlignInContainer.Stretch
-                        FillPortions: =0
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
@@ -67,10 +58,8 @@ Screens:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        AlignInContainer: =AlignInContainer.Stretch
                         DropShadow: =DropShadow.None
                         Fill: =RGBA(244, 246, 250, 1)
-                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -90,11 +79,8 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               BorderColor: =RGBA(226, 230, 239, 1)
-                              BorderStyle: =BorderStyle.Solid
                               BorderThickness: =1
-                              DropShadow: =DropShadow.Light
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =368
@@ -117,7 +103,6 @@ Screens:
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     Color: =RGBA(31, 41, 55, 1)
-                                    FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Semibold
                                     Height: =24
@@ -141,120 +126,7 @@ Screens:
                                     Height: =300
                                     Item: =galTrxL.Selected
                                     NumberOfColumns: =2
-                                    OnSuccess: |-
-                                      =// 1. Hapus semua detail lama bawaan transaksi ini (Metode Sapu Bersih)
-                                      RemoveIf(
-                                          dis_trx_details,
-                                          header_id.dis_trx_header = frmTrxF.LastSubmit.dis_trx_header
-                                      );
-
-                                      // 2. Simpan ulang semua detail dari keranjang 
-                                      ForAll(
-                                          colTempDetails As TempRecord,
-                                          Patch(
-                                              dis_trx_details,
-                                              Defaults(dis_trx_details),
-                                              {
-                                                  header_id: frmTrxF.LastSubmit, 
-                                                  PK: frmTrxF.LastSubmit.transaction_number & "/" & Text(TempRecord.Urutan, "0000"),
-                                                  item: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),
-                                                  qty: TempRecord.Qty
-                                              }
-                                          )
-                                      );
-
-                                      // ==========================================================
-                                      // 3. UPDATE STOK MANUAL (Pengganti Power Automate)
-                                      // ==========================================================
-                                      With(
-                                          {
-                                              varTrxType: Text(frmTrxF.LastSubmit.type),
-                                              
-                                              // Simpan Record utuh untuk keperluan menembak Patch
-                                              recAreaFrom: frmTrxF.LastSubmit.area_form,
-                                              recAreaTo: frmTrxF.LastSubmit.area_to,
-                                              
-                                              // Ekstrak ID-nya saja untuk mengelabui bug pencarian LookUp Dataverse
-                                              idAreaFrom: frmTrxF.LastSubmit.area_form.dis_area,
-                                              idAreaTo: frmTrxF.LastSubmit.area_to.dis_area
-                                          },
-                                          ForAll(
-                                              colTempDetails As TempRecord,
-                                              
-                                              // --- A. LOGIKA BARANG MASUK (Receive & Transfer) ---
-                                              If(
-                                                  varTrxType = "Receive" Or varTrxType = "Transfer",
-                                                  With(
-                                                      {
-                                                          varStockTo: LookUp(
-                                                              dis_stocks, 
-                                                              dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaTo
-                                                          )
-                                                      },
-                                                      If(
-                                                          IsBlank(varStockTo),
-                                                          // Jika stok KOSONG, buat baris baru
-                                                          Patch(
-                                                              dis_stocks,
-                                                              Defaults(dis_stocks),
-                                                              {
-                                                                  PK: "STK-" & Text(Now(), "yyMMddHHmmss") & "-" & Text(TempRecord.Urutan, "00"),
-                                                                  dis_item_v2: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),
-                                                                  dis_area: recAreaTo, 
-                                                                  qty: TempRecord.Qty
-                                                              }
-                                                          ),
-                                                          // Jika stok SUDAH ADA, tambahkan angkanya
-                                                          Patch(
-                                                              dis_stocks,
-                                                              varStockTo,
-                                                              {
-                                                                  qty: varStockTo.qty + TempRecord.Qty
-                                                              }
-                                                          )
-                                                      )
-                                                  )
-                                              );
-                                              
-                                              // --- B. LOGIKA BARANG KELUAR (Consume & Transfer) ---
-                                              If(
-                                                  varTrxType = "Consume" Or varTrxType = "Transfer",
-                                                  With(
-                                                      {
-                                                          varStockFrom: LookUp(
-                                                              dis_stocks, 
-                                                              dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaFrom
-                                                          )
-                                                      },
-                                                      If(
-                                                          !IsBlank(varStockFrom), // Hanya kurangi jika barangnya memang ada
-                                                          Patch(
-                                                              dis_stocks,
-                                                              varStockFrom,
-                                                              {
-                                                                  qty: varStockFrom.qty - TempRecord.Qty
-                                                              }
-                                                          )
-                                                      )
-                                                  )
-                                              )
-                                          )
-                                      );
-
-                                      // Bukti simpan untuk strip receipt di scr_Transaction
-                                      Set(
-                                          gblReceipt,
-                                          {
-                                              Screen: "Transaction",
-                                              Action: "Disimpan",
-                                              Title: frmTrxF.LastSubmit.transaction_number,
-                                              Detail: "Tipe " & Text(frmTrxF.LastSubmit.type) & " | Dari " & Coalesce(frmTrxF.LastSubmit.area_form.Name, "-") & " | Ke " & Coalesce(frmTrxF.LastSubmit.area_to.Name, "-") & " | Catatan " & Coalesce(frmTrxF.LastSubmit.note, "-") & " | " & Text(CountRows(colTempDetails)) & " item"
-                                          }
-                                      );
-                                      // 4. Bersihkan Keranjang & Notifikasi
-                                      Clear(colTempDetails);
-                                      Notify("Transaksi berhasil disimpan & Stok terupdate!", NotificationType.Success);
-                                      Back();
+                                    OnSuccess: "=// 1. Hapus semua detail lama bawaan transaksi ini (Metode Sapu Bersih)\nRemoveIf(\n    dis_trx_details,\n    header_id.dis_trx_header = frmTrxF.LastSubmit.dis_trx_header\n);\n\n// 2. Simpan ulang semua detail dari keranjang \nForAll(\n    colTempDetails As TempRecord,\n    Patch(\n        dis_trx_details,\n        Defaults(dis_trx_details),\n        {\n            header_id: frmTrxF.LastSubmit, \n            PK: frmTrxF.LastSubmit.transaction_number & \"/\" & Text(TempRecord.Urutan, \"0000\"),\n            item: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n            qty: TempRecord.Qty\n        }\n    )\n);\n\n// ==========================================================\n// 3. UPDATE STOK MANUAL (Pengganti Power Automate)\n// ==========================================================\nWith(\n    {\n        varTrxType: Text(frmTrxF.LastSubmit.type),\n        \n        // Simpan Record utuh untuk keperluan menembak Patch\n        recAreaFrom: frmTrxF.LastSubmit.area_form,\n        recAreaTo: frmTrxF.LastSubmit.area_to,\n        \n        // Ekstrak ID-nya saja untuk mengelabui bug pencarian LookUp Dataverse\n        idAreaFrom: frmTrxF.LastSubmit.area_form.dis_area,\n        idAreaTo: frmTrxF.LastSubmit.area_to.dis_area\n    },\n    ForAll(\n        colTempDetails As TempRecord,\n        \n        // --- A. LOGIKA BARANG MASUK (Receive & Transfer) ---\n        If(\n            varTrxType = \"Receive\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockTo: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaTo\n                    )\n                },\n                If(\n                    IsBlank(varStockTo),\n                    // Jika stok KOSONG, buat baris baru\n                    Patch(\n                        dis_stocks,\n                        Defaults(dis_stocks),\n                        {\n                            PK: \"STK-\" & Text(Now(), \"yyMMddHHmmss\") & \"-\" & Text(TempRecord.Urutan, \"00\"),\n                            dis_item_v2: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n                            dis_area: recAreaTo, \n                            qty: TempRecord.Qty\n                        }\n                    ),\n                    // Jika stok SUDAH ADA, tambahkan angkanya\n                    Patch(\n                        dis_stocks,\n                        varStockTo,\n                        {\n                            qty: varStockTo.qty + TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        );\n        \n        // --- B. LOGIKA BARANG KELUAR (Consume & Transfer) ---\n        If(\n            varTrxType = \"Consume\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockFrom: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaFrom\n                    )\n                },\n                If(\n                    !IsBlank(varStockFrom), // Hanya kurangi jika barangnya memang ada\n                    Patch(\n                        dis_stocks,\n                        varStockFrom,\n                        {\n                            qty: varStockFrom.qty - TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        )\n    )\n);\n\n// Bukti simpan untuk strip receipt di scr_Transaction\nSet(\n    gblReceipt,\n    {\n        Screen: \"Transaction\",\n        Action: \"Disimpan\",\n        Title: frmTrxF.LastSubmit.transaction_number,\n        Detail: \"Tipe \" & Text(frmTrxF.LastSubmit.type) & \" | Dari \" & Coalesce(frmTrxF.LastSubmit.area_form.Name, \"-\") & \" | Ke \" & Coalesce(frmTrxF.LastSubmit.area_to.Name, \"-\") & \" | Catatan \" & Coalesce(frmTrxF.LastSubmit.note, \"-\") & \" | \" & Text(CountRows(colTempDetails)) & \" item\"\n    }\n);\n// 4. Bersihkan Keranjang & Notifikasi\nClear(colTempDetails);\nNotify(\"Transaksi berhasil disimpan & Stok terupdate!\", NotificationType.Success);\nBack();"
                                     Width: =Parent.Width
                                   Children:
                                     - transaction_number_DataCard1_TrxF:
@@ -632,11 +504,8 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               BorderColor: =RGBA(226, 230, 239, 1)
-                              BorderStyle: =BorderStyle.Solid
                               BorderThickness: =1
-                              DropShadow: =DropShadow.Light
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =396
@@ -658,14 +527,11 @@ Screens:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =24
                                     LayoutAlignItems: =LayoutAlignItems.Center
                                     LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =0
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
                                     RadiusBottomLeft: =0
@@ -697,7 +563,6 @@ Screens:
                                           Align: =Align.Right
                                           AlignInContainer: =AlignInContainer.Center
                                           Color: =RGBA(100, 112, 130, 1)
-                                          FillPortions: =0
                                           Font: =Font.'Segoe UI'
                                           FontWeight: =FontWeight.Semibold
                                           Height: =20
@@ -715,9 +580,7 @@ Screens:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =56
                                     LayoutAlignItems: =LayoutAlignItems.End
@@ -736,8 +599,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
-                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -754,7 +615,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =16
@@ -773,11 +633,9 @@ Screens:
                                                 AccessibleLabel: ="Pilih item"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 InputTextPlaceholder: ="Pilih item"
-                                                IsSearchable: =true
                                                 ItemDisplayText: =ThisItem.name
                                                 Items: =dis_item_v2S
                                                 LayoutMinHeight: =0
@@ -794,7 +652,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =0
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -813,7 +670,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =16
@@ -833,7 +689,6 @@ Screens:
                                                 Align: =Align.Right
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 LayoutMinHeight: =0
@@ -849,31 +704,14 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Tambah ke Keranjang"
                                           AlignInContainer: =AlignInContainer.End
-                                          Appearance: =ButtonAppearance.Primary
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
                                           DisplayMode: =If(IsBlank(cmbTrxFItem.Selected) || Coalesce(Value(inpTrxFQty.Text), 0) <= 0, DisplayMode.Disabled, DisplayMode.Edit)
-                                          FillPortions: =0
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           Icon: ="Add"
-                                          Layout: =ButtonLayout.IconBefore
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =196
-                                          OnSelect: |-
-                                            =Collect(
-                                                colTempDetails, 
-                                                {
-                                                    // Generate nomor urut otomatis (1, 2, 3, dst.)
-                                                    Urutan: CountRows(colTempDetails) + 1,
-                                                    
-                                                    Id: cmbTrxFItem.Selected.dis_item_v2, 
-                                                    name: cmbTrxFItem.Selected.name, 
-                                                    description :  cmbTrxFItem.Selected.description,
-                                                    Qty: Value(inpTrxFQty.Text)
-                                                }
-                                            );
-                                            Reset(cmbTrxFItem);
-                                            Reset(inpTrxFQty);
+                                          OnSelect: "=Collect(\n    colTempDetails, \n    {\n        // Generate nomor urut otomatis (1, 2, 3, dst.)\n        Urutan: CountRows(colTempDetails) + 1,\n        \n        Id: cmbTrxFItem.Selected.dis_item_v2, \n        name: cmbTrxFItem.Selected.name, \n        description :  cmbTrxFItem.Selected.description,\n        Qty: Value(inpTrxFQty.Text)\n    }\n);\nReset(cmbTrxFItem);\nReset(inpTrxFQty);"
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
@@ -885,9 +723,7 @@ Screens:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =260
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -904,7 +740,6 @@ Screens:
                                         Control: GroupContainer
                                         Variant: AutoLayout
                                         Properties:
-                                          AlignInContainer: =AlignInContainer.Stretch
                                           DropShadow: =DropShadow.None
                                           Fill: =RGBA(241, 244, 250, 1)
                                           FillPortions: =0
@@ -944,7 +779,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =18
@@ -981,7 +815,6 @@ Screens:
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 FontWeight: =FontWeight.Semibold
                                                 Height: =18
@@ -1000,15 +833,12 @@ Screens:
                                         Variant: Vertical
                                         Properties:
                                           AccessibleLabel: ="Keranjang item"
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          BorderThickness: =0
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =220
                                           Items: =colTempDetails
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          ShowScrollbar: =true
                                           TabIndex: =0
                                           TemplatePadding: =1
                                           TemplateSize: =44
@@ -1024,8 +854,6 @@ Screens:
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
                                                 LayoutGap: =8
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
                                                 PaddingLeft: =12
                                                 PaddingRight: =12
                                                 RadiusBottomLeft: =0
@@ -1058,7 +886,6 @@ Screens:
                                                       Align: =Align.Right
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =20
                                                       LayoutMinHeight: =0
@@ -1095,7 +922,6 @@ Screens:
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: =ButtonAppearance.Subtle
                                                       Color: =RGBA(196, 43, 28, 1)
-                                                      FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =32
                                                       Icon: ="Delete"
@@ -1121,7 +947,6 @@ Screens:
                                           Align: =Align.Center
                                           AlignInContainer: =AlignInContainer.Stretch
                                           Color: =RGBA(100, 112, 130, 1)
-                                          FillPortions: =0
                                           Font: =Font.'Segoe UI'
                                           Height: =220
                                           LayoutMinHeight: =0
@@ -1132,16 +957,13 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: ="Keranjang masih kosong. Pilih item dan qty, lalu klik Tambah ke Keranjang."
-                                          VerticalAlign: =VerticalAlign.Middle
                                           Visible: =IsEmpty(colTempDetails)
                                           Wrap: =false
                         - conTrxFActions:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.None
-                              Fill: =RGBA(0, 0, 0, 0)
                               FillPortions: =0
                               Height: =44
                               LayoutAlignItems: =LayoutAlignItems.Center
@@ -1162,11 +984,9 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
-                                    FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     Height: =36
                                     Icon: ="ArrowLeft"
-                                    Layout: =ButtonLayout.IconBefore
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =120
                                     OnSelect: |-
@@ -1185,13 +1005,10 @@ Screens:
                                   Properties:
                                     AccessibleLabel: ="Simpan transaksi"
                                     AlignInContainer: =AlignInContainer.Center
-                                    Appearance: =ButtonAppearance.Primary
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
-                                    FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     Height: =36
                                     Icon: ="Save"
-                                    Layout: =ButtonLayout.IconBefore
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =184
                                     OnSelect: =SubmitForm(frmTrxF)

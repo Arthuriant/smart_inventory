@@ -13,9 +13,6 @@ Screens:
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            LayoutGap: =0
-            LayoutMinHeight: =0
-            LayoutMinWidth: =0
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
@@ -26,24 +23,19 @@ Screens:
                 Control: CanvasComponent
                 ComponentName: Sidebar
                 Properties:
-                  activemenu: ="Category Item"
                   AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =0
-                  Height: =640
                   LayoutMinHeight: =0
                   LayoutMinWidth: =224
                   Width: =224
+                  activemenu: ="Category Item"
             - conCatFMain:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   DropShadow: =DropShadow.None
                   Fill: =RGBA(244, 246, 250, 1)
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutGap: =0
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
                   RadiusBottomLeft: =0
@@ -57,7 +49,6 @@ Screens:
                       Properties:
                         ActiveMenu: =If(frmCatF.Mode = FormMode.Edit, "Edit Kategori", "Tambah Kategori")
                         AlignInContainer: =AlignInContainer.Stretch
-                        FillPortions: =0
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
@@ -67,10 +58,8 @@ Screens:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        AlignInContainer: =AlignInContainer.Stretch
                         DropShadow: =DropShadow.None
                         Fill: =RGBA(244, 246, 250, 1)
-                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -90,11 +79,8 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               BorderColor: =RGBA(226, 230, 239, 1)
-                              BorderStyle: =BorderStyle.Solid
                               BorderThickness: =1
-                              DropShadow: =DropShadow.Light
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =328
@@ -117,7 +103,6 @@ Screens:
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     Color: =RGBA(31, 41, 55, 1)
-                                    FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Semibold
                                     Height: =24
@@ -365,9 +350,7 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.None
-                              Fill: =RGBA(0, 0, 0, 0)
                               FillPortions: =0
                               Height: =44
                               LayoutAlignItems: =LayoutAlignItems.Center
@@ -388,11 +371,9 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
-                                    FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     Height: =36
                                     Icon: ="ArrowLeft"
-                                    Layout: =ButtonLayout.IconBefore
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =120
                                     OnSelect: |-
@@ -410,13 +391,10 @@ Screens:
                                   Properties:
                                     AccessibleLabel: ="Simpan kategori"
                                     AlignInContainer: =AlignInContainer.Center
-                                    Appearance: =ButtonAppearance.Primary
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
-                                    FillPortions: =0
                                     Font: =Font.'Segoe UI'
                                     Height: =36
                                     Icon: ="Save"
-                                    Layout: =ButtonLayout.IconBefore
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =168
                                     OnSelect: =SubmitForm(frmCatF)
