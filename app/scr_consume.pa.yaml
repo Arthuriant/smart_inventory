@@ -1143,7 +1143,6 @@ Screens:
                                                       ImagePosition: =ImagePosition.Fit
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      OnSelect: =Select(Parent)
                                                       PaddingBottom: =2
                                                       PaddingLeft: =2
                                                       PaddingRight: =2

@@ -79,7 +79,11 @@ Format: `- [tanggal, WEB/TERMINAL] file yang diubah | ringkasan | status: belum 
 - [2026-10-05, WEB] app/scr_consume.pa.yaml, app/scr_consume.screen-plan.md | Consume pakai foto: thumbnail
   `imgConsItem` 56x56 (dis_item_v2.Image) di tiap baris + header "FOTO", baris 72; filter Geounit/Location/Area
   otomatis terisi dari Assigned_area user (Default ddConsGeo/ddConsLoc/ddConsArea); qty terkunci untuk stok 0; tombol
-  `btnConsClear` "Kosongkan" di footer. Logika Patch Consume tidak diubah. | status: belum compile | cek manual di
+  `btnConsClear` "Kosongkan" di footer. Logika Patch Consume tidak diubah. | status: compile OK (lihat entri TERMINAL di bawah) | cek manual di
   Studio: foto muncul di baris (item tanpa foto = kotak abu), baris tidak hitam; buka screen sebagai user yang punya
   Assigned_area -> 3 dropdown langsung terisi dan tombol Consume aktif setelah isi qty; ganti Geounit -> Location/Area
   ikut kosong; tombol Kosongkan dan setelah Consume qty kembali 0 (kalau qty tidak kembali 0, catat di Log).
+- [2026-10-05, TERMINAL] app/scr_consume.pa.yaml | Compile entri WEB Consume foto: 1 error
+  `imgConsItem.OnSelect = Select(Parent)` (Parent = GroupContainer conConsRow, tanpa OnSelect). Diperbaiki: OnSelect
+  dihapus (foto hanya tampilan). Catatan untuk WEB: jangan pakai Select(Parent) di control dalam container baris
+  galeri. | status: compile OK | cek manual di Studio: sama dengan entri WEB di atas, lalu File > Save.
