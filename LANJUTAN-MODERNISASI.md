@@ -33,8 +33,8 @@ File ini menggantikan memory lokal, karena sesi web tidak bisa membaca memory la
 | T5      | Terminal | Sonnet | Pull, compile + fix W5, push                               | selesai (compile; Save + visual belum dicek) |
 | W6      | Web      | Opus   | Build scr_Transaction, scr_frm_Transaction, scr_consume    | selesai |
 | T6      | Terminal | Opus   | Pull, compile + fix W6, cek logika stok, push              | selesai (compile; Save + uji stok menunggu user) |
-| W7      | Web      | Sonnet | Build scr_History + "After builders" + "Editor State"      | selesai, belum compile (Editor State -> T7) |
-| T7      | Terminal | Sonnet | Pull, compile final, validasi, push                        | belum  |
+| W7      | Web      | Sonnet | Build scr_History + "After builders" + "Editor State"      | selesai |
+| T7      | Terminal | Sonnet | Pull, compile final, validasi, push                        | selesai (compile + validasi statis; Save + cek visual menunggu user) |
 
 Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan penting):
 - [W1, 2026-10-04] T0 dilewati, pengecekannya digabung ke T1: sebelum compile, lakukan dulu langkah T0
@@ -421,6 +421,24 @@ Catatan tambahan (diisi tiap sesi; tulis error yang belum beres atau keputusan p
   - Self-QA 16 screen: YAML parse (juga App), 704 nama control unik, semua properti diawali `=`, tanpa `clr*`/CR.
   T7: compile final, atur Editor State, cek gejala "binding" di scr_History (Fill conHistRow / conHistDRow), uji navigasi
   menu Dashboard, lalu File > Save. Daftar cek manual seluruh app ada di poin-poin T2-T6 di atas.
+- [T7, 2026-10-05] Sync sebelum compile: sesi Studio masih berisi hasil T6 (tidak ter-reset); bedanya hanya scr_History
+  dan menu Dashboard dari W7. Editor State diatur di file lokal app/_EditorState.pa.yaml (tetap di .gitignore):
+  scr_dashboard disisipkan setelah Log In, sesuai "## Editor State Changes". Compile app/ (20 file): PASSED tanpa
+  perbaikan; tidak ada file .pa.yaml di repo yang diubah. ValidationWorkflow: semua 37 Action Contract dan 43 skenario
+  di plan PASS secara statis (nama control lama di plan dipetakan ke nama sekarang), 16 screen punya satu root
+  AutoLayout `=Parent.Width`/`=Parent.Height`, round-trip sync ke folder baru: semua control repo ada di sesi, menu
+  Dashboard -> scr_dashboard, ScreensOrder baru terpakai. Bukti ditulis di app/canvas-app-acceptance.md (BARU).
+  App Checker: 23 peringatan Medium/Performance yang sama dengan T5b, tidak ada dari scr_History.
+  Runtime evaluation TIDAK dijalankan. Daftar cek manual di Studio (sebelum dan sesudah Save):
+  1. Gejala "binding": Fill baris conHistRow / conHistDRow (scr_History) dan semua baris yang tercatat di T5c/T6
+     (potong lalu tempel ulang rumus Fill kalau hitam); Depends on dropdown di form (DataCardValue56/48/57_AreaF,
+     DataCardValue64_UsrL, DataCardValue47_ItmF, DataCardValue9_TrxF).
+  2. Menu Sidebar: klik Dashboard -> scr_dashboard (pill aktif "Dashboard"); 9 menu lain ke screen masing-masing.
+  3. History: segmen Semua/Receive/Consume/Transfer, filter tanggal + ikon hapus tanggal, cari nomor/catatan,
+     klik nomor -> detail berganti, filter kategori + cari item di detail.
+  4. Uji stok (belum dari T6): Receive 3 -> stok naik 3 di Find Item; Consume 2 -> header tipe Consume + area_form,
+     stok turun 2, receipt old/amount/expected/actual; qty > stok -> tombol Consume mati.
+  5. Cek visual checklist W4 (a)-(f), layout form scr_frm_item (masih terbuka), lalu File > Save.
 
 ---
 
