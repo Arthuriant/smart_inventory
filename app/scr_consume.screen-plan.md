@@ -342,3 +342,18 @@ AutoLayout child extras for all controls below: AlignInContainer (`=AlignInConta
 - **Sidebar / TopBar** - `Control: CanvasComponent` + `ComponentName: Sidebar` (inputs activemenu, AlignInContainer,
   Fill, FillPortions, Height, LayoutMaxHeight, LayoutMaxWidth, LayoutMinHeight, LayoutMinWidth, Visible, Width, X, Y)
   / `ComponentName: TopBar` (inputs ActiveMenu, Subtitle + the same generic inputs).
+
+## Revisi 2026-10-05 (WEB): foto item + alur cepat teknisi
+
+Logika Patch btnConsSubmit (header, detail, stok, receipt) TIDAK diubah. Perubahan hanya tampilan dan default filter:
+
+- Baris galCons: `imgConsItem` (Image klasik, bukan ModernIcon; KOREKSI #7 aman) 56 x 56 di kolom pertama,
+  `Image: =ThisItem.dis_item_v2.Image`, Fit, Fill abu muda sebagai placeholder kalau item tanpa foto,
+  `OnSelect: =Select(Parent)`. Header tambah `txtConsHImg` "FOTO" W 56. `TemplateSize` 60 -> 72 (4,3 baris terlihat).
+  Budget baris 806: tetap 56 + 88 + 120 + 120 + 5 x 8 = 424 -> FP 5 = 382 (item 229, area 153).
+- Default filter dari area user (`nfMe.Assigned_area`): ddConsGeo = geounit lokasi area user, ddConsLoc = lokasi
+  area user (hanya kalau geounit cocok), ddConsArea = area user (hanya kalau lokasi cocok). User tanpa Assigned_area
+  -> kosong seperti sebelumnya. Reset filter kembali ke area user.
+- `numConsQty.DisplayMode` Disabled kalau stok <= 0 (tidak bisa salah isi barang habis).
+- Footer: `btnConsClear` Secondary "Kosongkan" (ArrowReset, W 132), `OnSelect: =Reset(galCons)`, Disabled kalau
+  belum ada qty.

@@ -76,3 +76,10 @@ Format: `- [tanggal, WEB/TERMINAL] file yang diubah | ringkasan | status: belum 
   gejala "binding" (Fill baris galeri, Depends on dropdown form), uji stok Receive 3 / Consume 2 / qty > stok,
   menu Dashboard, filter History, File > Save. Masalah terbuka: layout form scr_frm_item rusak (butuh deskripsi
   atau screenshot dari user: bagian mana yang salah, nama control di Tree view).
+- [2026-10-05, WEB] app/scr_consume.pa.yaml, app/scr_consume.screen-plan.md | Consume pakai foto: thumbnail
+  `imgConsItem` 56x56 (dis_item_v2.Image) di tiap baris + header "FOTO", baris 72; filter Geounit/Location/Area
+  otomatis terisi dari Assigned_area user (Default ddConsGeo/ddConsLoc/ddConsArea); qty terkunci untuk stok 0; tombol
+  `btnConsClear` "Kosongkan" di footer. Logika Patch Consume tidak diubah. | status: belum compile | cek manual di
+  Studio: foto muncul di baris (item tanpa foto = kotak abu), baris tidak hitam; buka screen sebagai user yang punya
+  Assigned_area -> 3 dropdown langsung terisi dan tombol Consume aktif setelah isi qty; ganti Geounit -> Location/Area
+  ikut kosong; tombol Kosongkan dan setelah Consume qty kembali 0 (kalau qty tidak kembali 0, catat di Log).

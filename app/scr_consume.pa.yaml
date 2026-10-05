@@ -677,6 +677,7 @@ Screens:
                                                 AccessibleLabel: ="Filter geounit"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
+                                                Default: =nfMe.Assigned_area.'elv_location (cr8a3_elv_location)'.dis_geounit
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
@@ -736,6 +737,11 @@ Screens:
                                                 AccessibleLabel: ="Filter lokasi"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
+                                                Default: |-
+                                                  =If(
+                                                      ddConsGeo.Selected.dis_geounit = nfMe.Assigned_area.'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit,
+                                                      nfMe.Assigned_area.'elv_location (cr8a3_elv_location)'
+                                                  )
                                                 DisplayMode: =If(IsBlank(ddConsGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
@@ -798,6 +804,11 @@ Screens:
                                                 AccessibleLabel: ="Area asal"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
+                                                Default: |-
+                                                  =If(
+                                                      ddConsLoc.Selected.dis_location = nfMe.Assigned_area.'elv_location (cr8a3_elv_location)'.dis_location,
+                                                      nfMe.Assigned_area
+                                                  )
                                                 DisplayMode: =If(IsBlank(ddConsLoc.Selected), DisplayMode.Disabled, DisplayMode.Edit)
                                                 FillPortions: =0
                                                 Font: =Font.'Segoe UI'
@@ -938,6 +949,25 @@ Screens:
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                         Children:
+                                          - txtConsHImg:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =0
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="FOTO"
+                                                Width: =56
+                                                Wrap: =false
                                           - txtConsHItem:
                                               Control: ModernText
                                               Properties:
@@ -1061,7 +1091,7 @@ Screens:
                                           ShowScrollbar: =true
                                           TabIndex: =0
                                           TemplatePadding: =1
-                                          TemplateSize: =60
+                                          TemplateSize: =72
                                           Visible: |-
                                             =!IsEmpty(Filter(
                                                 dis_stocks,
@@ -1098,6 +1128,32 @@ Screens:
                                                 RadiusTopRight: =0
                                                 Width: =Parent.TemplateWidth
                                               Children:
+                                                - imgConsItem:
+                                                    Control: Image
+                                                    Properties:
+                                                      AccessibleLabel: ="Foto " & ThisItem.dis_item_v2.name
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      BorderColor: =RGBA(226, 230, 239, 1)
+                                                      BorderStyle: =BorderStyle.Solid
+                                                      BorderThickness: =1
+                                                      Fill: =RGBA(241, 244, 250, 1)
+                                                      FillPortions: =0
+                                                      Height: =56
+                                                      Image: =ThisItem.dis_item_v2.Image
+                                                      ImagePosition: =ImagePosition.Fit
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      OnSelect: =Select(Parent)
+                                                      PaddingBottom: =2
+                                                      PaddingLeft: =2
+                                                      PaddingRight: =2
+                                                      PaddingTop: =2
+                                                      RadiusBottomLeft: =8
+                                                      RadiusBottomRight: =8
+                                                      RadiusTopLeft: =8
+                                                      RadiusTopRight: =8
+                                                      Tooltip: =ThisItem.dis_item_v2.name
+                                                      Width: =56
                                                 - txtConsName:
                                                     Control: ModernText
                                                     Properties:
@@ -1176,6 +1232,7 @@ Screens:
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: =Appearance.Outline
                                                       Default: =0
+                                                      DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
                                                       FillPortions: =0
                                                       Font: =Font.'Segoe UI'
                                                       Height: =36
@@ -1260,6 +1317,30 @@ Screens:
                                           Size: =13
                                           Text: =Text(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0))) & " item dipilih" & If(IsBlank(ddConsArea.Selected), " - pilih Area (From) dulu", "")
                                           Wrap: =false
+                                    - btnConsClear:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Kosongkan semua qty"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =ButtonAppearance.Secondary
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          DisplayMode: =If(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0, DisplayMode.Disabled, DisplayMode.Edit)
+                                          FillPortions: =0
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="ArrowReset"
+                                          Layout: =ButtonLayout.IconBefore
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =132
+                                          OnSelect: =Reset(galCons)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Kosongkan"
+                                          Tooltip: ="Kosongkan semua qty"
+                                          Width: =132
                                     - btnConsSubmit:
                                         Control: ModernButton
                                         Properties:
