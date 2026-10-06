@@ -139,3 +139,11 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   (tidak ada link lain ke screen admin dari screen user). | status: compile OK | cek manual di Studio: galeri Consume /
   Find / Transaction tidak hitam, dropdown form Transaction tidak kosong ("Depends on"); uji sebagai user: menu hanya 5,
   Geounit/Location terisi & abu-abu, Area hanya area yang di-assign; lalu File > Save.
+- [2026-10-06] app/scr_geoloc.pa.yaml (baru), app/App.pa.yaml | Screen baru "Geounit & Location" (scr_geoloc, prefix Gl,
+  menu admin-only, ikon Globe, di atas Area): kartu kiri = tabel Geounit (SHORT, LONG NAME, Edit/Delete/Show), kartu
+  kanan = Location dari geounit yang dipilih di kiri (galGlLoc filter galGlGeo.Selected). Tambah/edit lewat panel inline
+  di atas tabel (Patch, tanpa Form): geounit = short + long name (cek duplikat short name), location = nama + dropdown
+  geounit (bisa pindah geounit). Delete pakai bar konfirmasi; geounit ditolak kalau masih punya location / dipakai area,
+  location ditolak kalau masih dipakai area. Receipt hijau gblReceipt.Screen = "GeoLoc". | status: compile OK (screen
+  terverifikasi ada di sesi Studio) | cek manual di Studio: baris galeri tidak hitam (ketik ulang Fill conGlGeoRow /
+  conGlLocRow), klik geounit -> kanan ganti, Add/Edit/Delete kedua sisi, ikon menu muncul; lalu File > Save.

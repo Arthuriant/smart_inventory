@@ -45,6 +45,12 @@ App:
               NavigateScreen: scr_item
           },
           {
+              TextValue: "Geounit & Location",
+              AdminOnly: true,
+              Icon: "Globe",
+              NavigateScreen: scr_geoloc
+          },
+          {
               TextValue: "Area",
               AdminOnly: true,
               Icon: "BuildingRetail",

@@ -1,0 +1,1398 @@
+Screens:
+  scr_geoloc:
+    Properties:
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =UpdateContext({locGeoMode: "", locLocMode: "", locShowDel: false})
+    Children:
+      - conGlRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpGlSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+                  activemenu: ="Geounit & Location"
+            - conGlMain:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(244, 246, 250, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpGlTopBar:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Geounit & Location"
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Manage geounits and their locations"
+                        Width: =912
+                  - conGlBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(244, 246, 250, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - conGlReceipt:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(180, 222, 196, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(232, 246, 238, 1)
+                              FillPortions: =0
+                              Height: =80
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =10
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              PaddingTop: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =gblReceipt.Screen = "GeoLoc"
+                            Children:
+                              - icoGlRcIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Success"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =24
+                                    Icon: ="CheckmarkCircle"
+                                    IconColor: =RGBA(16, 124, 65, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Width: =24
+                              - conGlRcText:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    Height: =58
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =2
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtGlRcTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: =gblReceipt.Action & " - " & gblReceipt.Title
+                                          Wrap: =false
+                                    - txtGlRcDetail:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =gblReceipt.Detail
+                              - icoGlRcClose:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Close"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =32
+                                    Icon: ="Dismiss"
+                                    IconColor: =RGBA(100, 112, 130, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: |-
+                                      =Set(gblReceipt, {Screen: "", Action: "", Title: "", Detail: ""})
+                                    PaddingBottom: =6
+                                    PaddingLeft: =6
+                                    PaddingRight: =6
+                                    PaddingTop: =6
+                                    Tooltip: ="Close"
+                                    Width: =32
+                        - conGlConfirm:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(240, 180, 176, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(253, 237, 236, 1)
+                              FillPortions: =0
+                              Height: =56
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =locShowDel
+                            Children:
+                              - icoGlConfirmIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Warning"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =24
+                                    Icon: ="Warning"
+                                    IconColor: =RGBA(196, 43, 28, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Width: =24
+                              - txtGlConfirmMsg:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Delete " & Lower(locDelKind) & " " & If(locDelKind = "Geounit", locDelGeo.elv_name_short, locDelLoc.Name) & "? Deleted data cannot be recovered."
+                                    Wrap: =false
+                              - btnGlConfirmDel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Delete"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BasePaletteColor: =RGBA(196, 43, 28, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Delete"
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =104
+                                    OnSelect: |-
+                                      =If(
+                                          locDelKind = "Geounit",
+                                          With(
+                                              {target: locDelGeo},
+                                              Remove(dis_geounits, target);
+                                              If(
+                                                  IsEmpty(Errors(dis_geounits)),
+                                                  Set(gblReceipt, {Screen: "GeoLoc", Action: "Deleted", Title: "Geounit " & target.elv_name_short, Detail: "Long name " & Coalesce(target.elv_name_long, "-")});
+                                                  UpdateContext({locShowDel: false, locGeoMode: "", locLocMode: ""});
+                                                  Notify("Geounit deleted successfully!", NotificationType.Success),
+                                                  Notify("Failed to delete geounit. " & First(Errors(dis_geounits)).Message, NotificationType.Error)
+                                              )
+                                          ),
+                                          With(
+                                              {target: locDelLoc},
+                                              Remove(dis_locations, target);
+                                              If(
+                                                  IsEmpty(Errors(dis_locations)),
+                                                  Set(gblReceipt, {Screen: "GeoLoc", Action: "Deleted", Title: "Location " & target.Name, Detail: "Geounit " & Coalesce(target.dis_geounit.elv_name_short, "-")});
+                                                  UpdateContext({locShowDel: false, locLocMode: ""});
+                                                  Notify("Location deleted successfully!", NotificationType.Success),
+                                                  Notify("Failed to delete location. " & First(Errors(dis_locations)).Message, NotificationType.Error)
+                                              )
+                                          )
+                                      )
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Delete"
+                                    Width: =104
+                              - btnGlConfirmCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Cancel"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Secondary
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Dismiss"
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =96
+                                    OnSelect: |-
+                                      =UpdateContext({locShowDel: false})
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Cancel"
+                                    Width: =96
+                        - conGlCols:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =600
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =16
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - conGlGeoCard:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderColor: =RGBA(226, 230, 239, 1)
+                                    BorderThickness: =1
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FillPortions: =1
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =12
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =16
+                                    PaddingLeft: =16
+                                    PaddingRight: =16
+                                    PaddingTop: =16
+                                    RadiusBottomLeft: =12
+                                    RadiusBottomRight: =12
+                                    RadiusTopLeft: =12
+                                    RadiusTopRight: =12
+                                  Children:
+                                    - conGlGeoToolbar:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtGlGeoTitle:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =24
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =16
+                                                Text: ="Geounit"
+                                                Wrap: =false
+                                          - btnGlGeoAdd:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Add geounit"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                Icon: ="Add"
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =140
+                                                OnSelect: |-
+                                                  =UpdateContext({locGeoMode: "Add", locGeoEdit: Blank()});
+                                                  Reset(inpGlGeoShort);
+                                                  Reset(inpGlGeoLong)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Text: ="Add Geounit"
+                                                Width: =140
+                                    - conGlGeoEdit:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderColor: =RGBA(180, 214, 250, 1)
+                                          BorderThickness: =1
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =156
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =12
+                                          PaddingLeft: =12
+                                          PaddingRight: =12
+                                          PaddingTop: =12
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                          Visible: =!IsBlank(locGeoMode)
+                                        Children:
+                                          - txtGlGeoEdTitle:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =If(locGeoMode = "Edit", "Edit geounit " & locGeoEdit.elv_name_short, "New geounit")
+                                                Wrap: =false
+                                          - conGlGeoEdFields:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                Height: =56
+                                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                              Children:
+                                                - conGlGeoShortFld:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =0
+                                                      LayoutAlignItems: =LayoutAlignItems.Stretch
+                                                      LayoutDirection: =LayoutDirection.Vertical
+                                                      LayoutGap: =4
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Width: =120
+                                                    Children:
+                                                      - txtGlGeoShortLbl:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Color: =RGBA(100, 112, 130, 1)
+                                                            Font: =Font.'Segoe UI'
+                                                            FontWeight: =FontWeight.Semibold
+                                                            Height: =16
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            Size: =11
+                                                            Text: ="Short name *"
+                                                            Wrap: =false
+                                                      - inpGlGeoShort:
+                                                          Control: ModernTextInput
+                                                          Properties:
+                                                            AccessibleLabel: ="Geounit short name"
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Appearance: =Appearance.Outline
+                                                            Default: =If(locGeoMode = "Edit", locGeoEdit.elv_name_short, "")
+                                                            Font: =Font.'Segoe UI'
+                                                            Height: =36
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            Placeholder: ="e.g. ING"
+                                                            RadiusBottomLeft: =8
+                                                            RadiusBottomRight: =8
+                                                            RadiusTopLeft: =8
+                                                            RadiusTopRight: =8
+                                                            Size: =13
+                                                - conGlGeoLongFld:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =1
+                                                      LayoutAlignItems: =LayoutAlignItems.Stretch
+                                                      LayoutDirection: =LayoutDirection.Vertical
+                                                      LayoutGap: =4
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                    Children:
+                                                      - txtGlGeoLongLbl:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Color: =RGBA(100, 112, 130, 1)
+                                                            Font: =Font.'Segoe UI'
+                                                            FontWeight: =FontWeight.Semibold
+                                                            Height: =16
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            Size: =11
+                                                            Text: ="Long name *"
+                                                            Wrap: =false
+                                                      - inpGlGeoLong:
+                                                          Control: ModernTextInput
+                                                          Properties:
+                                                            AccessibleLabel: ="Geounit long name"
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Appearance: =Appearance.Outline
+                                                            Default: =If(locGeoMode = "Edit", locGeoEdit.elv_name_long, "")
+                                                            Font: =Font.'Segoe UI'
+                                                            Height: =36
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            Placeholder: ="e.g. Indonesia"
+                                                            RadiusBottomLeft: =8
+                                                            RadiusBottomRight: =8
+                                                            RadiusTopLeft: =8
+                                                            RadiusTopRight: =8
+                                                            Size: =13
+                                          - conGlGeoEdBtns:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                Height: =36
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                LayoutJustifyContent: =LayoutJustifyContent.End
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                              Children:
+                                                - btnGlGeoCancel:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Cancel"
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Secondary
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =36
+                                                      Icon: ="Dismiss"
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =96
+                                                      OnSelect: |-
+                                                        =UpdateContext({locGeoMode: ""})
+                                                      RadiusBottomLeft: =8
+                                                      RadiusBottomRight: =8
+                                                      RadiusTopLeft: =8
+                                                      RadiusTopRight: =8
+                                                      Size: =13
+                                                      Text: ="Cancel"
+                                                      Width: =96
+                                                - btnGlGeoSave:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Save geounit"
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                                      DisplayMode: =If(IsBlank(Trim(inpGlGeoShort.Text)) Or IsBlank(Trim(inpGlGeoLong.Text)), DisplayMode.Disabled, DisplayMode.Edit)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =36
+                                                      Icon: ="Save"
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =96
+                                                      OnSelect: |-
+                                                        =With(
+                                                            {sn: Trim(inpGlGeoShort.Text), ln: Trim(inpGlGeoLong.Text)},
+                                                            If(
+                                                                !IsBlank(LookUp(dis_geounits, elv_name_short = sn And (locGeoMode = "Add" Or dis_geounit <> locGeoEdit.dis_geounit))),
+                                                                Notify("Geounit " & sn & " already exists.", NotificationType.Warning),
+                                                                With(
+                                                                    {
+                                                                        res: IfError(
+                                                                            If(
+                                                                                locGeoMode = "Add",
+                                                                                Patch(dis_geounits, Defaults(dis_geounits), {elv_name_short: sn, elv_name_long: ln}),
+                                                                                Patch(dis_geounits, locGeoEdit, {elv_name_short: sn, elv_name_long: ln})
+                                                                            ),
+                                                                            Blank()
+                                                                        )
+                                                                    },
+                                                                    If(
+                                                                        IsBlank(res),
+                                                                        Notify("Failed to save geounit. " & First(Errors(dis_geounits)).Message, NotificationType.Error),
+                                                                        Set(gblReceipt, {Screen: "GeoLoc", Action: If(locGeoMode = "Add", "Added", "Updated"), Title: "Geounit " & res.elv_name_short, Detail: "Long name " & res.elv_name_long});
+                                                                        UpdateContext({locGeoMode: "", locGeoFocus: res});
+                                                                        Notify("Geounit saved successfully!", NotificationType.Success)
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                      RadiusBottomLeft: =8
+                                                      RadiusBottomRight: =8
+                                                      RadiusTopLeft: =8
+                                                      RadiusTopRight: =8
+                                                      Size: =13
+                                                      Text: ="Save"
+                                                      Width: =96
+                                    - conGlGeoHead:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =13
+                                          PaddingRight: =13
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                        Children:
+                                          - txtGlGeoHShort:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="SHORT"
+                                                Width: =80
+                                                Wrap: =false
+                                          - txtGlGeoHLong:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="LONG NAME"
+                                                Wrap: =false
+                                          - txtGlGeoHAct:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="ACTIONS"
+                                                Width: =112
+                                                Wrap: =false
+                                    - galGlGeo:
+                                        Control: Gallery
+                                        Variant: Vertical
+                                        Properties:
+                                          AccessibleLabel: ="Geounit list"
+                                          Default: =locGeoFocus
+                                          Fill: =RGBA(226, 230, 239, 1)
+                                          FillPortions: =1
+                                          Items: =Sort(dis_geounits, elv_name_short)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          TabIndex: =0
+                                          TemplatePadding: =1
+                                          TemplateSize: =52
+                                          Visible: =!IsEmpty(dis_geounits)
+                                        Children:
+                                          - conGlGeoRow:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Height: =Parent.TemplateHeight
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                PaddingLeft: =12
+                                                PaddingRight: =12
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =Parent.TemplateWidth
+                                              Children:
+                                                - txtGlGeoShort:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.elv_name_short
+                                                      Width: =80
+                                                      Wrap: =false
+                                                - txtGlGeoLong:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =1
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.elv_name_long
+                                                      Wrap: =false
+                                                - btnGlGeoEdit:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Edit " & ThisItem.elv_name_short
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(56, 96, 178, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="Edit"
+                                                      Layout: =ButtonLayout.IconOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =32
+                                                      OnSelect: |-
+                                                        =UpdateContext({locGeoMode: "Edit", locGeoEdit: ThisItem, locGeoFocus: ThisItem});
+                                                        Reset(inpGlGeoShort);
+                                                        Reset(inpGlGeoLong)
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Edit " & ThisItem.elv_name_short
+                                                      Tooltip: ="Edit " & ThisItem.elv_name_short
+                                                      Width: =32
+                                                - btnGlGeoDelete:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Delete " & ThisItem.elv_name_short
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(196, 43, 28, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="Delete"
+                                                      Layout: =ButtonLayout.IconOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =32
+                                                      OnSelect: |-
+                                                        =If(
+                                                            !IsEmpty(Filter(dis_locations, dis_geounit.dis_geounit = ThisItem.dis_geounit)),
+                                                            Notify("Geounit " & ThisItem.elv_name_short & " still has locations. Delete or move them first.", NotificationType.Warning),
+                                                            !IsEmpty(Filter(dis_areas, elv_geounit.dis_geounit = ThisItem.dis_geounit)),
+                                                            Notify("Geounit " & ThisItem.elv_name_short & " is still used by areas. Update those areas first.", NotificationType.Warning),
+                                                            UpdateContext({locDelKind: "Geounit", locDelGeo: ThisItem, locShowDel: true})
+                                                        )
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Delete " & ThisItem.elv_name_short
+                                                      Tooltip: ="Delete " & ThisItem.elv_name_short
+                                                      Width: =32
+                                                - btnGlGeoOpen:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Show locations of " & ThisItem.elv_name_short
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(100, 112, 130, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="ChevronRight"
+                                                      Layout: =ButtonLayout.IconOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =32
+                                                      OnSelect: |-
+                                                        =UpdateContext({locGeoFocus: ThisItem, locLocMode: ""})
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Show locations of " & ThisItem.elv_name_short
+                                                      Tooltip: ="Show locations"
+                                                      Width: =32
+                                    - txtGlGeoEmpty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="No geounits yet. Click Add Geounit."
+                                          Visible: =IsEmpty(dis_geounits)
+                                          Wrap: =false
+                              - conGlLocCard:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderColor: =RGBA(226, 230, 239, 1)
+                                    BorderThickness: =1
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FillPortions: =1
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =12
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =16
+                                    PaddingLeft: =16
+                                    PaddingRight: =16
+                                    PaddingTop: =16
+                                    RadiusBottomLeft: =12
+                                    RadiusBottomRight: =12
+                                    RadiusTopLeft: =12
+                                    RadiusTopRight: =12
+                                  Children:
+                                    - conGlLocToolbar:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtGlLocTitle:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =24
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =16
+                                                Text: ="Location" & If(IsBlank(galGlGeo.Selected), "", " - " & galGlGeo.Selected.elv_name_short)
+                                                Wrap: =false
+                                          - btnGlLocAdd:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Add location"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                                DisplayMode: =If(IsBlank(galGlGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                Icon: ="Add"
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =140
+                                                OnSelect: |-
+                                                  =UpdateContext({locLocMode: "Add", locLocEdit: Blank()});
+                                                  Reset(inpGlLocName);
+                                                  Reset(ddGlLocGeo)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Text: ="Add Location"
+                                                Width: =140
+                                    - conGlLocEdit:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderColor: =RGBA(180, 214, 250, 1)
+                                          BorderThickness: =1
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =156
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =12
+                                          PaddingLeft: =12
+                                          PaddingRight: =12
+                                          PaddingTop: =12
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                          Visible: =!IsBlank(locLocMode)
+                                        Children:
+                                          - txtGlLocEdTitle:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =If(locLocMode = "Edit", "Edit location " & locLocEdit.Name, "New location")
+                                                Wrap: =false
+                                          - conGlLocEdFields:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                Height: =56
+                                                LayoutAlignItems: =LayoutAlignItems.Stretch
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                              Children:
+                                                - conGlLocNameFld:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =1
+                                                      LayoutAlignItems: =LayoutAlignItems.Stretch
+                                                      LayoutDirection: =LayoutDirection.Vertical
+                                                      LayoutGap: =4
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                    Children:
+                                                      - txtGlLocNameLbl:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Color: =RGBA(100, 112, 130, 1)
+                                                            Font: =Font.'Segoe UI'
+                                                            FontWeight: =FontWeight.Semibold
+                                                            Height: =16
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            Size: =11
+                                                            Text: ="Location name *"
+                                                            Wrap: =false
+                                                      - inpGlLocName:
+                                                          Control: ModernTextInput
+                                                          Properties:
+                                                            AccessibleLabel: ="Location name"
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Appearance: =Appearance.Outline
+                                                            Default: =If(locLocMode = "Edit", locLocEdit.Name, "")
+                                                            Font: =Font.'Segoe UI'
+                                                            Height: =36
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            Placeholder: ="Location name"
+                                                            RadiusBottomLeft: =8
+                                                            RadiusBottomRight: =8
+                                                            RadiusTopLeft: =8
+                                                            RadiusTopRight: =8
+                                                            Size: =13
+                                                - conGlLocGeoFld:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =0
+                                                      LayoutAlignItems: =LayoutAlignItems.Stretch
+                                                      LayoutDirection: =LayoutDirection.Vertical
+                                                      LayoutGap: =4
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Width: =130
+                                                    Children:
+                                                      - txtGlLocGeoLbl:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Color: =RGBA(100, 112, 130, 1)
+                                                            Font: =Font.'Segoe UI'
+                                                            FontWeight: =FontWeight.Semibold
+                                                            Height: =16
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            Size: =11
+                                                            Text: ="Geounit *"
+                                                            Wrap: =false
+                                                      - ddGlLocGeo:
+                                                          Control: ModernDropdown
+                                                          Properties:
+                                                            AccessibleLabel: ="Location geounit"
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            Appearance: =Appearance.Outline
+                                                            Default: =If(locLocMode = "Edit", locLocEdit.dis_geounit, galGlGeo.Selected)
+                                                            Font: =Font.'Segoe UI'
+                                                            Height: =36
+                                                            ItemDisplayText: =ThisItem.elv_name_short
+                                                            Items: =Sort(dis_geounits, elv_name_short)
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            RadiusBottomLeft: =8
+                                                            RadiusBottomRight: =8
+                                                            RadiusTopLeft: =8
+                                                            RadiusTopRight: =8
+                                                            Size: =13
+                                          - conGlLocEdBtns:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                Height: =36
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                LayoutJustifyContent: =LayoutJustifyContent.End
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                              Children:
+                                                - btnGlLocCancel:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Cancel"
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Secondary
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =36
+                                                      Icon: ="Dismiss"
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =96
+                                                      OnSelect: |-
+                                                        =UpdateContext({locLocMode: ""})
+                                                      RadiusBottomLeft: =8
+                                                      RadiusBottomRight: =8
+                                                      RadiusTopLeft: =8
+                                                      RadiusTopRight: =8
+                                                      Size: =13
+                                                      Text: ="Cancel"
+                                                      Width: =96
+                                                - btnGlLocSave:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Save location"
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                                      DisplayMode: =If(IsBlank(Trim(inpGlLocName.Text)) Or IsBlank(ddGlLocGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =36
+                                                      Icon: ="Save"
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =96
+                                                      OnSelect: |-
+                                                        =With(
+                                                            {nm: Trim(inpGlLocName.Text), geo: ddGlLocGeo.Selected},
+                                                            With(
+                                                                {
+                                                                    res: IfError(
+                                                                        If(
+                                                                            locLocMode = "Add",
+                                                                            Patch(dis_locations, Defaults(dis_locations), {Name: nm, dis_geounit: geo}),
+                                                                            Patch(dis_locations, locLocEdit, {Name: nm, dis_geounit: geo})
+                                                                        ),
+                                                                        Blank()
+                                                                    )
+                                                                },
+                                                                If(
+                                                                    IsBlank(res),
+                                                                    Notify("Failed to save location. " & First(Errors(dis_locations)).Message, NotificationType.Error),
+                                                                    Set(gblReceipt, {Screen: "GeoLoc", Action: If(locLocMode = "Add", "Added", "Updated"), Title: "Location " & res.Name, Detail: "Geounit " & geo.elv_name_short & " - " & geo.elv_name_long});
+                                                                    UpdateContext({locLocMode: "", locGeoFocus: geo});
+                                                                    Notify("Location saved successfully!", NotificationType.Success)
+                                                                )
+                                                            )
+                                                        )
+                                                      RadiusBottomLeft: =8
+                                                      RadiusBottomRight: =8
+                                                      RadiusTopLeft: =8
+                                                      RadiusTopRight: =8
+                                                      Size: =13
+                                                      Text: ="Save"
+                                                      Width: =96
+                                    - conGlLocHead:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =13
+                                          PaddingRight: =13
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                        Children:
+                                          - txtGlLocHName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="LOCATION NAME"
+                                                Wrap: =false
+                                          - txtGlLocHAct:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="ACTIONS"
+                                                Width: =72
+                                                Wrap: =false
+                                    - galGlLoc:
+                                        Control: Gallery
+                                        Variant: Vertical
+                                        Properties:
+                                          AccessibleLabel: ="Location list"
+                                          Fill: =RGBA(226, 230, 239, 1)
+                                          FillPortions: =1
+                                          Items: =Sort(Filter(dis_locations, dis_geounit.dis_geounit = galGlGeo.Selected.dis_geounit), Name)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          TabIndex: =0
+                                          TemplatePadding: =1
+                                          TemplateSize: =52
+                                          Visible: =!IsBlank(galGlGeo.Selected) And !IsEmpty(Filter(dis_locations, dis_geounit.dis_geounit = galGlGeo.Selected.dis_geounit))
+                                        Children:
+                                          - conGlLocRow:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Height: =Parent.TemplateHeight
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                PaddingLeft: =12
+                                                PaddingRight: =12
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =Parent.TemplateWidth
+                                              Children:
+                                                - txtGlLocName:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =1
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.Name
+                                                      Wrap: =false
+                                                - btnGlLocEdit:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Edit " & ThisItem.Name
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(56, 96, 178, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="Edit"
+                                                      Layout: =ButtonLayout.IconOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =32
+                                                      OnSelect: |-
+                                                        =UpdateContext({locLocMode: "Edit", locLocEdit: ThisItem});
+                                                        Reset(inpGlLocName);
+                                                        Reset(ddGlLocGeo)
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Edit " & ThisItem.Name
+                                                      Tooltip: ="Edit " & ThisItem.Name
+                                                      Width: =32
+                                                - btnGlLocDelete:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Delete " & ThisItem.Name
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(196, 43, 28, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="Delete"
+                                                      Layout: =ButtonLayout.IconOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =32
+                                                      OnSelect: |-
+                                                        =If(
+                                                            !IsEmpty(Filter(dis_areas, 'elv_location (cr8a3_elv_location)'.dis_location = ThisItem.dis_location)),
+                                                            Notify("Location " & ThisItem.Name & " is still used by areas. Delete or move those areas first.", NotificationType.Warning),
+                                                            UpdateContext({locDelKind: "Location", locDelLoc: ThisItem, locShowDel: true})
+                                                        )
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Delete " & ThisItem.Name
+                                                      Tooltip: ="Delete " & ThisItem.Name
+                                                      Width: =32
+                                    - txtGlLocEmpty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: =If(IsBlank(galGlGeo.Selected), "Select a geounit on the left.", "No locations in " & galGlGeo.Selected.elv_name_short & " yet.")
+                                          Visible: =!galGlLoc.Visible
+                                          Wrap: =false
