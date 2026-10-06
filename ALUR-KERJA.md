@@ -127,3 +127,15 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   (RBAC) - ini fondasinya. | status: compile OK | cek manual di Studio: baris galUsrL tidak hitam, dropdown form tidak
   kosong ("Depends on"), Edit user -> pilih 2-3 area -> Save -> kolom AREAS tampil semua; buang satu area -> Save ->
   hilang; lalu File > Save.
+- [2026-10-06] app/App.pa.yaml, app/scr_consume.pa.yaml, app/scr_find_item.pa.yaml, app/scr_frm_Transaction.pa.yaml,
+  app/scr_Transaction.pa.yaml | RBAC Administrator vs User (role selain administrator = user). App.Formulas baru:
+  nfIsAdmin, nfMyAreas (relasi N:N user-area), nfHomeArea (Primary area, fallback area pertama), nfMyAreaIds,
+  nfMyLocIds, nfMyGeoIds. fxMenuItems diberi kolom AdminOnly dan disaring: user tidak melihat Category Item, Item, Area,
+  User. Consume & Find Item: dropdown Geounit/Location/Area user hanya berisi miliknya; Geounit & Location otomatis
+  terisi dari nfHomeArea dan terkunci (kalau area user tersebar di >1 location/geounit, dropdown itu tetap bisa dipilih
+  tapi hanya opsi miliknya); galeri stok user hanya area miliknya. Transaction form: From hanya area user; To hanya
+  area user kalau tipe Receive (Transfer tetap boleh ke area mana saja). Tombol Delete transaksi hanya untuk admin.
+  Admin tidak berubah. Catatan: Navigate di OnVisible ditolak compiler, jadi pembatasan screen admin lewat menu saja
+  (tidak ada link lain ke screen admin dari screen user). | status: compile OK | cek manual di Studio: galeri Consume /
+  Find / Transaction tidak hitam, dropdown form Transaction tidak kosong ("Depends on"); uji sebagai user: menu hanya 5,
+  Geounit/Location terisi & abu-abu, Area hanya area yang di-assign; lalu File > Save.

@@ -937,6 +937,7 @@ Screens:
                                                       Size: =13
                                                       Text: ="Delete " & ThisItem.transaction_number
                                                       Tooltip: ="Delete " & ThisItem.transaction_number
+                                                      Visible: =nfIsAdmin
                                                       Width: =32
                                     - txtTrxLEmpty:
                                         Control: ModernText

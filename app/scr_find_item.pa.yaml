@@ -210,12 +210,14 @@ Screens:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter geounit"
+                                                Default: =If(!nfIsAdmin, nfHomeArea.'elv_location (cr8a3_elv_location)'.dis_geounit)
+                                                DisplayMode: =If(!nfIsAdmin And CountRows(Distinct(nfMyGeoIds, Value)) <= 1, DisplayMode.Disabled, DisplayMode.Edit)
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.elv_name_long
-                                                Items: =dis_geounits
+                                                Items: =Filter(dis_geounits, nfIsAdmin Or dis_geounit in nfMyGeoIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: |-
@@ -266,16 +268,22 @@ Screens:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter location"
+                                                Default: |-
+                                                  =If(
+                                                      !nfIsAdmin And ddFindGeo.Selected.dis_geounit = nfHomeArea.'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit,
+                                                      nfHomeArea.'elv_location (cr8a3_elv_location)'
+                                                  )
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                DisplayMode: =If(IsBlank(ddFindGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                DisplayMode: =If(IsBlank(ddFindGeo.Selected) Or (!nfIsAdmin And CountRows(Distinct(nfMyLocIds, Value)) <= 1), DisplayMode.Disabled, DisplayMode.Edit)
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
                                                   =Filter(
                                                       dis_locations, 
-                                                      dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit
+                                                      dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit,
+                                                      nfIsAdmin Or dis_location in nfMyLocIds
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -334,7 +342,8 @@ Screens:
                                                 Items: |-
                                                   =Filter(
                                                       dis_areas, 
-                                                      'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location
+                                                      'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location,
+                                                      nfIsAdmin Or dis_area in nfMyAreaIds
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -617,6 +626,8 @@ Screens:
                                                 IsBlank(ddFindCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddFindCat.Selected.dis_category_item,
                                                 // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
                                                 IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
+                                                // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign
+                                                nfIsAdmin Or dis_area.dis_area in nfMyAreaIds,
                                                 // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
                                                 IsBlank(inpFindSearch.Text) Or
                                                 StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
@@ -634,6 +645,8 @@ Screens:
                                                 IsBlank(ddFindCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddFindCat.Selected.dis_category_item,
                                                 // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
                                                 IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
+                                                // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign
+                                                nfIsAdmin Or dis_area.dis_area in nfMyAreaIds,
                                                 // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
                                                 IsBlank(inpFindSearch.Text) Or
                                                 StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
@@ -824,6 +837,8 @@ Screens:
                                                 IsBlank(ddFindCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddFindCat.Selected.dis_category_item,
                                                 // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
                                                 IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
+                                                // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign
+                                                nfIsAdmin Or dis_area.dis_area in nfMyAreaIds,
                                                 // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
                                                 IsBlank(inpFindSearch.Text) Or
                                                 StartsWith(dis_item_v2.name, inpFindSearch.Text) Or

@@ -3,6 +3,12 @@ App:
     BackEnabled: =false
     Formulas: |-
       =nfMe = LookUp(dis_users, email = User().Email);
+      nfIsAdmin = nfMe.role = dis_role.administrator;
+      nfMyAreas = nfMe.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)';
+      nfHomeArea = Coalesce(nfMe.Assigned_area, First(nfMyAreas));
+      nfMyAreaIds = ForAll(nfMyAreas, ThisRecord.dis_area);
+      nfMyLocIds = ForAll(nfMyAreas, ThisRecord.'elv_location (cr8a3_elv_location)'.dis_location);
+      nfMyGeoIds = ForAll(Filter(dis_locations, dis_location in nfMyLocIds), ThisRecord.dis_geounit.dis_geounit);
       nfLowStock = Filter(AddColumns(dis_stocks, MinQty, dis_item_v2.min_qty), qty < MinQty);
       clrNavy = RGBA(0, 18, 107, 1);
       clrAccent = RGBA(56, 96, 178, 1);
@@ -19,53 +25,62 @@ App:
       clrSuccessTint = RGBA(232, 246, 238, 1);
       clrWarning = RGBA(188, 118, 0, 1);
       clrWarningTint = RGBA(255, 246, 225, 1);
-      fxMenuItems = Table(
+      fxMenuItems = Filter(Table(
           {
               TextValue: "Dashboard",
+              AdminOnly: false,
               Icon: "Home",
               NavigateScreen: scr_dashboard
           },
           {
               TextValue: "Category Item",
+              AdminOnly: true,
               Icon: "AppsList",
               NavigateScreen: scr_category
           },
           {
               TextValue: "Item",
+              AdminOnly: true,
               Icon: "Folder",
               NavigateScreen: scr_item
           },
           {
               TextValue: "Area",
+              AdminOnly: true,
               Icon: "BuildingRetail",
               NavigateScreen: Area
           },
           {
               TextValue: "User",
+              AdminOnly: true,
               Icon: "Person",
               NavigateScreen: scr_user
           },
           {
               TextValue: "Consume",
+              AdminOnly: false,
               Icon: "Wrench",
               NavigateScreen: scr_consume
           },
           {
               TextValue: "Transaction",
+              AdminOnly: false,
               Icon: "Cart",
               NavigateScreen: scr_Transaction
           },
           {
               TextValue: "Find Item",
+              AdminOnly: false,
               Icon: "Search",
               NavigateScreen: scr_find_item
           },
           {
               TextValue: "History",
+              AdminOnly: false,
               Icon: "History",
               NavigateScreen: scr_History
           }
-      );
+      ), nfIsAdmin Or !AdminOnly);
     OnStart: |-
       =Set(imyrole, nfMe.role);
       Set(imyid, nfMe.dis_user);
