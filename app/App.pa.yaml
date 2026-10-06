@@ -7,8 +7,10 @@ App:
       nfMyAreas = nfMe.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)';
       nfHomeArea = Coalesce(nfMe.Assigned_area, First(nfMyAreas));
       nfMyAreaIds = ForAll(nfMyAreas, ThisRecord.dis_area);
-      nfMyLocIds = ForAll(nfMyAreas, ThisRecord.'elv_location (cr8a3_elv_location)'.dis_location);
-      nfMyGeoIds = ForAll(Filter(dis_locations, dis_location in nfMyLocIds), ThisRecord.dis_geounit.dis_geounit);
+      // An area's location lives in 'location' (legacy) or, for newer areas, in 'elv_location (cr8a3_elv_location)'
+      nfMyLocIds = Filter(ForAll(nfMyAreas, Coalesce(ThisRecord.location, ThisRecord.'elv_location (cr8a3_elv_location)').dis_location), !IsBlank(Value));
+      nfHomeLoc = Coalesce(nfHomeArea.location, nfHomeArea.'elv_location (cr8a3_elv_location)');
+      nfMyGeoIds = Filter(ForAll(Filter(dis_locations, dis_location in nfMyLocIds), ThisRecord.dis_geounit.dis_geounit), !IsBlank(Value));
       nfLowStock = Filter(AddColumns(dis_stocks, MinQty, dis_item_v2.min_qty), qty < MinQty);
       clrNavy = RGBA(0, 18, 107, 1);
       clrAccent = RGBA(56, 96, 178, 1);

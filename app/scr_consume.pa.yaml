@@ -210,12 +210,12 @@ Screens:
                                                 AccessibleLabel: ="Filter geounit"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                Default: =nfHomeArea.'elv_location (cr8a3_elv_location)'.dis_geounit
+                                                Default: =nfHomeLoc.dis_geounit
                                                 DisplayMode: =If(!nfIsAdmin And CountRows(Distinct(nfMyGeoIds, Value)) <= 1, DisplayMode.Disabled, DisplayMode.Edit)
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.elv_name_long
-                                                Items: =Filter(dis_geounits, nfIsAdmin Or dis_geounit in nfMyGeoIds)
+                                                Items: =If(nfIsAdmin, dis_geounits, Filter(dis_geounits, dis_geounit in nfMyGeoIds))
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: |-
@@ -270,18 +270,18 @@ Screens:
                                                 Appearance: =Appearance.Outline
                                                 Default: |-
                                                   =If(
-                                                      ddConsGeo.Selected.dis_geounit = nfHomeArea.'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit,
-                                                      nfHomeArea.'elv_location (cr8a3_elv_location)'
+                                                      ddConsGeo.Selected.dis_geounit = nfHomeLoc.dis_geounit.dis_geounit,
+                                                      nfHomeLoc
                                                   )
                                                 DisplayMode: =If(IsBlank(ddConsGeo.Selected) Or (!nfIsAdmin And CountRows(Distinct(nfMyLocIds, Value)) <= 1), DisplayMode.Disabled, DisplayMode.Edit)
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =Filter(
-                                                      dis_locations, 
-                                                      dis_geounit.dis_geounit = ddConsGeo.Selected.dis_geounit,
-                                                      nfIsAdmin Or dis_location in nfMyLocIds
+                                                  =If(
+                                                      nfIsAdmin,
+                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddConsGeo.Selected.dis_geounit),
+                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddConsGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -335,7 +335,7 @@ Screens:
                                                 Appearance: =Appearance.Outline
                                                 Default: |-
                                                   =If(
-                                                      ddConsLoc.Selected.dis_location = nfHomeArea.'elv_location (cr8a3_elv_location)'.dis_location,
+                                                      ddConsLoc.Selected.dis_location = nfHomeLoc.dis_location,
                                                       nfHomeArea
                                                   )
                                                 DisplayMode: =If(IsBlank(ddConsLoc.Selected), DisplayMode.Disabled, DisplayMode.Edit)
@@ -343,10 +343,10 @@ Screens:
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =Filter(
-                                                      dis_areas, 
-                                                      'elv_location (cr8a3_elv_location)'.dis_location = ddConsLoc.Selected.dis_location,
-                                                      nfIsAdmin Or dis_area in nfMyAreaIds
+                                                  =If(
+                                                      nfIsAdmin,
+                                                      Filter(dis_areas, (location.dis_location = ddConsLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddConsLoc.Selected.dis_location))),
+                                                      Filter(dis_areas, (location.dis_location = ddConsLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddConsLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0

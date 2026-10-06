@@ -266,7 +266,7 @@ Screens:
                                                       Screen: "Area",
                                                       Action: "Deleted",
                                                       Title: target.Name,
-                                                      Detail: "Location " & Coalesce(target.'elv_location (cr8a3_elv_location)'.Name, "-") & " | Geounit " & Coalesce(target.elv_geounit.elv_name_short, "-")
+                                                      Detail: "Location " & Coalesce(Coalesce(target.location, target.'elv_location (cr8a3_elv_location)').Name, "-") & " | Geounit " & Coalesce(target.elv_geounit.elv_name_short, "-")
                                                   }
                                               );
                                               UpdateContext({locShowDeleteConfirm: false});
@@ -506,7 +506,7 @@ Screens:
                                                 Items: |-
                                                   =Filter(
                                                       dis_areas, 
-                                                      'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location
+                                                      (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location))
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -749,13 +749,13 @@ Screens:
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =380
-                                          Items: "=Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit,\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location,\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n)"
+                                          Items: "=Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
                                           TemplatePadding: =1
                                           TemplateSize: =52
-                                          Visible: "=!IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit,\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location,\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n))"
+                                          Visible: "=!IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n))"
                                         Children:
                                           - conAreaLRow:
                                               Control: GroupContainer
@@ -808,7 +808,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =ThisItem.'elv_location (cr8a3_elv_location)'.Name
+                                                      Text: =Coalesce(ThisItem.location, ThisItem.'elv_location (cr8a3_elv_location)').Name
                                                       Wrap: =false
                                                 - txtAreaLBl:
                                                     Control: ModernText
@@ -916,5 +916,5 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: ="No areas match the filter."
-                                          Visible: "=IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit,\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location,\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n))"
+                                          Visible: "=IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n))"
                                           Wrap: =false

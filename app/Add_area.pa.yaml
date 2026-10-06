@@ -133,7 +133,7 @@ Screens:
                                               Screen: "Area",
                                               Action: "Saved",
                                               Title: frmAreaF.LastSubmit.Name,
-                                              Detail: "Geounit " & Coalesce(frmAreaF.LastSubmit.elv_geounit.elv_name_short, "-") & " | Location " & Coalesce(frmAreaF.LastSubmit.'elv_location (cr8a3_elv_location)'.Name, "-") & " | Business Line " & Coalesce(frmAreaF.LastSubmit.elv_dis_subblid.Name, "-") & " | Detail " & Coalesce(frmAreaF.LastSubmit.elv_detail, "-")
+                                              Detail: "Geounit " & Coalesce(frmAreaF.LastSubmit.elv_geounit.elv_name_short, "-") & " | Location " & Coalesce(frmAreaF.LastSubmit.location.Name, "-") & " | Business Line " & Coalesce(frmAreaF.LastSubmit.elv_dis_subblid.Name, "-") & " | Detail " & Coalesce(frmAreaF.LastSubmit.elv_detail, "-")
                                           }
                                       );
                                       Notify("Area saved successfully!", NotificationType.Success);
@@ -294,9 +294,9 @@ Screens:
                                         Variant: PcfCoreComboBoxEditCard
                                         Properties:
                                           BorderColor: =RGBA(0, 18, 107, 1)
-                                          DataField: ="cr8a3_elv_location"
-                                          Default: =ThisItem.location
-                                          DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,'elv_location (cr8a3_elv_location)')
+                                          DataField: ="elv_location"
+                                          Default: =Coalesce(ThisItem.location, ThisItem.'elv_location (cr8a3_elv_location)')
+                                          DisplayName: =DataSourceInfo([@dis_areas],DataSourceInfo.DisplayName,location)
                                           Required: =false
                                           Update: =DataCardValue48_AreaF.Selected
                                           Width: =Parent.Width / 2
@@ -336,7 +336,7 @@ Screens:
                                                 Font: =Font.'Open Sans'
                                                 Height: =32
                                                 HoverFill: =RGBA(186, 202, 226, 1)
-                                                Items: =Choices([@dis_areas].'elv_location (cr8a3_elv_location)')
+                                                Items: =Choices([@dis_areas].location)
                                                 PressedColor: =RGBA(255, 255, 255, 1)
                                                 PressedFill: =RGBA(0, 18, 107, 1)
                                                 SearchFields: =["elv_name"]

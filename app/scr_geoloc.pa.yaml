@@ -1362,7 +1362,7 @@ Screens:
                                                       LayoutMinWidth: =32
                                                       OnSelect: |-
                                                         =If(
-                                                            !IsEmpty(Filter(dis_areas, 'elv_location (cr8a3_elv_location)'.dis_location = ThisItem.dis_location)),
+                                                            !IsEmpty(Filter(dis_areas, location.dis_location = ThisItem.dis_location Or 'elv_location (cr8a3_elv_location)'.dis_location = ThisItem.dis_location)),
                                                             Notify("Location " & ThisItem.Name & " is still used by areas. Delete or move those areas first.", NotificationType.Warning),
                                                             UpdateContext({locDelKind: "Location", locDelLoc: ThisItem, locShowDel: true})
                                                         )

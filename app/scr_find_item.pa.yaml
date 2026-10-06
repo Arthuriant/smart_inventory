@@ -210,14 +210,14 @@ Screens:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter geounit"
-                                                Default: =If(!nfIsAdmin, nfHomeArea.'elv_location (cr8a3_elv_location)'.dis_geounit)
+                                                Default: =If(!nfIsAdmin, nfHomeLoc.dis_geounit)
                                                 DisplayMode: =If(!nfIsAdmin And CountRows(Distinct(nfMyGeoIds, Value)) <= 1, DisplayMode.Disabled, DisplayMode.Edit)
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.elv_name_long
-                                                Items: =Filter(dis_geounits, nfIsAdmin Or dis_geounit in nfMyGeoIds)
+                                                Items: =If(nfIsAdmin, dis_geounits, Filter(dis_geounits, dis_geounit in nfMyGeoIds))
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: |-
@@ -270,8 +270,8 @@ Screens:
                                                 AccessibleLabel: ="Filter location"
                                                 Default: |-
                                                   =If(
-                                                      !nfIsAdmin And ddFindGeo.Selected.dis_geounit = nfHomeArea.'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit,
-                                                      nfHomeArea.'elv_location (cr8a3_elv_location)'
+                                                      !nfIsAdmin And ddFindGeo.Selected.dis_geounit = nfHomeLoc.dis_geounit.dis_geounit,
+                                                      nfHomeLoc
                                                   )
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
@@ -280,10 +280,10 @@ Screens:
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =Filter(
-                                                      dis_locations, 
-                                                      dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit,
-                                                      nfIsAdmin Or dis_location in nfMyLocIds
+                                                  =If(
+                                                      nfIsAdmin,
+                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit),
+                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -340,10 +340,10 @@ Screens:
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =Filter(
-                                                      dis_areas, 
-                                                      'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location,
-                                                      nfIsAdmin Or dis_area in nfMyAreaIds
+                                                  =If(
+                                                      nfIsAdmin,
+                                                      Filter(dis_areas, (location.dis_location = ddFindLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location))),
+                                                      Filter(dis_areas, (location.dis_location = ddFindLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
                                                   )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -787,7 +787,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =ThisItem.dis_area.'elv_location (cr8a3_elv_location)'.Name & " - " & ThisItem.dis_area.Name
+                                                      Text: =Coalesce(ThisItem.dis_area.location, ThisItem.dis_area.'elv_location (cr8a3_elv_location)').Name & " - " & ThisItem.dis_area.Name
                                                       Wrap: =false
                                                 - btnFindDetail:
                                                     Control: ModernButton
@@ -1166,8 +1166,8 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: |-
-                                            =Coalesce(locFindDetail.dis_area.'elv_location (cr8a3_elv_location)'.dis_geounit.elv_name_long, "-") & Char(10) &
-                                            Coalesce(locFindDetail.dis_area.'elv_location (cr8a3_elv_location)'.Name, "-") & Char(10) &
+                                            =Coalesce(Coalesce(locFindDetail.dis_area.location, locFindDetail.dis_area.'elv_location (cr8a3_elv_location)').dis_geounit.elv_name_long, "-") & Char(10) &
+                                            Coalesce(Coalesce(locFindDetail.dis_area.location, locFindDetail.dis_area.'elv_location (cr8a3_elv_location)').Name, "-") & Char(10) &
                                             Coalesce(locFindDetail.dis_area.Name, "-") & Char(10) &
                                             Text(locFindDetail.qty) & " " & Text(locFindDetail.dis_item_v2.uom) & Char(10) &
                                             Text(locFindDetail.'Modified On', "dd mmm yyyy hh:mm")

@@ -147,3 +147,13 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   location ditolak kalau masih dipakai area. Receipt hijau gblReceipt.Screen = "GeoLoc". | status: compile OK (screen
   terverifikasi ada di sesi Studio) | cek manual di Studio: baris galeri tidak hitam (ketik ulang Fill conGlGeoRow /
   conGlLocRow), klik geounit -> kanan ganti, Add/Edit/Delete kedua sisi, ikon menu muncul; lalu File > Save.
+- [2026-10-06] app/App.pa.yaml, app/scr_consume.pa.yaml, app/scr_find_item.pa.yaml, app/Area.pa.yaml,
+  app/Add_area.pa.yaml, app/scr_geoloc.pa.yaml | Fix dropdown Geounit/Location/Area kosong sejak RBAC. Penyebab (dicek
+  di Dataverse via pac): dis_areas punya 2 lookup lokasi - `location` (elv_location, terisi 24/27 area, data lama) dan
+  'elv_location (cr8a3_elv_location)' (terisi 4/27, area baru) - dan app hanya memakai yang kedua, sehingga
+  nfMyLocIds/nfMyGeoIds berisi blank. Data Dataverse TIDAK diubah (keputusan user); logika saja: lokasi efektif =
+  Coalesce(location, cr8a3) (nfHomeLoc baru, nfMyLocIds/nfMyGeoIds buang blank), filter area per lokasi =
+  location match Or (IsBlank(location) And cr8a3 match), dropdown RBAC jadi If(nfIsAdmin, semua, Filter(...)).
+  Add_area kini menulis ke `location`. Lokasi CIB belum punya geounit (dibiarkan, data). | status: compile OK, 35
+  warning delegasi di filter dis_areas (IsBlank lookup; aman selama dis_areas < 500 baris) | cek manual di Studio:
+  dropdown Consume/Find/Area tidak kosong ("Depends on"), galeri tidak hitam; lalu File > Save.
