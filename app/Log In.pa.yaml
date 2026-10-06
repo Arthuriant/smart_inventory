@@ -80,7 +80,7 @@ Screens:
                         PaddingRight: =0
                         PaddingTop: =0
                         Size: =14
-                        Text: ="Well Construction Equipment & Fluid - ING - TLM"
+                        Text: ="Maximize Profits With Optimized Stock Control"
             - conLoginRight:
                 Control: GroupContainer
                 Variant: AutoLayout
@@ -141,7 +141,7 @@ Screens:
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =14
-                              Text: ="Selamat datang,"
+                              Text: ="Welcome,"
                               Wrap: =false
                         - txtLoginName:
                             Control: ModernText
@@ -163,10 +163,10 @@ Screens:
                         - bdgLoginRole:
                             Control: Badge
                             Properties:
-                              AccessibleLabel: ="Peran pengguna"
+                              AccessibleLabel: ="User role"
                               AlignInContainer: =AlignInContainer.Start
                               Appearance: ='BadgeCanvas.Appearance'.Tint
-                              Content: =If(IsBlank(nfMe.role), "Belum terdaftar", Proper(Text(nfMe.role)))
+                              Content: =If(IsBlank(nfMe.role), "Not registered", Proper(Text(nfMe.role)))
                               FontSize: =12
                               FontWeight: =FontWeight.Semibold
                               Height: =28
@@ -189,11 +189,11 @@ Screens:
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =13
-                              Text: ="Kelola stok, transaksi, dan pemakaian peralatan dalam satu aplikasi."
+                              Text: ="Manage stock, transactions, and equipment usage in one app."
                         - btnLoginEnter:
                             Control: ModernButton
                             Properties:
-                              AccessibleLabel: ="Masuk ke Dashboard"
+                              AccessibleLabel: ="Go to Dashboard"
                               AlignInContainer: =AlignInContainer.Stretch
                               BasePaletteColor: =RGBA(0, 18, 107, 1)
                               DisplayMode: =If(IsBlank(nfMe.Name), DisplayMode.Disabled, DisplayMode.Edit)
@@ -209,4 +209,4 @@ Screens:
                               RadiusTopLeft: =8
                               RadiusTopRight: =8
                               Size: =14
-                              Text: ="Masuk ke Dashboard"
+                              Text: ="Go to Dashboard"

@@ -52,7 +52,7 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Ringkasan stok dan transaksi hari ini"
+                        Subtitle: ="Today's stock and transaction summary"
                         Width: =912
                   - conDashBody:
                       Control: GroupContainer
@@ -199,7 +199,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Item terdaftar"
+                                                Text: ="Registered items"
                                                 Wrap: =false
                               - conDashKpiLowCard:
                                   Control: GroupContainer
@@ -225,7 +225,7 @@ Screens:
                                     - icoDashKpiLowIco:
                                         Control: ModernIcon
                                         Properties:
-                                          AccessibleLabel: ="Stok di bawah minimum"
+                                          AccessibleLabel: ="Stock below minimum"
                                           AlignInContainer: =AlignInContainer.Center
                                           Fill: =RGBA(255, 246, 225, 1)
                                           Height: =44
@@ -274,12 +274,12 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =12
-                                                Text: ="Stok di bawah minimum"
+                                                Text: ="Stock below minimum"
                                                 Wrap: =false
                                           - txtDashKpiLowVal:
                                               Control: ModernText
                                               Properties:
-                                                AccessibleLabel: ="Stok di bawah minimum " & Text(CountRows(nfLowStock))
+                                                AccessibleLabel: ="Stock below minimum " & Text(CountRows(nfLowStock))
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(31, 41, 55, 1)
                                                 Font: =Font.'Segoe UI'
@@ -308,7 +308,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Baris stok perlu diisi ulang"
+                                                Text: ="Stock rows need restocking"
                                                 Wrap: =false
                               - conDashKpiTodayCard:
                                   Control: GroupContainer
@@ -334,7 +334,7 @@ Screens:
                                     - icoDashKpiTodayIco:
                                         Control: ModernIcon
                                         Properties:
-                                          AccessibleLabel: ="Transaksi hari ini"
+                                          AccessibleLabel: ="Today's transactions"
                                           AlignInContainer: =AlignInContainer.Center
                                           Fill: =RGBA(232, 246, 238, 1)
                                           Height: =44
@@ -383,12 +383,12 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =12
-                                                Text: ="Transaksi hari ini"
+                                                Text: ="Today's transactions"
                                                 Wrap: =false
                                           - txtDashKpiTodayVal:
                                               Control: ModernText
                                               Properties:
-                                                AccessibleLabel: ="Transaksi hari ini " & Text(CountRows(Filter(dis_trx_headers, 'Created On' >= Today(), 'Created On' < DateAdd(Today(), 1, TimeUnit.Days))))
+                                                AccessibleLabel: ="Today's transactions " & Text(CountRows(Filter(dis_trx_headers, 'Created On' >= Today(), 'Created On' < DateAdd(Today(), 1, TimeUnit.Days))))
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(31, 41, 55, 1)
                                                 Font: =Font.'Segoe UI'
@@ -417,7 +417,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: =Text(Today(), "dd mmm yyyy", "id-ID")
+                                                Text: =Text(Today(), "dd mmm yyyy", "en-US")
                                                 Wrap: =false
                         - conDashQuick:
                             Control: GroupContainer
@@ -439,7 +439,7 @@ Screens:
                               - btnDashNewTrx:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Transaksi Baru"
+                                    AccessibleLabel: ="New Transaction"
                                     AlignInContainer: =AlignInContainer.Center
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
                                     Font: =Font.'Segoe UI'
@@ -456,12 +456,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Transaksi Baru"
+                                    Text: ="New Transaction"
                                     Width: =168
                               - btnDashConsume:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Consume Barang"
+                                    AccessibleLabel: ="Consume Items"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -476,12 +476,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Consume Barang"
+                                    Text: ="Consume Items"
                                     Width: =172
                               - btnDashFind:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Cari Item"
+                                    AccessibleLabel: ="Find Item"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -496,12 +496,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Cari Item"
+                                    Text: ="Find Item"
                                     Width: =136
                               - btnDashHistory:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Riwayat"
+                                    AccessibleLabel: ="History"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -516,7 +516,7 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Riwayat"
+                                    Text: ="History"
                                     Width: =120
                         - conDashPanels:
                             Control: GroupContainer
@@ -590,12 +590,12 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =16
-                                                Text: ="Transaksi Terbaru"
+                                                Text: ="Recent Transactions"
                                                 Wrap: =false
                                           - btnDashSeeAll:
                                               Control: ModernButton
                                               Properties:
-                                                AccessibleLabel: ="Lihat semua"
+                                                AccessibleLabel: ="View all"
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Appearance: =ButtonAppearance.Subtle
                                                 Color: =RGBA(56, 96, 178, 1)
@@ -611,7 +611,7 @@ Screens:
                                                 RadiusTopLeft: =8
                                                 RadiusTopRight: =8
                                                 Size: =13
-                                                Text: ="Lihat semua"
+                                                Text: ="View all"
                                                 Width: =132
                                     - conDashRecentCols:
                                         Control: GroupContainer
@@ -649,7 +649,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="NOMOR"
+                                                Text: ="NUMBER"
                                                 Wrap: =false
                                           - txtDashRecentHDate:
                                               Control: ModernText
@@ -666,7 +666,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="TANGGAL"
+                                                Text: ="DATE"
                                                 Width: =88
                                                 Wrap: =false
                                           - txtDashRecentHType:
@@ -684,7 +684,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="TIPE"
+                                                Text: ="TYPE"
                                                 Width: =88
                                                 Wrap: =false
                                           - txtDashRecentHArea:
@@ -709,7 +709,7 @@ Screens:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Transaksi terbaru"
+                                          AccessibleLabel: ="Recent transactions"
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =244
@@ -778,7 +778,7 @@ Screens:
                                                 - bdgDashRecentType:
                                                     Control: Badge
                                                     Properties:
-                                                      AccessibleLabel: ="Tipe " & Text(ThisItem.type)
+                                                      AccessibleLabel: ="Type " & Text(ThisItem.type)
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: =Text(ThisItem.type)
@@ -822,7 +822,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Belum ada transaksi."
+                                          Text: ="No transactions yet."
                                           Visible: =IsEmpty(dis_trx_headers)
                                           Wrap: =false
                               - conDashLowCard:
@@ -862,13 +862,13 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =16
-                                          Text: ="Stok Menipis"
+                                          Text: ="Low Stock"
                                           Wrap: =false
                                     - galDashLow:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Stok menipis"
+                                          AccessibleLabel: ="Low stock"
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =288
@@ -902,7 +902,7 @@ Screens:
                                                 - txtDashLowInfo:
                                                     Control: ModernText
                                                     Properties:
-                                                      AccessibleLabel: ="Stok menipis " & ThisItem.dis_item_v2.name & " di " & ThisItem.dis_area.Name
+                                                      AccessibleLabel: ="Low stock " & ThisItem.dis_item_v2.name & " at " & ThisItem.dis_area.Name
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =RGBA(31, 41, 55, 1)
                                                       FillPortions: =1
@@ -919,7 +919,7 @@ Screens:
                                                 - bdgDashLowQty:
                                                     Control: Badge
                                                     Properties:
-                                                      AccessibleLabel: ="Stok " & Text(ThisItem.qty) & " dari minimum " & Text(ThisItem.dis_item_v2.min_qty)
+                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty) & " of minimum " & Text(ThisItem.dis_item_v2.min_qty)
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: =Text(ThisItem.qty) & " / " & Text(ThisItem.dis_item_v2.min_qty)
@@ -946,6 +946,6 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Semua stok di atas minimum."
+                                          Text: ="All stock is above minimum."
                                           Visible: =IsEmpty(nfLowStock)
                                           Wrap: =false

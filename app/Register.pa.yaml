@@ -142,7 +142,7 @@ Screens:
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =24
-                              Text: ="Halo, pengguna baru"
+                              Text: ="Hello, new user"
                               Wrap: =false
                         - txtRegIntro:
                             Control: ModernText
@@ -158,12 +158,12 @@ Screens:
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =13
-                              Text: ="Untuk menggunakan Digital Inventory App, silakan hubungi salah satu Administrator berikut untuk pendaftaran akun:"
+                              Text: ="To use the Digital Inventory App, please contact one of the following Administrators to register your account:"
                         - galRegAdmins:
                             Control: Gallery
                             Variant: Vertical
                             Properties:
-                              AccessibleLabel: ="Daftar administrator"
+                              AccessibleLabel: ="Administrator list"
                               Fill: =RGBA(226, 230, 239, 1)
                               FillPortions: =0
                               Height: =300
@@ -215,7 +215,7 @@ Screens:
                                     - btnRegMail:
                                         Control: ModernButton
                                         Properties:
-                                          AccessibleLabel: ="Kirim email ke " & ThisItem.Name
+                                          AccessibleLabel: ="Send email to " & ThisItem.Name
                                           AlignInContainer: =AlignInContainer.Center
                                           Appearance: =ButtonAppearance.Subtle
                                           Color: =RGBA(56, 96, 178, 1)
@@ -235,8 +235,8 @@ Screens:
                                           RadiusTopLeft: =6
                                           RadiusTopRight: =6
                                           Size: =13
-                                          Text: ="Kirim email ke " & ThisItem.Name
-                                          Tooltip: ="Kirim email ke " & ThisItem.Name
+                                          Text: ="Send email to " & ThisItem.Name
+                                          Tooltip: ="Send email to " & ThisItem.Name
                                           Width: =32
                         - txtRegEmpty:
                             Control: ModernText
@@ -253,6 +253,6 @@ Screens:
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =13
-                              Text: ="Belum ada administrator terdaftar."
+                              Text: ="No administrators registered yet."
                               Visible: =IsEmpty(Filter(dis_users, role = dis_role.administrator))
                               Wrap: =false

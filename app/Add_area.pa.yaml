@@ -47,12 +47,12 @@ Screens:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
-                        ActiveMenu: =If(gblFormMode = "Add", "Tambah Area", "Edit Area")
+                        ActiveMenu: =If(gblFormMode = "Add", "Add Area", "Edit Area")
                         AlignInContainer: =AlignInContainer.Stretch
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Lengkapi data area"
+                        Subtitle: ="Complete the area details"
                         Width: =912
                   - conAreaFBody:
                       Control: GroupContainer
@@ -113,7 +113,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: =If(gblFormMode = "Add", "Data Area Baru", "Edit Area - " & galAreaL.Selected.Name)
+                                    Text: =If(gblFormMode = "Add", "New Area", "Edit Area - " & galAreaL.Selected.Name)
                                     Wrap: =false
                               - frmAreaF:
                                   Control: Form
@@ -131,12 +131,12 @@ Screens:
                                           gblReceipt,
                                           {
                                               Screen: "Area",
-                                              Action: "Disimpan",
+                                              Action: "Saved",
                                               Title: frmAreaF.LastSubmit.Name,
-                                              Detail: "Geounit " & Coalesce(frmAreaF.LastSubmit.elv_geounit.elv_name_short, "-") & " | Lokasi " & Coalesce(frmAreaF.LastSubmit.'elv_location (cr8a3_elv_location)'.Name, "-") & " | Business Line " & Coalesce(frmAreaF.LastSubmit.elv_dis_subblid.Name, "-") & " | Detail " & Coalesce(frmAreaF.LastSubmit.elv_detail, "-")
+                                              Detail: "Geounit " & Coalesce(frmAreaF.LastSubmit.elv_geounit.elv_name_short, "-") & " | Location " & Coalesce(frmAreaF.LastSubmit.'elv_location (cr8a3_elv_location)'.Name, "-") & " | Business Line " & Coalesce(frmAreaF.LastSubmit.elv_dis_subblid.Name, "-") & " | Detail " & Coalesce(frmAreaF.LastSubmit.elv_detail, "-")
                                           }
                                       );
-                                      Notify("Data area berhasil ditambahkan!", NotificationType.Success);
+                                      Notify("Area saved successfully!", NotificationType.Success);
                                       ResetForm(Self);
                                       Back()
                                     Width: =Parent.Width
@@ -394,7 +394,7 @@ Screens:
                                                 AutoHeight: =true
                                                 FontSize: =9
                                                 Height: =22
-                                                Text: ="Bussines Line"
+                                                Text: ="Business Line"
                                                 Tooltip: =Parent.DisplayName
                                                 VerticalAlignment: =VerticalAlign.Bottom
                                                 Width: =Parent.Width - 48
@@ -554,7 +554,7 @@ Screens:
                               - btnAreaFBack:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Kembali"
+                                    AccessibleLabel: ="Back"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -572,12 +572,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Kembali"
+                                    Text: ="Back"
                                     Width: =120
                               - btnAreaFSave:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Simpan area"
+                                    AccessibleLabel: ="Save area"
                                     AlignInContainer: =AlignInContainer.Center
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
                                     Font: =Font.'Segoe UI'
@@ -591,5 +591,5 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: =If(gblFormMode = "Add", "Tambah Area", "Simpan")
+                                    Text: =If(gblFormMode = "Add", "Add Area", "Save")
                                     Width: =160

@@ -52,7 +52,7 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Kelola pengguna dan peran"
+                        Subtitle: ="Manage users and roles"
                         Width: =912
                   - conUsrLBody:
                       Control: GroupContainer
@@ -103,7 +103,7 @@ Screens:
                               - icoUsrLRcIco:
                                   Control: ModernIcon
                                   Properties:
-                                    AccessibleLabel: ="Berhasil"
+                                    AccessibleLabel: ="Success"
                                     AlignInContainer: =AlignInContainer.Center
                                     Height: =24
                                     Icon: ="CheckmarkCircle"
@@ -168,7 +168,7 @@ Screens:
                               - icoUsrLRcClose:
                                   Control: ModernIcon
                                   Properties:
-                                    AccessibleLabel: ="Tutup"
+                                    AccessibleLabel: ="Close"
                                     AlignInContainer: =AlignInContainer.Center
                                     Height: =32
                                     Icon: ="Dismiss"
@@ -185,7 +185,7 @@ Screens:
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
-                                    Tooltip: ="Tutup"
+                                    Tooltip: ="Close"
                                     Width: =32
                         - conUsrLEditor:
                             Control: GroupContainer
@@ -226,7 +226,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: ="Edit Pengguna - " & locSelectedRecord.Name
+                                    Text: ="Edit User - " & locSelectedRecord.Name
                                     Wrap: =false
                               - frmUsrL:
                                   Control: Form
@@ -244,12 +244,12 @@ Screens:
                                           gblReceipt,
                                           {
                                               Screen: "User",
-                                              Action: "Disimpan",
+                                              Action: "Saved",
                                               Title: frmUsrL.LastSubmit.Name,
                                               Detail: "Email " & frmUsrL.LastSubmit.email & " | Role " & Text(frmUsrL.LastSubmit.role) & " | Area " & Coalesce(frmUsrL.LastSubmit.Assigned_area.Name, "-")
                                           }
                                       );
-                                      Notify("Data user berhasil disimpan!", NotificationType.Success);
+                                      Notify("User saved successfully!", NotificationType.Success);
                                       ResetForm(Self);
                                       UpdateContext({locShowUserPopUp: false})
                                     Width: =Parent.Width
@@ -573,7 +573,7 @@ Screens:
                                     - btnUsrLCancel:
                                         Control: ModernButton
                                         Properties:
-                                          AccessibleLabel: ="Batal"
+                                          AccessibleLabel: ="Cancel"
                                           AlignInContainer: =AlignInContainer.Center
                                           Appearance: =ButtonAppearance.Secondary
                                           Color: =RGBA(31, 41, 55, 1)
@@ -590,12 +590,12 @@ Screens:
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                           Size: =13
-                                          Text: ="Batal"
+                                          Text: ="Cancel"
                                           Width: =96
                                     - btnUsrLSave:
                                         Control: ModernButton
                                         Properties:
-                                          AccessibleLabel: ="Simpan pengguna"
+                                          AccessibleLabel: ="Save user"
                                           AlignInContainer: =AlignInContainer.Center
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
                                           Font: =Font.'Segoe UI'
@@ -609,7 +609,7 @@ Screens:
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                           Size: =13
-                                          Text: ="Simpan"
+                                          Text: ="Save"
                                           Width: =120
                         - conUsrLConfirm:
                             Control: GroupContainer
@@ -637,7 +637,7 @@ Screens:
                               - icoUsrLConfirmIco:
                                   Control: ModernIcon
                                   Properties:
-                                    AccessibleLabel: ="Peringatan"
+                                    AccessibleLabel: ="Warning"
                                     AlignInContainer: =AlignInContainer.Center
                                     Height: =24
                                     Icon: ="Warning"
@@ -665,12 +665,12 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =13
-                                    Text: ="Hapus pengguna " & locSelectedRecord.Name & " (" & locSelectedRecord.email & ")?"
+                                    Text: ="Delete user " & locSelectedRecord.Name & " (" & locSelectedRecord.email & ")?"
                                     Wrap: =false
                               - btnUsrLConfirmDel:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Hapus"
+                                    AccessibleLabel: ="Delete"
                                     AlignInContainer: =AlignInContainer.Center
                                     BasePaletteColor: =RGBA(196, 43, 28, 1)
                                     Font: =Font.'Segoe UI'
@@ -688,14 +688,14 @@ Screens:
                                                   gblReceipt,
                                                   {
                                                       Screen: "User",
-                                                      Action: "Dihapus",
+                                                      Action: "Deleted",
                                                       Title: target.Name,
                                                       Detail: "Email " & target.email & " | Role " & Text(target.role)
                                                   }
                                               );
                                               UpdateContext({locShowDeleteConfirm_1: false});
-                                              Notify("Data user berhasil dihapus!", NotificationType.Success),
-                                              Notify("Gagal menghapus user. " & First(Errors(dis_users)).Message, NotificationType.Error)
+                                              Notify("User deleted successfully!", NotificationType.Success),
+                                              Notify("Failed to delete user. " & First(Errors(dis_users)).Message, NotificationType.Error)
                                           )
                                       )
                                     RadiusBottomLeft: =8
@@ -703,12 +703,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Hapus"
+                                    Text: ="Delete"
                                     Width: =104
                               - btnUsrLConfirmCancel:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Batal"
+                                    AccessibleLabel: ="Cancel"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -724,7 +724,7 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Batal"
+                                    Text: ="Cancel"
                                     Width: =96
                         - conUsrLListCard:
                             Control: GroupContainer
@@ -764,7 +764,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: ="Daftar Pengguna"
+                                    Text: ="User List"
                                     Wrap: =false
                               - conUsrLTable:
                                   Control: GroupContainer
@@ -819,7 +819,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="NAMA"
+                                                Text: ="NAME"
                                                 Wrap: =false
                                           - txtUsrLHEmail:
                                               Control: ModernText
@@ -890,14 +890,14 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="AKSI"
+                                                Text: ="ACTIONS"
                                                 Width: =72
                                                 Wrap: =false
                                     - galUsrL:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Daftar pengguna"
+                                          AccessibleLabel: ="User list"
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =380
@@ -1026,7 +1026,7 @@ Screens:
                                                 - btnUsrLDelete:
                                                     Control: ModernButton
                                                     Properties:
-                                                      AccessibleLabel: ="Hapus " & ThisItem.Name
+                                                      AccessibleLabel: ="Delete " & ThisItem.Name
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: =ButtonAppearance.Subtle
                                                       Color: =RGBA(196, 43, 28, 1)
@@ -1047,8 +1047,8 @@ Screens:
                                                       RadiusTopLeft: =6
                                                       RadiusTopRight: =6
                                                       Size: =13
-                                                      Text: ="Hapus " & ThisItem.Name
-                                                      Tooltip: ="Hapus " & ThisItem.Name
+                                                      Text: ="Delete " & ThisItem.Name
+                                                      Tooltip: ="Delete " & ThisItem.Name
                                                       Width: =32
                                     - txtUsrLEmpty:
                                         Control: ModernText
@@ -1065,6 +1065,6 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Belum ada pengguna."
+                                          Text: ="No users yet."
                                           Visible: =IsEmpty(dis_users)
                                           Wrap: =false

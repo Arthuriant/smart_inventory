@@ -101,7 +101,7 @@ ComponentDefinitions:
                 Control: Gallery
                 Variant: Vertical
                 Properties:
-                  AccessibleLabel: ="Menu navigasi"
+                  AccessibleLabel: ="Navigation menu"
                   Items: =fxMenuItems
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
@@ -143,7 +143,7 @@ ComponentDefinitions:
                         - txtSbItem:
                             Control: ModernText
                             Properties:
-                              AccessibleLabel: ="Buka " & ThisItem.TextValue
+                              AccessibleLabel: ="Open " & ThisItem.TextValue
                               AlignInContainer: =AlignInContainer.Stretch
                               Color: =If(ThisItem.TextValue = Sidebar.activemenu, RGBA(255, 255, 255, 1), RGBA(255, 255, 255, 0.72))
                               FillPortions: =1
@@ -182,7 +182,7 @@ ComponentDefinitions:
                   - imgSbAvatar:
                       Control: Image
                       Properties:
-                        AccessibleLabel: ="Foto profil"
+                        AccessibleLabel: ="Profile photo"
                         AlignInContainer: =AlignInContainer.Center
                         Height: =36
                         Image: =User().Image
@@ -215,7 +215,7 @@ ComponentDefinitions:
                         - txtSbUserName:
                             Control: ModernText
                             Properties:
-                              AccessibleLabel: ="Pengguna " & Coalesce(nfMe.Name, User().FullName)
+                              AccessibleLabel: ="User " & Coalesce(nfMe.Name, User().FullName)
                               AlignInContainer: =AlignInContainer.Stretch
                               Color: =RGBA(255, 255, 255, 1)
                               Font: =Font.'Segoe UI'
@@ -233,7 +233,7 @@ ComponentDefinitions:
                         - txtSbUserRole:
                             Control: ModernText
                             Properties:
-                              AccessibleLabel: ="Peran " & If(IsBlank(imyrole), "Belum terdaftar", Proper(Text(imyrole)))
+                              AccessibleLabel: ="Role " & If(IsBlank(imyrole), "Not registered", Proper(Text(imyrole)))
                               AlignInContainer: =AlignInContainer.Stretch
                               Color: =RGBA(255, 255, 255, 0.72)
                               Font: =Font.'Segoe UI'
@@ -245,5 +245,5 @@ ComponentDefinitions:
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =11
-                              Text: =If(IsBlank(imyrole), "Belum terdaftar", Proper(Text(imyrole)))
+                              Text: =If(IsBlank(imyrole), "Not registered", Proper(Text(imyrole)))
                               Wrap: =false

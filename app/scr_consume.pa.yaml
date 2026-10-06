@@ -52,7 +52,7 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Pakai barang dari stok area"
+                        Subtitle: ="Consume items from area stock"
                         Width: =912
                   - conConsBody:
                       Control: GroupContainer
@@ -149,12 +149,12 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Kategori"
+                                                Text: ="Category"
                                                 Wrap: =false
                                           - ddConsCat:
                                               Control: ModernDropdown
                                               Properties:
-                                                AccessibleLabel: ="Filter kategori"
+                                                AccessibleLabel: ="Filter category"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
@@ -264,7 +264,7 @@ Screens:
                                           - ddConsLoc:
                                               Control: ModernDropdown
                                               Properties:
-                                                AccessibleLabel: ="Filter lokasi"
+                                                AccessibleLabel: ="Filter location"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Default: |-
@@ -328,7 +328,7 @@ Screens:
                                           - ddConsArea:
                                               Control: ModernDropdown
                                               Properties:
-                                                AccessibleLabel: ="Area asal"
+                                                AccessibleLabel: ="Source area"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Default: |-
@@ -384,19 +384,19 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Cari item"
+                                                Text: ="Search item"
                                                 Wrap: =false
                                           - inpConsSearch:
                                               Control: ModernTextInput
                                               Properties:
-                                                AccessibleLabel: ="Cari item"
+                                                AccessibleLabel: ="Search item"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                Placeholder: ="Nama atau BPN"
+                                                Placeholder: ="Name or BPN"
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -451,7 +451,7 @@ Screens:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Stok yang bisa dipakai"
+                                          AccessibleLabel: ="Available stock"
                                           Fill: =RGBA(244, 246, 250, 1)
                                           FillPortions: =0
                                           Height: =720
@@ -489,7 +489,7 @@ Screens:
                                                 - imgConsItem:
                                                     Control: Image
                                                     Properties:
-                                                      AccessibleLabel: ="Foto " & ThisItem.dis_item_v2.name
+                                                      AccessibleLabel: ="Photo " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Fill: =RGBA(241, 244, 250, 1)
                                                       Height: =160
@@ -524,10 +524,10 @@ Screens:
                                                 - bdgConsStock:
                                                     Control: Badge
                                                     Properties:
-                                                      AccessibleLabel: ="Stok " & Text(ThisItem.qty)
+                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty)
                                                       AlignInContainer: =AlignInContainer.Start
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
-                                                      Content: ="Stok " & Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
+                                                      Content: ="Stock " & Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
                                                       FontSize: =12
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
@@ -555,7 +555,7 @@ Screens:
                                                 - numConsQty:
                                                     Control: ModernNumberInput
                                                     Properties:
-                                                      AccessibleLabel: ="Qty pakai " & ThisItem.dis_item_v2.name
+                                                      AccessibleLabel: ="Consume qty " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Appearance: =Appearance.Outline
                                                       DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
@@ -585,7 +585,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =11
-                                                      Text: ="Qty melebihi stok"
+                                                      Text: ="Qty exceeds stock"
                                                       Visible: =numConsQty.Value > ThisItem.qty
                                                       Wrap: =false
                                     - txtConsEmpty:
@@ -603,7 +603,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Tidak ada stok yang cocok dengan filter."
+                                          Text: ="No stock matches the filter."
                                           Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           Wrap: =false
                               - conConsFooter:
@@ -638,12 +638,12 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: =Text(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0))) & " item dipilih" & If(IsBlank(ddConsArea.Selected), " - pilih Area (From) dulu", "")
+                                          Text: =Text(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0))) & " item(s) selected" & If(IsBlank(ddConsArea.Selected), " - select Area (From) first", "")
                                           Wrap: =false
                                     - btnConsClear:
                                         Control: ModernButton
                                         Properties:
-                                          AccessibleLabel: ="Kosongkan semua qty"
+                                          AccessibleLabel: ="Clear all qty"
                                           AlignInContainer: =AlignInContainer.Center
                                           Appearance: =ButtonAppearance.Secondary
                                           Color: =RGBA(31, 41, 55, 1)
@@ -659,8 +659,8 @@ Screens:
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                           Size: =13
-                                          Text: ="Kosongkan"
-                                          Tooltip: ="Kosongkan semua qty"
+                                          Text: ="Clear"
+                                          Tooltip: ="Clear all qty"
                                           Width: =132
                                     - btnConsSubmit:
                                         Control: ModernButton
@@ -685,14 +685,14 @@ Screens:
                                             =// 1. Validasi: Area dipilih, ada qty, dan tidak ada qty > stok
                                             If(
                                                 IsBlank(ddConsArea.Selected),
-                                                Notify("Silakan pilih Area (From) terlebih dahulu!", NotificationType.Error),
+                                                Notify("Please select Area (From) first!", NotificationType.Error),
 
                                                 CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0,
-                                                Notify("Masukkan jumlah (Qty) pada minimal 1 barang yang ingin digunakan!", NotificationType.Error),
+                                                Notify("Enter a quantity (Qty) for at least 1 item to consume!", NotificationType.Error),
 
                                                 // FIX: qty melebihi stok diblokir
                                                 CountRows(Filter(galCons.AllItems, numConsQty.Value > qty || numConsQty.Value < 0)) > 0,
-                                                Notify("Qty melebihi stok yang tersedia!", NotificationType.Error),
+                                                Notify("Qty exceeds available stock!", NotificationType.Error),
 
                                                 // 2. Generate Nomor Transaksi (Autogenerate)
                                                 With(
@@ -750,7 +750,7 @@ Screens:
                                                                 );
                                                                 // 5. Bersihkan input, notifikasi
                                                                 Reset(galCons);
-                                                                Notify("Transaksi Consume berhasil dan stok telah dikurangi!", NotificationType.Success)
+                                                                Notify("Consume transaction saved and stock has been reduced!", NotificationType.Success)
                                                             )
                                                         )
                                                     )

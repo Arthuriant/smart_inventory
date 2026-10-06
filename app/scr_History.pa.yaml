@@ -52,7 +52,7 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Riwayat transaksi"
+                        Subtitle: ="Transaction history"
                         Width: =912
                   - conHistBody:
                       Control: GroupContainer
@@ -149,7 +149,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="TIPE"
+                                                Text: ="TYPE"
                                                 Wrap: =false
                                           - conHistTypeSeg:
                                               Control: GroupContainer
@@ -176,7 +176,7 @@ Screens:
                                                 - btnHistTypeAll:
                                                     Control: ModernButton
                                                     Properties:
-                                                      AccessibleLabel: ="Semua"
+                                                      AccessibleLabel: ="All"
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: =If(IsBlank(locHistType), ButtonAppearance.Primary, ButtonAppearance.Subtle)
                                                       BasePaletteColor: =RGBA(0, 18, 107, 1)
@@ -193,7 +193,7 @@ Screens:
                                                       RadiusTopLeft: =6
                                                       RadiusTopRight: =6
                                                       Size: =13
-                                                      Text: ="Semua"
+                                                      Text: ="All"
                                                       Width: =72
                                                 - btnHistTypeReceive:
                                                     Control: ModernButton
@@ -295,12 +295,12 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Tanggal"
+                                                Text: ="Date"
                                                 Wrap: =false
                                           - datHistDate:
                                               Control: ModernDatePicker
                                               Properties:
-                                                AccessibleLabel: ="Filter tanggal"
+                                                AccessibleLabel: ="Filter date"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
@@ -308,7 +308,7 @@ Screens:
                                                 Height: =36
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                Placeholder: ="Semua tanggal"
+                                                Placeholder: ="All dates"
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -317,7 +317,7 @@ Screens:
                                     - icoHistDateClear:
                                         Control: ModernIcon
                                         Properties:
-                                          AccessibleLabel: ="Hapus filter tanggal"
+                                          AccessibleLabel: ="Clear date filter"
                                           AlignInContainer: =AlignInContainer.End
                                           Height: =36
                                           Icon: ="Dismiss"
@@ -333,7 +333,7 @@ Screens:
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
-                                          Tooltip: ="Hapus filter tanggal"
+                                          Tooltip: ="Clear date filter"
                                           Width: =36
                                     - conHistSearchFld:
                                         Control: GroupContainer
@@ -367,19 +367,19 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Cari transaksi"
+                                                Text: ="Search transactions"
                                                 Wrap: =false
                                           - inpHistSearch:
                                               Control: ModernTextInput
                                               Properties:
-                                                AccessibleLabel: ="Cari transaksi"
+                                                AccessibleLabel: ="Search transactions"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                Placeholder: ="Nomor atau catatan"
+                                                Placeholder: ="Number or note"
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -440,7 +440,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="NOMOR"
+                                                Text: ="NUMBER"
                                                 Wrap: =false
                                           - txtHistHDate:
                                               Control: ModernText
@@ -457,7 +457,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="TANGGAL"
+                                                Text: ="DATE"
                                                 Width: =92
                                                 Wrap: =false
                                           - txtHistHType:
@@ -475,7 +475,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="TIPE"
+                                                Text: ="TYPE"
                                                 Width: =92
                                                 Wrap: =false
                                           - txtHistHArea:
@@ -494,7 +494,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="AREA (DARI -> KE)"
+                                                Text: ="AREA (FROM -> TO)"
                                                 Wrap: =false
                                           - txtHistHNote:
                                               Control: ModernText
@@ -512,13 +512,13 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="CATATAN"
+                                                Text: ="NOTE"
                                                 Wrap: =false
                                     - galHist:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Riwayat transaksi"
+                                          AccessibleLabel: ="Transaction history"
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =380
@@ -583,7 +583,7 @@ Screens:
                                                 - btnHistOpen:
                                                     Control: ModernButton
                                                     Properties:
-                                                      AccessibleLabel: ="Lihat detail " & ThisItem.transaction_number
+                                                      AccessibleLabel: ="View details " & ThisItem.transaction_number
                                                       Align: =Align.Left
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: =ButtonAppearance.Subtle
@@ -621,7 +621,7 @@ Screens:
                                                 - bdgHistType:
                                                     Control: Badge
                                                     Properties:
-                                                      AccessibleLabel: ="Tipe " & Text(ThisItem.type)
+                                                      AccessibleLabel: ="Type " & Text(ThisItem.type)
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: =Text(ThisItem.type)
@@ -682,7 +682,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Tidak ada transaksi pada filter ini."
+                                          Text: ="No transactions for this filter."
                                           Visible: |-
                                             =IsEmpty(Sort(
                                                 Search(
@@ -792,12 +792,12 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Kategori"
+                                                Text: ="Category"
                                                 Wrap: =false
                                           - ddHistDCat:
                                               Control: ModernDropdown
                                               Properties:
-                                                AccessibleLabel: ="Filter kategori detail"
+                                                AccessibleLabel: ="Filter detail category"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
@@ -843,19 +843,19 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Cari item"
+                                                Text: ="Search item"
                                                 Wrap: =false
                                           - inpHistDSearch:
                                               Control: ModernTextInput
                                               Properties:
-                                                AccessibleLabel: ="Cari item detail"
+                                                AccessibleLabel: ="Search detail items"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                Placeholder: ="Nama item atau BPN"
+                                                Placeholder: ="Item name or BPN"
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -957,7 +957,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="NAMA"
+                                                Text: ="NAME"
                                                 Wrap: =false
                                           - txtHistDHDesc:
                                               Control: ModernText
@@ -975,7 +975,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="DESKRIPSI"
+                                                Text: ="DESCRIPTION"
                                                 Wrap: =false
                                           - txtHistDHCat:
                                               Control: ModernText
@@ -993,7 +993,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="KATEGORI"
+                                                Text: ="CATEGORY"
                                                 Wrap: =false
                                           - txtHistDHQty:
                                               Control: ModernText
@@ -1035,7 +1035,7 @@ Screens:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Detail item riwayat"
+                                          AccessibleLabel: ="History item details"
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =200
@@ -1214,7 +1214,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: =If(IsBlank(galHist.Selected), "Pilih nomor transaksi di atas untuk melihat detail.", "Tidak ada item yang cocok.")
+                                          Text: =If(IsBlank(galHist.Selected), "Select a transaction number above to view its details.", "No matching items.")
                                           Visible: |-
                                             =IsEmpty(Filter(
                                                 dis_trx_details,

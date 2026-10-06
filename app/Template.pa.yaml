@@ -52,7 +52,7 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Kerangka halaman baru"
+                        Subtitle: ="New page skeleton"
                         Width: =912
                   - conTplBody:
                       Control: GroupContainer
@@ -113,7 +113,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: ="Area konten"
+                                    Text: ="Content area"
                                     Wrap: =false
                               - txtTplCardBody:
                                   Control: ModernText
@@ -130,4 +130,4 @@ Screens:
                                     PaddingTop: =0
                                     Size: =13
                                     Text: |-
-                                      ="Salin layar ini untuk membuat halaman baru: sidebar, top bar dan body yang dapat di-scroll sudah tersedia. Tambahkan kartu konten di dalam body."
+                                      ="Copy this screen to create a new page: the sidebar, top bar and scrollable body are already in place. Add content cards inside the body."

@@ -95,7 +95,7 @@ ComponentDefinitions:
             - txtTbDate:
                 Control: ModernText
                 Properties:
-                  AccessibleLabel: ="Tanggal hari ini"
+                  AccessibleLabel: ="Today's date"
                   Align: =Align.Right
                   AlignInContainer: =AlignInContainer.Center
                   Color: =RGBA(100, 112, 130, 1)
@@ -108,6 +108,6 @@ ComponentDefinitions:
                   PaddingRight: =0
                   PaddingTop: =0
                   Size: =12
-                  Text: =Text(Today(), "dddd, dd mmmm yyyy", "id-ID")
+                  Text: =Text(Today(), "dddd, dd mmmm yyyy", "en-US")
                   Width: =240
                   Wrap: =false

@@ -112,3 +112,10 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   Geounit/Location/Area/Stok/Diperbarui; tutup lewat X atau tombol Tutup, direset di OnVisible. | status: compile OK |
   cek manual di Studio: baris galFind tidak hitam (gejala "binding"), klik Detail -> panel muncul di tengah dengan
   data yang benar, Tutup berfungsi; lalu File > Save.
+- [2026-10-06] 16 screen + Components/Sidebar + Components/TopBar (semua kecuali App.pa.yaml) | Standarisasi bahasa
+  Inggris: semua teks UI (label, judul, placeholder, tombol, AccessibleLabel/Tooltip, Notify, isi gblReceipt) dari
+  Indonesia ke Inggris lewat peta terjemahan string literal; locale tanggal "id-ID" -> "en-US" (TopBar, Dashboard).
+  Komentar // di rumus tidak diubah. Log In.pa.yaml lebih dulu disalin dari Studio (teks tagline yang diubah user).
+  Nama control, kolom, dan logika tidak berubah. | status: compile OK | cek manual di Studio: karena semua screen
+  dikirim ulang, gejala "binding" bisa muncul di SEMUA galeri/dropdown form (ketik ulang Fill baris, hapus
+  "Depends on"); cek teks yang terpotong karena lebih panjang; lalu File > Save.

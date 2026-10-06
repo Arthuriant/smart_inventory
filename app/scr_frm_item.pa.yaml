@@ -47,12 +47,12 @@ Screens:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
-                        ActiveMenu: =If(frmItmF.Mode = FormMode.Edit, "Edit Item", "Tambah Item")
+                        ActiveMenu: =If(frmItmF.Mode = FormMode.Edit, "Edit Item", "Add Item")
                         AlignInContainer: =AlignInContainer.Stretch
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Lengkapi data item"
+                        Subtitle: ="Complete the item details"
                         Width: =912
                   - conItmFBody:
                       Control: GroupContainer
@@ -113,7 +113,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: =If(frmItmF.Mode = FormMode.Edit, "Edit Item - " & galItmL.Selected.name, "Item Baru")
+                                    Text: =If(frmItmF.Mode = FormMode.Edit, "Edit Item - " & galItmL.Selected.name, "New Item")
                                     Wrap: =false
                               - frmItmF:
                                   Control: Form
@@ -131,12 +131,12 @@ Screens:
                                           gblReceipt,
                                           {
                                               Screen: "Item",
-                                              Action: "Disimpan",
+                                              Action: "Saved",
                                               Title: frmItmF.LastSubmit.name,
-                                              Detail: "BPN " & Coalesce(frmItmF.LastSubmit.part_number, "-") & " | SPN " & Coalesce(frmItmF.LastSubmit.client_number, "-") & " | Min " & Text(frmItmF.LastSubmit.min_qty) & " | UoM " & Text(frmItmF.LastSubmit.uom) & " | Status " & Text(frmItmF.LastSubmit.status) & " | Kategori " & Coalesce(frmItmF.LastSubmit.dis_category_item.name, "-") & " | Deskripsi " & Coalesce(frmItmF.LastSubmit.description, "-") & " | Gambar " & If(IsBlank(frmItmF.LastSubmit.Image), "tidak ada", "ada")
+                                              Detail: "BPN " & Coalesce(frmItmF.LastSubmit.part_number, "-") & " | SPN " & Coalesce(frmItmF.LastSubmit.client_number, "-") & " | Min " & Text(frmItmF.LastSubmit.min_qty) & " | UoM " & Text(frmItmF.LastSubmit.uom) & " | Status " & Text(frmItmF.LastSubmit.status) & " | Category " & Coalesce(frmItmF.LastSubmit.dis_category_item.name, "-") & " | Description " & Coalesce(frmItmF.LastSubmit.description, "-") & " | Image " & If(IsBlank(frmItmF.LastSubmit.Image), "none", "attached")
                                           }
                                       );
-                                      Notify("Item berhasil disimpan!", NotificationType.Success);
+                                      Notify("Item saved successfully!", NotificationType.Success);
                                       Back();
                                     Width: =Parent.Width
                                   Children:
@@ -806,7 +806,7 @@ Screens:
                               - btnItmFBack:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Kembali"
+                                    AccessibleLabel: ="Back"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -823,12 +823,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Kembali"
+                                    Text: ="Back"
                                     Width: =120
                               - btnItmFSave:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Simpan item"
+                                    AccessibleLabel: ="Save item"
                                     AlignInContainer: =AlignInContainer.Center
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
                                     Font: =Font.'Segoe UI'
@@ -842,5 +842,5 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: =If(frmItmF.Mode = FormMode.Edit, "Simpan", "Tambah Item")
+                                    Text: =If(frmItmF.Mode = FormMode.Edit, "Save", "Add Item")
                                     Width: =160

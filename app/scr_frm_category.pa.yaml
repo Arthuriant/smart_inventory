@@ -47,12 +47,12 @@ Screens:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
-                        ActiveMenu: =If(frmCatF.Mode = FormMode.Edit, "Edit Kategori", "Tambah Kategori")
+                        ActiveMenu: =If(frmCatF.Mode = FormMode.Edit, "Edit Category", "Add Category")
                         AlignInContainer: =AlignInContainer.Stretch
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Lengkapi data kategori"
+                        Subtitle: ="Complete the category details"
                         Width: =912
                   - conCatFBody:
                       Control: GroupContainer
@@ -113,7 +113,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: =If(frmCatF.Mode = FormMode.Edit, "Edit Kategori - " & galCatL.Selected.name, "Kategori Baru")
+                                    Text: =If(frmCatF.Mode = FormMode.Edit, "Edit Category - " & galCatL.Selected.name, "New Category")
                                     Wrap: =false
                               - frmCatF:
                                   Control: Form
@@ -131,12 +131,12 @@ Screens:
                                           gblReceipt,
                                           {
                                               Screen: "Category",
-                                              Action: "Disimpan",
+                                              Action: "Saved",
                                               Title: frmCatF.LastSubmit.name,
-                                              Detail: "Kode " & frmCatF.LastSubmit.code & " | Deskripsi " & Coalesce(frmCatF.LastSubmit.description, "-")
+                                              Detail: "Code " & frmCatF.LastSubmit.code & " | Description " & Coalesce(frmCatF.LastSubmit.description, "-")
                                           }
                                       );
-                                      Notify("Kategori berhasil disimpan!", NotificationType.Success);
+                                      Notify("Category saved successfully!", NotificationType.Success);
                                       Back();
                                     Width: =Parent.Width
                                   Children:
@@ -367,7 +367,7 @@ Screens:
                               - btnCatFBack:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Kembali"
+                                    AccessibleLabel: ="Back"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -384,12 +384,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Kembali"
+                                    Text: ="Back"
                                     Width: =120
                               - btnCatFSave:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Simpan kategori"
+                                    AccessibleLabel: ="Save category"
                                     AlignInContainer: =AlignInContainer.Center
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
                                     Font: =Font.'Segoe UI'
@@ -403,5 +403,5 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: =If(frmCatF.Mode = FormMode.Edit, "Simpan", "Tambah Kategori")
+                                    Text: =If(frmCatF.Mode = FormMode.Edit, "Save", "Add Category")
                                     Width: =168

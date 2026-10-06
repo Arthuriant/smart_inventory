@@ -54,7 +54,7 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Cari stok item per lokasi"
+                        Subtitle: ="Find item stock by location"
                         Width: =912
                   - conFindBody:
                       Control: GroupContainer
@@ -151,12 +151,12 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Kategori"
+                                                Text: ="Category"
                                                 Wrap: =false
                                           - ddFindCat:
                                               Control: ModernDropdown
                                               Properties:
-                                                AccessibleLabel: ="Filter kategori"
+                                                AccessibleLabel: ="Filter category"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
@@ -265,7 +265,7 @@ Screens:
                                           - ddFindLoc:
                                               Control: ModernDropdown
                                               Properties:
-                                                AccessibleLabel: ="Filter lokasi"
+                                                AccessibleLabel: ="Filter location"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 DisplayMode: =If(IsBlank(ddFindGeo.Selected), DisplayMode.Disabled, DisplayMode.Edit)
@@ -375,19 +375,19 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="Cari item"
+                                                Text: ="Search item"
                                                 Wrap: =false
                                           - inpFindSearch:
                                               Control: ModernTextInput
                                               Properties:
-                                                AccessibleLabel: ="Cari item"
+                                                AccessibleLabel: ="Search item"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                Placeholder: ="Nama atau BPN"
+                                                Placeholder: ="Name or BPN"
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -474,7 +474,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="NAMA"
+                                                Text: ="NAME"
                                                 Wrap: =false
                                           - txtFindHBpn:
                                               Control: ModernText
@@ -528,7 +528,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="KATEGORI"
+                                                Text: ="CATEGORY"
                                                 Wrap: =false
                                           - txtFindHStock:
                                               Control: ModernText
@@ -545,7 +545,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="STOK"
+                                                Text: ="STOCK"
                                                 Width: =80
                                                 Wrap: =false
                                           - txtFindHUom:
@@ -582,7 +582,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="LOKASI"
+                                                Text: ="LOCATION"
                                                 Wrap: =false
                                           - txtFindHAct:
                                               Control: ModernText
@@ -599,14 +599,14 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="AKSI"
+                                                Text: ="ACTIONS"
                                                 Width: =88
                                                 Wrap: =false
                                     - galFind:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Stok item per lokasi"
+                                          AccessibleLabel: ="Item stock by location"
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =380
@@ -730,7 +730,7 @@ Screens:
                                                 - bdgFindStock:
                                                     Control: Badge
                                                     Properties:
-                                                      AccessibleLabel: ="Stok " & Text(ThisItem.qty) & If(ThisItem.qty < ThisItem.dis_item_v2.min_qty, ", di bawah minimum", "")
+                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty) & If(ThisItem.qty < ThisItem.dis_item_v2.min_qty, ", below minimum", "")
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: =Text(ThisItem.qty)
@@ -816,7 +816,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Tidak ada stok yang cocok dengan filter."
+                                          Text: ="No stock matches the filter."
                                           Visible: |-
                                             =IsEmpty(Filter(
                                                 dis_stocks,
@@ -913,7 +913,7 @@ Screens:
                         - btnFindDetX:
                             Control: ModernButton
                             Properties:
-                              AccessibleLabel: ="Tutup detail"
+                              AccessibleLabel: ="Close details"
                               AlignInContainer: =AlignInContainer.Center
                               Appearance: =ButtonAppearance.Subtle
                               Color: =RGBA(100, 112, 130, 1)
@@ -934,7 +934,7 @@ Screens:
                               RadiusTopLeft: =6
                               RadiusTopRight: =6
                               Size: =13
-                              Text: ="Tutup"
+                              Text: ="Close"
                               Width: =32
                   - conFindDetBody:
                       Control: GroupContainer
@@ -954,7 +954,7 @@ Screens:
                         - imgFindDet:
                             Control: Image
                             Properties:
-                              AccessibleLabel: ="Foto " & locFindDetail.dis_item_v2.name
+                              AccessibleLabel: ="Photo " & locFindDetail.dis_item_v2.name
                               AlignInContainer: =AlignInContainer.Start
                               Fill: =RGBA(241, 244, 250, 1)
                               Height: =220
@@ -1023,10 +1023,10 @@ Screens:
                                     - bdgFindDetStock:
                                         Control: Badge
                                         Properties:
-                                          AccessibleLabel: ="Stok " & Text(locFindDetail.qty) & If(locFindDetail.qty < locFindDetail.dis_item_v2.min_qty, ", di bawah minimum", "")
+                                          AccessibleLabel: ="Stock " & Text(locFindDetail.qty) & If(locFindDetail.qty < locFindDetail.dis_item_v2.min_qty, ", below minimum", "")
                                           AlignInContainer: =AlignInContainer.Center
                                           Appearance: ='BadgeCanvas.Appearance'.Tint
-                                          Content: ="Stok " & Text(locFindDetail.qty) & " " & Text(locFindDetail.dis_item_v2.uom)
+                                          Content: ="Stock " & Text(locFindDetail.qty) & " " & Text(locFindDetail.dis_item_v2.uom)
                                           FontSize: =12
                                           FontWeight: =FontWeight.Semibold
                                           Height: =24
@@ -1064,7 +1064,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =12
-                                    Text: =Coalesce(locFindDetail.dis_item_v2.description, "Tidak ada deskripsi.")
+                                    Text: =Coalesce(locFindDetail.dis_item_v2.description, "No description.")
                               - conFindDetFields:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -1094,7 +1094,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="BPN" & Char(10) & "SPN" & Char(10) & "Kategori" & Char(10) & "UOM" & Char(10) & "Min. stok"
+                                          Text: ="BPN" & Char(10) & "SPN" & Char(10) & "Category" & Char(10) & "UOM" & Char(10) & "Min. stock"
                                           Width: =72
                                     - txtFindDetVal1:
                                         Control: ModernText
@@ -1132,7 +1132,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Geounit" & Char(10) & "Location" & Char(10) & "Area" & Char(10) & "Stok" & Char(10) & "Diperbarui"
+                                          Text: ="Geounit" & Char(10) & "Location" & Char(10) & "Area" & Char(10) & "Stock" & Char(10) & "Updated"
                                           Width: =80
                                     - txtFindDetVal2:
                                         Control: ModernText
@@ -1176,7 +1176,7 @@ Screens:
                         - btnFindDetClose:
                             Control: ModernButton
                             Properties:
-                              AccessibleLabel: ="Tutup"
+                              AccessibleLabel: ="Close"
                               AlignInContainer: =AlignInContainer.Center
                               Appearance: =ButtonAppearance.Secondary
                               Color: =RGBA(31, 41, 55, 1)
@@ -1192,5 +1192,5 @@ Screens:
                               RadiusTopLeft: =8
                               RadiusTopRight: =8
                               Size: =13
-                              Text: ="Tutup"
+                              Text: ="Close"
                               Width: =96

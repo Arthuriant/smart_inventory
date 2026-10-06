@@ -47,12 +47,12 @@ Screens:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
-                        ActiveMenu: =If(frmTrxF.Mode = FormMode.Edit, "Edit Transaksi", "Transaksi Baru")
+                        ActiveMenu: =If(frmTrxF.Mode = FormMode.Edit, "Edit Transaction", "New Transaction")
                         AlignInContainer: =AlignInContainer.Stretch
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Header transaksi dan keranjang item"
+                        Subtitle: ="Transaction header and item cart"
                         Width: =912
                   - conTrxFBody:
                       Control: GroupContainer
@@ -113,7 +113,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: ="Header Transaksi"
+                                    Text: ="Transaction Header"
                                     Wrap: =false
                               - frmTrxF:
                                   Control: Form
@@ -126,7 +126,7 @@ Screens:
                                     Height: =300
                                     Item: =galTrxL.Selected
                                     NumberOfColumns: =2
-                                    OnSuccess: "=// 1. Hapus semua detail lama bawaan transaksi ini (Metode Sapu Bersih)\nRemoveIf(\n    dis_trx_details,\n    header_id.dis_trx_header = frmTrxF.LastSubmit.dis_trx_header\n);\n\n// 2. Simpan ulang semua detail dari keranjang \nForAll(\n    colTempDetails As TempRecord,\n    Patch(\n        dis_trx_details,\n        Defaults(dis_trx_details),\n        {\n            header_id: frmTrxF.LastSubmit, \n            PK: frmTrxF.LastSubmit.transaction_number & \"/\" & Text(TempRecord.Urutan, \"0000\"),\n            item: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n            qty: TempRecord.Qty\n        }\n    )\n);\n\n// ==========================================================\n// 3. UPDATE STOK MANUAL (Pengganti Power Automate)\n// ==========================================================\nWith(\n    {\n        varTrxType: Text(frmTrxF.LastSubmit.type),\n        \n        // Simpan Record utuh untuk keperluan menembak Patch\n        recAreaFrom: frmTrxF.LastSubmit.area_form,\n        recAreaTo: frmTrxF.LastSubmit.area_to,\n        \n        // Ekstrak ID-nya saja untuk mengelabui bug pencarian LookUp Dataverse\n        idAreaFrom: frmTrxF.LastSubmit.area_form.dis_area,\n        idAreaTo: frmTrxF.LastSubmit.area_to.dis_area\n    },\n    ForAll(\n        colTempDetails As TempRecord,\n        \n        // --- A. LOGIKA BARANG MASUK (Receive & Transfer) ---\n        If(\n            varTrxType = \"Receive\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockTo: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaTo\n                    )\n                },\n                If(\n                    IsBlank(varStockTo),\n                    // Jika stok KOSONG, buat baris baru\n                    Patch(\n                        dis_stocks,\n                        Defaults(dis_stocks),\n                        {\n                            PK: \"STK-\" & Text(Now(), \"yyMMddHHmmss\") & \"-\" & Text(TempRecord.Urutan, \"00\"),\n                            dis_item_v2: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n                            dis_area: recAreaTo, \n                            qty: TempRecord.Qty\n                        }\n                    ),\n                    // Jika stok SUDAH ADA, tambahkan angkanya\n                    Patch(\n                        dis_stocks,\n                        varStockTo,\n                        {\n                            qty: varStockTo.qty + TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        );\n        \n        // --- B. LOGIKA BARANG KELUAR (Consume & Transfer) ---\n        If(\n            varTrxType = \"Consume\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockFrom: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaFrom\n                    )\n                },\n                If(\n                    !IsBlank(varStockFrom), // Hanya kurangi jika barangnya memang ada\n                    Patch(\n                        dis_stocks,\n                        varStockFrom,\n                        {\n                            qty: varStockFrom.qty - TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        )\n    )\n);\n\n// Bukti simpan untuk strip receipt di scr_Transaction\nSet(\n    gblReceipt,\n    {\n        Screen: \"Transaction\",\n        Action: \"Disimpan\",\n        Title: frmTrxF.LastSubmit.transaction_number,\n        Detail: \"Tipe \" & Text(frmTrxF.LastSubmit.type) & \" | Dari \" & Coalesce(frmTrxF.LastSubmit.area_form.Name, \"-\") & \" | Ke \" & Coalesce(frmTrxF.LastSubmit.area_to.Name, \"-\") & \" | Catatan \" & Coalesce(frmTrxF.LastSubmit.note, \"-\") & \" | \" & Text(CountRows(colTempDetails)) & \" item\"\n    }\n);\n// 4. Bersihkan Keranjang & Notifikasi\nClear(colTempDetails);\nNotify(\"Transaksi berhasil disimpan & Stok terupdate!\", NotificationType.Success);\nBack();"
+                                    OnSuccess: "=// 1. Hapus semua detail lama bawaan transaksi ini (Metode Sapu Bersih)\nRemoveIf(\n    dis_trx_details,\n    header_id.dis_trx_header = frmTrxF.LastSubmit.dis_trx_header\n);\n\n// 2. Simpan ulang semua detail dari keranjang \nForAll(\n    colTempDetails As TempRecord,\n    Patch(\n        dis_trx_details,\n        Defaults(dis_trx_details),\n        {\n            header_id: frmTrxF.LastSubmit, \n            PK: frmTrxF.LastSubmit.transaction_number & \"/\" & Text(TempRecord.Urutan, \"0000\"),\n            item: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n            qty: TempRecord.Qty\n        }\n    )\n);\n\n// ==========================================================\n// 3. UPDATE STOK MANUAL (Pengganti Power Automate)\n// ==========================================================\nWith(\n    {\n        varTrxType: Text(frmTrxF.LastSubmit.type),\n        \n        // Simpan Record utuh untuk keperluan menembak Patch\n        recAreaFrom: frmTrxF.LastSubmit.area_form,\n        recAreaTo: frmTrxF.LastSubmit.area_to,\n        \n        // Ekstrak ID-nya saja untuk mengelabui bug pencarian LookUp Dataverse\n        idAreaFrom: frmTrxF.LastSubmit.area_form.dis_area,\n        idAreaTo: frmTrxF.LastSubmit.area_to.dis_area\n    },\n    ForAll(\n        colTempDetails As TempRecord,\n        \n        // --- A. LOGIKA BARANG MASUK (Receive & Transfer) ---\n        If(\n            varTrxType = \"Receive\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockTo: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaTo\n                    )\n                },\n                If(\n                    IsBlank(varStockTo),\n                    // Jika stok KOSONG, buat baris baru\n                    Patch(\n                        dis_stocks,\n                        Defaults(dis_stocks),\n                        {\n                            PK: \"STK-\" & Text(Now(), \"yyMMddHHmmss\") & \"-\" & Text(TempRecord.Urutan, \"00\"),\n                            dis_item_v2: LookUp(dis_item_v2S, dis_item_v2 = TempRecord.Id),\n                            dis_area: recAreaTo, \n                            qty: TempRecord.Qty\n                        }\n                    ),\n                    // Jika stok SUDAH ADA, tambahkan angkanya\n                    Patch(\n                        dis_stocks,\n                        varStockTo,\n                        {\n                            qty: varStockTo.qty + TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        );\n        \n        // --- B. LOGIKA BARANG KELUAR (Consume & Transfer) ---\n        If(\n            varTrxType = \"Consume\" Or varTrxType = \"Transfer\",\n            With(\n                {\n                    varStockFrom: LookUp(\n                        dis_stocks, \n                        dis_item_v2.dis_item_v2 = TempRecord.Id And dis_area.dis_area = idAreaFrom\n                    )\n                },\n                If(\n                    !IsBlank(varStockFrom), // Hanya kurangi jika barangnya memang ada\n                    Patch(\n                        dis_stocks,\n                        varStockFrom,\n                        {\n                            qty: varStockFrom.qty - TempRecord.Qty\n                        }\n                    )\n                )\n            )\n        )\n    )\n);\n\n// Bukti simpan untuk strip receipt di scr_Transaction\nSet(\n    gblReceipt,\n    {\n        Screen: \"Transaction\",\n        Action: \"Saved\",\n        Title: frmTrxF.LastSubmit.transaction_number,\n        Detail: \"Type \" & Text(frmTrxF.LastSubmit.type) & \" | From \" & Coalesce(frmTrxF.LastSubmit.area_form.Name, \"-\") & \" | To \" & Coalesce(frmTrxF.LastSubmit.area_to.Name, \"-\") & \" | Note \" & Coalesce(frmTrxF.LastSubmit.note, \"-\") & \" | \" & Text(CountRows(colTempDetails)) & \" item(s)\"\n    }\n);\n// 4. Bersihkan Keranjang & Notifikasi\nClear(colTempDetails);\nNotify(\"Transaction saved & stock updated!\", NotificationType.Success);\nBack();"
                                     Width: =Parent.Width
                                   Children:
                                     - transaction_number_DataCard1_TrxF:
@@ -555,7 +555,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =16
-                                          Text: ="Keranjang Item"
+                                          Text: ="Item Cart"
                                           Wrap: =false
                                     - txtTrxFCartCount:
                                         Control: ModernText
@@ -573,7 +573,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: =Text(CountRows(colTempDetails)) & " item"
+                                          Text: =Text(CountRows(colTempDetails)) & " item(s)"
                                           Width: =120
                                           Wrap: =false
                               - conTrxFPicker:
@@ -630,12 +630,12 @@ Screens:
                                           - cmbTrxFItem:
                                               Control: ModernCombobox
                                               Properties:
-                                                AccessibleLabel: ="Pilih item"
+                                                AccessibleLabel: ="Select item"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
-                                                InputTextPlaceholder: ="Pilih item"
+                                                InputTextPlaceholder: ="Select item"
                                                 ItemDisplayText: =ThisItem.name
                                                 Items: =dis_item_v2S
                                                 LayoutMinHeight: =0
@@ -685,7 +685,7 @@ Screens:
                                           - inpTrxFQty:
                                               Control: ModernTextInput
                                               Properties:
-                                                AccessibleLabel: ="Jumlah item"
+                                                AccessibleLabel: ="Item quantity"
                                                 Align: =Align.Right
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
@@ -702,7 +702,7 @@ Screens:
                                     - btnTrxFAdd:
                                         Control: ModernButton
                                         Properties:
-                                          AccessibleLabel: ="Tambah ke Keranjang"
+                                          AccessibleLabel: ="Add to Cart"
                                           AlignInContainer: =AlignInContainer.End
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
                                           DisplayMode: =If(IsBlank(cmbTrxFItem.Selected) || Coalesce(Value(inpTrxFQty.Text), 0) <= 0, DisplayMode.Disabled, DisplayMode.Edit)
@@ -717,7 +717,7 @@ Screens:
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                           Size: =13
-                                          Text: ="Tambah ke Keranjang"
+                                          Text: ="Add to Cart"
                                           Width: =196
                               - conTrxFCartTable:
                                   Control: GroupContainer
@@ -808,7 +808,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="DESKRIPSI"
+                                                Text: ="DESCRIPTION"
                                                 Wrap: =false
                                           - txtTrxFHAct:
                                               Control: ModernText
@@ -832,7 +832,7 @@ Screens:
                                         Control: Gallery
                                         Variant: Vertical
                                         Properties:
-                                          AccessibleLabel: ="Keranjang item"
+                                          AccessibleLabel: ="Item cart"
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =220
@@ -918,7 +918,7 @@ Screens:
                                                 - btnTrxFCartDel:
                                                     Control: ModernButton
                                                     Properties:
-                                                      AccessibleLabel: ="Hapus " & ThisItem.name & " dari keranjang"
+                                                      AccessibleLabel: ="Delete " & ThisItem.name & " from cart"
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: =ButtonAppearance.Subtle
                                                       Color: =RGBA(196, 43, 28, 1)
@@ -938,8 +938,8 @@ Screens:
                                                       RadiusTopLeft: =6
                                                       RadiusTopRight: =6
                                                       Size: =13
-                                                      Text: ="Hapus " & ThisItem.name & " dari keranjang"
-                                                      Tooltip: ="Hapus " & ThisItem.name & " dari keranjang"
+                                                      Text: ="Delete " & ThisItem.name & " from cart"
+                                                      Tooltip: ="Delete " & ThisItem.name & " from cart"
                                                       Width: =32
                                     - txtTrxFCartEmpty:
                                         Control: ModernText
@@ -956,7 +956,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: ="Keranjang masih kosong. Pilih item dan qty, lalu klik Tambah ke Keranjang."
+                                          Text: ="The cart is empty. Select an item and qty, then click Add to Cart."
                                           Visible: =IsEmpty(colTempDetails)
                                           Wrap: =false
                         - conTrxFActions:
@@ -980,7 +980,7 @@ Screens:
                               - btnTrxFBack:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Kembali"
+                                    AccessibleLabel: ="Back"
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: =ButtonAppearance.Secondary
                                     Color: =RGBA(31, 41, 55, 1)
@@ -998,12 +998,12 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Kembali"
+                                    Text: ="Back"
                                     Width: =120
                               - btnTrxFSave:
                                   Control: ModernButton
                                   Properties:
-                                    AccessibleLabel: ="Simpan transaksi"
+                                    AccessibleLabel: ="Save transaction"
                                     AlignInContainer: =AlignInContainer.Center
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
                                     Font: =Font.'Segoe UI'
@@ -1017,5 +1017,5 @@ Screens:
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                                    Text: ="Simpan Transaksi"
+                                    Text: ="Save Transaction"
                                     Width: =184
