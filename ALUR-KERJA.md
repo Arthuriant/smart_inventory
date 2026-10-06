@@ -1,81 +1,71 @@
-# Alur Kerja Harian (setelah modernisasi selesai)
+# Alur Kerja Harian (full terminal)
 
 Modernisasi W1-T7 sudah selesai (riwayatnya ada di LANJUTAN-MODERNISASI.md, tidak perlu dibaca lagi kecuali butuh konteks).
-Mulai sekarang setiap permintaan cukup dua langkah:
-
-- **WEB** (claude.ai/code, repo `Arthuriant/smart_inventory`, branch `main`, model Opus): kerja berat. Membaca kode,
-  menganalisis, menulis/mengedit file `.pa.yaml`. Tidak bisa compile.
-- **TERMINAL** (laptop, `C:\Project\Powerapps`, model Sonnet): kerja ringan. Pull, compile, Save, push.
-  Perbaikan di terminal hanya untuk error compile yang kecil dan jelas (salah ketik nama, properti tidak valid).
-  Kalau perlu analisis atau desain ulang, terminal mencatat masalahnya di Log dan kembali ke WEB.
-
-Setiap WEB yang mengubah `.pa.yaml` harus diikuti TERMINAL sebelum WEB berikutnya.
+Mulai 2026-10-06 semua pekerjaan dilakukan di **TERMINAL** (Claude Code di laptop, `C:\Project\Powerapps`):
+membaca kode, menganalisis, mengedit `.pa.yaml`, compile, sampai commit dan push. Pembagian WEB/TERMINAL yang lama
+tidak berlaku lagi.
 
 ---
 
-## Prompt WEB (salin, ganti bagian dalam kurung)
+## Prompt (salin, ganti bagian dalam kurung)
 
 ```
-Baca ALUR-KERJA.md (bagian Aturan WEB dan Log) lalu kerjakan:
+Baca ALUR-KERJA.md (Aturan dan Log) lalu kerjakan:
 [tulis permintaan di sini, mis. "tombol Simpan di scr_frm_item tidak muncul, ini deskripsinya: ..."]
-Patuhi Aturan WEB. Di akhir: tambah satu entri di Log, commit, push ke main.
-```
-
-## Prompt TERMINAL (salin apa adanya)
-
-```
-Baca ALUR-KERJA.md (bagian Aturan TERMINAL dan Log) lalu jalankan langkah terminal untuk entri Log terakhir
-yang statusnya "belum compile". Gunakan skill canvas-apps:canvas-app hanya untuk connect/compile.
 ```
 
 Kalau tidak ada perubahan file dan hanya mau bertanya/cek sesuatu di Studio, cukup tulis pertanyaannya biasa.
 
 ---
 
-## Aturan WEB
+## Aturan
 
-- Tool Canvas Authoring MCP (connect, sync, compile, describe_control) TIDAK tersedia di web. Jangan mencoba.
+### Persiapan
+1. Studio terbuka dalam mode edit di SATU tab (URL di bawah). `git pull`.
+2. Connect: environment `c2194d0b-89b3-ed3b-b65a-1db58a779659`, app `87f60c80-e3c1-45bf-ba27-93eb0c079759`,
+   login `ARianto2@slb.com`.
+3. Sebelum mengedit: `sync_canvas` ke folder sementara baru (mis. scratchpad `studio`, JANGAN ke app/) dan bandingkan
+   dengan app/ (`diff -r --strip-trailing-cr`). Kalau user mengubah sesuatu manual di Studio, salin dulu file itu ke
+   app/ supaya tidak tertimpa.
+
+### Mengedit
 - Konteks app: app/canvas-app-plan.md, app/canvas-app-shared.md, app/canvas-discovery-packet.md, dan
-  app/<screen>.screen-plan.md. Hanya pakai control/properti yang ada di discovery packet atau di file .pa.yaml sekarang.
+  app/<screen>.screen-plan.md. Kalau ragu soal control/properti, cek dengan `describe_control`.
 - Wajib ikuti "KOREKSI WAJIB" #1-#7 di app/canvas-app-shared.md (warna literal RGBA, instance komponen Stretch,
   form gaya asli, control yang dibuat ulang diberi nama baru, filter Dataverse dengan konstanta, tanpa ModernIcon dan
   container bersarang di baris galeri). **#8 TIDAK berlaku**: ganti ComboBox ke ModernCombobox sudah dicoba dan
   di-revert (merusak layout form). Jangan ubah tipe control di dalam form.
 - Tabel hitam / dropdown form tidak bisa memilih = gejala "binding" Studio, BUKAN kesalahan YAML. Jangan ubah struktur
-  YAML untuk gejala ini; tulis di Log agar user mengetik ulang rumus Fill / menghapus "Depends on" di Studio.
+  YAML untuk gejala ini; minta user mengetik ulang rumus Fill / menghapus "Depends on" di Studio.
 - Nama control unik di seluruh app. Kalau mengganti nama, ganti juga semua referensi lintas screen.
+- Jangan pakai `Select(Parent)` di control dalam container baris galeri. ModernText tidak punya `Tooltip`.
 - Logika data (OnSuccess form, Patch stok Receive/Consume/Transfer) jangan diubah kecuali memang diminta.
-- Self-QA sebelum commit: YAML bisa di-parse, nama control unik, semua properti diawali `=`, tanpa `clr*`, tanpa CR.
-- Kalau info kurang (mis. "layout rusak" tanpa detail), tulis pertanyaan spesifik di Log dan jangan menebak.
-- Akhiri dengan entri Log (format di bawah), commit, push ke main.
+- Kalau info kurang (mis. "layout rusak" tanpa detail), tanya user dulu, jangan menebak.
 
-## Aturan TERMINAL
-
-1. Studio terbuka dalam mode edit di SATU tab (URL di bawah). `git pull`.
-2. Connect: environment `c2194d0b-89b3-ed3b-b65a-1db58a779659`, app `87f60c80-e3c1-45bf-ba27-93eb0c079759`,
-   login `ARianto2@slb.com`.
-3. JANGAN compile langsung `app/`. Compile mengirim SEMUA file ke Studio; teks repo beda format dengan Studio
-   (Studio membuang properti default), jadi setiap screen dibangun ulang dan tabel yang sudah dibetulkan user jadi
-   hitam lagi (gejala "binding"). Caranya:
-   a. `sync_canvas` ke folder sementara baru (mis. scratchpad `studio`), JANGAN ke app/.
-   b. Salin ke folder itu HANYA file `.pa.yaml` yang diubah entri WEB (`git diff --name-only <commit compile
-      terakhir> HEAD -- app/`).
-   c. `compile_canvas` dengan `directoryPath` = folder sementara itu. Perbaikan kecil dibuat di app/ lalu disalin ulang.
-   d. Hapus folder sementara setelah selesai.
-4. Error kecil dan jelas: perbaiki lalu compile ulang. Error yang butuh analisis: jangan dikejar, catat di Log
-   (nama control + properti + pesan error) untuk WEB.
-5. Ingatkan user: tunggu Studio tampil (sering putih sebentar), JANGAN refresh, cek gejala "binding" di screen yang
+### Compile
+1. JANGAN compile langsung `app/`. Compile mengirim SEMUA file ke Studio; teks repo bisa beda format dengan Studio,
+   jadi setiap screen dibangun ulang dan tabel yang sudah dibetulkan user jadi hitam lagi (gejala "binding"). Caranya:
+   a. Pakai folder sementara hasil sync (langkah Persiapan #3).
+   b. Salin ke folder itu HANYA file `.pa.yaml` yang diubah.
+   c. `compile_canvas` dengan `directoryPath` = folder sementara itu.
+   d. Error compile: perbaiki di app/, salin ulang, compile lagi sampai bersih.
+   e. Hapus folder sementara setelah selesai.
+2. Ingatkan user: tunggu Studio tampil (sering putih sebentar), JANGAN refresh, cek gejala "binding" di screen yang
    berubah, lalu File > Save.
-6. Ubah status entri Log jadi "compile OK" (atau "compile gagal: ..."), commit, push. Jawab singkat.
+
+### Penutup
+- Tambah satu entri di Log, commit, push ke main. Jawab singkat.
 
 URL Studio (mode edit):
 https://make.powerapps.com/e/c2194d0b-89b3-ed3b-b65a-1db58a779659/canvas/?action=edit&app-id=%2Fproviders%2FMicrosoft.PowerApps%2Fapps%2F87f60c80-e3c1-45bf-ba27-93eb0c079759
 
 ---
 
+---
+
 ## Log (entri terbaru di bawah)
 
-Format: `- [tanggal, WEB/TERMINAL] file yang diubah | ringkasan | status: belum compile / compile OK / compile gagal: ... | cek manual di Studio: ...`
+Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / compile OK / compile gagal: ... | cek manual di Studio: ...`
 
 - [2026-10-05, TERMINAL] (tidak ada perubahan .pa.yaml) | Penutupan modernisasi: compile T7 bersih, sesi Studio sama
   dengan repo (beda hanya format tulis Studio). | status: compile OK | cek manual di Studio yang masih terbuka:
@@ -107,3 +97,5 @@ Format: `- [tanggal, WEB/TERMINAL] file yang diubah | ringkasan | status: belum 
   Mulai sekarang file di app/ memakai format tulis Studio (properti default tidak ditulis, rumus panjang jadi string
   satu baris dengan \n). Itu normal; WEB tetap boleh menulis gaya biasa. | status: compile OK (repo = sesi Studio)
   | cek manual di Studio: pastikan sudah File > Save.
+- [2026-10-06] ALUR-KERJA.md | Alur kerja diganti jadi full terminal (tidak ada lagi pembagian WEB/TERMINAL). Sync
+  Studio dicek: app/ sudah identik dengan sesi Studio. | status: tidak ada perubahan .pa.yaml | cek manual di Studio: -
