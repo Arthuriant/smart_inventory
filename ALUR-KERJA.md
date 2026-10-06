@@ -102,3 +102,7 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
 - [2026-10-06] app/scr_consume.pa.yaml | Kotak qty Consume diperbesar: numConsQty tinggi 32 -> 48, huruf 13 -> 16;
   foto imgConsItem 176 -> 160 supaya tinggi kartu (346) dan grid 2 baris tetap. | status: compile OK | cek manual di
   Studio: kartu Consume tidak hitam (kalau hitam: ketik ulang Fill conConsRow), qty lebih besar, lalu File > Save.
+- [2026-10-06] app/scr_consume.pa.yaml | Panel bukti "Consume tersimpan" (conConsReceipt + galConsReceipt) dihapus,
+  beserta colConsumeReceipt / locConsHeader / locShowConsReceipt di btnConsSubmit. Simpan header, detail, dan
+  pengurangan stok tidak berubah; toast hijau tetap ada. | status: compile OK | cek manual di Studio: Consume 1 item ->
+  tidak ada panel bukti, stok berkurang, qty kembali 0; kartu tidak hitam; lalu File > Save.
