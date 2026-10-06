@@ -195,7 +195,7 @@ Screens:
                               BorderThickness: =1
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
-                              Height: =316
+                              Height: =400
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =12
@@ -240,13 +240,41 @@ Screens:
                                     Item: =locSelectedRecord
                                     NumberOfColumns: =2
                                     OnSuccess: |-
-                                      =Set(
+                                      =// Sync the user's multiple areas (N:N) with the picker; the primary area is always included
+                                      ClearCollect(
+                                          colUsrNewAreas,
+                                          ForAll(cmbUsrLAreas.SelectedItems As selArea, {AreaId: selArea.dis_area})
+                                      );
+                                      If(
+                                          !IsBlank(DataCardValue64_UsrL.Selected) And !(DataCardValue64_UsrL.Selected.dis_area in colUsrNewAreas.AreaId),
+                                          Collect(colUsrNewAreas, {AreaId: DataCardValue64_UsrL.Selected.dis_area})
+                                      );
+                                      ClearCollect(
+                                          colUsrOldAreas,
+                                          ForAll(locSelectedRecord.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)' As curArea, {AreaId: curArea.dis_area})
+                                      );
+                                      ForAll(
+                                          Filter(colUsrOldAreas, !(AreaId in colUsrNewAreas.AreaId)) As oldArea,
+                                          Unrelate(
+                                              locSelectedRecord.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)',
+                                              LookUp(dis_areas, dis_area = oldArea.AreaId)
+                                          )
+                                      );
+                                      ForAll(
+                                          Filter(colUsrNewAreas, !(AreaId in colUsrOldAreas.AreaId)) As newArea,
+                                          Relate(
+                                              locSelectedRecord.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)',
+                                              LookUp(dis_areas, dis_area = newArea.AreaId)
+                                          )
+                                      );
+                                      Refresh(dis_users);
+                                      Set(
                                           gblReceipt,
                                           {
                                               Screen: "User",
                                               Action: "Saved",
                                               Title: frmUsrL.LastSubmit.Name,
-                                              Detail: "Email " & frmUsrL.LastSubmit.email & " | Role " & Text(frmUsrL.LastSubmit.role) & " | Area " & Coalesce(frmUsrL.LastSubmit.Assigned_area.Name, "-")
+                                              Detail: "Email " & frmUsrL.LastSubmit.email & " | Role " & Text(frmUsrL.LastSubmit.role) & " | Primary area " & Coalesce(frmUsrL.LastSubmit.Assigned_area.Name, "-") & " | Areas " & Coalesce(Concat(cmbUsrLAreas.SelectedItems, Name, ", "), "-")
                                           }
                                       );
                                       Notify("User saved successfully!", NotificationType.Success);
@@ -465,7 +493,7 @@ Screens:
                                           BorderColor: =RGBA(0, 18, 107, 1)
                                           DataField: ="cr8a3_Assigned_area"
                                           Default: =ThisItem.Assigned_area
-                                          DisplayName: =DataSourceInfo([@dis_users],DataSourceInfo.DisplayName,Assigned_area)
+                                          DisplayName: ="Primary area"
                                           Required: =false
                                           Update: =DataCardValue64_UsrL.Selected
                                           Width: =Parent.Width / 2
@@ -552,6 +580,59 @@ Screens:
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
                                                 Y: =DataCardKey65_UsrL.Y
+                              - conUsrLAreasFld:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =72
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingLeft: =24
+                                    PaddingRight: =24
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtUsrLAreasLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =22
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =14
+                                          Text: ="Assigned areas (multiple allowed, primary area is always included)"
+                                          Wrap: =false
+                                    - cmbUsrLAreas:
+                                        Control: ModernCombobox
+                                        Properties:
+                                          AccessibleLabel: ="Assigned areas"
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DefaultSelectedItems: =locSelectedRecord.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)'
+                                          Fill: =RGBA(255, 255, 255, 1)
+                                          Height: =36
+                                          InputTextPlaceholder: ="Select one or more areas"
+                                          IsSearchable: =true
+                                          ItemDisplayText: =ThisItem.Name
+                                          Items: =Sort(dis_areas, Name)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          SelectMultiple: =true
+                                          Size: =12
                               - conUsrLEdActions:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -873,7 +954,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="AREA"
+                                                Text: ="AREAS"
                                                 Wrap: =false
                                           - txtUsrLHAct:
                                               Control: ModernText
@@ -992,7 +1073,12 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =Coalesce(ThisItem.Assigned_area.Name, "-")
+                                                      Text: |-
+                                                        =Coalesce(
+                                                            Concat(ThisItem.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)', Name, ", "),
+                                                            ThisItem.Assigned_area.Name,
+                                                            "-"
+                                                        )
                                                       Wrap: =false
                                                 - btnUsrLEdit:
                                                     Control: ModernButton
@@ -1010,7 +1096,8 @@ Screens:
                                                       OnSelect: |-
                                                         =UpdateContext({locSelectedRecord: ThisItem, locShowUserPopUp: true, locShowDeleteConfirm_1: false});
                                                         Set(gblFormMode, "Update");
-                                                        EditForm(frmUsrL)
+                                                        EditForm(frmUsrL);
+                                                        Reset(cmbUsrLAreas)
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0

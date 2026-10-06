@@ -119,3 +119,11 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   Nama control, kolom, dan logika tidak berubah. | status: compile OK | cek manual di Studio: karena semua screen
   dikirim ulang, gejala "binding" bisa muncul di SEMUA galeri/dropdown form (ketik ulang Fill baris, hapus
   "Depends on"); cek teks yang terpotong karena lebih panjang; lalu File > Save.
+- [2026-10-06] app/scr_user.pa.yaml | Multi-area per user: pemilih `cmbUsrLAreas` (ModernCombobox SelectMultiple, di
+  luar form, Items dis_areas, default = relasi N:N 'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)') di
+  panel Edit User (tinggi 400). frmUsrL.OnSuccess menyamakan relasi N:N dengan pilihan (Unrelate yang dibuang, Relate
+  yang baru; Primary area/Assigned_area selalu ikut), lalu Refresh(dis_users). Card Assigned_area diberi label
+  "Primary area"; kolom daftar jadi AREAS (Concat semua area, fallback Assigned_area). Belum ada pembatasan akses
+  (RBAC) - ini fondasinya. | status: compile OK | cek manual di Studio: baris galUsrL tidak hitam, dropdown form tidak
+  kosong ("Depends on"), Edit user -> pilih 2-3 area -> Save -> kolom AREAS tampil semua; buang satu area -> Save ->
+  hilang; lalu File > Save.
