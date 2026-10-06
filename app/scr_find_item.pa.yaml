@@ -3,6 +3,8 @@ Screens:
     Properties:
       Fill: =RGBA(244, 246, 250, 1)
       LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =UpdateContext({locShowFindDetail: false})
     Children:
       - conFindRoot:
           Control: GroupContainer
@@ -582,6 +584,24 @@ Screens:
                                                 Size: =11
                                                 Text: ="LOKASI"
                                                 Wrap: =false
+                                          - txtFindHAct:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="AKSI"
+                                                Width: =88
+                                                Wrap: =false
                                     - galFind:
                                         Control: Gallery
                                         Variant: Vertical
@@ -756,6 +776,31 @@ Screens:
                                                       Size: =13
                                                       Text: =ThisItem.dis_area.'elv_location (cr8a3_elv_location)'.Name & " - " & ThisItem.dis_area.Name
                                                       Wrap: =false
+                                                - btnFindDetail:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Detail " & ThisItem.dis_item_v2.name
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(56, 96, 178, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="Info"
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =88
+                                                      OnSelect: |-
+                                                        =UpdateContext({locFindDetail: ThisItem, locShowFindDetail: true})
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =4
+                                                      PaddingRight: =4
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Detail"
+                                                      Width: =88
                                     - txtFindEmpty:
                                         Control: ModernText
                                         Properties:
@@ -785,3 +830,367 @@ Screens:
                                                 StartsWith(dis_item_v2.part_number, inpFindSearch.Text)
                                             ))
                                           Wrap: =false
+      - conFindDetOverlay:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(17, 24, 39, 0.45)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =locShowFindDetail
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+          Children:
+            - conFindDetCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderColor: =RGBA(226, 230, 239, 1)
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.Bold
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =420
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =20
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =760
+                Children:
+                  - conFindDetHead:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtFindDetHead:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =12
+                              Text: ="DETAIL ITEM"
+                              Wrap: =false
+                        - btnFindDetX:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Tutup detail"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =32
+                              Icon: ="Dismiss"
+                              Layout: =ButtonLayout.IconOnly
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =32
+                              OnSelect: |-
+                                =UpdateContext({locShowFindDetail: false})
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              RadiusBottomLeft: =6
+                              RadiusBottomRight: =6
+                              RadiusTopLeft: =6
+                              RadiusTopRight: =6
+                              Size: =13
+                              Text: ="Tutup"
+                              Width: =32
+                  - conFindDetBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        LayoutAlignItems: =LayoutAlignItems.Start
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =24
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - imgFindDet:
+                            Control: Image
+                            Properties:
+                              AccessibleLabel: ="Foto " & locFindDetail.dis_item_v2.name
+                              AlignInContainer: =AlignInContainer.Start
+                              Fill: =RGBA(241, 244, 250, 1)
+                              Height: =220
+                              Image: =locFindDetail.dis_item_v2.Image
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =6
+                              PaddingLeft: =6
+                              PaddingRight: =6
+                              PaddingTop: =6
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =220
+                        - conFindDetInfo:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              DropShadow: =DropShadow.None
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - txtFindDetName:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =28
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =18
+                                    Text: =locFindDetail.dis_item_v2.name
+                                    Wrap: =false
+                              - conFindDetBadges:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =24
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - bdgFindDetStock:
+                                        Control: Badge
+                                        Properties:
+                                          AccessibleLabel: ="Stok " & Text(locFindDetail.qty) & If(locFindDetail.qty < locFindDetail.dis_item_v2.min_qty, ", di bawah minimum", "")
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          Content: ="Stok " & Text(locFindDetail.qty) & " " & Text(locFindDetail.dis_item_v2.uom)
+                                          FontSize: =12
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =24
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Shape: ='BadgeCanvas.Shape'.Rounded
+                                          ThemeColor: =If(locFindDetail.qty < locFindDetail.dis_item_v2.min_qty, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Success)
+                                          Width: =120
+                                    - bdgFindDetStatus:
+                                        Control: Badge
+                                        Properties:
+                                          AccessibleLabel: ="Status " & Text(locFindDetail.dis_item_v2.status)
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          Content: =Text(locFindDetail.dis_item_v2.status)
+                                          FontSize: =12
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =24
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Shape: ='BadgeCanvas.Shape'.Rounded
+                                          ThemeColor: =If(Text(locFindDetail.dis_item_v2.status) = "Active", 'BadgeCanvas.ThemeColor'.Success, 'BadgeCanvas.ThemeColor'.Subtle)
+                                          Width: =96
+                              - txtFindDetDesc:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =40
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =Coalesce(locFindDetail.dis_item_v2.description, "Tidak ada deskripsi.")
+                              - conFindDetFields:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    LayoutAlignItems: =LayoutAlignItems.Start
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =12
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtFindDetLbl1:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Start
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =120
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="BPN" & Char(10) & "SPN" & Char(10) & "Kategori" & Char(10) & "UOM" & Char(10) & "Min. stok"
+                                          Width: =72
+                                    - txtFindDetVal1:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Start
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =120
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: |-
+                                            =Coalesce(locFindDetail.dis_item_v2.part_number, "-") & Char(10) &
+                                            Coalesce(locFindDetail.dis_item_v2.client_number, "-") & Char(10) &
+                                            Coalesce(locFindDetail.dis_item_v2.dis_category_item.name, "-") & Char(10) &
+                                            Coalesce(Text(locFindDetail.dis_item_v2.uom), "-") & Char(10) &
+                                            Coalesce(Text(locFindDetail.dis_item_v2.min_qty), "-")
+                                    - txtFindDetLbl2:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Start
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =120
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="Geounit" & Char(10) & "Location" & Char(10) & "Area" & Char(10) & "Stok" & Char(10) & "Diperbarui"
+                                          Width: =80
+                                    - txtFindDetVal2:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Start
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =120
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: |-
+                                            =Coalesce(locFindDetail.dis_area.'elv_location (cr8a3_elv_location)'.dis_geounit.elv_name_long, "-") & Char(10) &
+                                            Coalesce(locFindDetail.dis_area.'elv_location (cr8a3_elv_location)'.Name, "-") & Char(10) &
+                                            Coalesce(locFindDetail.dis_area.Name, "-") & Char(10) &
+                                            Text(locFindDetail.qty) & " " & Text(locFindDetail.dis_item_v2.uom) & Char(10) &
+                                            Text(locFindDetail.'Modified On', "dd mmm yyyy hh:mm")
+                  - conFindDetFoot:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =36
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - btnFindDetClose:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Tutup"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Secondary
+                              Color: =RGBA(31, 41, 55, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="Dismiss"
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =96
+                              OnSelect: |-
+                                =UpdateContext({locShowFindDetail: false})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Tutup"
+                              Width: =96

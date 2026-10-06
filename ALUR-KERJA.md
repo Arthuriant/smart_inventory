@@ -106,3 +106,9 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   beserta colConsumeReceipt / locConsHeader / locShowConsReceipt di btnConsSubmit. Simpan header, detail, dan
   pengurangan stok tidak berubah; toast hijau tetap ada. | status: compile OK | cek manual di Studio: Consume 1 item ->
   tidak ada panel bukti, stok berkurang, qty kembali 0; kartu tidak hitam; lalu File > Save.
+- [2026-10-06] app/scr_find_item.pa.yaml | Tombol "Detail" (btnFindDetail, ModernButton Subtle + ikon Info) di kolom
+  baru AKSI tiap baris galFind; menekannya membuka overlay conFindDetOverlay (locFindDetail = baris stok,
+  locShowFindDetail) berisi foto, nama, badge stok/status, deskripsi, BPN/SPN/Kategori/UOM/Min. stok dan
+  Geounit/Location/Area/Stok/Diperbarui; tutup lewat X atau tombol Tutup, direset di OnVisible. | status: compile OK |
+  cek manual di Studio: baris galFind tidak hitam (gejala "binding"), klik Detail -> panel muncul di tengah dengan
+  data yang benar, Tutup berfungsi; lalu File > Save.
