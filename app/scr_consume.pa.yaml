@@ -906,7 +906,7 @@ Screens:
                                                       AccessibleLabel: ="Foto " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Fill: =RGBA(241, 244, 250, 1)
-                                                      Height: =176
+                                                      Height: =160
                                                       Image: =ThisItem.dis_item_v2.Image
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
@@ -974,7 +974,7 @@ Screens:
                                                       Appearance: =Appearance.Outline
                                                       DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
                                                       Font: =Font.'Segoe UI'
-                                                      Height: =32
+                                                      Height: =48
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       Min: =0
@@ -982,7 +982,7 @@ Screens:
                                                       RadiusBottomRight: =8
                                                       RadiusTopLeft: =8
                                                       RadiusTopRight: =8
-                                                      Size: =13
+                                                      Size: =16
                                                       ValidationState: =If(Self.Value > ThisItem.qty || Self.Value < 0, ValidationState.Error, ValidationState.None)
                                                 - txtConsWarn:
                                                     Control: ModernText

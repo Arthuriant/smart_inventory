@@ -99,3 +99,6 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   | cek manual di Studio: pastikan sudah File > Save.
 - [2026-10-06] ALUR-KERJA.md | Alur kerja diganti jadi full terminal (tidak ada lagi pembagian WEB/TERMINAL). Sync
   Studio dicek: app/ sudah identik dengan sesi Studio. | status: tidak ada perubahan .pa.yaml | cek manual di Studio: -
+- [2026-10-06] app/scr_consume.pa.yaml | Kotak qty Consume diperbesar: numConsQty tinggi 32 -> 48, huruf 13 -> 16;
+  foto imgConsItem 176 -> 160 supaya tinggi kartu (346) dan grid 2 baris tetap. | status: compile OK | cek manual di
+  Studio: kartu Consume tidak hitam (kalau hitam: ketik ulang Fill conConsRow), qty lebih besar, lalu File > Save.
