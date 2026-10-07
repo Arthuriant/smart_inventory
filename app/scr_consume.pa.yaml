@@ -64,9 +64,9 @@ Screens:
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
                         LayoutMinHeight: =0
+                        FillPortions: =1
                         LayoutMinWidth: =0
-                        LayoutOverflowY: =LayoutOverflow.Scroll
-                        PaddingBottom: =24
+                        PaddingBottom: =16
                         PaddingLeft: =24
                         PaddingRight: =24
                         PaddingTop: =20
@@ -82,8 +82,7 @@ Screens:
                               BorderColor: =RGBA(226, 230, 239, 1)
                               BorderThickness: =1
                               Fill: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
-                              Height: =876
+                              FillPortions: =1
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =12
@@ -438,8 +437,7 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: =720
+                                    FillPortions: =1
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =4
@@ -456,8 +454,7 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Available stock"
                                           Fill: =RGBA(244, 246, 250, 1)
-                                          FillPortions: =0
-                                          Height: =720
+                                          FillPortions: =1
                                           Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    nfIsAdmin Or dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
@@ -561,12 +558,14 @@ Screens:
                                                       AccessibleLabel: ="Consume qty " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Appearance: =Appearance.Outline
+                                                      Default: =0
                                                       DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
                                                       Font: =Font.'Segoe UI'
                                                       Height: =48
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       Min: =0
+                                                      OnChange: =If(IsBlank(Self.Value), Reset(Self))
                                                       RadiusBottomLeft: =8
                                                       RadiusBottomRight: =8
                                                       RadiusTopLeft: =8
@@ -597,8 +596,8 @@ Screens:
                                           Align: =Align.Center
                                           AlignInContainer: =AlignInContainer.Stretch
                                           Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
                                           Font: =Font.'Segoe UI'
-                                          Height: =720
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           PaddingBottom: =0
@@ -609,160 +608,165 @@ Screens:
                                           Text: ="No stock matches the filter."
                                           Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    nfIsAdmin Or dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           Wrap: =false
-                              - conConsFooter:
-                                  Control: GroupContainer
-                                  Variant: AutoLayout
-                                  Properties:
-                                    DropShadow: =DropShadow.None
-                                    FillPortions: =0
-                                    Height: =44
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =12
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =0
-                                    RadiusBottomLeft: =0
-                                    RadiusBottomRight: =0
-                                    RadiusTopLeft: =0
-                                    RadiusTopRight: =0
-                                  Children:
-                                    - txtConsSummary:
-                                        Control: ModernText
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Center
-                                          Color: =RGBA(100, 112, 130, 1)
-                                          FillPortions: =1
-                                          Font: =Font.'Segoe UI'
-                                          Height: =20
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =13
-                                          Text: =Text(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0))) & " item(s) selected" & If(IsBlank(ddConsArea.Selected), " - select Area (From) first", "")
-                                          Wrap: =false
-                                    - btnConsClear:
-                                        Control: ModernButton
-                                        Properties:
-                                          AccessibleLabel: ="Clear all qty"
-                                          AlignInContainer: =AlignInContainer.Center
-                                          Appearance: =ButtonAppearance.Secondary
-                                          Color: =RGBA(31, 41, 55, 1)
-                                          DisplayMode: =If(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0, DisplayMode.Disabled, DisplayMode.Edit)
-                                          Font: =Font.'Segoe UI'
-                                          Height: =36
-                                          Icon: ="ArrowReset"
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =132
-                                          OnSelect: =Reset(galCons)
-                                          RadiusBottomLeft: =8
-                                          RadiusBottomRight: =8
-                                          RadiusTopLeft: =8
-                                          RadiusTopRight: =8
-                                          Size: =13
-                                          Text: ="Clear"
-                                          Tooltip: ="Clear all qty"
-                                          Width: =132
-                                    - btnConsSubmit:
-                                        Control: ModernButton
-                                        Properties:
-                                          AccessibleLabel: ="Consume"
-                                          AlignInContainer: =AlignInContainer.Center
-                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
-                                          DisplayMode: |-
-                                            =If(
-                                                IsBlank(ddConsArea.Selected) ||
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0 ||
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > qty || numConsQty.Value < 0)) > 0,
-                                                DisplayMode.Disabled,
-                                                DisplayMode.Edit
-                                            )
-                                          Font: =Font.'Segoe UI'
-                                          Height: =36
-                                          Icon: ="Cart"
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =140
-                                          OnSelect: |-
-                                            =// 1. Validasi: Area dipilih, ada qty, dan tidak ada qty > stok
-                                            If(
-                                                IsBlank(ddConsArea.Selected),
-                                                Notify("Please select Area (From) first!", NotificationType.Error),
+                  - conConsFooter:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(226, 230, 239, 1)
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.Regular
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =68
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        LayoutMinHeight: =68
+                        LayoutMinWidth: =0
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtConsSummary:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              Height: =20
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =13
+                              Text: =Text(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0))) & " item(s) selected" & If(IsBlank(ddConsArea.Selected), " - select Area (From) first", "")
+                              Wrap: =false
+                        - btnConsClear:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Clear all qty"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Secondary
+                              Color: =RGBA(31, 41, 55, 1)
+                              DisplayMode: =If(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0, DisplayMode.Disabled, DisplayMode.Edit)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="ArrowReset"
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =132
+                              OnSelect: =Reset(galCons)
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Clear"
+                              Tooltip: ="Clear all qty"
+                              Width: =132
+                        - btnConsSubmit:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Consume"
+                              AlignInContainer: =AlignInContainer.Center
+                              BasePaletteColor: =RGBA(0, 18, 107, 1)
+                              DisplayMode: |-
+                                =If(
+                                    IsBlank(ddConsArea.Selected) ||
+                                    CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0 ||
+                                    CountRows(Filter(galCons.AllItems, numConsQty.Value > qty || numConsQty.Value < 0)) > 0,
+                                    DisplayMode.Disabled,
+                                    DisplayMode.Edit
+                                )
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="Cart"
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =140
+                              OnSelect: |-
+                                =// 1. Validasi: Area dipilih, ada qty, dan tidak ada qty > stok
+                                If(
+                                    IsBlank(ddConsArea.Selected),
+                                    Notify("Please select Area (From) first!", NotificationType.Error),
 
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0,
-                                                Notify("Enter a quantity (Qty) for at least 1 item to consume!", NotificationType.Error),
+                                    CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0,
+                                    Notify("Enter a quantity (Qty) for at least 1 item to consume!", NotificationType.Error),
 
-                                                // FIX: qty melebihi stok diblokir
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > qty || numConsQty.Value < 0)) > 0,
-                                                Notify("Qty exceeds available stock!", NotificationType.Error),
+                                    // FIX: qty melebihi stok diblokir
+                                    CountRows(Filter(galCons.AllItems, numConsQty.Value > qty || numConsQty.Value < 0)) > 0,
+                                    Notify("Qty exceeds available stock!", NotificationType.Error),
 
-                                                // 2. Generate Nomor Transaksi (Autogenerate)
+                                    // 2. Generate Nomor Transaksi (Autogenerate)
+                                    With(
+                                        {
+                                            varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
+                                        },
+                                        With(
+                                            {
+                                                varNextIndex: If(IsBlank(varLastTrx), 1, Value(Right(varLastTrx, 4)) + 1)
+                                            },
+                                            With(
+                                                {
+                                                    varTrxNumber: Text(Now(), "dd/mm/yy/") & Text(varNextIndex, "0000")
+                                                },
+                                                // 3. Simpan Header Transaksi (FIX: tipe Consume + area asal)
                                                 With(
                                                     {
-                                                        varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
+                                                        newHeader: Patch(
+                                                            dis_trx_headers,
+                                                            Defaults(dis_trx_headers),
+                                                            {
+                                                                transaction_number: varTrxNumber,
+                                                                type: 'type (dis_trx_headers)'.Consume,
+                                                                area_form: ddConsArea.Selected
+                                                            }
+                                                        )
                                                     },
-                                                    With(
-                                                        {
-                                                            varNextIndex: If(IsBlank(varLastTrx), 1, Value(Right(varLastTrx, 4)) + 1)
-                                                        },
+                                                    // 4. Looping untuk setiap barang di galeri yang Qty-nya diisi
+                                                    ForAll(
+                                                        Filter(galCons.AllItems, numConsQty.Value > 0) As ItemConsume,
                                                         With(
                                                             {
-                                                                varTrxNumber: Text(Now(), "dd/mm/yy/") & Text(varNextIndex, "0000")
+                                                                // FIX: baca stok terbaru, bukan snapshot galeri
+                                                                oldQty: LookUp(dis_stocks, dis_stock = ItemConsume.dis_stock).qty,
+                                                                amt: ItemConsume.numConsQty.Value
                                                             },
-                                                            // 3. Simpan Header Transaksi (FIX: tipe Consume + area asal)
-                                                            With(
+                                                            // A. Simpan ke Detail Transaksi
+                                                            Patch(
+                                                                dis_trx_details,
+                                                                Defaults(dis_trx_details),
                                                                 {
-                                                                    newHeader: Patch(
-                                                                        dis_trx_headers,
-                                                                        Defaults(dis_trx_headers),
-                                                                        {
-                                                                            transaction_number: varTrxNumber,
-                                                                            type: 'type (dis_trx_headers)'.Consume,
-                                                                            area_form: ddConsArea.Selected
-                                                                        }
-                                                                    )
-                                                                },
-                                                                // 4. Looping untuk setiap barang di galeri yang Qty-nya diisi
-                                                                ForAll(
-                                                                    Filter(galCons.AllItems, numConsQty.Value > 0) As ItemConsume,
-                                                                    With(
-                                                                        {
-                                                                            // FIX: baca stok terbaru, bukan snapshot galeri
-                                                                            oldQty: LookUp(dis_stocks, dis_stock = ItemConsume.dis_stock).qty,
-                                                                            amt: ItemConsume.numConsQty.Value
-                                                                        },
-                                                                        // A. Simpan ke Detail Transaksi
-                                                                        Patch(
-                                                                            dis_trx_details,
-                                                                            Defaults(dis_trx_details),
-                                                                            {
-                                                                                header_id: newHeader,
-                                                                                PK: varTrxNumber & "-" & Text(RandBetween(1000, 9999)),
-                                                                                item: ItemConsume.dis_item_v2,
-                                                                                qty: amt
-                                                                            }
-                                                                        );
-                                                                        // B. Kurangi stok
-                                                                        Patch(
-                                                                            dis_stocks,
-                                                                            LookUp(dis_stocks, dis_stock = ItemConsume.dis_stock),
-                                                                            {qty: oldQty - amt}
-                                                                        )
-                                                                    )
-                                                                );
-                                                                // 5. Bersihkan input, notifikasi
-                                                                Reset(galCons);
-                                                                Notify("Consume transaction saved and stock has been reduced!", NotificationType.Success)
+                                                                    header_id: newHeader,
+                                                                    PK: varTrxNumber & "-" & Text(RandBetween(1000, 9999)),
+                                                                    item: ItemConsume.dis_item_v2,
+                                                                    qty: amt
+                                                                }
+                                                            );
+                                                            // B. Kurangi stok
+                                                            Patch(
+                                                                dis_stocks,
+                                                                LookUp(dis_stocks, dis_stock = ItemConsume.dis_stock),
+                                                                {qty: oldQty - amt}
                                                             )
                                                         )
-                                                    )
+                                                    );
+                                                    // 5. Bersihkan input, notifikasi
+                                                    Reset(galCons);
+                                                    Notify("Consume transaction saved and stock has been reduced!", NotificationType.Success)
                                                 )
                                             )
-                                          RadiusBottomLeft: =8
-                                          RadiusBottomRight: =8
-                                          RadiusTopLeft: =8
-                                          RadiusTopRight: =8
-                                          Size: =13
-                                          Text: ="Consume"
-                                          Width: =140
+                                        )
+                                    )
+                                )
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Consume"
+                              Width: =140
