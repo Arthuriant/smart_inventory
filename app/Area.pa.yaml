@@ -32,7 +32,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   BorderColor: =RGBA(226, 230, 239, 1)
                   BorderThickness: =1
                   DropShadow: =DropShadow.None
@@ -42,13 +41,13 @@ Screens:
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =8
                   LayoutMinHeight: =0
-                  LayoutMinWidth: =260
+                  LayoutMinWidth: =220
                   PaddingBottom: =12
                   RadiusBottomLeft: =0
                   RadiusBottomRight: =0
                   RadiusTopLeft: =0
                   RadiusTopRight: =0
-                  Width: =260
+                  Width: =220
                 Children:
                   - conAreaLBlHead:
                       Control: GroupContainer
@@ -391,7 +390,6 @@ Screens:
                       Properties:
                         AccessibleLabel: ="Business line list"
                         Fill: =RGBA(255, 255, 255, 1)
-                        FillPortions: =1
                         Items: =Sort(dis_subbls, Name)
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
@@ -816,18 +814,17 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =0
+                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =90
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Width: =150
                                         Children:
                                           - txtAreaLGeoLbl:
                                               Control: ModernText
@@ -872,18 +869,17 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =0
+                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =90
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Width: =150
                                         Children:
                                           - txtAreaLLocLbl:
                                               Control: ModernText
@@ -931,18 +927,17 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =0
+                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =90
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Width: =150
                                         Children:
                                           - txtAreaLAreaLbl:
                                               Control: ModernText
@@ -989,12 +984,13 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
+                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =110
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
@@ -1071,7 +1067,7 @@ Screens:
                                           Height: =36
                                           Icon: ="Add"
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =140
+                                          LayoutMinWidth: =112
                                           OnSelect: |-
                                             =Set(gblFormMode, "Add");
                                             NewForm(frmAreaF);
@@ -1082,7 +1078,7 @@ Screens:
                                           RadiusTopRight: =8
                                           Size: =13
                                           Text: ="Add Area"
-                                          Width: =140
+                                          Width: =112
                               - conAreaLTable:
                                   Control: GroupContainer
                                   Variant: AutoLayout
