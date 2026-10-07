@@ -210,10 +210,10 @@ Screens:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter geounit"
-                                                Default: =If(!nfIsAdmin, nfHomeLoc.dis_geounit)
-                                                DisplayMode: =If(!nfIsAdmin And CountRows(Distinct(nfMyGeoIds, Value)) <= 1, DisplayMode.Disabled, DisplayMode.Edit)
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
+                                                Default: =If(!nfIsAdmin, nfHomeLoc.dis_geounit)
+                                                DisplayMode: =If(!nfIsAdmin And CountRows(Distinct(nfMyGeoIds, Value)) <= 1, DisplayMode.Disabled, DisplayMode.Edit)
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.elv_name_long
@@ -268,13 +268,13 @@ Screens:
                                               Control: ModernDropdown
                                               Properties:
                                                 AccessibleLabel: ="Filter location"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
                                                 Default: |-
                                                   =If(
                                                       !nfIsAdmin And ddFindGeo.Selected.dis_geounit = nfHomeLoc.dis_geounit.dis_geounit,
                                                       nfHomeLoc
                                                   )
-                                                AlignInContainer: =AlignInContainer.Stretch
-                                                Appearance: =Appearance.Outline
                                                 DisplayMode: =If(IsBlank(ddFindGeo.Selected) Or (!nfIsAdmin And CountRows(Distinct(nfMyLocIds, Value)) <= 1), DisplayMode.Disabled, DisplayMode.Edit)
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
@@ -861,8 +861,6 @@ Screens:
             RadiusTopRight: =0
             Visible: =locShowFindDetail
             Width: =Parent.Width
-            X: =0
-            Y: =0
           Children:
             - conFindDetCard:
                 Control: GroupContainer
@@ -956,7 +954,6 @@ Screens:
                       Variant: AutoLayout
                       Properties:
                         DropShadow: =DropShadow.None
-                        LayoutAlignItems: =LayoutAlignItems.Start
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =24
                         LayoutMinHeight: =0
@@ -989,7 +986,6 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.None
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
@@ -1085,7 +1081,6 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
-                                    LayoutAlignItems: =LayoutAlignItems.Start
                                     LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =12
                                     LayoutMinHeight: =0

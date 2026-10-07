@@ -798,7 +798,6 @@ Screens:
                                                 - txtItmLMin:
                                                     Control: ModernText
                                                     Properties:
-                                                      Align: =Align.Right
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Color: =RGBA(31, 41, 55, 1)
                                                       Font: =Font.'Segoe UI'

@@ -322,7 +322,6 @@ Screens:
                                     BorderColor: =RGBA(226, 230, 239, 1)
                                     BorderThickness: =1
                                     Fill: =RGBA(255, 255, 255, 1)
-                                    FillPortions: =1
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =12
@@ -509,7 +508,6 @@ Screens:
                                                     Variant: AutoLayout
                                                     Properties:
                                                       DropShadow: =DropShadow.None
-                                                      FillPortions: =1
                                                       LayoutAlignItems: =LayoutAlignItems.Stretch
                                                       LayoutDirection: =LayoutDirection.Vertical
                                                       LayoutGap: =4
@@ -720,7 +718,6 @@ Screens:
                                           AccessibleLabel: ="Geounit list"
                                           Default: =locGeoFocus
                                           Fill: =RGBA(226, 230, 239, 1)
-                                          FillPortions: =1
                                           Items: =Sort(dis_geounits, elv_name_short)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
@@ -896,7 +893,6 @@ Screens:
                                     BorderColor: =RGBA(226, 230, 239, 1)
                                     BorderThickness: =1
                                     Fill: =RGBA(255, 255, 255, 1)
-                                    FillPortions: =1
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =12
@@ -1033,7 +1029,6 @@ Screens:
                                                     Variant: AutoLayout
                                                     Properties:
                                                       DropShadow: =DropShadow.None
-                                                      FillPortions: =1
                                                       LayoutAlignItems: =LayoutAlignItems.Stretch
                                                       LayoutDirection: =LayoutDirection.Vertical
                                                       LayoutGap: =4
@@ -1273,7 +1268,6 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Location list"
                                           Fill: =RGBA(226, 230, 239, 1)
-                                          FillPortions: =1
                                           Items: =Sort(Filter(dis_locations, dis_geounit.dis_geounit = galGlGeo.Selected.dis_geounit), Name)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0

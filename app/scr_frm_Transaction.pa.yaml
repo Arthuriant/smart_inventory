@@ -113,7 +113,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =16
-                                    Text: ="Transaction Header"
+                                    Text: ="Transaction"
                                     Wrap: =false
                               - frmTrxF:
                                   Control: Form
@@ -310,35 +310,35 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =10
+                                          - StarVisible32_TrxF:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey9_TrxF.Y
                                           - DataCardValue9_TrxF:
-                                              Control: Classic/ComboBox
+                                              Control: ModernCombobox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
-                                                BorderColor: =RGBA(209, 213, 219, 1)
-                                                BorderThickness: =1
-                                                ChevronBackground: =RGBA(255, 255, 255, 1)
-                                                ChevronFill: =RGBA(97, 97, 97, 1)
-                                                ChevronHoverBackground: =RGBA(243, 244, 246, 1)
-                                                ChevronHoverFill: =RGBA(31, 41, 55, 1)
-                                                Color: =RGBA(31, 41, 55, 1)
-                                                DefaultSelectedItems: =Parent.Default
-                                                DisplayFields: =["elv_name"]
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Appearance: =Appearance.Outline
+                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
                                                 DisplayMode: =Parent.DisplayMode
-                                                FocusedBorderColor: =RGBA(15, 108, 189, 1)
-                                                FocusedBorderThickness: =2
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                HoverFill: =RGBA(243, 244, 246, 1)
-                                                Items: =Filter(Choices([@dis_trx_headers].'cr8a3_area_from'), nfIsAdmin Or dis_area in nfMyAreaIds)
-                                                PressedColor: =RGBA(31, 41, 55, 1)
-                                                PressedFill: =RGBA(235, 243, 252, 1)
-                                                SearchFields: =["elv_name"]
+                                                ItemDisplayText: =ThisItem.cr8a3_elv_detail
+                                                Items: =If(nfIsAdmin, Choices([@dis_trx_headers].'cr8a3_area_from'), Filter(Choices([@dis_trx_headers].'cr8a3_area_from'), dis_area in nfMyAreaIds))
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
                                                 SelectMultiple: =false
-                                                SelectionColor: =RGBA(31, 41, 55, 1)
-                                                SelectionFill: =RGBA(235, 243, 252, 1)
-                                                Size: =10
-                                                Tooltip: =Parent.DisplayName
+                                                Size: =13
                                                 Visible: =Text(DataCardValue7_TrxF.Selected.Value) = "Transfer" Or Text(DataCardValue7_TrxF.Selected.Value) = "Consume"
                                                 Width: =Parent.Width - 48
                                                 X: =24
@@ -357,17 +357,6 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardValue9_TrxF.Y + DataCardValue9_TrxF.Height
-                                          - StarVisible32_TrxF:
-                                              Control: FluentV8/Label
-                                              MetadataKey: FieldRequired
-                                              Properties:
-                                                Alignment: =Align.Center
-                                                Height: =20
-                                                Text: ="*"
-                                                VerticalAlignment: =VerticalAlign.Bottom
-                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                                Width: =30
-                                                Y: =DataCardKey9_TrxF.Y
                                     - area_to_DataCard1_TrxF:
                                         Control: TypedDataCard
                                         Variant: PcfCoreComboBoxEditCard

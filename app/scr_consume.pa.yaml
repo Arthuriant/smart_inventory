@@ -64,7 +64,6 @@ Screens:
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
                         LayoutMinHeight: =0
-                        FillPortions: =1
                         LayoutMinWidth: =0
                         PaddingBottom: =16
                         PaddingLeft: =24
@@ -82,7 +81,6 @@ Screens:
                               BorderColor: =RGBA(226, 230, 239, 1)
                               BorderThickness: =1
                               Fill: =RGBA(255, 255, 255, 1)
-                              FillPortions: =1
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =12
@@ -437,7 +435,6 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
-                                    FillPortions: =1
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =4
@@ -454,7 +451,6 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Available stock"
                                           Fill: =RGBA(244, 246, 250, 1)
-                                          FillPortions: =1
                                           Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    nfIsAdmin Or dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
@@ -558,7 +554,6 @@ Screens:
                                                       AccessibleLabel: ="Consume qty " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Appearance: =Appearance.Outline
-                                                      Default: =0
                                                       DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
                                                       Font: =Font.'Segoe UI'
                                                       Height: =48
@@ -613,7 +608,6 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =44
                                     LayoutAlignItems: =LayoutAlignItems.Center

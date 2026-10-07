@@ -587,35 +587,35 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =10
+                                          - StarVisible47_ItmF:
+                                              Control: FluentV8/Label
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Alignment: =Align.Center
+                                                Height: =20
+                                                Text: ="*"
+                                                VerticalAlignment: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey48_ItmF.Y
                                           - DataCardValue47_ItmF:
-                                              Control: Classic/ComboBox
+                                              Control: ModernCombobox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
-                                                BorderColor: =RGBA(209, 213, 219, 1)
-                                                BorderThickness: =1
-                                                ChevronBackground: =RGBA(255, 255, 255, 1)
-                                                ChevronFill: =RGBA(97, 97, 97, 1)
-                                                ChevronHoverBackground: =RGBA(243, 244, 246, 1)
-                                                ChevronHoverFill: =RGBA(31, 41, 55, 1)
-                                                Color: =RGBA(31, 41, 55, 1)
-                                                DefaultSelectedItems: =Parent.Default
-                                                DisplayFields: =["cr8a3_name"]
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Appearance: =Appearance.Outline
+                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
                                                 DisplayMode: =Parent.DisplayMode
-                                                FocusedBorderColor: =RGBA(15, 108, 189, 1)
-                                                FocusedBorderThickness: =2
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                HoverFill: =RGBA(243, 244, 246, 1)
+                                                ItemDisplayText: =ThisItem.name
                                                 Items: =Choices([@dis_item_v2S].dis_category_item)
-                                                PressedColor: =RGBA(31, 41, 55, 1)
-                                                PressedFill: =RGBA(235, 243, 252, 1)
-                                                SearchFields: =["cr8a3_name"]
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
                                                 SelectMultiple: =false
-                                                SelectionColor: =RGBA(31, 41, 55, 1)
-                                                SelectionFill: =RGBA(235, 243, 252, 1)
-                                                Size: =10
-                                                Tooltip: =Parent.DisplayName
+                                                Size: =13
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey48_ItmF.Y + DataCardKey48_ItmF.Height + 4
@@ -633,17 +633,6 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardValue47_ItmF.Y + DataCardValue47_ItmF.Height
-                                          - StarVisible47_ItmF:
-                                              Control: FluentV8/Label
-                                              MetadataKey: FieldRequired
-                                              Properties:
-                                                Alignment: =Align.Center
-                                                Height: =20
-                                                Text: ="*"
-                                                VerticalAlignment: =VerticalAlign.Bottom
-                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                                Width: =30
-                                                Y: =DataCardKey48_ItmF.Y
                                     - description_DataCard4_ItmF:
                                         Control: TypedDataCard
                                         Variant: ModernTextualMultilineEdit

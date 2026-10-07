@@ -524,35 +524,40 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =10
+                                          - StarVisible64_UsrL:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =20
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(10.5) * 4/3
+                                                Text: ="*"
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey65_UsrL.Y
                                           - DataCardValue64_UsrL:
-                                              Control: Classic/ComboBox
+                                              Control: ModernCombobox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
-                                                BorderColor: =RGBA(209, 213, 219, 1)
-                                                BorderThickness: =1
-                                                ChevronBackground: =RGBA(255, 255, 255, 1)
-                                                ChevronFill: =RGBA(97, 97, 97, 1)
-                                                ChevronHoverBackground: =RGBA(243, 244, 246, 1)
-                                                ChevronHoverFill: =RGBA(31, 41, 55, 1)
-                                                Color: =RGBA(31, 41, 55, 1)
-                                                DefaultSelectedItems: =Parent.Default
-                                                DisplayFields: =["elv_name"]
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Appearance: =Appearance.Outline
+                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
                                                 DisplayMode: =Parent.DisplayMode
-                                                FocusedBorderColor: =RGBA(15, 108, 189, 1)
-                                                FocusedBorderThickness: =2
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                HoverFill: =RGBA(243, 244, 246, 1)
+                                                ItemDisplayText: =ThisItem.Name
                                                 Items: =Choices([@dis_users].Assigned_area)
-                                                PressedColor: =RGBA(31, 41, 55, 1)
-                                                PressedFill: =RGBA(235, 243, 252, 1)
-                                                SearchFields: =["elv_name"]
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
                                                 SelectMultiple: =false
-                                                SelectionColor: =RGBA(31, 41, 55, 1)
-                                                SelectionFill: =RGBA(235, 243, 252, 1)
-                                                Size: =10
-                                                Tooltip: =Parent.DisplayName
+                                                Size: =13
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey65_UsrL.Y + DataCardKey65_UsrL.Height + 4
@@ -575,22 +580,6 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardValue64_UsrL.Y + DataCardValue64_UsrL.Height
-                                          - StarVisible64_UsrL:
-                                              Control: ModernText
-                                              MetadataKey: FieldRequired
-                                              Properties:
-                                                Align: =Align.Center
-                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
-                                                FontWeight: ="normal"
-                                                Height: =20
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                Size: =(10.5) * 4/3
-                                                Text: ="*"
-                                                VerticalAlign: =VerticalAlign.Bottom
-                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                                Width: =30
-                                                Y: =DataCardKey65_UsrL.Y
                               - conUsrLAreasFld:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -637,7 +626,6 @@ Screens:
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           InputTextPlaceholder: ="Select one or more areas"
-                                          IsSearchable: =true
                                           ItemDisplayText: =ThisItem.Name
                                           Items: =Sort(dis_areas, Name)
                                           LayoutMinHeight: =0
@@ -646,7 +634,6 @@ Screens:
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
-                                          SelectMultiple: =true
                                           Size: =13
                               - conUsrLEdActions:
                                   Control: GroupContainer
