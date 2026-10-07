@@ -718,6 +718,7 @@ Screens:
                                           LayoutMinWidth: =0
                                           Selectable: =false
                                           TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                           TemplatePadding: =1
                                           TemplateSize: =48
                                           Visible: =!IsEmpty(dis_trx_headers)
@@ -727,7 +728,7 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Fill: =RGBA(0, 0, 0, 0)
                                                 Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
@@ -877,6 +878,7 @@ Screens:
                                           LayoutMinWidth: =0
                                           Selectable: =false
                                           TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                           TemplatePadding: =1
                                           TemplateSize: =56
                                           Visible: =!IsEmpty(nfLowStock)
@@ -886,7 +888,7 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Fill: =RGBA(0, 0, 0, 0)
                                                 Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal

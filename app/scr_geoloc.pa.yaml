@@ -722,6 +722,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                           TemplatePadding: =1
                                           TemplateSize: =52
                                           Visible: =!IsEmpty(dis_geounits)
@@ -731,7 +732,7 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Fill: =RGBA(0, 0, 0, 0)
                                                 Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
@@ -1272,6 +1273,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                           TemplatePadding: =1
                                           TemplateSize: =52
                                           Visible: =!IsBlank(galGlGeo.Selected) And !IsEmpty(Filter(dis_locations, dis_geounit.dis_geounit = galGlGeo.Selected.dis_geounit))
@@ -1281,7 +1283,7 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Fill: =RGBA(0, 0, 0, 0)
                                                 Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal

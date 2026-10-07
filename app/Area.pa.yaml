@@ -400,6 +400,7 @@ Screens:
                         Items: =Sort(dis_subbls, Name)
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
+                        TemplateFill: =If(!IsBlank(locBlSel) And locBlSel.dis_subbl = ThisItem.dis_subbl, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                         TemplatePadding: =0
                         TemplateSize: =44
                       Children:
@@ -408,7 +409,7 @@ Screens:
                             Variant: AutoLayout
                             Properties:
                               DropShadow: =DropShadow.None
-                              Fill: =If(!IsBlank(locBlSel) And locBlSel.dis_subbl = ThisItem.dis_subbl, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                              Fill: =RGBA(0, 0, 0, 0)
                               Height: =Parent.TemplateHeight
                               LayoutAlignItems: =LayoutAlignItems.Center
                               LayoutDirection: =LayoutDirection.Horizontal
@@ -1221,6 +1222,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                           TemplatePadding: =1
                                           TemplateSize: =52
                                           Visible: "=!IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text),\n    \n    // 5. Filter berdasarkan Business Line (panel kiri)\n    IsBlank(locBlSel) Or elv_dis_subblid.dis_subbl = locBlSel.dis_subbl\n))"
@@ -1230,7 +1232,7 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Fill: =RGBA(0, 0, 0, 0)
                                                 Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal

@@ -272,8 +272,7 @@ Screens:
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
-                                                Items: |-
-                                                  =Filter(dis_locations, dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
+                                                Items: =Filter(dis_locations, dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: =Reset(ddFindArea)
@@ -328,8 +327,7 @@ Screens:
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
-                                                Items: |-
-                                                  =Filter(dis_areas, (location.dis_location = ddFindLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
+                                                Items: =Filter(dis_areas, (location.dis_location = ddFindLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 RadiusBottomLeft: =8
@@ -621,6 +619,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                           TemplatePadding: =1
                                           TemplateSize: =52
                                           Visible: |-
@@ -643,7 +642,7 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                                Fill: =RGBA(0, 0, 0, 0)
                                                 Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
