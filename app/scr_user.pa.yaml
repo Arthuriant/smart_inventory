@@ -195,7 +195,7 @@ Screens:
                               BorderThickness: =1
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
-                              Height: =400
+                              Height: =316
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =12
@@ -240,41 +240,14 @@ Screens:
                                     Item: =locSelectedRecord
                                     NumberOfColumns: =2
                                     OnSuccess: |-
-                                      =// Sync the user's multiple areas (N:N) with the picker; the primary area is always included
-                                      ClearCollect(
-                                          colUsrNewAreas,
-                                          ForAll(cmbUsrLAreas.SelectedItems As selArea, {AreaId: selArea.dis_area})
-                                      );
-                                      If(
-                                          !IsBlank(DataCardValue64_UsrL.Selected) And !(DataCardValue64_UsrL.Selected.dis_area in colUsrNewAreas.AreaId),
-                                          Collect(colUsrNewAreas, {AreaId: DataCardValue64_UsrL.Selected.dis_area})
-                                      );
-                                      ClearCollect(
-                                          colUsrOldAreas,
-                                          ForAll(locSelectedRecord.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)' As curArea, {AreaId: curArea.dis_area})
-                                      );
-                                      ForAll(
-                                          Filter(colUsrOldAreas, !(AreaId in colUsrNewAreas.AreaId)) As oldArea,
-                                          Unrelate(
-                                              locSelectedRecord.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)',
-                                              LookUp(dis_areas, dis_area = oldArea.AreaId)
-                                          )
-                                      );
-                                      ForAll(
-                                          Filter(colUsrNewAreas, !(AreaId in colUsrOldAreas.AreaId)) As newArea,
-                                          Relate(
-                                              locSelectedRecord.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)',
-                                              LookUp(dis_areas, dis_area = newArea.AreaId)
-                                          )
-                                      );
-                                      Refresh(dis_users);
+                                      =Refresh(dis_users);
                                       Set(
                                           gblReceipt,
                                           {
                                               Screen: "User",
                                               Action: "Saved",
                                               Title: frmUsrL.LastSubmit.Name,
-                                              Detail: "Email " & frmUsrL.LastSubmit.email & " | Role " & Text(frmUsrL.LastSubmit.role) & " | Primary area " & Coalesce(frmUsrL.LastSubmit.Assigned_area.Name, "-") & " | Areas " & Coalesce(Concat(cmbUsrLAreas.SelectedItems, Name, ", "), "-")
+                                              Detail: "Email " & frmUsrL.LastSubmit.email & " | Role " & Text(frmUsrL.LastSubmit.role) & " | Sub business line " & Coalesce(frmUsrL.LastSubmit.'Sub Business Line'.Name, "-")
                                           }
                                       );
                                       Notify("User saved successfully!", NotificationType.Success);
@@ -503,9 +476,10 @@ Screens:
                                           DisplayName: ="Primary area"
                                           Required: =false
                                           Update: =DataCardValue64_UsrL.Selected
+                                          Visible: =false
                                           Width: =Parent.Width / 2
-                                          X: =1
-                                          Y: =1
+                                          X: =0
+                                          Y: =2
                                         Children:
                                           - DataCardKey65_UsrL:
                                               Control: ModernText
@@ -580,6 +554,93 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardValue64_UsrL.Y + DataCardValue64_UsrL.Height
+                                    - SubBl_DataCard1_UsrL:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_SubBusinessLine"
+                                          Default: =ThisItem.'Sub Business Line'
+                                          DisplayName: ="Sub Business Line"
+                                          Required: =false
+                                          Update: =cmbUsrLSubBl.Selected
+                                          Width: =Parent.Width / 2
+                                          X: =1
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey66_UsrL:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Align: ="left"
+                                                AutoHeight: =true
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =22
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(9) * 4/3
+                                                Text: =Parent.DisplayName
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - StarVisible66_UsrL:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =20
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(10.5) * 4/3
+                                                Text: ="*"
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey66_UsrL.Y
+                                          - cmbUsrLSubBl:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Appearance: =Appearance.Outline
+                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Choices([@dis_users].'Sub Business Line')
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                SelectMultiple: =false
+                                                Size: =13
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey66_UsrL.Y + DataCardKey66_UsrL.Height + 4
+                                          - ErrorMessage66_UsrL:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Align: ="left"
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =30
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(9) * 4/3
+                                                Text: =Parent.Error
+                                                VerticalAlign: ="middle"
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =cmbUsrLSubBl.Y + cmbUsrLSubBl.Height
                               - conUsrLAreasFld:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -598,6 +659,7 @@ Screens:
                                     RadiusBottomRight: =0
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
+                                    Visible: =false
                                   Children:
                                     - txtUsrLAreasLbl:
                                         Control: ModernText
@@ -956,7 +1018,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="AREAS"
+                                                Text: ="SUB BUSINESS LINE"
                                                 Wrap: =false
                                           - txtUsrLHAct:
                                               Control: ModernText
@@ -1075,12 +1137,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: |-
-                                                        =Coalesce(
-                                                            Concat(ThisItem.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)', Name, ", "),
-                                                            ThisItem.Assigned_area.Name,
-                                                            "-"
-                                                        )
+                                                      Text: =Coalesce(ThisItem.'Sub Business Line'.Name, "-")
                                                       Wrap: =false
                                                 - btnUsrLEdit:
                                                     Control: ModernButton

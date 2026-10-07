@@ -4,8 +4,10 @@ App:
     Formulas: |-
       =nfMe = LookUp(dis_users, email = User().Email);
       nfIsAdmin = nfMe.role = dis_role.administrator;
-      nfMyAreas = nfMe.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)';
-      nfHomeArea = Coalesce(nfMe.Assigned_area, First(nfMyAreas));
+      // Area access follows the user's Sub Business Line: every area of that business line (none when the user has no business line)
+      nfMyBl = nfMe.'Sub Business Line';
+      nfMyAreas = Filter(dis_areas, elv_dis_subblid.dis_subbl = Coalesce(nfMyBl.dis_subbl, GUID("00000000-0000-0000-0000-000000000000")));
+      nfHomeArea = Coalesce(LookUp(nfMyAreas, dis_area = nfMe.Assigned_area.dis_area), If(nfIsAdmin, nfMe.Assigned_area), First(nfMyAreas));
       nfMyAreaIds = ForAll(nfMyAreas, ThisRecord.dis_area);
       // An area's location lives in 'location' (legacy) or, for newer areas, in 'elv_location (cr8a3_elv_location)'
       nfMyLocIds = Filter(ForAll(nfMyAreas, Coalesce(ThisRecord.location, ThisRecord.'elv_location (cr8a3_elv_location)').dis_location), !IsBlank(Value));
