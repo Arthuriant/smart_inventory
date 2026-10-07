@@ -7,11 +7,9 @@ App:
       // Area access follows the user's Sub Business Line: every area of that business line (none when the user has no business line)
       nfMyBl = nfMe.'Sub Business Line';
       nfMyAreas = Filter(dis_areas, elv_dis_subblid.dis_subbl = Coalesce(nfMyBl.dis_subbl, GUID("00000000-0000-0000-0000-000000000000")));
-      nfHomeArea = Coalesce(LookUp(nfMyAreas, dis_area = nfMe.Assigned_area.dis_area), If(nfIsAdmin, nfMe.Assigned_area), First(nfMyAreas));
       nfMyAreaIds = ForAll(nfMyAreas, ThisRecord.dis_area);
       // An area's location lives in 'location' (legacy) or, for newer areas, in 'elv_location (cr8a3_elv_location)'
       nfMyLocIds = Filter(ForAll(nfMyAreas, Coalesce(ThisRecord.location, ThisRecord.'elv_location (cr8a3_elv_location)').dis_location), !IsBlank(Value));
-      nfHomeLoc = Coalesce(nfHomeArea.location, nfHomeArea.'elv_location (cr8a3_elv_location)');
       nfMyGeoIds = Filter(ForAll(Filter(dis_locations, dis_location in nfMyLocIds), ThisRecord.dis_geounit.dis_geounit), !IsBlank(Value));
       nfLowStock = Filter(AddColumns(dis_stocks, MinQty, dis_item_v2.min_qty), qty < MinQty);
       clrNavy = RGBA(0, 18, 107, 1);

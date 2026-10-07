@@ -247,7 +247,7 @@ Screens:
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
                                                 ItemDisplayText: =ThisItem.Value
-                                                Items: =Choices([@dis_trx_headers].'cr8a3_type')
+                                                Items: =Choices([@dis_trx_headers].type)
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -332,7 +332,7 @@ Screens:
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
                                                 ItemDisplayText: =ThisItem.Name
-                                                Items: =Filter(Choices([@dis_trx_headers].'cr8a3_area_from'), If(nfIsAdmin, true, dis_area in nfMyAreaIds))
+                                                Items: =Filter(Choices([@dis_trx_headers].area_form), If(nfIsAdmin, true, dis_area in nfMyAreaIds))
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -408,7 +408,7 @@ Screens:
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
                                                 ItemDisplayText: =ThisItem.Name
-                                                Items: =Filter(Choices([@dis_trx_headers].'cr8a3_area_to'), nfIsAdmin Or Text(DataCardValue7_TrxF.Selected.Value) <> "Receive" Or dis_area in nfMyAreaIds)
+                                                Items: =Filter(Choices([@dis_trx_headers].area_to), If(nfIsAdmin Or Text(DataCardValue7_TrxF.Selected.Value) <> "Receive", true, dis_area in nfMyAreaIds))
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
