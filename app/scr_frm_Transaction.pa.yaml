@@ -290,7 +290,7 @@ Screens:
                                           Default: =ThisItem.area_form
                                           DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_area_from')
                                           Required: =false
-                                          Update: =DataCardValue9_TrxF.Selected
+                                          Update: =cmbTrxFAreaFrom.Selected
                                           Width: =Parent.Width / 2
                                           WidthFit: =false
                                           X: =0
@@ -321,7 +321,7 @@ Screens:
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
                                                 Y: =DataCardKey9_TrxF.Y
-                                          - DataCardValue9_TrxF:
+                                          - cmbTrxFAreaFrom:
                                               Control: ModernCombobox
                                               MetadataKey: FieldValue
                                               Properties:
@@ -331,8 +331,8 @@ Screens:
                                                 DisplayMode: =Parent.DisplayMode
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                ItemDisplayText: =ThisItem.cr8a3_elv_detail
-                                                Items: =If(nfIsAdmin, Choices([@dis_trx_headers].'cr8a3_area_from'), Filter(Choices([@dis_trx_headers].'cr8a3_area_from'), dis_area in nfMyAreaIds))
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Filter(Choices([@dis_trx_headers].'cr8a3_area_from'), If(nfIsAdmin, true, dis_area in nfMyAreaIds))
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -356,7 +356,7 @@ Screens:
                                                 Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =Parent.Width - 48
                                                 X: =24
-                                                Y: =DataCardValue9_TrxF.Y + DataCardValue9_TrxF.Height
+                                                Y: =cmbTrxFAreaFrom.Y + cmbTrxFAreaFrom.Height
                                     - area_to_DataCard1_TrxF:
                                         Control: TypedDataCard
                                         Variant: PcfCoreComboBoxEditCard

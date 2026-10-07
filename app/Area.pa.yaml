@@ -28,6 +28,473 @@ Screens:
                   LayoutMinWidth: =224
                   Width: =224
                   activemenu: ="Area"
+            - conAreaLBlPanel:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  BorderColor: =RGBA(226, 230, 239, 1)
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =260
+                  PaddingBottom: =12
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =260
+                Children:
+                  - conAreaLBlHead:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =64
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =2
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtAreaLBlTitle:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Color: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =22
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =15
+                              Text: ="Business Line"
+                              Wrap: =false
+                        - txtAreaLBlSub:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =18
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: ="Select one to filter the area list"
+                              Wrap: =false
+                  - conAreaLBlForm:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =124
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =6
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =4
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtAreaLBlFormLbl:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =16
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: =If(IsBlank(locBlEdit), "New business line", "Rename " & locBlEdit.Name)
+                              Wrap: =false
+                        - inpAreaLBlName:
+                            Control: ModernTextInput
+                            Properties:
+                              AccessibleLabel: ="Business line name"
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Appearance: =Appearance.Outline
+                              Default: =If(IsBlank(locBlEdit), "", locBlEdit.Name)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              MaxLength: =100
+                              Placeholder: ="Business line name"
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                        - conAreaLBlBtns:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =36
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - btnAreaLBlSave:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: =If(IsBlank(locBlEdit), "Add business line", "Save business line")
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                    DisplayMode: =If(IsBlank(Trim(inpAreaLBlName.Text)), DisplayMode.Disabled, DisplayMode.Edit)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: =If(IsBlank(locBlEdit), "Add", "Save")
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: |-
+                                      =With(
+                                          {nm: Trim(inpAreaLBlName.Text), isNew: IsBlank(locBlEdit)},
+                                          With(
+                                              {saved: If(isNew, Patch(dis_subbls, Defaults(dis_subbls), {Name: nm}), Patch(dis_subbls, locBlEdit, {Name: nm}))},
+                                              If(
+                                                  IsEmpty(Errors(dis_subbls)) And !IsBlank(saved),
+                                                  UpdateContext({locBlSel: saved, locBlEdit: Blank(), locBlDelete: Blank()});
+                                                  Reset(inpAreaLBlName);
+                                                  Set(
+                                                      gblReceipt,
+                                                      {
+                                                          Screen: "Area",
+                                                          Action: If(isNew, "Business line added", "Business line updated"),
+                                                          Title: saved.Name,
+                                                          Detail: "Area list is now filtered to business line " & saved.Name
+                                                      }
+                                                  );
+                                                  Notify(If(isNew, "Business line added.", "Business line updated."), NotificationType.Success),
+                                                  Notify("Failed to save business line. " & First(Errors(dis_subbls)).Message, NotificationType.Error)
+                                              )
+                                          )
+                                      )
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: =If(IsBlank(locBlEdit), "Add", "Save")
+                              - btnAreaLBlCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Cancel rename"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Secondary
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Dismiss"
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =96
+                                    OnSelect: |-
+                                      =UpdateContext({locBlEdit: Blank()});
+                                      Reset(inpAreaLBlName)
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Cancel"
+                                    Visible: =!IsBlank(locBlEdit)
+                                    Width: =96
+                  - conAreaLBlConfirm:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(240, 180, 176, 1)
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(253, 237, 236, 1)
+                        FillPortions: =0
+                        Height: =112
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =10
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Visible: =!IsBlank(locBlDelete)
+                      Children:
+                        - txtAreaLBlConfirmMsg:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Color: =RGBA(31, 41, 55, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =48
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =12
+                              Text: ="Delete business line " & locBlDelete.Name & "? " & CountRows(Filter(dis_areas, elv_dis_subblid.dis_subbl = locBlDelete.dis_subbl)) & " area(s) use it."
+                        - conAreaLBlConfirmBtns:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =32
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - btnAreaLBlConfirmDel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Delete business line"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BasePaletteColor: =RGBA(196, 43, 28, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    Icon: ="Delete"
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: |-
+                                      =With(
+                                          {target: locBlDelete},
+                                          Remove(dis_subbls, target);
+                                          If(
+                                              IsEmpty(Errors(dis_subbls)),
+                                              UpdateContext(
+                                                  {
+                                                      locBlSel: If(!IsBlank(locBlSel) And locBlSel.dis_subbl = target.dis_subbl, Blank(), locBlSel),
+                                                      locBlEdit: If(!IsBlank(locBlEdit) And locBlEdit.dis_subbl = target.dis_subbl, Blank(), locBlEdit),
+                                                      locBlDelete: Blank()
+                                                  }
+                                              );
+                                              Reset(inpAreaLBlName);
+                                              Set(
+                                                  gblReceipt,
+                                                  {
+                                                      Screen: "Area",
+                                                      Action: "Business line deleted",
+                                                      Title: target.Name,
+                                                      Detail: "Business line " & target.Name & " was removed"
+                                                  }
+                                              );
+                                              Notify("Business line deleted.", NotificationType.Success),
+                                              Notify("Failed to delete business line. " & First(Errors(dis_subbls)).Message, NotificationType.Error)
+                                          )
+                                      )
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Delete"
+                              - btnAreaLBlConfirmCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Cancel delete"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Secondary
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: |-
+                                      =UpdateContext({locBlDelete: Blank()})
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Cancel"
+                  - btnAreaLBlAll:
+                      Control: ModernButton
+                      Properties:
+                        AccessibleLabel: ="Show all business lines"
+                        Align: =Align.Left
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Appearance: =If(IsBlank(locBlSel), ButtonAppearance.Secondary, ButtonAppearance.Subtle)
+                        Color: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =36
+                        Icon: ="AppsList"
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: |-
+                          =UpdateContext({locBlSel: Blank()})
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =13
+                        Text: ="All business lines"
+                  - galAreaLBl:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        AccessibleLabel: ="Business line list"
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =1
+                        Items: =Sort(dis_subbls, Name)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        TemplatePadding: =0
+                        TemplateSize: =44
+                      Children:
+                        - conAreaLBlRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =If(!IsBlank(locBlSel) And locBlSel.dis_subbl = ThisItem.dis_subbl, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =4
+                              PaddingLeft: =4
+                              PaddingRight: =8
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - btnAreaLBlPick:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Filter areas by " & ThisItem.Name
+                                    Align: =Align.Left
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Subtle
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =If(!IsBlank(locBlSel) And locBlSel.dis_subbl = ThisItem.dis_subbl, FontWeight.Bold, FontWeight.Normal)
+                                    Height: =36
+                                    Layout: =ButtonLayout.TextOnly
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: |-
+                                      =UpdateContext({locBlSel: If(!IsBlank(locBlSel) And locBlSel.dis_subbl = ThisItem.dis_subbl, Blank(), ThisItem)})
+                                    RadiusBottomLeft: =6
+                                    RadiusBottomRight: =6
+                                    RadiusTopLeft: =6
+                                    RadiusTopRight: =6
+                                    Size: =13
+                                    Text: =ThisItem.Name
+                                    Tooltip: ="Filter areas by " & ThisItem.Name
+                              - btnAreaLBlEdit:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Rename " & ThisItem.Name
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Subtle
+                                    Color: =RGBA(56, 96, 178, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    Icon: ="Edit"
+                                    Layout: =ButtonLayout.IconOnly
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =32
+                                    OnSelect: |-
+                                      =UpdateContext({locBlEdit: ThisItem, locBlDelete: Blank()});
+                                      Reset(inpAreaLBlName)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    RadiusBottomLeft: =6
+                                    RadiusBottomRight: =6
+                                    RadiusTopLeft: =6
+                                    RadiusTopRight: =6
+                                    Size: =13
+                                    Text: ="Rename " & ThisItem.Name
+                                    Tooltip: ="Rename " & ThisItem.Name
+                                    Width: =32
+                              - btnAreaLBlDel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Delete " & ThisItem.Name
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Subtle
+                                    Color: =RGBA(196, 43, 28, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    Icon: ="Delete"
+                                    Layout: =ButtonLayout.IconOnly
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =32
+                                    OnSelect: |-
+                                      =UpdateContext({locBlDelete: ThisItem})
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    RadiusBottomLeft: =6
+                                    RadiusBottomRight: =6
+                                    RadiusTopLeft: =6
+                                    RadiusTopRight: =6
+                                    Size: =13
+                                    Text: ="Delete " & ThisItem.Name
+                                    Tooltip: ="Delete " & ThisItem.Name
+                                    Width: =32
             - conAreaLMain:
                 Control: GroupContainer
                 Variant: AutoLayout
@@ -52,7 +519,8 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Manage storage areas"
+                        Subtitle: |-
+                          ="Manage storage areas" & If(!IsBlank(locBlSel), " | Business line: " & locBlSel.Name, "")
                         Width: =912
                   - conAreaLBody:
                       Control: GroupContainer
@@ -581,7 +1049,8 @@ Screens:
                                             =Reset(ddAreaLGeo);
                                             Reset(ddAreaLLoc);
                                             Reset(ddAreaLArea);
-                                            Reset(inpAreaLSearch)
+                                            Reset(inpAreaLSearch);
+                                            UpdateContext({locBlSel: Blank()})
                                           PaddingBottom: =8
                                           PaddingLeft: =8
                                           PaddingRight: =8
@@ -749,13 +1218,13 @@ Screens:
                                           Fill: =RGBA(226, 230, 239, 1)
                                           FillPortions: =0
                                           Height: =380
-                                          Items: "=Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n)"
+                                          Items: "=Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text),\n    \n    // 5. Filter berdasarkan Business Line (panel kiri)\n    IsBlank(locBlSel) Or elv_dis_subblid.dis_subbl = locBlSel.dis_subbl\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
                                           TemplatePadding: =1
                                           TemplateSize: =52
-                                          Visible: "=!IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n))"
+                                          Visible: "=!IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text),\n    \n    // 5. Filter berdasarkan Business Line (panel kiri)\n    IsBlank(locBlSel) Or elv_dis_subblid.dis_subbl = locBlSel.dis_subbl\n))"
                                         Children:
                                           - conAreaLRow:
                                               Control: GroupContainer
@@ -916,5 +1385,5 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: ="No areas match the filter."
-                                          Visible: "=IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text)\n))"
+                                          Visible: "=IsEmpty(Filter(\n    dis_areas,\n    \n    // 1. Filter berdasarkan Geounit\n    IsBlank(ddAreaLGeo.Selected) Or (location.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_geounit.dis_geounit = ddAreaLGeo.Selected.dis_geounit)),\n    \n    // 2. Filter berdasarkan Location\n    IsBlank(ddAreaLLoc.Selected) Or (location.dis_location = ddAreaLLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddAreaLLoc.Selected.dis_location)),\n    \n    // 3. Filter berdasarkan Area\n    IsBlank(ddAreaLArea.Selected) Or dis_area = ddAreaLArea.Selected.dis_area,\n    \n    // 4. Pencarian Teks (Meniru referensi yang berhasil)\n    IsBlank(inpAreaLSearch.Text) Or StartsWith(Name, inpAreaLSearch.Text),\n    \n    // 5. Filter berdasarkan Business Line (panel kiri)\n    IsBlank(locBlSel) Or elv_dis_subblid.dis_subbl = locBlSel.dis_subbl\n))"
                                           Wrap: =false
