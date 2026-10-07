@@ -588,24 +588,34 @@ Screens:
                                                 X: =24
                                                 Y: =10
                                           - DataCardValue47_ItmF:
-                                              Control: ModernCombobox
+                                              Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =Parent.DisplayName
-                                                Appearance: =Appearance.Outline
-                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(209, 213, 219, 1)
+                                                BorderThickness: =1
+                                                ChevronBackground: =RGBA(255, 255, 255, 1)
+                                                ChevronFill: =RGBA(97, 97, 97, 1)
+                                                ChevronHoverBackground: =RGBA(243, 244, 246, 1)
+                                                ChevronHoverFill: =RGBA(31, 41, 55, 1)
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["cr8a3_name"]
                                                 DisplayMode: =Parent.DisplayMode
+                                                FocusedBorderColor: =RGBA(15, 108, 189, 1)
+                                                FocusedBorderThickness: =2
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                IsSearchable: =true
-                                                ItemDisplayText: =ThisItem.name
+                                                HoverFill: =RGBA(243, 244, 246, 1)
                                                 Items: =Choices([@dis_item_v2S].dis_category_item)
-                                                RadiusBottomLeft: =8
-                                                RadiusBottomRight: =8
-                                                RadiusTopLeft: =8
-                                                RadiusTopRight: =8
+                                                PressedColor: =RGBA(31, 41, 55, 1)
+                                                PressedFill: =RGBA(235, 243, 252, 1)
+                                                SearchFields: =["cr8a3_name"]
                                                 SelectMultiple: =false
-                                                Size: =13
+                                                SelectionColor: =RGBA(31, 41, 55, 1)
+                                                SelectionFill: =RGBA(235, 243, 252, 1)
+                                                Size: =10
+                                                Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey48_ItmF.Y + DataCardKey48_ItmF.Height + 4

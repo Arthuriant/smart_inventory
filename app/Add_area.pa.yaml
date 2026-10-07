@@ -237,24 +237,34 @@ Screens:
                                                 X: =24
                                                 Y: =10
                                           - DataCardValue56_AreaF:
-                                              Control: ModernCombobox
+                                              Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =Parent.DisplayName
-                                                Appearance: =Appearance.Outline
-                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(209, 213, 219, 1)
+                                                BorderThickness: =1
+                                                ChevronBackground: =RGBA(255, 255, 255, 1)
+                                                ChevronFill: =RGBA(97, 97, 97, 1)
+                                                ChevronHoverBackground: =RGBA(243, 244, 246, 1)
+                                                ChevronHoverFill: =RGBA(31, 41, 55, 1)
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["cr8a3_elv_name_short"]
                                                 DisplayMode: =Parent.DisplayMode
+                                                FocusedBorderColor: =RGBA(15, 108, 189, 1)
+                                                FocusedBorderThickness: =2
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                IsSearchable: =true
-                                                ItemDisplayText: =ThisItem.elv_name_short
+                                                HoverFill: =RGBA(243, 244, 246, 1)
                                                 Items: =Choices([@dis_areas].elv_geounit)
-                                                RadiusBottomLeft: =8
-                                                RadiusBottomRight: =8
-                                                RadiusTopLeft: =8
-                                                RadiusTopRight: =8
+                                                PressedColor: =RGBA(31, 41, 55, 1)
+                                                PressedFill: =RGBA(235, 243, 252, 1)
+                                                SearchFields: =["cr8a3_elv_name_short"]
                                                 SelectMultiple: =false
-                                                Size: =13
+                                                SelectionColor: =RGBA(31, 41, 55, 1)
+                                                SelectionFill: =RGBA(235, 243, 252, 1)
+                                                Size: =10
+                                                Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey57_AreaF.Y + DataCardKey57_AreaF.Height + 4
@@ -315,24 +325,34 @@ Screens:
                                                 X: =24
                                                 Y: =10
                                           - DataCardValue48_AreaF:
-                                              Control: ModernCombobox
+                                              Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =Parent.DisplayName
-                                                Appearance: =Appearance.Outline
-                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(209, 213, 219, 1)
+                                                BorderThickness: =1
+                                                ChevronBackground: =RGBA(255, 255, 255, 1)
+                                                ChevronFill: =RGBA(97, 97, 97, 1)
+                                                ChevronHoverBackground: =RGBA(243, 244, 246, 1)
+                                                ChevronHoverFill: =RGBA(31, 41, 55, 1)
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["elv_name"]
                                                 DisplayMode: =Parent.DisplayMode
+                                                FocusedBorderColor: =RGBA(15, 108, 189, 1)
+                                                FocusedBorderThickness: =2
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                IsSearchable: =true
-                                                ItemDisplayText: =ThisItem.Name
+                                                HoverFill: =RGBA(243, 244, 246, 1)
                                                 Items: =Choices([@dis_areas].location)
-                                                RadiusBottomLeft: =8
-                                                RadiusBottomRight: =8
-                                                RadiusTopLeft: =8
-                                                RadiusTopRight: =8
+                                                PressedColor: =RGBA(31, 41, 55, 1)
+                                                PressedFill: =RGBA(235, 243, 252, 1)
+                                                SearchFields: =["elv_name"]
                                                 SelectMultiple: =false
-                                                Size: =13
+                                                SelectionColor: =RGBA(31, 41, 55, 1)
+                                                SelectionFill: =RGBA(235, 243, 252, 1)
+                                                Size: =10
+                                                Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey49_AreaF.Y + DataCardKey49_AreaF.Height + 4
@@ -389,24 +409,34 @@ Screens:
                                                 X: =24
                                                 Y: =10
                                           - DataCardValue57_AreaF:
-                                              Control: ModernCombobox
+                                              Control: Classic/ComboBox
                                               MetadataKey: FieldValue
                                               Properties:
-                                                AccessibleLabel: =Parent.DisplayName
-                                                Appearance: =Appearance.Outline
-                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                AccessibleLabel: =If(Parent.Required, Substitute("{0}. Required.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                                                BorderColor: =RGBA(209, 213, 219, 1)
+                                                BorderThickness: =1
+                                                ChevronBackground: =RGBA(255, 255, 255, 1)
+                                                ChevronFill: =RGBA(97, 97, 97, 1)
+                                                ChevronHoverBackground: =RGBA(243, 244, 246, 1)
+                                                ChevronHoverFill: =RGBA(31, 41, 55, 1)
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                DefaultSelectedItems: =Parent.Default
+                                                DisplayFields: =["elv_name"]
                                                 DisplayMode: =Parent.DisplayMode
+                                                FocusedBorderColor: =RGBA(15, 108, 189, 1)
+                                                FocusedBorderThickness: =2
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
-                                                IsSearchable: =true
-                                                ItemDisplayText: =ThisItem.Name
+                                                HoverFill: =RGBA(243, 244, 246, 1)
                                                 Items: =Choices([@dis_areas].elv_dis_subblid)
-                                                RadiusBottomLeft: =8
-                                                RadiusBottomRight: =8
-                                                RadiusTopLeft: =8
-                                                RadiusTopRight: =8
+                                                PressedColor: =RGBA(31, 41, 55, 1)
+                                                PressedFill: =RGBA(235, 243, 252, 1)
+                                                SearchFields: =["elv_name"]
                                                 SelectMultiple: =false
-                                                Size: =13
+                                                SelectionColor: =RGBA(31, 41, 55, 1)
+                                                SelectionFill: =RGBA(235, 243, 252, 1)
+                                                Size: =10
+                                                Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey58_AreaF.Y + DataCardKey58_AreaF.Height + 4
