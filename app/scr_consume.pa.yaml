@@ -608,11 +608,12 @@ Screens:
                                           Text: ="No stock matches the filter."
                                           Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    nfIsAdmin Or dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           Wrap: =false
-                              - conConsFooter:
+                              - conConsActBar:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
+                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =44
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -625,7 +626,7 @@ Screens:
                                     RadiusTopLeft: =0
                                     RadiusTopRight: =0
                                   Children:
-                                    - txtConsSummary:
+                                    - txtConsActSum:
                                         Control: ModernText
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Center
@@ -642,7 +643,7 @@ Screens:
                                           Size: =13
                                           Text: =Text(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0))) & " item(s) selected" & If(IsBlank(ddConsArea.Selected), " - select Area (From) first", "")
                                           Wrap: =false
-                                    - btnConsClear:
+                                    - btnConsActClear:
                                         Control: ModernButton
                                         Properties:
                                           AccessibleLabel: ="Clear all qty"
@@ -664,7 +665,7 @@ Screens:
                                           Text: ="Clear"
                                           Tooltip: ="Clear all qty"
                                           Width: =132
-                                    - btnConsSubmit:
+                                    - btnConsActSubmit:
                                         Control: ModernButton
                                         Properties:
                                           AccessibleLabel: ="Consume"
