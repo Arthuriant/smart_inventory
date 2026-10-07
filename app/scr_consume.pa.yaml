@@ -207,11 +207,10 @@ Screens:
                                                 AccessibleLabel: ="Filter geounit"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                DisplayMode: =DisplayMode.Edit
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.elv_name_long
-                                                Items: =If(nfIsAdmin, dis_geounits, Filter(dis_geounits, dis_geounit in nfMyGeoIds))
+                                                Items: =Filter(dis_geounits, dis_geounit in nfMyGeoIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: |-
@@ -269,11 +268,7 @@ Screens:
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =If(
-                                                      nfIsAdmin,
-                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddConsGeo.Selected.dis_geounit),
-                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddConsGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
-                                                  )
+                                                  =Filter(dis_locations, dis_geounit.dis_geounit = ddConsGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: =Reset(ddConsArea)
@@ -329,11 +324,7 @@ Screens:
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =If(
-                                                      nfIsAdmin,
-                                                      Filter(dis_areas, (location.dis_location = ddConsLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddConsLoc.Selected.dis_location))),
-                                                      Filter(dis_areas, (location.dis_location = ddConsLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddConsLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
-                                                  )
+                                                  =Filter(dis_areas, (location.dis_location = ddConsLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddConsLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 RadiusBottomLeft: =8
@@ -440,13 +431,13 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Available stock"
                                           Fill: =RGBA(244, 246, 250, 1)
-                                          Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    If(nfIsAdmin, true, dis_area.dis_area in nfMyAreaIds),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n)"
+                                          Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
                                           TemplatePadding: =8
                                           TemplateSize: =346
-                                          Visible: "=!IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    If(nfIsAdmin, true, dis_area.dis_area in nfMyAreaIds),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
+                                          Visible: "=!IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           WrapCount: =4
                                         Children:
                                           - conConsRow:
@@ -590,7 +581,7 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: ="No stock matches the filter."
-                                          Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    If(nfIsAdmin, true, dis_area.dis_area in nfMyAreaIds),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
+                                          Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           Wrap: =false
                               - conConsActBar:
                                   Control: GroupContainer

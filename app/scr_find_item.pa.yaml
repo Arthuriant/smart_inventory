@@ -212,11 +212,10 @@ Screens:
                                                 AccessibleLabel: ="Filter geounit"
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Appearance: =Appearance.Outline
-                                                DisplayMode: =DisplayMode.Edit
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.elv_name_long
-                                                Items: =If(nfIsAdmin, dis_geounits, Filter(dis_geounits, dis_geounit in nfMyGeoIds))
+                                                Items: =Filter(dis_geounits, dis_geounit in nfMyGeoIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: |-
@@ -274,11 +273,7 @@ Screens:
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =If(
-                                                      nfIsAdmin,
-                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit),
-                                                      Filter(dis_locations, dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
-                                                  )
+                                                  =Filter(dis_locations, dis_geounit.dis_geounit = ddFindGeo.Selected.dis_geounit, dis_location in nfMyLocIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnChange: =Reset(ddFindArea)
@@ -334,11 +329,7 @@ Screens:
                                                 Height: =36
                                                 ItemDisplayText: =ThisItem.Name
                                                 Items: |-
-                                                  =If(
-                                                      nfIsAdmin,
-                                                      Filter(dis_areas, (location.dis_location = ddFindLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location))),
-                                                      Filter(dis_areas, (location.dis_location = ddFindLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
-                                                  )
+                                                  =Filter(dis_areas, (location.dis_location = ddFindLoc.Selected.dis_location Or (IsBlank(location) And 'elv_location (cr8a3_elv_location)'.dis_location = ddFindLoc.Selected.dis_location)), dis_area in nfMyAreaIds)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 RadiusBottomLeft: =8
@@ -621,7 +612,7 @@ Screens:
                                                 // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
                                                 IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
                                                 // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign
-                                                If(nfIsAdmin, true, dis_area.dis_area in nfMyAreaIds),
+                                                dis_area.dis_area in nfMyAreaIds,
                                                 // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
                                                 IsBlank(inpFindSearch.Text) Or
                                                 StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
@@ -640,7 +631,7 @@ Screens:
                                                 // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
                                                 IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
                                                 // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign
-                                                If(nfIsAdmin, true, dis_area.dis_area in nfMyAreaIds),
+                                                dis_area.dis_area in nfMyAreaIds,
                                                 // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
                                                 IsBlank(inpFindSearch.Text) Or
                                                 StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
@@ -832,7 +823,7 @@ Screens:
                                                 // 2. Filter Area (Hanya filter berdasarkan Area yang dipilih, abaikan Geo/Loc karena sudah tersaring di dropdown)
                                                 IsBlank(ddFindArea.Selected) Or dis_area.dis_area = ddFindArea.Selected.dis_area,
                                                 // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign
-                                                If(nfIsAdmin, true, dis_area.dis_area in nfMyAreaIds),
+                                                dis_area.dis_area in nfMyAreaIds,
                                                 // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)
                                                 IsBlank(inpFindSearch.Text) Or
                                                 StartsWith(dis_item_v2.name, inpFindSearch.Text) Or
