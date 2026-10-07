@@ -195,6 +195,10 @@ Screens:
                                               If(
                                                   IsEmpty(Errors(dis_subbls)) And !IsBlank(saved),
                                                   UpdateContext({locBlSel: saved, locBlEdit: Blank(), locBlDelete: Blank()});
+                                                  // Refresh so lookups (area table, user list, form dropdowns) show the new name
+                                                  Refresh(dis_subbls);
+                                                  Refresh(dis_areas);
+                                                  Refresh(dis_users);
                                                   Reset(inpAreaLBlName);
                                                   Set(
                                                       gblReceipt,
@@ -322,6 +326,9 @@ Screens:
                                                       locBlDelete: Blank()
                                                   }
                                               );
+                                              Refresh(dis_subbls);
+                                              Refresh(dis_areas);
+                                              Refresh(dis_users);
                                               Reset(inpAreaLBlName);
                                               Set(
                                                   gblReceipt,
@@ -814,7 +821,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -869,7 +875,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -927,7 +932,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -984,7 +988,6 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical

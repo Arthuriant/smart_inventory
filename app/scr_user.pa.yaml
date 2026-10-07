@@ -466,6 +466,93 @@ Screens:
                                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                                 Width: =30
                                                 Y: =DataCardKey64_UsrL.Y
+                                    - SubBl_DataCard1_UsrL:
+                                        Control: TypedDataCard
+                                        Variant: PcfCoreComboBoxEditCard
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_SubBusinessLine"
+                                          Default: =ThisItem.'Sub Business Line'
+                                          DisplayName: ="Sub Business Line"
+                                          Required: =false
+                                          Update: =cmbUsrLSubBl.Selected
+                                          Width: =Parent.Width / 2
+                                          X: =1
+                                          Y: =1
+                                        Children:
+                                          - DataCardKey66_UsrL:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                Align: ="left"
+                                                AutoHeight: =true
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =22
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(9) * 4/3
+                                                Text: =Parent.DisplayName
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =10
+                                          - StarVisible66_UsrL:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =20
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(10.5) * 4/3
+                                                Text: ="*"
+                                                VerticalAlign: =VerticalAlign.Bottom
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKey66_UsrL.Y
+                                          - cmbUsrLSubBl:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Appearance: =Appearance.Outline
+                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Sort(dis_subbls, Name)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                SelectMultiple: =false
+                                                Size: =13
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKey66_UsrL.Y + DataCardKey66_UsrL.Height + 4
+                                          - ErrorMessage66_UsrL:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Align: ="left"
+                                                AutoHeight: =true
+                                                Color: =Color.Red
+                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
+                                                FontWeight: ="normal"
+                                                Height: =30
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                Size: =(9) * 4/3
+                                                Text: =Parent.Error
+                                                VerticalAlign: ="middle"
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =cmbUsrLSubBl.Y + cmbUsrLSubBl.Height
                                     - Assigned_area_DataCard1_UsrL:
                                         Control: TypedDataCard
                                         Variant: PcfCoreComboBoxEditCard
@@ -554,93 +641,6 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardValue64_UsrL.Y + DataCardValue64_UsrL.Height
-                                    - SubBl_DataCard1_UsrL:
-                                        Control: TypedDataCard
-                                        Variant: PcfCoreComboBoxEditCard
-                                        Properties:
-                                          BorderColor: =RGBA(0, 18, 107, 1)
-                                          DataField: ="cr8a3_SubBusinessLine"
-                                          Default: =ThisItem.'Sub Business Line'
-                                          DisplayName: ="Sub Business Line"
-                                          Required: =false
-                                          Update: =cmbUsrLSubBl.Selected
-                                          Width: =Parent.Width / 2
-                                          X: =1
-                                          Y: =1
-                                        Children:
-                                          - DataCardKey66_UsrL:
-                                              Control: ModernText
-                                              MetadataKey: FieldName
-                                              Properties:
-                                                Align: ="left"
-                                                AutoHeight: =true
-                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
-                                                FontWeight: ="normal"
-                                                Height: =22
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                Size: =(9) * 4/3
-                                                Text: =Parent.DisplayName
-                                                VerticalAlign: =VerticalAlign.Bottom
-                                                Width: =Parent.Width - 48
-                                                X: =24
-                                                Y: =10
-                                          - StarVisible66_UsrL:
-                                              Control: ModernText
-                                              MetadataKey: FieldRequired
-                                              Properties:
-                                                Align: =Align.Center
-                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
-                                                FontWeight: ="normal"
-                                                Height: =20
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                Size: =(10.5) * 4/3
-                                                Text: ="*"
-                                                VerticalAlign: =VerticalAlign.Bottom
-                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                                                Width: =30
-                                                Y: =DataCardKey66_UsrL.Y
-                                          - cmbUsrLSubBl:
-                                              Control: ModernCombobox
-                                              MetadataKey: FieldValue
-                                              Properties:
-                                                AccessibleLabel: =Parent.DisplayName
-                                                Appearance: =Appearance.Outline
-                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
-                                                DisplayMode: =Parent.DisplayMode
-                                                Font: =Font.'Segoe UI'
-                                                Height: =32
-                                                ItemDisplayText: =ThisItem.Name
-                                                Items: =Choices([@dis_users].'Sub Business Line')
-                                                RadiusBottomLeft: =8
-                                                RadiusBottomRight: =8
-                                                RadiusTopLeft: =8
-                                                RadiusTopRight: =8
-                                                SelectMultiple: =false
-                                                Size: =13
-                                                Width: =Parent.Width - 48
-                                                X: =24
-                                                Y: =DataCardKey66_UsrL.Y + DataCardKey66_UsrL.Height + 4
-                                          - ErrorMessage66_UsrL:
-                                              Control: ModernText
-                                              MetadataKey: ErrorMessage
-                                              Properties:
-                                                Align: ="left"
-                                                AutoHeight: =true
-                                                Color: =Color.Red
-                                                Font: ="'Segoe UI', 'Open Sans', sans-serif"
-                                                FontWeight: ="normal"
-                                                Height: =30
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                Size: =(9) * 4/3
-                                                Text: =Parent.Error
-                                                VerticalAlign: ="middle"
-                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
-                                                Width: =Parent.Width - 48
-                                                X: =24
-                                                Y: =cmbUsrLSubBl.Y + cmbUsrLSubBl.Height
                               - conUsrLAreasFld:
                                   Control: GroupContainer
                                   Variant: AutoLayout
