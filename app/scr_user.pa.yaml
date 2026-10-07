@@ -459,6 +459,7 @@ Screens:
                                                 ItemDisplayText: =ThisItem.Value
                                                 Items: =Choices([@dis_users].role)
                                                 SelectMultiple: =false
+                                                Size: =12
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardKey64_UsrL.Y + DataCardKey64_UsrL.Height + 4
