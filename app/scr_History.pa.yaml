@@ -649,7 +649,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =Coalesce(ThisItem.area_form.Name, "-") & " -> " & Coalesce(ThisItem.area_to.Name, "-")
+                                                      Text: =Coalesce(ThisItem.area_form.Name, "-") & " -> " & If(ThisItem.type = 'type (dis_trx_headers)'.Consume, "Used (consumed)", Coalesce(ThisItem.area_to.Name, "-"))
                                                       Wrap: =false
                                                 - txtHistNote:
                                                     Control: ModernText
