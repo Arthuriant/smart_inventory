@@ -753,7 +753,7 @@ Screens:
                                                 TabIndex: =0
                                                 TemplateFill: =RGBA(255, 255, 255, 1)
                                                 TemplatePadding: =1
-                                                TemplateSize: =48
+                                                TemplateSize: =56
                                               Children:
                                                 - conTrxFPickRow:
                                                     Control: GroupContainer
@@ -766,7 +766,7 @@ Screens:
                                                       LayoutDirection: =LayoutDirection.Horizontal
                                                       LayoutGap: =8
                                                       PaddingLeft: =12
-                                                      PaddingRight: =8
+                                                      PaddingRight: =24
                                                       RadiusBottomLeft: =0
                                                       RadiusBottomRight: =0
                                                       RadiusTopLeft: =0
@@ -830,7 +830,7 @@ Screens:
                                                                   If(ThisItem.Limited, "Stock " & Text(ThisItem.Stock - c) & " " & ThisItem.uom, "") &
                                                                   If(c > 0, If(ThisItem.Limited, " · ", "") & Text(c) & " in cart", "")
                                                               )
-                                                            Width: =150
+                                                            Width: =130
                                                             Wrap: =false
                                                       - numTrxFPickQty:
                                                           Control: ModernNumberInput
@@ -937,7 +937,7 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =340
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
@@ -957,7 +957,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 PaddingLeft: =12
-                                                PaddingRight: =8
+                                                PaddingRight: =24
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -998,7 +998,7 @@ Screens:
                                                       PaddingTop: =0
                                                       Size: =11
                                                       Text: ="QTY"
-                                                      Width: =120
+                                                      Width: =128
                                                       Wrap: =false
                                                 - txtTrxFCHAct:
                                                     Control: ModernText
@@ -1029,7 +1029,7 @@ Screens:
                                                 TabIndex: =0
                                                 TemplateFill: =RGBA(255, 255, 255, 1)
                                                 TemplatePadding: =1
-                                                TemplateSize: =48
+                                                TemplateSize: =56
                                                 Visible: =!IsEmpty(colTempDetails)
                                               Children:
                                                 - conTrxFCartLine:
@@ -1043,7 +1043,7 @@ Screens:
                                                       LayoutDirection: =LayoutDirection.Horizontal
                                                       LayoutGap: =4
                                                       PaddingLeft: =12
-                                                      PaddingRight: =8
+                                                      PaddingRight: =24
                                                       RadiusBottomLeft: =0
                                                       RadiusBottomRight: =0
                                                       RadiusTopLeft: =0
@@ -1076,11 +1076,11 @@ Screens:
                                                             Appearance: =ButtonAppearance.Secondary
                                                             Color: =RGBA(31, 41, 55, 1)
                                                             Font: =Font.'Segoe UI'
-                                                            Height: =28
+                                                            Height: =32
                                                             Icon: ="Subtract"
                                                             Layout: =ButtonLayout.IconOnly
                                                             LayoutMinHeight: =0
-                                                            LayoutMinWidth: =28
+                                                            LayoutMinWidth: =32
                                                             OnSelect: "=If(ThisItem.Qty <= 1, Remove(colTempDetails, ThisItem), Patch(colTempDetails, ThisItem, {Qty: ThisItem.Qty - 1}))"
                                                             PaddingBottom: =0
                                                             PaddingLeft: =0
@@ -1093,7 +1093,7 @@ Screens:
                                                             Size: =12
                                                             Text: ="Decrease"
                                                             Tooltip: ="Decrease"
-                                                            Width: =28
+                                                            Width: =32
                                                       - txtTrxFCLQty:
                                                           Control: ModernText
                                                           Properties:
@@ -1134,11 +1134,11 @@ Screens:
                                                                   DisplayMode.Edit
                                                               )
                                                             Font: =Font.'Segoe UI'
-                                                            Height: =28
+                                                            Height: =32
                                                             Icon: ="Add"
                                                             Layout: =ButtonLayout.IconOnly
                                                             LayoutMinHeight: =0
-                                                            LayoutMinWidth: =28
+                                                            LayoutMinWidth: =32
                                                             OnSelect: "=Patch(colTempDetails, ThisItem, {Qty: ThisItem.Qty + 1})"
                                                             PaddingBottom: =0
                                                             PaddingLeft: =0
@@ -1151,7 +1151,7 @@ Screens:
                                                             Size: =12
                                                             Text: ="Increase"
                                                             Tooltip: ="Increase"
-                                                            Width: =28
+                                                            Width: =32
                                                       - btnTrxFCLDel:
                                                           Control: ModernButton
                                                           Properties:
