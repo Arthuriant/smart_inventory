@@ -848,7 +848,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =Coalesce(ThisItem.area_form.Name, "-") & " -> " & Coalesce(ThisItem.area_to.Name, "-")
+                                                      Text: =If(ThisItem.type = 'type (dis_trx_headers)'.Receive, "Received", Coalesce(ThisItem.area_form.Name, "-")) & " -> " & If(ThisItem.type = 'type (dis_trx_headers)'.Consume, "Consumed", Coalesce(ThisItem.area_to.Name, "-"))
                                                       Wrap: =false
                                                 - txtTrxLNote:
                                                     Control: ModernText
