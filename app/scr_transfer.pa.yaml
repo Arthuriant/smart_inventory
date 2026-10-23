@@ -415,10 +415,10 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =176
                                           OnSelect: |-
-                                            =Set(gblTrxNewType, "Transfer");
-                                            Clear(colTempDetails);
-                                            NewForm(frmTrxF);
-                                            Navigate(scr_frm_Transaction)
+                                            =Set(gblTfrEdit, Blank());
+                                            Clear(colTfrCart);
+                                            Clear(colTfrOrig);
+                                            Navigate(scr_frm_transfer, ScreenTransition.None)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
@@ -668,26 +668,33 @@ Screens:
                                                 Icon: ="Edit"
                                                 Layout: =ButtonLayout.IconOnly
                                                 OnSelect: |-
-                                                  =Set(gblTrxNewType, "Transfer");
-                                                  Clear(colTempDetails);
-
-                                                  ForAll(
-                                                      Filter(dis_trx_details, header_id.dis_trx_header = ThisItem.dis_trx_header),
-                                                      Collect(
-                                                          colTempDetails,
-                                                          {
-                                                              Urutan: CountRows(colTempDetails) + 1,
-                                                              Id: ThisRecord.item.dis_item_v2,        
-                                                              name: ThisRecord.item.name,            
-                                                              description: ThisRecord.item.description, 
-                                                              Qty: ThisRecord.qty
-                                                          }
+                                                  =Set(gblTfrEdit, ThisItem);
+                                                  ClearCollect(
+                                                      colTfrOrig,
+                                                      ForAll(
+                                                          Filter(dis_trx_details, header_id.dis_trx_header = ThisItem.dis_trx_header) As d,
+                                                          {iid: d.item.dis_item_v2, Item: d.item, Qty: d.qty}
                                                       )
                                                   );
-
-                                                  // 3. Buka form dalam mode Edit dan pindah halaman
-                                                  EditForm(frmTrxF);
-                                                  Navigate(scr_frm_Transaction);
+                                                  // the cart starts with what this transfer moved; Max = stock left in From + what this transfer took out
+                                                  With(
+                                                      {fid: ThisItem.area_form.dis_area, tid: ThisItem.area_to.dis_area},
+                                                      ClearCollect(
+                                                          colTfrCart,
+                                                          ForAll(
+                                                              colTfrOrig As o,
+                                                              {
+                                                                  Item: o.Item,
+                                                                  Qty: o.Qty,
+                                                                  Rack: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = o.iid And dis_area.dis_area = tid).rack,
+                                                                  Max: Coalesce(LookUp(dis_stocks, dis_item_v2.dis_item_v2 = o.iid And dis_area.dis_area = fid).qty, 0) + o.Qty,
+                                                                  FromId: fid,
+                                                                  ToId: tid
+                                                              }
+                                                          )
+                                                      )
+                                                  );
+                                                  Navigate(scr_frm_transfer, ScreenTransition.None)
                                                 PaddingBottom: =0
                                                 PaddingLeft: =0
                                                 PaddingRight: =0

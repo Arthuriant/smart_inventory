@@ -213,3 +213,10 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   "From → To", tombol mata/edit/hapus, popup detail item (Rack at destination). Tabel detail di bawah dihapus. New &
   Edit Transfer tetap lewat scr_frm_Transaction. | status: compile OK, sync ulang = sama dengan repo | cek manual di
   Studio: tampilan baris, ikon mata -> popup, File > Save.
+- [2026-10-23, TERMINAL] app/scr_frm_transfer.pa.yaml (baru), app/scr_transfer.pa.yaml | Form Transfer baru, satu
+  layar untuk New & Edit (gblTfrEdit kosong = New). Tanpa transaction number/type; ada From, To, Note. Tabel hanya
+  stok di area From (Qty + rak tujuan opsional + Add, qty dibatasi stok tersedia), keranjang popup (ubah qty/rak,
+  hapus). Simpan: pergerakan stok dihitung sebagai +/- per (item, area); Edit membatalkan dulu efek transfer lama lalu
+  menerapkan yang baru (tidak dobel), detail lama diganti. | status: compile OK (0 error), sync = sama dengan repo |
+  cek manual di Studio: New Transfer (stok From turun, To naik), Edit (ubah qty/area) -> cek stok di Find Item,
+  File > Save.
