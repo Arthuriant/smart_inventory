@@ -208,3 +208,8 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   dari area lama, baru masuk ke area baru), update qty detail, area_to header, rak di stok. Tambah/hapus item tidak bisa.
   | status: compile OK (0 error) | cek manual di Studio: ikon mata buka popup, Edit -> nilai awal benar, ubah qty 1 item
   lalu Save -> cek stok di Find Item, File > Save.
+- [2026-10-23, TERMINAL] app/scr_transfer.pa.yaml | List Transfer disamakan dengan Receive (dibangun ulang dari
+  scr_receive, nama kontrol baru *TfrRow*/*TfrHd*/*TfrDet*): ikon transfer (tile biru, 2 panah), Nomor/Tanggal, kolom
+  "From → To", tombol mata/edit/hapus, popup detail item (Rack at destination). Tabel detail di bawah dihapus. New &
+  Edit Transfer tetap lewat scr_frm_Transaction. | status: compile OK, sync ulang = sama dengan repo | cek manual di
+  Studio: tampilan baris, ikon mata -> popup, File > Save.
