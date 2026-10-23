@@ -1,0 +1,1182 @@
+Screens:
+  scr_frm_receive:
+    Properties:
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =UpdateContext({locRcvCartOpen: false})
+    Children:
+      - conRcvFRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpRcvFSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+                  activemenu: ="Receive"
+            - conRcvFMain:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(244, 246, 250, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpRcvFTopBar:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="New Receive"
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Add items to the cart, then Receive them into the area"
+                        Width: =912
+                  - conRcvFBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(244, 246, 250, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - conRcvFListCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - conRcvFToolbar:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =56
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =12
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conRcvFAreaFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =240
+                                        Children:
+                                          - txtRcvFAreaLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Receive to area *"
+                                                Wrap: =false
+                                          - ddRcvFArea:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Receive to area"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Sort(nfMyAreas, Name)
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnChange: |-
+                                                  =// racks belong to an area: a new area clears the racks already picked in the cart
+                                                  If(!IsEmpty(colRcvCart), UpdateIf(colRcvCart, true, {Rack: Blank()}); Notify("Area changed: racks in the cart were cleared.", NotificationType.Information))
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conRcvFNoteFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =1
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtRcvFNoteLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Note"
+                                                Wrap: =false
+                                          - inpRcvFNote:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                AccessibleLabel: ="Note"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                MaxLength: =200
+                                                Placeholder: ="e.g. PO number, supplier"
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conRcvFCatFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =180
+                                        Children:
+                                          - txtRcvFCatLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Category"
+                                                Wrap: =false
+                                          - ddRcvFCat:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter category"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.code
+                                                Items: =dis_category_items
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conRcvFSearchFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =220
+                                        Children:
+                                          - txtRcvFSearchLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Search item"
+                                                Wrap: =false
+                                          - inpRcvFSearch:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                AccessibleLabel: ="Search item"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Placeholder: ="Name or BPN"
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                TriggerOutput: =TriggerOutput.Delayed
+                                                Type: =TextInputType.Search
+                                    - btnRcvFCart:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Open cart, " & CountRows(colRcvCart) & " item(s)"
+                                          AlignInContainer: =AlignInContainer.End
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Cart"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =120
+                                          OnSelect: |-
+                                            =UpdateContext({locRcvCartOpen: true})
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Cart (" & CountRows(colRcvCart) & ")"
+                                          Width: =128
+                              - txtRcvFHint:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =18
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =If(IsBlank(ddRcvFArea.Selected), "Pick the area that receives the goods first. The rack list follows that area.", "Fill Qty, optionally pick a rack, then Add. Open the cart to review and Receive.")
+                                    Wrap: =false
+                              - conRcvFHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(241, 244, 250, 1)
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =12
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - txtRcvFHName:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =3
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="ITEM"
+                                          Wrap: =false
+                                    - txtRcvFHBpn:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =2
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="BPN"
+                                          Wrap: =false
+                                    - txtRcvFHStock:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="IN THIS AREA"
+                                          Width: =170
+                                          Wrap: =false
+                                    - txtRcvFHQty:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="QTY"
+                                          Width: =96
+                                          Wrap: =false
+                                    - txtRcvFHRack:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="RACK (OPTIONAL)"
+                                          Width: =180
+                                          Wrap: =false
+                                    - txtRcvFHAdd:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: =""
+                                          Width: =88
+                                          Wrap: =false
+                              - galRcvF:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Items to receive"
+                                    Fill: =RGBA(226, 230, 239, 1)
+                                    Items: |-
+                                      =Sort(
+                                          Filter(
+                                              dis_item_v2S,
+                                              IsBlank(ddRcvFCat.Selected) Or dis_category_item.dis_category_item = ddRcvFCat.Selected.dis_category_item,
+                                              IsBlank(inpRcvFSearch.Text) Or StartsWith(name, inpRcvFSearch.Text) Or StartsWith(part_number, inpRcvFSearch.Text)
+                                          ),
+                                          name
+                                      )
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    TemplateFill: =RGBA(255, 255, 255, 1)
+                                    TemplatePadding: =1
+                                    TemplateSize: =56
+                                  Children:
+                                    - conRcvFRow:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          Height: =Parent.TemplateHeight
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =12
+                                          PaddingRight: =12
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.TemplateWidth
+                                        Children:
+                                          - txtRcvFName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =ThisItem.name
+                                                Wrap: =false
+                                          - txtRcvFBpn:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =Coalesce(ThisItem.part_number, "-")
+                                                Wrap: =false
+                                          - txtRcvFStock:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: |-
+                                                  =If(
+                                                      IsBlank(ddRcvFArea.Selected),
+                                                      "Pick an area",
+                                                      With(
+                                                          {st: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.dis_item_v2 And dis_area.dis_area = ddRcvFArea.Selected.dis_area)},
+                                                          Text(Coalesce(st.qty, 0)) & " " & Text(ThisItem.uom) & If(IsBlank(st.rack), "", " · Rack " & st.rack.Name)
+                                                      )
+                                                  )
+                                                Width: =170
+                                                Wrap: =false
+                                          - numRcvFQty:
+                                              Control: ModernNumberInput
+                                              Properties:
+                                                AccessibleLabel: ="Qty to receive " & ThisItem.name
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Min: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                ValidationState: =If(Self.Value < 0, ValidationState.Error, ValidationState.None)
+                                                Width: =96
+                                          - ddRcvFRack:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Rack for " & ThisItem.name
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =Appearance.Outline
+                                                Default: |-
+                                                  =With({rk: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.dis_item_v2 And dis_area.dis_area = ddRcvFArea.Selected.dis_area).rack}, If(IsBlank(rk), Blank(), LookUp(dis_racks, dis_rack = rk.dis_rack)))
+                                                DisplayMode: =If(IsBlank(ddRcvFArea.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Sort(Filter(dis_racks, area.dis_area = ddRcvFArea.Selected.dis_area), Name)
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Width: =180
+                                          - btnRcvFAdd:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Add " & ThisItem.name & " to cart"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                                DisplayMode: =If(IsBlank(ddRcvFArea.Selected) Or numRcvFQty.Value <= 0, DisplayMode.Disabled, DisplayMode.Edit)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                Icon: ="Add"
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnSelect: |-
+                                                  =With(
+                                                      {ex: LookUp(colRcvCart, Item.dis_item_v2 = ThisItem.dis_item_v2)},
+                                                      If(
+                                                          IsBlank(ex),
+                                                          Collect(colRcvCart, {Item: ThisItem, Qty: numRcvFQty.Value, Rack: ddRcvFRack.Selected}),
+                                                          Patch(colRcvCart, ex, {Qty: ex.Qty + numRcvFQty.Value, Rack: If(IsBlank(ddRcvFRack.Selected), ex.Rack, ddRcvFRack.Selected)})
+                                                      )
+                                                  );
+                                                  Notify(ThisItem.name & " x" & numRcvFQty.Value & " added to cart.", NotificationType.Success);
+                                                  Reset(numRcvFQty)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Text: ="Add"
+                                                Width: =88
+                              - txtRcvFEmpty:
+                                  Control: ModernText
+                                  Properties:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =20
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="No item matches the filter."
+                                    Visible: =CountRows(galRcvF.AllItems) = 0
+                                    Wrap: =false
+      - conRcvFCOverlay:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(17, 24, 39, 0.45)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =locRcvCartOpen
+            Width: =Parent.Width
+          Children:
+            - conRcvFCCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderColor: =RGBA(226, 230, 239, 1)
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.Bold
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =560
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =12
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =20
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =820
+                Children:
+                  - conRcvFCHead:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtRcvFCTitle:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(0, 18, 107, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =24
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =16
+                              Text: ="Cart · " & CountRows(colRcvCart) & " item(s) to " & Coalesce(ddRcvFArea.Selected.Name, "(no area)")
+                              Wrap: =false
+                        - btnRcvFCX:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Close cart"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =32
+                              Icon: ="Dismiss"
+                              Layout: =ButtonLayout.IconOnly
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =32
+                              OnSelect: |-
+                                =UpdateContext({locRcvCartOpen: false})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Close"
+                              Width: =32
+                  - conRcvFCTHead:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(241, 244, 250, 1)
+                        FillPortions: =0
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                      Children:
+                        - txtRcvFCHName:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =18
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: ="ITEM"
+                              Wrap: =false
+                        - txtRcvFCHQty:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =18
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: ="QTY"
+                              Width: =96
+                              Wrap: =false
+                        - txtRcvFCHRack:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =18
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: ="RACK"
+                              Width: =180
+                              Wrap: =false
+                        - txtRcvFCHAct:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =18
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: =""
+                              Width: =72
+                              Wrap: =false
+                  - galRcvFCart:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        AccessibleLabel: ="Cart"
+                        Fill: =RGBA(226, 230, 239, 1)
+                        Items: =colRcvCart
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        TemplateFill: =RGBA(255, 255, 255, 1)
+                        TemplatePadding: =1
+                        TemplateSize: =52
+                      Children:
+                        - conRcvFCRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingLeft: =12
+                              PaddingRight: =12
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - txtRcvFCName:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: =ThisItem.Item.name & "  ·  BPN " & Coalesce(ThisItem.Item.part_number, "-")
+                                    Wrap: =false
+                              - numRcvFCQty:
+                                  Control: ModernNumberInput
+                                  Properties:
+                                    AccessibleLabel: ="Qty " & ThisItem.Item.name
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =Appearance.Outline
+                                    Default: =ThisItem.Qty
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Min: =1
+                                    OnChange: |-
+                                      =If(Self.Value >= 1, Patch(colRcvCart, ThisItem, {Qty: Self.Value}))
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    ValidationState: =If(Self.Value < 1, ValidationState.Error, ValidationState.None)
+                                    Width: =96
+                              - ddRcvFCRack:
+                                  Control: ModernDropdown
+                                  Properties:
+                                    AccessibleLabel: ="Rack for " & ThisItem.Item.name
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =Appearance.Outline
+                                    Default: =ThisItem.Rack
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    ItemDisplayText: =ThisItem.Name
+                                    Items: =Sort(Filter(dis_racks, area.dis_area = ddRcvFArea.Selected.dis_area), Name)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnChange: |-
+                                      =Patch(colRcvCart, ThisItem, {Rack: Self.Selected})
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Width: =180
+                              - btnRcvFCClear:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Remove rack of " & ThisItem.Item.name
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Subtle
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    Icon: ="Dismiss"
+                                    Layout: =ButtonLayout.IconOnly
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =32
+                                    OnSelect: |-
+                                      =Patch(colRcvCart, ThisItem, {Rack: Blank()}); Reset(ddRcvFCRack)
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Remove rack"
+                                    Visible: =!IsBlank(ThisItem.Rack)
+                                    Width: =32
+                              - btnRcvFCDel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Remove " & ThisItem.Item.name & " from cart"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Subtle
+                                    Color: =RGBA(196, 43, 28, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    Icon: ="Delete"
+                                    Layout: =ButtonLayout.IconOnly
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =32
+                                    OnSelect: =Remove(colRcvCart, ThisItem)
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Remove from cart"
+                                    Width: =32
+                  - txtRcvFCEmpty:
+                      Control: ModernText
+                      Properties:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(100, 112, 130, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =20
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: ="The cart is empty. Add items from the table."
+                        Visible: =IsEmpty(colRcvCart)
+                        Wrap: =false
+                  - conRcvFCFoot:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtRcvFCSum:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              Height: =20
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =13
+                              Text: ="Total qty " & Text(Sum(colRcvCart, Qty))
+                              Wrap: =false
+                        - btnRcvFCEmptyAll:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Empty cart"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Secondary
+                              Color: =RGBA(31, 41, 55, 1)
+                              DisplayMode: =If(IsEmpty(colRcvCart), DisplayMode.Disabled, DisplayMode.Edit)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="Delete"
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =96
+                              OnSelect: =Clear(colRcvCart)
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Empty cart"
+                              Width: =128
+                        - btnRcvFCSubmit:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Receive the cart into the area"
+                              AlignInContainer: =AlignInContainer.Center
+                              BasePaletteColor: =RGBA(0, 18, 107, 1)
+                              DisplayMode: =If(IsEmpty(colRcvCart) Or IsBlank(ddRcvFArea.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="ArrowDownload"
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =120
+                              OnSelect: |-
+                                =If(
+                                    IsBlank(ddRcvFArea.Selected),
+                                    Notify("Pick the area that receives the goods.", NotificationType.Error),
+                                    IsEmpty(colRcvCart),
+                                    Notify("The cart is empty.", NotificationType.Error),
+                                    !IsEmpty(Filter(colRcvCart, Qty < 1)),
+                                    Notify("Every item needs a qty of at least 1.", NotificationType.Error),
+                                    With(
+                                        {
+                                            ar: ddRcvFArea.Selected,
+                                            aid: ddRcvFArea.Selected.dis_area,
+                                            varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
+                                        },
+                                        With(
+                                            {trxNo: Text(Now(), "dd/mm/yy/") & Text(If(IsBlank(varLastTrx), 1, Value(Right(varLastTrx, 4)) + 1), "0000")},
+                                            With(
+                                                {
+                                                    hdr: Patch(
+                                                        dis_trx_headers,
+                                                        Defaults(dis_trx_headers),
+                                                        {
+                                                            transaction_number: trxNo,
+                                                            type: 'type (dis_trx_headers)'.Receive,
+                                                            area_to: ar,
+                                                            note: Trim(inpRcvFNote.Text)
+                                                        }
+                                                    )
+                                                },
+                                                // 1 detail per cart line; stock goes up in the area and the chosen rack is stored on the stock row
+                                                ForAll(
+                                                    colRcvCart As c,
+                                                    Patch(
+                                                        dis_trx_details,
+                                                        Defaults(dis_trx_details),
+                                                        {header_id: hdr, PK: trxNo & "-" & Text(RandBetween(1000, 9999)), item: c.Item, qty: c.Qty}
+                                                    );
+                                                    With(
+                                                        {st: With({iid: c.Item.dis_item_v2}, LookUp(dis_stocks, dis_item_v2.dis_item_v2 = iid And dis_area.dis_area = aid))},
+                                                        If(
+                                                            IsBlank(st),
+                                                            Patch(
+                                                                dis_stocks,
+                                                                Defaults(dis_stocks),
+                                                                {
+                                                                    PK: "STK-" & Text(Now(), "yyMMddHHmmss") & "-" & Text(RandBetween(10, 99)),
+                                                                    dis_item_v2: c.Item,
+                                                                    dis_area: ar,
+                                                                    qty: c.Qty,
+                                                                    rack: c.Rack
+                                                                }
+                                                            ),
+                                                            Patch(dis_stocks, st, {qty: st.qty + c.Qty, rack: If(IsBlank(c.Rack), st.rack, c.Rack)})
+                                                        )
+                                                    )
+                                                );
+                                                Set(
+                                                    gblReceipt,
+                                                    {
+                                                        Screen: "Transaction",
+                                                        Action: "Received",
+                                                        Title: trxNo,
+                                                        Detail: "Type Receive | To " & ar.Name & " | " & Text(CountRows(colRcvCart)) & " item(s), qty " & Text(Sum(colRcvCart, Qty))
+                                                    }
+                                                );
+                                                Clear(colRcvCart);
+                                                Reset(inpRcvFNote);
+                                                UpdateContext({locRcvCartOpen: false});
+                                                Notify("Receive " & trxNo & " saved & stock updated!", NotificationType.Success);
+                                                Navigate(scr_receive, ScreenTransition.None)
+                                            )
+                                        )
+                                    )
+                                )
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Receive"
+                              Width: =140

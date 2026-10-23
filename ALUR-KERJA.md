@@ -179,3 +179,12 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   (semua tipe, dibuka dari Dashboard "View all") set "" = tipe bebas. Logika simpan stok tidak diubah. | status: compile OK
   (0 error, 22 warning delegasi lama) | cek manual di Studio: sidebar klik "Transaction" buka/tutup, halaman Receive/
   Transfer (baris tabel tidak hitam), New Receive -> tipe terisi & terkunci, Save kembali ke halaman asal, File > Save.
+- [2026-10-23, TERMINAL] app/scr_frm_receive.pa.yaml (baru), app/scr_receive.pa.yaml | Form New Receive baru (tidak lagi
+  pakai scr_frm_Transaction): toolbar Area tujuan (wajib, nfMyAreas) + Note + Kategori + Search + tombol "Cart (n)".
+  Tabel item (dis_item_v2S): stok & rak saat ini di area, Qty, dropdown Rak opsional (rak di area; default rak stok yang
+  ada), Add -> colRcvCart {Item, Qty, Rack} (item sama digabung). Popup keranjang: ubah Qty/Rak, hapus rak, hapus baris,
+  Empty cart, tombol Receive = 1 header Receive + detail + stok naik (stok baru dibuat bila belum ada) + rak disimpan di
+  baris stok (kosong = rak lama dipertahankan), lalu kembali ke scr_receive. Ganti area mengosongkan rak di keranjang.
+  Edit transaksi Receive lama tetap lewat scr_frm_Transaction. | status: compile OK (0 error, 22 warning delegasi lama)
+  | cek manual di Studio: dropdown rak di baris tabel & popup tidak kosong/hitam, uji Receive 2 item (1 dengan rak),
+  cek stok & rak di Find Item, File > Save.
