@@ -460,7 +460,7 @@ Screens:
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                         Children:
-                                          - txtRcvHIco:
+                                          - txtRcvHdIco:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
@@ -478,7 +478,7 @@ Screens:
                                                 Text: =""
                                                 Width: =40
                                                 Wrap: =false
-                                          - txtRcvHNo:
+                                          - txtRcvHdNo:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
@@ -496,7 +496,7 @@ Screens:
                                                 Size: =11
                                                 Text: ="NUMBER / DATE"
                                                 Wrap: =false
-                                          - txtRcvHArea:
+                                          - txtRcvHdArea:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
@@ -514,7 +514,7 @@ Screens:
                                                 Size: =11
                                                 Text: ="RECEIVED TO AREA"
                                                 Wrap: =false
-                                          - txtRcvHAct:
+                                          - txtRcvHdAct:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
@@ -579,7 +579,7 @@ Screens:
                                                 SortOrder.Descending
                                             ))
                                         Children:
-                                          - imgRcvIco:
+                                          - imgRcvRowIco:
                                               Control: Image
                                               Properties:
                                                 AccessibleLabel: ="Receive"
@@ -588,7 +588,7 @@ Screens:
                                                 Width: =40
                                                 X: =12
                                                 Y: =(Parent.TemplateHeight - 40) / 2
-                                          - txtRcvNo:
+                                          - txtRcvRowNo:
                                               Control: ModernText
                                               Properties:
                                                 Color: =RGBA(31, 41, 55, 1)
@@ -605,7 +605,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =60
                                                 Y: =(Parent.TemplateHeight - 40) / 2
-                                          - txtRcvDate:
+                                          - txtRcvRowDate:
                                               Control: ModernText
                                               Properties:
                                                 Color: =RGBA(100, 112, 130, 1)
@@ -621,7 +621,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =60
                                                 Y: =(Parent.TemplateHeight - 40) / 2 + 22
-                                          - txtRcvArea:
+                                          - txtRcvRowArea:
                                               Control: ModernText
                                               Properties:
                                                 Color: =RGBA(31, 41, 55, 1)
@@ -637,7 +637,7 @@ Screens:
                                                 Wrap: =false
                                                 X: =60 + (Parent.TemplateWidth - 24 - 40 - 72 - 24) * 2 / 5 + 8
                                                 Y: =(Parent.TemplateHeight - 20) / 2
-                                          - btnRcvEdit:
+                                          - btnRcvRowEdit:
                                               Control: ModernButton
                                               Properties:
                                                 AccessibleLabel: ="Edit " & ThisItem.transaction_number
@@ -681,7 +681,7 @@ Screens:
                                                 Width: =32
                                                 X: =Parent.TemplateWidth - 12 - 72
                                                 Y: =(Parent.TemplateHeight - 32) / 2
-                                          - btnRcvDelete:
+                                          - btnRcvRowDel:
                                               Control: ModernButton
                                               Properties:
                                                 AccessibleLabel: ="Delete " & ThisItem.transaction_number

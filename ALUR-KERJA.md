@@ -196,3 +196,7 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   conRcvDetOverlay (BPN, Item, Category, Qty, UOM, Rack sekarang) yang dibuka dengan klik 2x baris (emulasi: 2 klik
   di baris sama < 600 ms, galRcv.OnSelect). | status: compile OK (0 error) | cek manual di Studio: ikon tampil, klik 2x
   membuka popup, baris tidak hitam, File > Save.
+- [2026-10-23, TERMINAL] app/scr_receive.pa.yaml | Perbaikan tampilan list Receive (blok biru, tanggal/area/aksi hilang,
+  urutan header kacau): penyebabnya nama kontrol lama dipakai ulang setelah dipindah keluar container baris. Semua
+  kontrol header/baris diberi nama baru (txtRcvHd*, *RcvRow*). | status: compile OK, sync ulang = sama dengan repo |
+  cek manual di Studio: baris tampil benar, File > Save.
