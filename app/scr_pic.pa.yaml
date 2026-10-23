@@ -115,7 +115,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =15
-                                    Text: =If(IsBlank(locPicEdit), "Assign PIC", "Edit PIC")
+                                    Text: =If(IsBlank(locPicSel), "Assign PIC", "Edit PIC")
                                     Wrap: =false
                               - txtPicFormSub:
                                   Control: ModernText
@@ -132,7 +132,7 @@ Screens:
                                     PaddingTop: =0
                                     Size: =11
                                     Text: |-
-                                      ="One location can have a different PIC per business line (e.g. CIB: WCM and WCEF). The PIC gets the emails for that location and business line."
+                                      ="One location can have a different PIC per business line (e.g. CIB: WCM and WCEF). Type the PIC email; it gets the emails for that location and business line."
                                     Wrap: =true
                               - txtPicLocLbl:
                                   Control: ModernText
@@ -157,7 +157,7 @@ Screens:
                                     AccessibleLabel: ="PIC location"
                                     AlignInContainer: =AlignInContainer.Stretch
                                     Appearance: =Appearance.Outline
-                                    Default: =If(IsBlank(locPicEdit), Blank(), LookUp(dis_locations, dis_location = locPicEdit.location.dis_location))
+                                    Default: =If(IsBlank(locPicSel), Blank(), LookUp(dis_locations, dis_location = locPicSel.location.dis_location))
                                     Font: =Font.'Segoe UI'
                                     Height: =36
                                     ItemDisplayText: =ThisItem.Name
@@ -192,20 +192,19 @@ Screens:
                                     AccessibleLabel: ="PIC business line"
                                     AlignInContainer: =AlignInContainer.Stretch
                                     Appearance: =Appearance.Outline
-                                    Default: =If(IsBlank(locPicEdit), Blank(), LookUp(dis_subbls, dis_subbl = locPicEdit.'business line'.dis_subbl))
+                                    Default: =If(IsBlank(locPicSel), Blank(), LookUp(dis_subbls, dis_subbl = locPicSel.'business line'.dis_subbl))
                                     Font: =Font.'Segoe UI'
                                     Height: =36
                                     ItemDisplayText: =ThisItem.Name
                                     Items: =Sort(dis_subbls, Name)
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
-                                    OnChange: =Reset(ddPicUser)
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                              - txtPicUserLbl:
+                              - txtPicMailLbl:
                                   Control: ModernText
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
@@ -220,32 +219,31 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =11
-                                    Text: ="PIC (user of that business line) *"
+                                    Text: ="PIC email *"
                                     Wrap: =false
-                              - ddPicUser:
-                                  Control: ModernDropdown
+                              - inpPicEmail:
+                                  Control: ModernTextInput
                                   Properties:
-                                    AccessibleLabel: ="PIC user"
+                                    AccessibleLabel: ="PIC email"
                                     AlignInContainer: =AlignInContainer.Stretch
                                     Appearance: =Appearance.Outline
-                                    Default: =If(IsBlank(locPicEdit), Blank(), LookUp(dis_users, dis_user = locPicEdit.'pic user'.dis_user))
-                                    DisplayMode: =If(IsBlank(ddPicBl.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Default: =If(IsBlank(locPicSel), "", locPicSel.email)
                                     Font: =Font.'Segoe UI'
                                     Height: =36
-                                    ItemDisplayText: =ThisItem.Name & " (" & ThisItem.email & ")"
-                                    Items: =Sort(Filter(dis_users, 'Sub Business Line'.dis_subbl = ddPicBl.Selected.dis_subbl), Name)
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    MaxLength: =200
+                                    Placeholder: ="e.g. name@slb.com"
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
                                     Size: =13
-                              - txtPicUserHint:
+                              - txtPicMailHint:
                                   Control: ModernText
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
-                                    Color: =RGBA(100, 112, 130, 1)
+                                    Color: =RGBA(196, 43, 28, 1)
                                     Font: =Font.'Segoe UI'
                                     Height: =16
                                     LayoutMinHeight: =0
@@ -255,7 +253,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =11
-                                    Text: =If(IsBlank(ddPicBl.Selected), "Pick the business line first.", If(IsEmpty(Filter(dis_users, 'Sub Business Line'.dis_subbl = ddPicBl.Selected.dis_subbl)),"No user in this business line yet (add one in User).", ""))
+                                    Text: =If(!IsBlank(Trim(inpPicEmail.Text)) And !IsMatch(Trim(inpPicEmail.Text), Match.Email), "Not a valid email address.", "")
                                     Wrap: =false
                               - conPicFormBtns:
                                   Control: GroupContainer
@@ -277,14 +275,14 @@ Screens:
                                     - btnPicSave:
                                         Control: ModernButton
                                         Properties:
-                                          AccessibleLabel: =If(IsBlank(locPicEdit), "Assign PIC", "Save PIC")
+                                          AccessibleLabel: =If(IsBlank(locPicSel), "Assign PIC", "Save PIC")
                                           AlignInContainer: =AlignInContainer.End
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
-                                          DisplayMode: =If(IsBlank(ddPicLoc.Selected) Or IsBlank(ddPicBl.Selected) Or IsBlank(ddPicUser.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                          DisplayMode: =If(IsBlank(ddPicLoc.Selected) Or IsBlank(ddPicBl.Selected) Or !IsMatch(Trim(inpPicEmail.Text), Match.Email), DisplayMode.Disabled, DisplayMode.Edit)
                                           FillPortions: =1
                                           Font: =Font.'Segoe UI'
                                           Height: =36
-                                          Icon: =If(IsBlank(locPicEdit), "Add", "Save")
+                                          Icon: =If(IsBlank(locPicSel), "Add", "Save")
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           OnSelect: |-
@@ -292,33 +290,32 @@ Screens:
                                                 {
                                                     lc: ddPicLoc.Selected,
                                                     bl: ddPicBl.Selected,
-                                                    us: ddPicUser.Selected,
+                                                    em: Lower(Trim(inpPicEmail.Text)),
                                                     lid: ddPicLoc.Selected.dis_location,
                                                     bid: ddPicBl.Selected.dis_subbl,
-                                                    uid: ddPicUser.Selected.dis_user,
-                                                    isNew: IsBlank(locPicEdit)
+                                                    isNew: IsBlank(locPicSel)
                                                 },
                                                 If(
-                                                    // the same person twice for one location + business line is not allowed
+                                                    // the same email twice for one location + business line is not allowed
                                                     !IsEmpty(
                                                         Filter(
-                                                            Filter(dis_pics, location.dis_location = lid, 'business line'.dis_subbl = bid, 'pic user'.dis_user = uid) As p,
-                                                            isNew Or p.dis_pic <> locPicEdit.dis_pic
+                                                            Filter(dis_pics, location.dis_location = lid, 'business line'.dis_subbl = bid, email = em) As p,
+                                                            isNew Or p.dis_pic <> locPicSel.dis_pic
                                                         )
                                                     ),
-                                                    Notify(us.Name & " is already PIC of " & lc.Name & " / " & bl.Name & ".", NotificationType.Warning),
+                                                    Notify(em & " is already PIC of " & lc.Name & " / " & bl.Name & ".", NotificationType.Warning),
                                                     With(
                                                         {
                                                             saved: If(
                                                                 isNew,
-                                                                Patch(dis_pics, Defaults(dis_pics), {Name: lc.Name & " / " & bl.Name & " / " & us.Name, location: lc, 'business line': bl, 'pic user': us}),
-                                                                Patch(dis_pics, locPicEdit, {Name: lc.Name & " / " & bl.Name & " / " & us.Name, location: lc, 'business line': bl, 'pic user': us})
+                                                                Patch(dis_pics, Defaults(dis_pics), {Name: lc.Name & " / " & bl.Name & " / " & em, location: lc, 'business line': bl, email: em}),
+                                                                Patch(dis_pics, locPicSel, {Name: lc.Name & " / " & bl.Name & " / " & em, location: lc, 'business line': bl, email: em})
                                                             )
                                                         },
                                                         If(
                                                             IsEmpty(Errors(dis_pics)) And !IsBlank(saved),
-                                                            UpdateContext({locPicEdit: Blank(), locPicDelete: Blank()});
-                                                            Reset(ddPicUser);
+                                                            UpdateContext({locPicSel: Blank(), locPicDel: Blank()});
+                                                            Reset(inpPicEmail);
                                                             Notify(If(isNew, "PIC assigned.", "PIC updated."), NotificationType.Success),
                                                             Notify("Failed to save PIC. " & First(Errors(dis_pics)).Message, NotificationType.Error)
                                                         )
@@ -330,7 +327,7 @@ Screens:
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                           Size: =13
-                                          Text: =If(IsBlank(locPicEdit), "Assign", "Save")
+                                          Text: =If(IsBlank(locPicSel), "Assign", "Save")
                                     - btnPicCancel:
                                         Control: ModernButton
                                         Properties:
@@ -344,17 +341,17 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =96
                                           OnSelect: |-
-                                            =UpdateContext({locPicEdit: Blank()});
+                                            =UpdateContext({locPicSel: Blank()});
                                             Reset(ddPicLoc);
                                             Reset(ddPicBl);
-                                            Reset(ddPicUser)
+                                            Reset(inpPicEmail)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                           Size: =13
                                           Text: ="Cancel"
-                                          Visible: =!IsBlank(locPicEdit)
+                                          Visible: =!IsBlank(locPicSel)
                                           Width: =96
                               - conPicConfirm:
                                   Control: GroupContainer
@@ -379,7 +376,7 @@ Screens:
                                     RadiusBottomRight: =10
                                     RadiusTopLeft: =10
                                     RadiusTopRight: =10
-                                    Visible: =!IsBlank(locPicDelete)
+                                    Visible: =!IsBlank(locPicDel)
                                   Children:
                                     - txtPicConfirmMsg:
                                         Control: ModernText
@@ -396,7 +393,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =12
-                                          Text: ="Remove " & locPicDelete.'pic user'.Name & " as PIC of " & locPicDelete.location.Name & " / " & locPicDelete.'business line'.Name & "?"
+                                          Text: ="Remove " & locPicDel.email & " as PIC of " & locPicDel.location.Name & " / " & locPicDel.'business line'.Name & "?"
                                           Wrap: =true
                                     - conPicConfirmBtns:
                                         Control: GroupContainer
@@ -429,14 +426,14 @@ Screens:
                                                 LayoutMinWidth: =0
                                                 OnSelect: |-
                                                   =With(
-                                                      {target: locPicDelete},
+                                                      {target: locPicDel},
                                                       Remove(dis_pics, target);
                                                       If(
                                                           IsEmpty(Errors(dis_pics)),
                                                           UpdateContext(
                                                               {
-                                                                  locPicEdit: If(!IsBlank(locPicEdit) And locPicEdit.dis_pic = target.dis_pic, Blank(), locPicEdit),
-                                                                  locPicDelete: Blank()
+                                                                  locPicSel: If(!IsBlank(locPicSel) And locPicSel.dis_pic = target.dis_pic, Blank(), locPicSel),
+                                                                  locPicDel: Blank()
                                                               }
                                                           );
                                                           Notify("PIC removed.", NotificationType.Success),
@@ -462,7 +459,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnSelect: |-
-                                                  =UpdateContext({locPicDelete: Blank()})
+                                                  =UpdateContext({locPicDel: Blank()})
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -691,24 +688,6 @@ Screens:
                                           Size: =11
                                           Text: ="BUSINESS LINE"
                                           Wrap: =false
-                                    - txtPicHUser:
-                                        Control: ModernText
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.Center
-                                          Color: =RGBA(100, 112, 130, 1)
-                                          FillPortions: =3
-                                          Font: =Font.'Segoe UI'
-                                          FontWeight: =FontWeight.Semibold
-                                          Height: =18
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =11
-                                          Text: ="PIC"
-                                          Wrap: =false
                                     - txtPicHMail:
                                         Control: ModernText
                                         Properties:
@@ -725,7 +704,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =11
-                                          Text: ="EMAIL"
+                                          Text: ="PIC EMAIL"
                                           Wrap: =false
                                     - txtPicHAct:
                                         Control: ModernText
@@ -762,7 +741,7 @@ Screens:
                                       )
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
-                                    TemplateFill: =If(!IsBlank(locPicEdit) And locPicEdit.dis_pic = ThisItem.dis_pic, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                    TemplateFill: =If(!IsBlank(locPicSel) And locPicSel.dis_pic = ThisItem.dis_pic, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
                                     TemplatePadding: =1
                                     TemplateSize: =48
                                   Children:
@@ -821,28 +800,11 @@ Screens:
                                                 Size: =13
                                                 Text: =Coalesce(ThisItem.'business line'.Name, "-")
                                                 Wrap: =false
-                                          - txtPicUser:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(31, 41, 55, 1)
-                                                FillPortions: =3
-                                                Font: =Font.'Segoe UI'
-                                                Height: =20
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =13
-                                                Text: =Coalesce(ThisItem.'pic user'.Name, "(user removed)")
-                                                Wrap: =false
                                           - txtPicMail:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
+                                                Color: =RGBA(31, 41, 55, 1)
                                                 FillPortions: =4
                                                 Font: =Font.'Segoe UI'
                                                 Height: =20
@@ -853,7 +815,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =13
-                                                Text: =Coalesce(ThisItem.'pic user'.email, "-")
+                                                Text: =Coalesce(ThisItem.email, "-")
                                                 Wrap: =false
                                           - btnPicEdit:
                                               Control: ModernButton
@@ -869,10 +831,10 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =32
                                                 OnSelect: |-
-                                                  =UpdateContext({locPicEdit: ThisItem, locPicDelete: Blank()});
+                                                  =UpdateContext({locPicSel: ThisItem, locPicDel: Blank()});
                                                   Reset(ddPicLoc);
                                                   Reset(ddPicBl);
-                                                  Reset(ddPicUser)
+                                                  Reset(inpPicEmail)
                                                 PaddingBottom: =0
                                                 PaddingLeft: =0
                                                 PaddingRight: =0
@@ -898,7 +860,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =32
                                                 OnSelect: |-
-                                                  =UpdateContext({locPicDelete: ThisItem})
+                                                  =UpdateContext({locPicDel: ThisItem})
                                                 PaddingBottom: =0
                                                 PaddingLeft: =0
                                                 PaddingRight: =0

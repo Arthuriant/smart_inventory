@@ -1357,7 +1357,7 @@ Screens:
                                                                 lid: Coalesce(ThisItem.location, ThisItem.'elv_location (cr8a3_elv_location)').dis_location,
                                                                 bid: ThisItem.elv_dis_subblid.dis_subbl
                                                             },
-                                                            Coalesce(Concat(Filter(dis_pics, location.dis_location = lid, 'business line'.dis_subbl = bid), 'pic user'.Name, ", "), "-")
+                                                            Coalesce(Concat(Filter(dis_pics, location.dis_location = lid, 'business line'.dis_subbl = bid), email, ", "), "-")
                                                         )
                                                       Wrap: =false
                                                 - txtAreaLGeo:

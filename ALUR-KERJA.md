@@ -232,3 +232,8 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   itu), list + filter + edit/hapus; 1 kombinasi boleh >1 PIC, user sama tidak dobel. Area: tombol "Assign PIC" +
   kolom PIC (PIC lokasi+BL area tsb). Untuk email nanti. | status: compile OK (0 error), sync = sama dengan repo |
   cek manual: assign PIC CIB/WCM, lihat kolom PIC di Area, File > Save.
+- [2026-10-23, TERMINAL] Dataverse + app/scr_pic.pa.yaml, app/Area.pa.yaml | PIC pakai email manual: kolom baru
+  cr8a3_email (teks, format Email), lookup 'pic user' dihapus (tabel masih kosong). Form: Location (dis_locations) ->
+  Business line -> PIC email (cek format, tidak boleh dobel per lokasi+BL). List & kolom PIC di Area menampilkan
+  email. Setelah ubah skema: data source dis_pics di-Remove + Add ulang di Studio, dan variabel konteks diganti nama
+  (locPicSel/locPicDel) karena tipe lama nyangkut. | status: compile OK (0 error) | cek manual: assign email, File > Save.
