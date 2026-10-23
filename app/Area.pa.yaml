@@ -1061,6 +1061,27 @@ Screens:
                                           RadiusTopRight: =8
                                           Tooltip: ="Reset filter"
                                           Width: =36
+                                    - btnAreaLPic:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Assign PIC per location and business line"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Appearance: =ButtonAppearance.Secondary
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Mail"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =124
+                                          OnSelect: |-
+                                            =Navigate(scr_pic, ScreenTransition.None)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Assign PIC"
+                                          Width: =124
                                     - btnAreaLAdd:
                                         Control: ModernButton
                                         Properties:
@@ -1173,6 +1194,24 @@ Screens:
                                                 PaddingTop: =0
                                                 Size: =11
                                                 Text: ="BUSINESS LINE"
+                                                Wrap: =false
+                                          - txtAreaLHPic:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="PIC"
                                                 Wrap: =false
                                           - txtAreaLHGeo:
                                               Control: ModernText
@@ -1296,6 +1335,30 @@ Screens:
                                                       PaddingTop: =0
                                                       Size: =13
                                                       Text: =ThisItem.elv_dis_subblid.Name
+                                                      Wrap: =false
+                                                - txtAreaLPic:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: |-
+                                                        =With(
+                                                            {
+                                                                lid: Coalesce(ThisItem.location, ThisItem.'elv_location (cr8a3_elv_location)').dis_location,
+                                                                bid: ThisItem.elv_dis_subblid.dis_subbl
+                                                            },
+                                                            Coalesce(Concat(Filter(dis_pics, location.dis_location = lid, 'business line'.dis_subbl = bid), 'pic user'.Name, ", "), "-")
+                                                        )
                                                       Wrap: =false
                                                 - txtAreaLGeo:
                                                     Control: ModernText

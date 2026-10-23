@@ -225,3 +225,10 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   teks "BPN x · SPN y" di kartu/keranjang/picker. Kotak search sekarang juga mencari SPN (placeholder "..., BPN or
   SPN"). Tidak ada kontrol baru. | status: compile OK (0 error) | cek manual: tabel & kartu menampilkan SPN, cari pakai
   SPN, File > Save.
+- [2026-10-23, TERMINAL] Dataverse + app/scr_pic.pa.yaml (baru), app/Area.pa.yaml, app/App.pa.yaml | PIC per
+  Lokasi + Business Line. Tabel baru cr8a3_dis_pic (Power Fx dis_pics: Name, location -> dis_locations (Cascade
+  delete), 'business line' -> dis_subbls (RemoveLink), 'pic user' -> dis_users (RemoveLink)) di solution Cr25417;
+  data source ditambah user di Studio. Halaman PIC (admin, menu setelah Area): form Location/BL/PIC (user dari BL
+  itu), list + filter + edit/hapus; 1 kombinasi boleh >1 PIC, user sama tidak dobel. Area: tombol "Assign PIC" +
+  kolom PIC (PIC lokasi+BL area tsb). Untuk email nanti. | status: compile OK (0 error), sync = sama dengan repo |
+  cek manual: assign PIC CIB/WCM, lihat kolom PIC di Area, File > Save.

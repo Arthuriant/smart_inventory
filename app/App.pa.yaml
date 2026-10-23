@@ -59,6 +59,12 @@ App:
               NavigateScreen: Area
           },
           {
+              TextValue: "PIC",
+              AdminOnly: true,
+              Icon: "Mail",
+              NavigateScreen: scr_pic
+          },
+          {
               TextValue: "Rack",
               AdminOnly: true,
               Icon: "Library",

@@ -1,0 +1,930 @@
+Screens:
+  scr_pic:
+    Properties:
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - conPicRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpPicSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+                  activemenu: ="PIC"
+            - conPicMain:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(244, 246, 250, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpPicTopBar:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="PIC"
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Person in charge per location and business line (email recipients)"
+                        Width: =912
+                  - conPicBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(244, 246, 250, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - conPicFormCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =6
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =300
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =300
+                            Children:
+                              - txtPicFormTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: =If(IsBlank(locPicEdit), "Assign PIC", "Edit PIC")
+                                    Wrap: =false
+                              - txtPicFormSub:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =48
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: |-
+                                      ="One location can have a different PIC per business line (e.g. CIB: WCM and WCEF). The PIC gets the emails for that location and business line."
+                                    Wrap: =true
+                              - txtPicLocLbl:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =16
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="Location *"
+                                    Wrap: =false
+                              - ddPicLoc:
+                                  Control: ModernDropdown
+                                  Properties:
+                                    AccessibleLabel: ="PIC location"
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    Default: =If(IsBlank(locPicEdit), Blank(), LookUp(dis_locations, dis_location = locPicEdit.location.dis_location))
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    ItemDisplayText: =ThisItem.Name
+                                    Items: =Sort(dis_locations, Name)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                              - txtPicBlLbl:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =16
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="Business line *"
+                                    Wrap: =false
+                              - ddPicBl:
+                                  Control: ModernDropdown
+                                  Properties:
+                                    AccessibleLabel: ="PIC business line"
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    Default: =If(IsBlank(locPicEdit), Blank(), LookUp(dis_subbls, dis_subbl = locPicEdit.'business line'.dis_subbl))
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    ItemDisplayText: =ThisItem.Name
+                                    Items: =Sort(dis_subbls, Name)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnChange: =Reset(ddPicUser)
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                              - txtPicUserLbl:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =16
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="PIC (user of that business line) *"
+                                    Wrap: =false
+                              - ddPicUser:
+                                  Control: ModernDropdown
+                                  Properties:
+                                    AccessibleLabel: ="PIC user"
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    Default: =If(IsBlank(locPicEdit), Blank(), LookUp(dis_users, dis_user = locPicEdit.'pic user'.dis_user))
+                                    DisplayMode: =If(IsBlank(ddPicBl.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    ItemDisplayText: =ThisItem.Name & " (" & ThisItem.email & ")"
+                                    Items: =Sort(Filter(dis_users, 'Sub Business Line'.dis_subbl = ddPicBl.Selected.dis_subbl), Name)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                              - txtPicUserHint:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =16
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: =If(IsBlank(ddPicBl.Selected), "Pick the business line first.", If(IsEmpty(Filter(dis_users, 'Sub Business Line'.dis_subbl = ddPicBl.Selected.dis_subbl)),"No user in this business line yet (add one in User).", ""))
+                                    Wrap: =false
+                              - conPicFormBtns:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =44
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - btnPicSave:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: =If(IsBlank(locPicEdit), "Assign PIC", "Save PIC")
+                                          AlignInContainer: =AlignInContainer.End
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          DisplayMode: =If(IsBlank(ddPicLoc.Selected) Or IsBlank(ddPicBl.Selected) Or IsBlank(ddPicUser.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: =If(IsBlank(locPicEdit), "Add", "Save")
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =With(
+                                                {
+                                                    lc: ddPicLoc.Selected,
+                                                    bl: ddPicBl.Selected,
+                                                    us: ddPicUser.Selected,
+                                                    lid: ddPicLoc.Selected.dis_location,
+                                                    bid: ddPicBl.Selected.dis_subbl,
+                                                    uid: ddPicUser.Selected.dis_user,
+                                                    isNew: IsBlank(locPicEdit)
+                                                },
+                                                If(
+                                                    // the same person twice for one location + business line is not allowed
+                                                    !IsEmpty(
+                                                        Filter(
+                                                            Filter(dis_pics, location.dis_location = lid, 'business line'.dis_subbl = bid, 'pic user'.dis_user = uid) As p,
+                                                            isNew Or p.dis_pic <> locPicEdit.dis_pic
+                                                        )
+                                                    ),
+                                                    Notify(us.Name & " is already PIC of " & lc.Name & " / " & bl.Name & ".", NotificationType.Warning),
+                                                    With(
+                                                        {
+                                                            saved: If(
+                                                                isNew,
+                                                                Patch(dis_pics, Defaults(dis_pics), {Name: lc.Name & " / " & bl.Name & " / " & us.Name, location: lc, 'business line': bl, 'pic user': us}),
+                                                                Patch(dis_pics, locPicEdit, {Name: lc.Name & " / " & bl.Name & " / " & us.Name, location: lc, 'business line': bl, 'pic user': us})
+                                                            )
+                                                        },
+                                                        If(
+                                                            IsEmpty(Errors(dis_pics)) And !IsBlank(saved),
+                                                            UpdateContext({locPicEdit: Blank(), locPicDelete: Blank()});
+                                                            Reset(ddPicUser);
+                                                            Notify(If(isNew, "PIC assigned.", "PIC updated."), NotificationType.Success),
+                                                            Notify("Failed to save PIC. " & First(Errors(dis_pics)).Message, NotificationType.Error)
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: =If(IsBlank(locPicEdit), "Assign", "Save")
+                                    - btnPicCancel:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Cancel edit"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Appearance: =ButtonAppearance.Secondary
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Dismiss"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =96
+                                          OnSelect: |-
+                                            =UpdateContext({locPicEdit: Blank()});
+                                            Reset(ddPicLoc);
+                                            Reset(ddPicBl);
+                                            Reset(ddPicUser)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Cancel"
+                                          Visible: =!IsBlank(locPicEdit)
+                                          Width: =96
+                              - conPicConfirm:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderColor: =RGBA(240, 180, 176, 1)
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(253, 237, 236, 1)
+                                    FillPortions: =0
+                                    Height: =112
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =10
+                                    PaddingLeft: =12
+                                    PaddingRight: =12
+                                    PaddingTop: =10
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Visible: =!IsBlank(locPicDelete)
+                                  Children:
+                                    - txtPicConfirmMsg:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =48
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: ="Remove " & locPicDelete.'pic user'.Name & " as PIC of " & locPicDelete.location.Name & " / " & locPicDelete.'business line'.Name & "?"
+                                          Wrap: =true
+                                    - conPicConfirmBtns:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =32
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - btnPicConfirmDel:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Remove PIC"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                BasePaletteColor: =RGBA(196, 43, 28, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                Icon: ="Delete"
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnSelect: |-
+                                                  =With(
+                                                      {target: locPicDelete},
+                                                      Remove(dis_pics, target);
+                                                      If(
+                                                          IsEmpty(Errors(dis_pics)),
+                                                          UpdateContext(
+                                                              {
+                                                                  locPicEdit: If(!IsBlank(locPicEdit) And locPicEdit.dis_pic = target.dis_pic, Blank(), locPicEdit),
+                                                                  locPicDelete: Blank()
+                                                              }
+                                                          );
+                                                          Notify("PIC removed.", NotificationType.Success),
+                                                          Notify("Failed to remove PIC. " & First(Errors(dis_pics)).Message, NotificationType.Error)
+                                                      )
+                                                  )
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Text: ="Remove"
+                                          - btnPicConfirmCancel:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Cancel remove"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =ButtonAppearance.Secondary
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnSelect: |-
+                                                  =UpdateContext({locPicDelete: Blank()})
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Text: ="Cancel"
+                        - conPicListCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - conPicToolbar:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =60
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =12
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conPicFltLocFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =1
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtPicFltLocLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Location"
+                                                Wrap: =false
+                                          - ddPicFltLoc:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter PIC by location"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Sort(dis_locations, Name)
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conPicFltBlFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =1
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtPicFltBlLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Business line"
+                                                Wrap: =false
+                                          - ddPicFltBl:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter PIC by business line"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Sort(dis_subbls, Name)
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - btnPicReset:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Reset filters"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Appearance: =ButtonAppearance.Subtle
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="ArrowReset"
+                                          Layout: =ButtonLayout.IconOnly
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =36
+                                          OnSelect: |-
+                                            =Reset(ddPicFltLoc);
+                                            Reset(ddPicFltBl)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Reset filters"
+                                          Width: =36
+                              - conPicHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(241, 244, 250, 1)
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =12
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - txtPicHLoc:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =2
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="LOCATION"
+                                          Wrap: =false
+                                    - txtPicHBl:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =2
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="BUSINESS LINE"
+                                          Wrap: =false
+                                    - txtPicHUser:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =3
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="PIC"
+                                          Wrap: =false
+                                    - txtPicHMail:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =4
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="EMAIL"
+                                          Wrap: =false
+                                    - txtPicHAct:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="ACTIONS"
+                                          Width: =72
+                                          Wrap: =false
+                              - galPic:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="PIC list"
+                                    Fill: =RGBA(226, 230, 239, 1)
+                                    Items: |-
+                                      =Sort(
+                                          Filter(
+                                              dis_pics,
+                                              IsBlank(ddPicFltLoc.Selected) Or location.dis_location = ddPicFltLoc.Selected.dis_location,
+                                              IsBlank(ddPicFltBl.Selected) Or 'business line'.dis_subbl = ddPicFltBl.Selected.dis_subbl
+                                          ),
+                                          Name
+                                      )
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    TemplateFill: =If(!IsBlank(locPicEdit) And locPicEdit.dis_pic = ThisItem.dis_pic, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                    TemplatePadding: =1
+                                    TemplateSize: =48
+                                  Children:
+                                    - conPicRow:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          Height: =Parent.TemplateHeight
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =12
+                                          PaddingRight: =12
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.TemplateWidth
+                                        Children:
+                                          - txtPicLoc:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =Coalesce(ThisItem.location.Name, "-")
+                                                Wrap: =false
+                                          - txtPicBl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =Coalesce(ThisItem.'business line'.Name, "-")
+                                                Wrap: =false
+                                          - txtPicUser:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =Coalesce(ThisItem.'pic user'.Name, "(user removed)")
+                                                Wrap: =false
+                                          - txtPicMail:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =4
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =Coalesce(ThisItem.'pic user'.email, "-")
+                                                Wrap: =false
+                                          - btnPicEdit:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Edit PIC " & ThisItem.Name
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =ButtonAppearance.Subtle
+                                                Color: =RGBA(56, 96, 178, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                Icon: ="Edit"
+                                                Layout: =ButtonLayout.IconOnly
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =32
+                                                OnSelect: |-
+                                                  =UpdateContext({locPicEdit: ThisItem, locPicDelete: Blank()});
+                                                  Reset(ddPicLoc);
+                                                  Reset(ddPicBl);
+                                                  Reset(ddPicUser)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                RadiusBottomLeft: =6
+                                                RadiusBottomRight: =6
+                                                RadiusTopLeft: =6
+                                                RadiusTopRight: =6
+                                                Size: =13
+                                                Text: ="Edit PIC " & ThisItem.Name
+                                                Width: =32
+                                          - btnPicDel:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Remove PIC " & ThisItem.Name
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =ButtonAppearance.Subtle
+                                                Color: =RGBA(196, 43, 28, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                Icon: ="Delete"
+                                                Layout: =ButtonLayout.IconOnly
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =32
+                                                OnSelect: |-
+                                                  =UpdateContext({locPicDelete: ThisItem})
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                RadiusBottomLeft: =6
+                                                RadiusBottomRight: =6
+                                                RadiusTopLeft: =6
+                                                RadiusTopRight: =6
+                                                Size: =13
+                                                Text: ="Remove PIC " & ThisItem.Name
+                                                Width: =32
+                              - txtPicEmpty:
+                                  Control: ModernText
+                                  Properties:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =40
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="No PIC assigned yet. Use the form on the left."
+                                    Visible: =CountRows(galPic.AllItems) = 0
+                                    Wrap: =false
