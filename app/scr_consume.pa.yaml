@@ -213,6 +213,68 @@ Screens:
                                                 Items: =Sort(nfMyAreas, Name)
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
+                                                OnChange: =Reset(ddConsRack)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conConsRackFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =220
+                                        Children:
+                                          - txtConsRackLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Rack"
+                                                Wrap: =false
+                                          - ddConsRack:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter rack"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name & " (" & ThisItem.area.Name & ")"
+                                                Items: |-
+                                                  =Sort(
+                                                      Filter(
+                                                          dis_racks,
+                                                          area.dis_area in nfMyAreaIds,
+                                                          IsBlank(ddConsArea.Selected) Or area.dis_area = ddConsArea.Selected.dis_area
+                                                      ),
+                                                      Name
+                                                  )
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -283,6 +345,7 @@ Screens:
                                           OnSelect: |-
                                             =Reset(ddConsCat);
                                             Reset(ddConsArea);
+                                            Reset(ddConsRack);
                                             Reset(inpConsSearch)
                                           PaddingBottom: =8
                                           PaddingLeft: =8
@@ -315,13 +378,13 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Available stock"
                                           Fill: =RGBA(244, 246, 250, 1)
-                                          Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n)"
+                                          Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
                                           TemplatePadding: =8
-                                          TemplateSize: =346
-                                          Visible: "=!IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
+                                          TemplateSize: =376
+                                          Visible: "=!IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           WrapCount: =4
                                         Children:
                                           - conConsRow:
@@ -410,8 +473,23 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =11
-                                                      Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · " & ThisItem.dis_area.Name & If(IsBlank(ThisItem.rack), "", " · Rack " & ThisItem.rack.Name)
+                                                      Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · Area " & ThisItem.dis_area.Name
                                                       Wrap: =false
+                                                - bdgConsRack:
+                                                    Control: Badge
+                                                    Properties:
+                                                      AccessibleLabel: =If(IsBlank(ThisItem.rack), "No rack assigned", "Stored in rack " & ThisItem.rack.Name)
+                                                      AlignInContainer: =AlignInContainer.Start
+                                                      Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                      Content: =If(IsBlank(ThisItem.rack), "No rack", "Rack " & ThisItem.rack.Name)
+                                                      FontSize: =12
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =24
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      Shape: ='BadgeCanvas.Shape'.Rounded
+                                                      ThemeColor: =If(IsBlank(ThisItem.rack), 'BadgeCanvas.ThemeColor'.Subtle, 'BadgeCanvas.ThemeColor'.Brand)
+                                                      Width: =180
                                                 - numConsQty:
                                                     Control: ModernNumberInput
                                                     Properties:
@@ -465,7 +543,7 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: ="No stock matches the filter."
-                                          Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
+                                          Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text)\n))"
                                           Wrap: =false
                               - conConsActBar:
                                   Control: GroupContainer

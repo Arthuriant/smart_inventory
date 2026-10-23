@@ -166,3 +166,8 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   22 warning delegasi: 19 lama di Area + 3 di btnRackSave, aman karena tabel rak kecil) | cek manual di Studio:
   gejala binding di galRack/galFind/galTrxFCartList, uji tambah rak -> set rak di Find Item -> cek di Consume/Transaksi,
   File > Save. Non-admin perlu hak Read ke dis_racks bila memakai security role khusus.
+- [2026-10-23, TERMINAL] app/scr_consume.pa.yaml | Kartu Consume: badge rak terpisah `bdgConsRack` ("Rack X" biru /
+  "No rack" abu), teks area jadi "BPN .. · Area ..", kartu 346 -> 376. Filter baru `ddConsRack` (rak di area BL user,
+  ikut ddConsArea; ganti area atau Reset mengosongkan rak), dipakai di Items/Visible galCons dan txtConsEmpty. Logika
+  Consume tidak diubah. | status: compile OK (0 error, 22 warning delegasi lama) | cek manual di Studio: badge rak di
+  kartu tidak hitam, dropdown Rack terisi, File > Save.
