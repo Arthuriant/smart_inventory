@@ -1,0 +1,881 @@
+Screens:
+  scr_rack:
+    Properties:
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - conRackRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpRackSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+                  activemenu: ="Rack"
+            - conRackMain:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(244, 246, 250, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpRackTopBar:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Rack"
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Storage racks / shelves inside your business line's areas"
+                        Width: =912
+                  - conRackBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(244, 246, 250, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - conRackFormCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =6
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =300
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =300
+                            Children:
+                              - txtRackFormTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: =If(IsBlank(locRackEdit), "New rack", "Edit rack " & locRackEdit.Name)
+                                    Wrap: =false
+                              - txtRackFormSub:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="A rack is an optional spot inside an area. Assign it to stock in Find Item > Detail."
+                              - txtRackAreaLbl:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =16
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="Area *"
+                                    Wrap: =false
+                              - ddRackArea:
+                                  Control: ModernDropdown
+                                  Properties:
+                                    AccessibleLabel: ="Rack area"
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    Default: =If(IsBlank(locRackEdit), Blank(), LookUp(nfMyAreas, dis_area = locRackEdit.area.dis_area))
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    ItemDisplayText: =ThisItem.Name
+                                    Items: =Sort(nfMyAreas, Name)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                              - txtRackNameLbl:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =16
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="Rack name *"
+                                    Wrap: =false
+                              - inpRackName:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    AccessibleLabel: ="Rack name"
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    Default: =If(IsBlank(locRackEdit), "", locRackEdit.Name)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    MaxLength: =100
+                                    Placeholder: ="e.g. Rack A-01"
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                              - txtRackNoteLbl:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =16
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="Note (optional)"
+                                    Wrap: =false
+                              - inpRackNote:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    AccessibleLabel: ="Rack note"
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    Default: =If(IsBlank(locRackEdit), "", locRackEdit.note)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    MaxLength: =200
+                                    Placeholder: ="e.g. 2nd shelf, left of the door"
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                              - conRackFormBtns:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =44
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - btnRackSave:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: =If(IsBlank(locRackEdit), "Add rack", "Save rack")
+                                          AlignInContainer: =AlignInContainer.End
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          DisplayMode: =If(IsBlank(Trim(inpRackName.Text)) Or IsBlank(ddRackArea.Selected), DisplayMode.Disabled, DisplayMode.Edit)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: =If(IsBlank(locRackEdit), "Add", "Save")
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =With(
+                                                {nm: Trim(inpRackName.Text), nt: Trim(inpRackNote.Text), ar: ddRackArea.Selected, aid: ddRackArea.Selected.dis_area, isNew: IsBlank(locRackEdit)},
+                                                If(
+                                                    // Same name twice in one area is not allowed
+                                                    !IsEmpty(Filter(Filter(dis_racks, area.dis_area = aid) As r, Lower(r.Name) = Lower(nm) And (isNew Or r.dis_rack <> locRackEdit.dis_rack))),
+                                                    Notify("Rack " & nm & " already exists in area " & ar.Name & ".", NotificationType.Warning),
+                                                    With(
+                                                        {saved: If(isNew, Patch(dis_racks, Defaults(dis_racks), {Name: nm, note: nt, area: ar}), Patch(dis_racks, locRackEdit, {Name: nm, note: nt, area: ar}))},
+                                                        If(
+                                                            IsEmpty(Errors(dis_racks)) And !IsBlank(saved),
+                                                            UpdateContext({locRackEdit: Blank(), locRackDelete: Blank()});
+                                                            Reset(inpRackName);
+                                                            Reset(inpRackNote);
+                                                            Notify(If(isNew, "Rack added.", "Rack updated."), NotificationType.Success),
+                                                            Notify("Failed to save rack. " & First(Errors(dis_racks)).Message, NotificationType.Error)
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: =If(IsBlank(locRackEdit), "Add", "Save")
+                                    - btnRackCancel:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Cancel edit"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Appearance: =ButtonAppearance.Secondary
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Dismiss"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =96
+                                          OnSelect: |-
+                                            =UpdateContext({locRackEdit: Blank()});
+                                            Reset(inpRackName);
+                                            Reset(inpRackNote)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Cancel"
+                                          Visible: =!IsBlank(locRackEdit)
+                                          Width: =96
+                              - conRackConfirm:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderColor: =RGBA(240, 180, 176, 1)
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(253, 237, 236, 1)
+                                    FillPortions: =0
+                                    Height: =112
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =10
+                                    PaddingLeft: =12
+                                    PaddingRight: =12
+                                    PaddingTop: =10
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Visible: =!IsBlank(locRackDelete)
+                                  Children:
+                                    - txtRackConfirmMsg:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =48
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: ="Delete rack " & locRackDelete.Name & "? " & CountRows(Filter(dis_stocks, rack.dis_rack = locRackDelete.dis_rack)) & " stock row(s) will lose their rack."
+                                    - conRackConfirmBtns:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =32
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - btnRackConfirmDel:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Delete rack"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                BasePaletteColor: =RGBA(196, 43, 28, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                Icon: ="Delete"
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnSelect: |-
+                                                  =With(
+                                                      {target: locRackDelete},
+                                                      Remove(dis_racks, target);
+                                                      If(
+                                                          IsEmpty(Errors(dis_racks)),
+                                                          UpdateContext(
+                                                              {
+                                                                  locRackEdit: If(!IsBlank(locRackEdit) And locRackEdit.dis_rack = target.dis_rack, Blank(), locRackEdit),
+                                                                  locRackDelete: Blank()
+                                                              }
+                                                          );
+                                                          Refresh(dis_stocks);
+                                                          Notify("Rack deleted.", NotificationType.Success),
+                                                          Notify("Failed to delete rack. " & First(Errors(dis_racks)).Message, NotificationType.Error)
+                                                      )
+                                                  )
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Text: ="Delete"
+                                          - btnRackConfirmCancel:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Cancel delete"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =ButtonAppearance.Secondary
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnSelect: |-
+                                                  =UpdateContext({locRackDelete: Blank()})
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Text: ="Cancel"
+                        - conRackListCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - conRackToolbar:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =60
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =12
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conRackFltAreaFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtRackFltAreaLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Area"
+                                                Wrap: =false
+                                          - ddRackFltArea:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter racks by area"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.Name
+                                                Items: =Sort(nfMyAreas, Name)
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conRackSearchFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtRackSearchLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Search"
+                                                Wrap: =false
+                                          - inpRackSearch:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                AccessibleLabel: ="Search rack name"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Placeholder: ="Rack name..."
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - btnRackReset:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Reset filters"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Appearance: =ButtonAppearance.Subtle
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="ArrowReset"
+                                          Layout: =ButtonLayout.IconOnly
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =36
+                                          OnSelect: |-
+                                            =Reset(ddRackFltArea);
+                                            Reset(inpRackSearch)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Reset filters"
+                                          Width: =36
+                              - conRackHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(241, 244, 250, 1)
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =12
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - txtRackHName:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =2
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="RACK"
+                                          Wrap: =false
+                                    - txtRackHArea:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =2
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="AREA"
+                                          Wrap: =false
+                                    - txtRackHNote:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =3
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="NOTE"
+                                          Wrap: =false
+                                    - txtRackHItems:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="ITEMS"
+                                          Width: =64
+                                          Wrap: =false
+                                    - txtRackHAct:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="ACTIONS"
+                                          Width: =72
+                                          Wrap: =false
+                              - galRack:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Rack list"
+                                    Fill: =RGBA(226, 230, 239, 1)
+                                    Items: |-
+                                      =Sort(
+                                          Filter(
+                                              dis_racks,
+                                              area.dis_area in nfMyAreaIds,
+                                              IsBlank(ddRackFltArea.Selected) Or area.dis_area = ddRackFltArea.Selected.dis_area,
+                                              IsBlank(inpRackSearch.Text) Or StartsWith(Name, inpRackSearch.Text)
+                                          ),
+                                          Name
+                                      )
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    TemplateFill: =If(!IsBlank(locRackEdit) And locRackEdit.dis_rack = ThisItem.dis_rack, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                    TemplatePadding: =1
+                                    TemplateSize: =48
+                                  Children:
+                                    - conRackRow:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          Height: =Parent.TemplateHeight
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          PaddingLeft: =12
+                                          PaddingRight: =12
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.TemplateWidth
+                                        Children:
+                                          - txtRackName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =ThisItem.Name
+                                                Wrap: =false
+                                          - txtRackArea:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =ThisItem.area.Name
+                                                Wrap: =false
+                                          - txtRackNote:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =Coalesce(ThisItem.note, "-")
+                                                Wrap: =false
+                                          - txtRackItems:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =13
+                                                Text: =CountRows(Filter(dis_stocks, rack.dis_rack = ThisItem.dis_rack))
+                                                Width: =64
+                                                Wrap: =false
+                                          - btnRackEdit:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Edit " & ThisItem.Name
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =ButtonAppearance.Subtle
+                                                Color: =RGBA(56, 96, 178, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                Icon: ="Edit"
+                                                Layout: =ButtonLayout.IconOnly
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =32
+                                                OnSelect: |-
+                                                  =UpdateContext({locRackEdit: ThisItem, locRackDelete: Blank()});
+                                                  Reset(inpRackName);
+                                                  Reset(inpRackNote);
+                                                  Reset(ddRackArea)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                RadiusBottomLeft: =6
+                                                RadiusBottomRight: =6
+                                                RadiusTopLeft: =6
+                                                RadiusTopRight: =6
+                                                Size: =13
+                                                Text: ="Edit " & ThisItem.Name
+                                                Width: =32
+                                          - btnRackDel:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Delete " & ThisItem.Name
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =ButtonAppearance.Subtle
+                                                Color: =RGBA(196, 43, 28, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                Icon: ="Delete"
+                                                Layout: =ButtonLayout.IconOnly
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =32
+                                                OnSelect: |-
+                                                  =UpdateContext({locRackDelete: ThisItem})
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                RadiusBottomLeft: =6
+                                                RadiusBottomRight: =6
+                                                RadiusTopLeft: =6
+                                                RadiusTopRight: =6
+                                                Size: =13
+                                                Text: ="Delete " & ThisItem.Name
+                                                Width: =32
+                              - txtRackEmpty:
+                                  Control: ModernText
+                                  Properties:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =40
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="No racks yet. Add one with the form on the left."
+                                    Visible: =CountRows(galRack.AllItems) = 0
+                                    Wrap: =false

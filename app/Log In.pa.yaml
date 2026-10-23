@@ -161,19 +161,18 @@ Screens:
                               Text: =Coalesce(nfMe.Name, User().FullName)
                               Wrap: =false
                         - bdgLoginRole:
-                            Control: Badge
+                            Control: ModernBadge
                             Properties:
                               AccessibleLabel: ="User role"
                               AlignInContainer: =AlignInContainer.Start
-                              Appearance: ='BadgeCanvas.Appearance'.Tint
                               Content: =If(IsBlank(nfMe.role), "Not registered", Proper(Text(nfMe.role)))
-                              FontSize: =12
                               FontWeight: =FontWeight.Semibold
                               Height: =28
+                              Intent: =BadgeIntent.Highlight
                               LayoutMinHeight: =0
                               LayoutMinWidth: =0
-                              Shape: ='BadgeCanvas.Shape'.Rounded
-                              ThemeColor: ='BadgeCanvas.ThemeColor'.Brand
+                              Shape: =BadgeShape.Rounded
+                              Size: =12
                               Width: =160
                         - txtLoginDesc:
                             Control: ModernText

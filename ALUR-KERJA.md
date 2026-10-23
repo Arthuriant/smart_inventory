@@ -157,3 +157,12 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   Add_area kini menulis ke `location`. Lokasi CIB belum punya geounit (dibiarkan, data). | status: compile OK, 35
   warning delegasi di filter dis_areas (IsBlank lookup; aman selama dis_areas < 500 baris) | cek manual di Studio:
   dropdown Consume/Find/Area tidak kosong ("Depends on"), galeri tidak hitam; lalu File > Save.
+- [2026-10-23, TERMINAL] Dataverse: tabel baru `dis_racks` (cr8a3_dis_rack: Name, area -> dis_areas wajib & Restrict delete,
+  note) + kolom lookup opsional `rack` (cr8a3_rack) di dis_stocks, dibuat via Web API di solution Cr25417 dan di-publish.
+  App: screen baru app/scr_rack.pa.yaml (menu "Rack", admin; CRUD rak per area BL user), App.pa.yaml (menu),
+  scr_find_item (kolom RACK + pilih/simpan/hapus rak di popup Detail), scr_consume (baris tampil "Rack X"),
+  scr_frm_Transaction (picker & keranjang tampil rak: Consume = rak di From, Receive = rak di To, Transfer = From -> To).
+  Log In.pa.yaml disalin dari Studio (Badge -> ModernBadge diubah manual di Studio). | status: compile OK (0 error,
+  22 warning delegasi: 19 lama di Area + 3 di btnRackSave, aman karena tabel rak kecil) | cek manual di Studio:
+  gejala binding di galRack/galFind/galTrxFCartList, uji tambah rak -> set rak di Find Item -> cek di Consume/Transaksi,
+  File > Save. Non-admin perlu hak Read ke dis_racks bila memakai security role khusus.

@@ -462,6 +462,24 @@ Screens:
                                                 Size: =11
                                                 Text: ="LOCATION"
                                                 Wrap: =false
+                                          - txtFindHRack:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="RACK"
+                                                Wrap: =false
                                           - txtFindHAct:
                                               Control: ModernText
                                               Properties:
@@ -658,6 +676,23 @@ Screens:
                                                       PaddingTop: =0
                                                       Size: =13
                                                       Text: =Coalesce(ThisItem.dis_area.location, ThisItem.dis_area.'elv_location (cr8a3_elv_location)').Name & " - " & ThisItem.dis_area.Name
+                                                      Wrap: =false
+                                                - txtFindRack:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =Coalesce(ThisItem.rack.Name, "-")
                                                       Wrap: =false
                                                 - btnFindDetail:
                                                     Control: ModernButton
@@ -1045,6 +1080,7 @@ Screens:
                         Height: =36
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
                         LayoutJustifyContent: =LayoutJustifyContent.End
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
@@ -1053,6 +1089,101 @@ Screens:
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                       Children:
+                        - txtFindDetRackLbl:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =13
+                              Text: |-
+                                =If(IsEmpty(Filter(dis_racks, area.dis_area = locFindDetail.dis_area.dis_area)), "Rack: no rack in this area yet", "Rack: " & Coalesce(locFindDetail.rack.Name, "not set"))
+                              Wrap: =false
+                        - ddFindDetRack:
+                            Control: ModernDropdown
+                            Properties:
+                              AccessibleLabel: ="Rack for this stock"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =Appearance.Outline
+                              Default: =LookUp(dis_racks, dis_rack = locFindDetail.rack.dis_rack)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              ItemDisplayText: =ThisItem.Name
+                              Items: =Sort(Filter(dis_racks, area.dis_area = locFindDetail.dis_area.dis_area), Name)
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Width: =200
+                        - btnFindDetRackSave:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Save rack"
+                              AlignInContainer: =AlignInContainer.Center
+                              BasePaletteColor: =RGBA(0, 18, 107, 1)
+                              DisplayMode: =If(IsBlank(ddFindDetRack.Selected) Or ddFindDetRack.Selected.dis_rack = locFindDetail.rack.dis_rack, DisplayMode.Disabled, DisplayMode.Edit)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="Save"
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =96
+                              OnSelect: |-
+                                =Patch(dis_stocks, LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock), {rack: ddFindDetRack.Selected});
+                                If(
+                                    IsEmpty(Errors(dis_stocks)),
+                                    UpdateContext({locFindDetail: LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock)});
+                                    Notify("Rack saved.", NotificationType.Success),
+                                    Notify("Failed to save rack. " & First(Errors(dis_stocks)).Message, NotificationType.Error)
+                                )
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Save rack"
+                              Width: =112
+                        - btnFindDetRackClear:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Remove rack"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =RGBA(196, 43, 28, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="Delete"
+                              Layout: =ButtonLayout.IconOnly
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =36
+                              OnSelect: |-
+                                =Patch(dis_stocks, LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock), {rack: Blank()});
+                                If(
+                                    IsEmpty(Errors(dis_stocks)),
+                                    UpdateContext({locFindDetail: LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock)});
+                                    Reset(ddFindDetRack);
+                                    Notify("Rack removed.", NotificationType.Success),
+                                    Notify("Failed to remove rack. " & First(Errors(dis_stocks)).Message, NotificationType.Error)
+                                )
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Remove rack"
+                              Visible: =!IsBlank(locFindDetail.rack)
+                              Width: =36
                         - btnFindDetClose:
                             Control: ModernButton
                             Properties:

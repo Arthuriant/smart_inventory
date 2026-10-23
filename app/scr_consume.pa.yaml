@@ -410,7 +410,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =11
-                                                      Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · " & ThisItem.dis_area.Name
+                                                      Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · " & ThisItem.dis_area.Name & If(IsBlank(ThisItem.rack), "", " · Rack " & ThisItem.rack.Name)
                                                       Wrap: =false
                                                 - numConsQty:
                                                     Control: ModernNumberInput

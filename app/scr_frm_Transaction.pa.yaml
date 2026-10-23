@@ -806,7 +806,24 @@ Screens:
                                                             PaddingRight: =0
                                                             PaddingTop: =0
                                                             Size: =11
-                                                            Text: ="BPN " & Coalesce(ThisItem.part, "-")
+                                                            Text: |-
+                                                              =With(
+                                                                  {rk: With(
+                                                                      {
+                                                                          t: Text(DataCardValue7_TrxF.Selected.Value),
+                                                                          fr: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.Id And dis_area.dis_area = cmbTrxFAreaFrom.Selected.dis_area).rack.Name,
+                                                                          tr: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.Id And dis_area.dis_area = DataCardValue33_TrxF.Selected.dis_area).rack.Name
+                                                                      },
+                                                                      Switch(
+                                                                          t,
+                                                                          "Consume", If(IsBlank(fr), "", "Rack " & fr),
+                                                                          "Transfer", If(IsBlank(fr) And IsBlank(tr), "", "Rack " & Coalesce(fr, "-") & " → " & Coalesce(tr, "-")),
+                                                                          "Receive", If(IsBlank(tr), "", "Rack " & tr),
+                                                                          ""
+                                                                      )
+                                                                  )},
+                                                                  "BPN " & Coalesce(ThisItem.part, "-") & If(IsBlank(rk), "", " · " & rk)
+                                                              )
                                                             Wrap: =false
                                                       - txtTrxFPickStock:
                                                           Control: ModernText
@@ -1067,6 +1084,37 @@ Screens:
                                                             PaddingTop: =0
                                                             Size: =13
                                                             Text: =ThisItem.name
+                                                            Wrap: =false
+                                                      - txtTrxFCLRack:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Center
+                                                            Color: =RGBA(100, 112, 130, 1)
+                                                            Font: =Font.'Segoe UI'
+                                                            Height: =18
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            Size: =11
+                                                            Text: |-
+                                                              =With(
+                                                                  {
+                                                                      t: Text(DataCardValue7_TrxF.Selected.Value),
+                                                                      fr: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.Id And dis_area.dis_area = cmbTrxFAreaFrom.Selected.dis_area).rack.Name,
+                                                                      tr: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.Id And dis_area.dis_area = DataCardValue33_TrxF.Selected.dis_area).rack.Name
+                                                                  },
+                                                                  Switch(
+                                                                      t,
+                                                                      "Consume", If(IsBlank(fr), "", "Rack " & fr),
+                                                                      "Transfer", If(IsBlank(fr) And IsBlank(tr), "", "Rack " & Coalesce(fr, "-") & " → " & Coalesce(tr, "-")),
+                                                                      "Receive", If(IsBlank(tr), "", "Rack " & tr),
+                                                                      ""
+                                                                  )
+                                                              )
+                                                            Width: =130
                                                             Wrap: =false
                                                       - btnTrxFCLMinus:
                                                           Control: ModernButton

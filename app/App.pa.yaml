@@ -59,6 +59,12 @@ App:
               NavigateScreen: Area
           },
           {
+              TextValue: "Rack",
+              AdminOnly: true,
+              Icon: "Library",
+              NavigateScreen: scr_rack
+          },
+          {
               TextValue: "User",
               AdminOnly: true,
               Icon: "Person",
