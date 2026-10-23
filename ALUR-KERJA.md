@@ -237,3 +237,10 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   Business line -> PIC email (cek format, tidak boleh dobel per lokasi+BL). List & kolom PIC di Area menampilkan
   email. Setelah ubah skema: data source dis_pics di-Remove + Add ulang di Studio, dan variabel konteks diganti nama
   (locPicSel/locPicDel) karena tipe lama nyangkut. | status: compile OK (0 error) | cek manual: assign email, File > Save.
+- [2026-10-23, TERMINAL] scr_consume, scr_frm_receive, scr_frm_transfer, scr_frm_Transaction, scr_item | Barang
+  Non-Active (kolom status item yang sudah ada, tanpa ubah skema): disembunyikan dari Consume, New Receive, form
+  Transfer, picker form transaksi lama. Set lewat Item (tombol mata per baris: Non-active/Activate) atau di kartu
+  Consume (admin, stok 0 -> tombol "Non-active (not restocked)" + bar konfirmasi). Receive/Transfer punya centang
+  "Show non-active"; barang Non-Active yang di-receive/transfer otomatis jadi Active lagi. History tetap utuh. |
+  status: compile OK (0 error, tanpa warning baru) | cek manual: set 1 barang non-active, cek hilang dari Consume/
+  Receive/Transfer, receive via "Show non-active" -> jadi Active, File > Save.

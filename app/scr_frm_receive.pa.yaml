@@ -279,6 +279,18 @@ Screens:
                                                 Size: =13
                                                 TriggerOutput: =TriggerOutput.Delayed
                                                 Type: =TextInputType.Search
+                                    - chkRcvFShowNA:
+                                        Control: ModernCheckbox
+                                        Properties:
+                                          AccessibleLabel: ="Show non-active items"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Label: ="Show non-active"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Size: =13
+                                          Width: =150
                                     - btnRcvFCart:
                                         Control: ModernButton
                                         Properties:
@@ -454,6 +466,7 @@ Screens:
                                           Filter(
                                               dis_item_v2S,
                                               IsBlank(ddRcvFCat.Selected) Or dis_category_item.dis_category_item = ddRcvFCat.Selected.dis_category_item,
+                                              chkRcvFShowNA.Checked Or Not(status = 'status (dis_item_v2S)'.'Non-Active'),
                                               IsBlank(inpRcvFSearch.Text) Or StartsWith(name, inpRcvFSearch.Text) Or StartsWith(part_number, inpRcvFSearch.Text) Or StartsWith(client_number, inpRcvFSearch.Text)
                                           ),
                                           name
@@ -500,7 +513,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =13
-                                                Text: =ThisItem.name
+                                                Text: =ThisItem.name & If(ThisItem.status = 'status (dis_item_v2S)'.'Non-Active', "  (non-active)", "")
                                                 Wrap: =false
                                           - txtRcvFBpn:
                                               Control: ModernText
@@ -1102,6 +1115,12 @@ Screens:
                                                         )
                                                     )
                                                 );
+                                                // items that were Non-Active come back to Active once they are received
+                                                ForAll(
+                                                    Filter(colRcvCart, Item.status = 'status (dis_item_v2S)'.'Non-Active') As na,
+                                                    Patch(dis_item_v2S, na.Item, {status: 'status (dis_item_v2S)'.Active})
+                                                );
+
                                                 Set(
                                                     gblReceipt,
                                                     {

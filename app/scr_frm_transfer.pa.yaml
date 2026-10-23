@@ -437,6 +437,18 @@ Screens:
                                                 Size: =13
                                                 TriggerOutput: =TriggerOutput.Delayed
                                                 Type: =TextInputType.Search
+                                    - chkTfrFShowNA:
+                                        Control: ModernCheckbox
+                                        Properties:
+                                          AccessibleLabel: ="Show non-active items"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Label: ="Show non-active"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Size: =13
+                                          Width: =150
                                     - conTfrFSpacer:
                                         Control: GroupContainer
                                         Variant: AutoLayout
@@ -626,6 +638,7 @@ Screens:
                                           dis_stocks,
                                           dis_area.dis_area = ddTfrFFrom.Selected.dis_area,
                                           IsBlank(ddTfrFCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddTfrFCat.Selected.dis_category_item,
+                                          chkTfrFShowNA.Checked Or Not(dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active'),
                                           IsBlank(inpTfrFSearch.Text) Or StartsWith(dis_item_v2.name, inpTfrFSearch.Text) Or StartsWith(dis_item_v2.part_number, inpTfrFSearch.Text) Or StartsWith(dis_item_v2.client_number, inpTfrFSearch.Text)
                                       )
                                     LayoutMinHeight: =0
@@ -671,7 +684,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =13
-                                                Text: =ThisItem.dis_item_v2.name
+                                                Text: =ThisItem.dis_item_v2.name & If(ThisItem.dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active', "  (non-active)", "")
                                                 Wrap: =false
                                           - txtTfrFBpn:
                                               Control: ModernText
@@ -1420,6 +1433,12 @@ Screens:
                                                         )
                                                     )
                                                 );
+                                                // items that were Non-Active come back to Active once they are transferred
+                                                ForAll(
+                                                    Filter(colTfrCart, Item.status = 'status (dis_item_v2S)'.'Non-Active') As na,
+                                                    Patch(dis_item_v2S, na.Item, {status: 'status (dis_item_v2S)'.Active})
+                                                );
+
                                                 Set(
                                                     gblReceipt,
                                                     {
