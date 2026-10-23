@@ -71,16 +71,32 @@ App:
               NavigateScreen: scr_user
           },
           {
-              TextValue: "Consume",
-              AdminOnly: false,
-              Icon: "Wrench",
-              NavigateScreen: scr_consume
-          },
-          {
               TextValue: "Transaction",
               AdminOnly: false,
               Icon: "Cart",
-              NavigateScreen: scr_Transaction
+              NavigateScreen: scr_consume,
+              IsHeader: true
+          },
+          {
+              TextValue: "Consume",
+              AdminOnly: false,
+              Icon: "Wrench",
+              NavigateScreen: scr_consume,
+              Group: "Transaction"
+          },
+          {
+              TextValue: "Receive",
+              AdminOnly: false,
+              Icon: "ArrowDownload",
+              NavigateScreen: scr_receive,
+              Group: "Transaction"
+          },
+          {
+              TextValue: "Transfer",
+              AdminOnly: false,
+              Icon: "ArrowSwap",
+              NavigateScreen: scr_transfer,
+              Group: "Transaction"
           },
           {
               TextValue: "Find Item",
@@ -104,6 +120,9 @@ App:
           iroleview,
           nfMe.'dis_areas (cr8a3_elv_dis_user_elv_dis_area_elv_dis_area)'
       );
-      Set(gblReceipt, {Screen: "", Action: "", Title: "", Detail: ""})
+      Set(gblReceipt, {Screen: "", Action: "", Title: "", Detail: ""});
+      // Sidebar group that is expanded ("" = none); type preset for the transaction form ("" = free choice)
+      Set(gblSbGroupOpen, "");
+      Set(gblTrxNewType, "")
     StartScreen: =If(IsBlank(nfMe.Name), Register, 'Log In')
     Theme: =PowerAppsTheme

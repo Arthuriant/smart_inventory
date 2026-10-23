@@ -102,7 +102,12 @@ ComponentDefinitions:
                 Variant: Vertical
                 Properties:
                   AccessibleLabel: ="Navigation menu"
-                  Items: =fxMenuItems
+                  Items: |-
+                    =Filter(
+                        fxMenuItems As m,
+                        // children show when their group is expanded or one of them is the current page
+                        IsBlank(m.Group) Or gblSbGroupOpen = m.Group Or LookUp(fxMenuItems, TextValue = Sidebar.activemenu).Group = m.Group
+                    )
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
                   ShowScrollbar: =false
@@ -120,7 +125,7 @@ ComponentDefinitions:
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =12
-                        PaddingLeft: =12
+                        PaddingLeft: =If(IsBlank(ThisItem.Group), 12, 32)
                         PaddingRight: =8
                         RadiusBottomLeft: =8
                         RadiusBottomRight: =8
@@ -138,7 +143,7 @@ ComponentDefinitions:
                               IconColor: =If(ThisItem.TextValue = Sidebar.activemenu, RGBA(255, 255, 255, 1), RGBA(255, 255, 255, 0.72))
                               LayoutMinHeight: =0
                               LayoutMinWidth: =0
-                              OnSelect: =Navigate(ThisItem.NavigateScreen, ScreenTransition.None)
+                              OnSelect: =If(ThisItem.IsHeader, Set(gblSbGroupOpen, If(gblSbGroupOpen = ThisItem.TextValue, "", ThisItem.TextValue)), Navigate(ThisItem.NavigateScreen, ScreenTransition.None))
                               Width: =20
                         - txtSbItem:
                             Control: ModernText
@@ -151,13 +156,18 @@ ComponentDefinitions:
                               FontWeight: =If(ThisItem.TextValue = Sidebar.activemenu, FontWeight.Semibold, FontWeight.Normal)
                               LayoutMinHeight: =0
                               LayoutMinWidth: =0
-                              OnSelect: =Navigate(ThisItem.NavigateScreen, ScreenTransition.None)
+                              OnSelect: =If(ThisItem.IsHeader, Set(gblSbGroupOpen, If(gblSbGroupOpen = ThisItem.TextValue, "", ThisItem.TextValue)), Navigate(ThisItem.NavigateScreen, ScreenTransition.None))
                               PaddingBottom: =0
                               PaddingLeft: =0
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =14
-                              Text: =ThisItem.TextValue
+                              Text: |-
+                                =ThisItem.TextValue & If(
+                                    ThisItem.IsHeader,
+                                    If(gblSbGroupOpen = ThisItem.TextValue Or LookUp(fxMenuItems, TextValue = Sidebar.activemenu).Group = ThisItem.TextValue, "  ▾", "  ▸"),
+                                    ""
+                                )
                               Wrap: =false
             - conSbProfile:
                 Control: GroupContainer

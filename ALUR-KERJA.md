@@ -171,3 +171,11 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   ikut ddConsArea; ganti area atau Reset mengosongkan rak), dipakai di Items/Visible galCons dan txtConsEmpty. Logika
   Consume tidak diubah. | status: compile OK (0 error, 22 warning delegasi lama) | cek manual di Studio: badge rak di
   kartu tidak hitam, dropdown Rack terisi, File > Save.
+- [2026-10-23, TERMINAL] App.pa.yaml, Components/Sidebar.pa.yaml, scr_receive.pa.yaml (baru), scr_transfer.pa.yaml (baru),
+  scr_Transaction.pa.yaml, scr_frm_Transaction.pa.yaml | Sidebar: grup "Transaction" (header buka/tutup via
+  gblSbGroupOpen, anak Consume/Receive/Transfer menjorok; grup otomatis terbuka di halaman anaknya). fxMenuItems dapat
+  field IsHeader/Group. Receive & Transfer = salinan list Transaction (prefix Rcv/Tfr) tanpa filter tipe, terkunci ke
+  tipenya. Tombol New/Edit set gblTrxNewType -> form transaksi memakai tipe itu dan dropdown tipe dikunci; scr_Transaction
+  (semua tipe, dibuka dari Dashboard "View all") set "" = tipe bebas. Logika simpan stok tidak diubah. | status: compile OK
+  (0 error, 22 warning delegasi lama) | cek manual di Studio: sidebar klik "Transaction" buka/tutup, halaman Receive/
+  Transfer (baris tabel tidak hitam), New Receive -> tipe terisi & terkunci, Save kembali ke halaman asal, File > Save.

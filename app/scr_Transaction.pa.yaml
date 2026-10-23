@@ -562,7 +562,8 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =176
                                           OnSelect: |-
-                                            =Clear(colTempDetails);
+                                            =Set(gblTrxNewType, "");
+                                            Clear(colTempDetails);
                                             NewForm(frmTrxF);
                                             Navigate(scr_frm_Transaction)
                                           RadiusBottomLeft: =8
@@ -881,7 +882,8 @@ Screens:
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =32
                                                       OnSelect: |-
-                                                        =Clear(colTempDetails);
+                                                        =Set(gblTrxNewType, "");
+                                                        Clear(colTempDetails);
 
                                                         ForAll(
                                                             Filter(dis_trx_details, header_id.dis_trx_header = ThisItem.dis_trx_header),

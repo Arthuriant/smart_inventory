@@ -1,0 +1,1361 @@
+Screens:
+  scr_transfer:
+    Properties:
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - conTfrRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpTfrSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+                  activemenu: ="Transfer"
+            - conTfrMain:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(244, 246, 250, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpTfrTopBar:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Transfer"
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Stock moved between areas - transfer transactions and their items"
+                        Width: =912
+                  - conTfrBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(244, 246, 250, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - conTfrReceipt:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(180, 222, 196, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(232, 246, 238, 1)
+                              FillPortions: =0
+                              Height: =80
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =10
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              PaddingTop: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =gblReceipt.Screen = "Transaction"
+                            Children:
+                              - icoTfrRcIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Success"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =24
+                                    Icon: ="CheckmarkCircle"
+                                    IconColor: =RGBA(16, 124, 65, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =24
+                              - conTfrRcText:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    Height: =58
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =2
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtTfrRcTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: =gblReceipt.Action & " - " & gblReceipt.Title
+                                          Wrap: =false
+                                    - txtTfrRcDetail:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =gblReceipt.Detail
+                              - icoTfrRcClose:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Close"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =32
+                                    Icon: ="Dismiss"
+                                    IconColor: =RGBA(100, 112, 130, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: |-
+                                      =Set(gblReceipt, {Screen: "", Action: "", Title: "", Detail: ""})
+                                    PaddingBottom: =6
+                                    PaddingLeft: =6
+                                    PaddingRight: =6
+                                    PaddingTop: =6
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Tooltip: ="Close"
+                                    Width: =32
+                        - conTfrConfirm:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(240, 180, 176, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(253, 237, 236, 1)
+                              FillPortions: =0
+                              Height: =56
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingLeft: =16
+                              PaddingRight: =12
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Visible: =locShowDeleteConfirm
+                            Children:
+                              - icoTfrConfirmIco:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Warning"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =24
+                                    Icon: ="Warning"
+                                    IconColor: =RGBA(196, 43, 28, 1)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =24
+                              - txtTfrConfirmMsg:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Delete transaction " & locSelectedRecord.transaction_number & " and all its details? Stock will not be restored."
+                                    Wrap: =false
+                              - btnTfrConfirmDel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Delete"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BasePaletteColor: =RGBA(196, 43, 28, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Delete"
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =104
+                                    OnSelect: |-
+                                      =With(
+                                          {
+                                              target: locSelectedRecord,
+                                              lineCount: CountRows(Filter(dis_trx_details, header_id.dis_trx_header = locSelectedRecord.dis_trx_header))
+                                          },
+                                          // 1. Hapus semua baris di tabel detail yang nyambung ke header ini
+                                          RemoveIf(
+                                              dis_trx_details,
+                                              header_id.dis_trx_header = target.dis_trx_header
+                                          );
+                                          // 2. Setelah detail bersih, baru hapus headernya
+                                          Remove(dis_trx_headers, target);
+                                          If(
+                                              IsEmpty(Errors(dis_trx_headers)),
+                                              Set(
+                                                  gblReceipt,
+                                                  {
+                                                      Screen: "Transaction",
+                                                      Action: "Deleted",
+                                                      Title: target.transaction_number,
+                                                      Detail: "Type " & Text(target.type) & " | " & Text(lineCount) & " detail lines also deleted | stock not restored"
+                                                  }
+                                              );
+                                              UpdateContext({locShowDeleteConfirm: false});
+                                              // 3. Munculkan notifikasi
+                                              Notify("Transaction and all item details deleted successfully.", NotificationType.Success),
+                                              Notify("Failed to delete transaction. " & First(Errors(dis_trx_headers)).Message, NotificationType.Error)
+                                          )
+                                      )
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Delete"
+                                    Width: =104
+                              - btnTfrConfirmCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    AccessibleLabel: ="Cancel"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =ButtonAppearance.Secondary
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    Icon: ="Dismiss"
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =96
+                                    OnSelect: |-
+                                      =UpdateContext({locShowDeleteConfirm: false})
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    Text: ="Cancel"
+                                    Width: =96
+                        - conTfrListCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =520
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - conTfrToolbar:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =56
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conTfrSearchFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtTfrSearchLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Search transactions"
+                                                Wrap: =false
+                                          - inpTfrSearch:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                AccessibleLabel: ="Search transactions"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Placeholder: ="Number or note"
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                TriggerOutput: =TriggerOutput.Delayed
+                                                Type: =TextInputType.Search
+                                    - btnTfrAdd:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="New Transfer"
+                                          AlignInContainer: =AlignInContainer.End
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Add"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =176
+                                          OnSelect: |-
+                                            =Set(gblTrxNewType, "Transfer");
+                                            Clear(colTempDetails);
+                                            NewForm(frmTrxF);
+                                            Navigate(scr_frm_Transaction)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="New Transfer"
+                                          Width: =176
+                              - conTfrTable:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =420
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conTfrHead:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =13
+                                          PaddingRight: =13
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                        Children:
+                                          - txtTfrHNo:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="NUMBER"
+                                                Wrap: =false
+                                          - txtTfrHDate:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="DATE"
+                                                Width: =92
+                                                Wrap: =false
+                                          - txtTfrHType:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="TYPE"
+                                                Width: =92
+                                                Wrap: =false
+                                          - txtTfrHArea:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="AREA (FROM -> TO)"
+                                                Wrap: =false
+                                          - txtTfrHNote:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="NOTE"
+                                                Wrap: =false
+                                          - txtTfrHAct:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="ACTIONS"
+                                                Width: =72
+                                                Wrap: =false
+                                    - galTfr:
+                                        Control: Gallery
+                                        Variant: Vertical
+                                        Properties:
+                                          AccessibleLabel: ="Transaction list"
+                                          Fill: =RGBA(226, 230, 239, 1)
+                                          FillPortions: =0
+                                          Height: =380
+                                          Items: |-
+                                            =Sort(
+                                                Search(
+                                                    Filter(
+                                                        dis_trx_headers,
+                                                        type = 'type (dis_trx_headers)'.Transfer
+                                                    ),
+                                                    inpTfrSearch.Text,
+                                                    transaction_number,
+                                                    note
+                                                ),
+                                                'Created On',
+                                                SortOrder.Descending
+                                            )
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                          TemplatePadding: =1
+                                          TemplateSize: =52
+                                          Visible: |-
+                                            =!IsEmpty(Sort(
+                                                Search(
+                                                    Filter(
+                                                        dis_trx_headers,
+                                                        type = 'type (dis_trx_headers)'.Transfer
+                                                    ),
+                                                    inpTfrSearch.Text,
+                                                    transaction_number,
+                                                    note
+                                                ),
+                                                'Created On',
+                                                SortOrder.Descending
+                                            ))
+                                        Children:
+                                          - conTfrRow:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =Parent.TemplateHeight
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                PaddingLeft: =12
+                                                PaddingRight: =12
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =Parent.TemplateWidth
+                                              Children:
+                                                - btnTfrOpen:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="View details " & ThisItem.transaction_number
+                                                      Align: =Align.Left
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(56, 96, 178, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =28
+                                                      Layout: =ButtonLayout.TextOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      OnSelect: |-
+                                                        =UpdateContext({locShowDeleteConfirm: false})
+                                                      RadiusBottomLeft: =8
+                                                      RadiusBottomRight: =8
+                                                      RadiusTopLeft: =8
+                                                      RadiusTopRight: =8
+                                                      Size: =13
+                                                      Text: =ThisItem.transaction_number
+                                                - txtTfrDate:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =Text(ThisItem.'Created On', "dd/mm/yyyy")
+                                                      Width: =92
+                                                      Wrap: =false
+                                                - bdgTfrType:
+                                                    Control: Badge
+                                                    Properties:
+                                                      AccessibleLabel: ="Type " & Text(ThisItem.type)
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                      Content: =Text(ThisItem.type)
+                                                      FontSize: =12
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =24
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      Shape: ='BadgeCanvas.Shape'.Rounded
+                                                      ThemeColor: =Switch(Text(ThisItem.type), "Receive", 'BadgeCanvas.ThemeColor'.Success, "Consume", 'BadgeCanvas.ThemeColor'.Warning, "Transfer", 'BadgeCanvas.ThemeColor'.Brand, 'BadgeCanvas.ThemeColor'.Subtle)
+                                                      Width: =92
+                                                - txtTfrArea:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =If(ThisItem.type = 'type (dis_trx_headers)'.Receive, "Received", Coalesce(ThisItem.area_form.Name, "-")) & " -> " & If(ThisItem.type = 'type (dis_trx_headers)'.Consume, "Consumed", Coalesce(ThisItem.area_to.Name, "-"))
+                                                      Wrap: =false
+                                                - txtTfrNote:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.note
+                                                      Wrap: =false
+                                                - btnTfrEdit:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Edit " & ThisItem.transaction_number
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(56, 96, 178, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="Edit"
+                                                      Layout: =ButtonLayout.IconOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =32
+                                                      OnSelect: |-
+                                                        =Set(gblTrxNewType, "Transfer");
+                                                        Clear(colTempDetails);
+
+                                                        ForAll(
+                                                            Filter(dis_trx_details, header_id.dis_trx_header = ThisItem.dis_trx_header),
+                                                            Collect(
+                                                                colTempDetails,
+                                                                {
+                                                                    Urutan: CountRows(colTempDetails) + 1,
+                                                                    Id: ThisRecord.item.dis_item_v2,        
+                                                                    name: ThisRecord.item.name,            
+                                                                    description: ThisRecord.item.description, 
+                                                                    Qty: ThisRecord.qty
+                                                                }
+                                                            )
+                                                        );
+
+                                                        // 3. Buka form dalam mode Edit dan pindah halaman
+                                                        EditForm(frmTrxF);
+                                                        Navigate(scr_frm_Transaction);
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Edit " & ThisItem.transaction_number
+                                                      Tooltip: ="Edit " & ThisItem.transaction_number
+                                                      Width: =32
+                                                - btnTfrDelete:
+                                                    Control: ModernButton
+                                                    Properties:
+                                                      AccessibleLabel: ="Delete " & ThisItem.transaction_number
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Appearance: =ButtonAppearance.Subtle
+                                                      Color: =RGBA(196, 43, 28, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =32
+                                                      Icon: ="Delete"
+                                                      Layout: =ButtonLayout.IconOnly
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =32
+                                                      OnSelect: |-
+                                                        =UpdateContext({locSelectedRecord: ThisItem, locShowDeleteConfirm: true})
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =6
+                                                      RadiusBottomRight: =6
+                                                      RadiusTopLeft: =6
+                                                      RadiusTopRight: =6
+                                                      Size: =13
+                                                      Text: ="Delete " & ThisItem.transaction_number
+                                                      Tooltip: ="Delete " & ThisItem.transaction_number
+                                                      Visible: =nfIsAdmin
+                                                      Width: =32
+                                    - txtTfrEmpty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =380
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="No transfer transactions yet."
+                                          Visible: |-
+                                            =IsEmpty(Sort(
+                                                Search(
+                                                    Filter(
+                                                        dis_trx_headers,
+                                                        type = 'type (dis_trx_headers)'.Transfer
+                                                    ),
+                                                    inpTfrSearch.Text,
+                                                    transaction_number,
+                                                    note
+                                                ),
+                                                'Created On',
+                                                SortOrder.Descending
+                                            ))
+                                          Wrap: =false
+                        - conTfrDetailCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =376
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - txtTfrDetailTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: =If(IsBlank(galTfr.Selected), "Detail Item", "Detail Item - " & galTfr.Selected.transaction_number)
+                                    Wrap: =false
+                              - conTfrDToolbar:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =56
+                                    LayoutAlignItems: =LayoutAlignItems.End
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conTfrDCatFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =0
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =200
+                                        Children:
+                                          - txtTfrDCatLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Category"
+                                                Wrap: =false
+                                          - ddTfrDCat:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Filter detail category"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                ItemDisplayText: =ThisItem.code
+                                                Items: =dis_category_items
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                    - conTfrDSearchFld:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.End
+                                          DropShadow: =DropShadow.None
+                                          Height: =56
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =4
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - txtTfrDSearchLbl:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="Search item"
+                                                Wrap: =false
+                                          - inpTfrDSearch:
+                                              Control: ModernTextInput
+                                              Properties:
+                                                AccessibleLabel: ="Search detail items"
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Appearance: =Appearance.Outline
+                                                Font: =Font.'Segoe UI'
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Placeholder: ="Item name or BPN"
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                TriggerOutput: =TriggerOutput.Delayed
+                                                Type: =TextInputType.Search
+                                    - icoTfrDReset:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: ="Reset filter"
+                                          AlignInContainer: =AlignInContainer.End
+                                          Height: =36
+                                          Icon: ="ArrowReset"
+                                          IconColor: =RGBA(100, 112, 130, 1)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =Reset(ddTfrDCat);
+                                            Reset(inpTfrDSearch)
+                                          PaddingBottom: =8
+                                          PaddingLeft: =8
+                                          PaddingRight: =8
+                                          PaddingTop: =8
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Tooltip: ="Reset filter"
+                                          Width: =36
+                              - conTfrDTable:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =240
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - conTfrDHead:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(241, 244, 250, 1)
+                                          FillPortions: =0
+                                          Height: =36
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =13
+                                          PaddingRight: =13
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                        Children:
+                                          - txtTfrDHBpn:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="BPN"
+                                                Wrap: =false
+                                          - txtTfrDHName:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="NAME"
+                                                Wrap: =false
+                                          - txtTfrDHDesc:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =3
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="DESCRIPTION"
+                                                Wrap: =false
+                                          - txtTfrDHCat:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                FillPortions: =2
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="CATEGORY"
+                                                Wrap: =false
+                                          - txtTfrDHQty:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="QTY"
+                                                Width: =64
+                                                Wrap: =false
+                                          - txtTfrDHUom:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: ="UOM"
+                                                Width: =56
+                                                Wrap: =false
+                                    - galTfrD:
+                                        Control: Gallery
+                                        Variant: Vertical
+                                        Properties:
+                                          AccessibleLabel: ="Transaction item details"
+                                          Fill: =RGBA(226, 230, 239, 1)
+                                          FillPortions: =0
+                                          Height: =200
+                                          Items: |-
+                                            =Filter(
+                                                dis_trx_details,
+                                                header_id.dis_trx_header = galTfr.Selected.dis_trx_header
+                                                &&
+                                                (
+                                                    IsBlank(ddTfrDCat.Selected) ||
+                                                    item.dis_category_item.name = ddTfrDCat.Selected.name
+                                                )
+                                                &&
+                                                (
+                                                    IsBlank(inpTfrDSearch.Text) ||
+                                                    StartsWith(item.name, inpTfrDSearch.Text) ||
+                                                    StartsWith(item.part_number, inpTfrDSearch.Text)
+                                                )
+                                            )
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          TabIndex: =0
+                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
+                                          TemplatePadding: =1
+                                          TemplateSize: =44
+                                          Visible: |-
+                                            =!IsEmpty(Filter(
+                                                dis_trx_details,
+                                                header_id.dis_trx_header = galTfr.Selected.dis_trx_header
+                                                &&
+                                                (
+                                                    IsBlank(ddTfrDCat.Selected) ||
+                                                    item.dis_category_item.name = ddTfrDCat.Selected.name
+                                                )
+                                                &&
+                                                (
+                                                    IsBlank(inpTfrDSearch.Text) ||
+                                                    StartsWith(item.name, inpTfrDSearch.Text) ||
+                                                    StartsWith(item.part_number, inpTfrDSearch.Text)
+                                                )
+                                            ))
+                                        Children:
+                                          - conTfrDRow:
+                                              Control: GroupContainer
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                Fill: =RGBA(0, 0, 0, 0)
+                                                Height: =Parent.TemplateHeight
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutGap: =8
+                                                PaddingLeft: =12
+                                                PaddingRight: =12
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =Parent.TemplateWidth
+                                              Children:
+                                                - txtTfrDBpn:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.item.part_number
+                                                      Wrap: =false
+                                                - txtTfrDName:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.item.name
+                                                      Wrap: =false
+                                                - txtTfrDDesc:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =3
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.item.description
+                                                      Wrap: =false
+                                                - txtTfrDCat:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FillPortions: =2
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =ThisItem.item.dis_category_item.name
+                                                      Wrap: =false
+                                                - txtTfrDQty:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      Align: =Align.Right
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =Text(ThisItem.qty)
+                                                      Width: =64
+                                                      Wrap: =false
+                                                - txtTfrDUom:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =13
+                                                      Text: =Text(ThisItem.item.uom)
+                                                      Width: =56
+                                                      Wrap: =false
+                                    - txtTfrDEmpty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =200
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: =If(IsBlank(galTfr.Selected), "Select a transaction number above to view its details.", "No matching items.")
+                                          Visible: |-
+                                            =IsEmpty(Filter(
+                                                dis_trx_details,
+                                                header_id.dis_trx_header = galTfr.Selected.dis_trx_header
+                                                &&
+                                                (
+                                                    IsBlank(ddTfrDCat.Selected) ||
+                                                    item.dis_category_item.name = ddTfrDCat.Selected.name
+                                                )
+                                                &&
+                                                (
+                                                    IsBlank(inpTfrDSearch.Text) ||
+                                                    StartsWith(item.name, inpTfrDSearch.Text) ||
+                                                    StartsWith(item.part_number, inpTfrDSearch.Text)
+                                                )
+                                            ))
+                                          Wrap: =false

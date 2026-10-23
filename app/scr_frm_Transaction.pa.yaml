@@ -27,7 +27,7 @@ Screens:
                   LayoutMinHeight: =0
                   LayoutMinWidth: =224
                   Width: =224
-                  activemenu: ="Transaction"
+                  activemenu: =If(IsBlank(gblTrxNewType), "Transaction", gblTrxNewType)
             - conTrxFMain:
                 Control: GroupContainer
                 Variant: AutoLayout
@@ -47,7 +47,7 @@ Screens:
                       Control: CanvasComponent
                       ComponentName: TopBar
                       Properties:
-                        ActiveMenu: =If(frmTrxF.Mode = FormMode.Edit, "Edit Transaction", "New Transaction")
+                        ActiveMenu: =If(frmTrxF.Mode = FormMode.Edit, "Edit ", "New ") & If(IsBlank(gblTrxNewType), "Transaction", gblTrxNewType)
                         AlignInContainer: =AlignInContainer.Stretch
                         Height: =64
                         LayoutMinHeight: =64
@@ -214,7 +214,12 @@ Screens:
                                         Properties:
                                           BorderColor: =RGBA(0, 18, 107, 1)
                                           DataField: ="cr8a3_type"
-                                          Default: =ThisItem.type
+                                          Default: |-
+                                            =If(
+                                                frmTrxF.Mode = FormMode.New And gblTrxNewType = "Receive", 'type (dis_trx_headers)'.Receive,
+                                                frmTrxF.Mode = FormMode.New And gblTrxNewType = "Transfer", 'type (dis_trx_headers)'.Transfer,
+                                                ThisItem.type
+                                            )
                                           DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_type')
                                           Required: =true
                                           Update: =DataCardValue7_TrxF.Selected.Value
@@ -243,7 +248,7 @@ Screens:
                                                 AccessibleLabel: =Parent.DisplayName
                                                 Appearance: =Appearance.Outline
                                                 DefaultSelectedItems: =[Parent.Default]
-                                                DisplayMode: =Parent.DisplayMode
+                                                DisplayMode: =If(IsBlank(gblTrxNewType), Parent.DisplayMode, DisplayMode.View)
                                                 Font: =Font.'Segoe UI'
                                                 Height: =32
                                                 ItemDisplayText: =ThisItem.Value
