@@ -172,58 +172,6 @@ Screens:
                                                 RadiusTopLeft: =8
                                                 RadiusTopRight: =8
                                                 Size: =13
-                                    - conRcvFNoteFld:
-                                        Control: GroupContainer
-                                        Variant: AutoLayout
-                                        Properties:
-                                          AlignInContainer: =AlignInContainer.End
-                                          DropShadow: =DropShadow.None
-                                          FillPortions: =1
-                                          Height: =56
-                                          LayoutAlignItems: =LayoutAlignItems.Stretch
-                                          LayoutDirection: =LayoutDirection.Vertical
-                                          LayoutGap: =4
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
-                                          RadiusBottomLeft: =0
-                                          RadiusBottomRight: =0
-                                          RadiusTopLeft: =0
-                                          RadiusTopRight: =0
-                                        Children:
-                                          - txtRcvFNoteLbl:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Stretch
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =16
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="Note"
-                                                Wrap: =false
-                                          - inpRcvFNote:
-                                              Control: ModernTextInput
-                                              Properties:
-                                                AccessibleLabel: ="Note"
-                                                AlignInContainer: =AlignInContainer.Stretch
-                                                Appearance: =Appearance.Outline
-                                                Font: =Font.'Segoe UI'
-                                                Height: =36
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                MaxLength: =200
-                                                Placeholder: ="e.g. PO number, supplier"
-                                                RadiusBottomLeft: =8
-                                                RadiusBottomRight: =8
-                                                RadiusTopLeft: =8
-                                                RadiusTopRight: =8
-                                                Size: =13
                                     - conRcvFCatFld:
                                         Control: GroupContainer
                                         Variant: AutoLayout
@@ -1123,8 +1071,7 @@ Screens:
                                                         {
                                                             transaction_number: trxNo,
                                                             type: 'type (dis_trx_headers)'.Receive,
-                                                            area_to: ar,
-                                                            note: Trim(inpRcvFNote.Text)
+                                                            area_to: ar
                                                         }
                                                     )
                                                 },
@@ -1165,7 +1112,6 @@ Screens:
                                                     }
                                                 );
                                                 Clear(colRcvCart);
-                                                Reset(inpRcvFNote);
                                                 UpdateContext({locRcvCartOpen: false});
                                                 Notify("Receive " & trxNo & " saved & stock updated!", NotificationType.Success);
                                                 Navigate(scr_receive, ScreenTransition.None)

@@ -188,3 +188,5 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   Edit transaksi Receive lama tetap lewat scr_frm_Transaction. | status: compile OK (0 error, 22 warning delegasi lama)
   | cek manual di Studio: dropdown rak di baris tabel & popup tidak kosong/hitam, uji Receive 2 item (1 dengan rak),
   cek stok & rak di Find Item, File > Save.
+- [2026-10-23, TERMINAL] app/scr_frm_receive.pa.yaml | Field Note dihapus dari New Receive (header Receive disimpan
+  tanpa note). | status: compile OK (0 error) | cek manual di Studio: File > Save.
