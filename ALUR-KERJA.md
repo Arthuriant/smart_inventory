@@ -220,3 +220,8 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   menerapkan yang baru (tidak dobel), detail lama diganti. | status: compile OK (0 error), sync = sama dengan repo |
   cek manual di Studio: New Transfer (stok From turun, To naik), Edit (ubah qty/area) -> cek stok di Find Item,
   File > Save.
+- [2026-10-23, TERMINAL] 10 layar (History, Transaction, Receive, Edit Receive, New Receive, Transfer, form Transfer,
+  Consume, form Transaction, Find Item) | SPN (client_number) ditampilkan di samping BPN: kolom "BPN / SPN" di tabel,
+  teks "BPN x · SPN y" di kartu/keranjang/picker. Kotak search sekarang juga mencari SPN (placeholder "..., BPN or
+  SPN"). Tidak ada kontrol baru. | status: compile OK (0 error) | cek manual: tabel & kartu menampilkan SPN, cari pakai
+  SPN, File > Save.

@@ -661,7 +661,7 @@ Screens:
                                                       Height: =36
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      Placeholder: ="Search name or BPN"
+                                                      Placeholder: ="Search name, BPN or SPN"
                                                       RadiusBottomLeft: =8
                                                       RadiusBottomRight: =8
                                                       RadiusTopLeft: =8
@@ -722,13 +722,14 @@ Screens:
                                                                   dis_area.dis_area = cmbTrxFAreaFrom.Selected.dis_area,
                                                                   qty > 0,
                                                                   IsBlank(ddTrxFPickCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddTrxFPickCat.Selected.dis_category_item,
-                                                                  IsBlank(inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.name, inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.part_number, inpTrxFPickSearch.Text)
+                                                                  IsBlank(inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.name, inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.part_number, inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.client_number, inpTrxFPickSearch.Text)
                                                               ),
                                                               {
                                                                   Id: ThisRecord.dis_item_v2.dis_item_v2,
                                                                   name: ThisRecord.dis_item_v2.name,
                                                                   description: ThisRecord.dis_item_v2.description,
                                                                   part: ThisRecord.dis_item_v2.part_number,
+                                                                  spn: ThisRecord.dis_item_v2.client_number,
                                                                   uom: Text(ThisRecord.dis_item_v2.uom),
                                                                   Stock: ThisRecord.qty,
                                                                   Limited: true
@@ -738,13 +739,14 @@ Screens:
                                                               Filter(
                                                                   dis_item_v2S,
                                                                   IsBlank(ddTrxFPickCat.Selected) Or dis_category_item.dis_category_item = ddTrxFPickCat.Selected.dis_category_item,
-                                                                  IsBlank(inpTrxFPickSearch.Text) Or StartsWith(name, inpTrxFPickSearch.Text) Or StartsWith(part_number, inpTrxFPickSearch.Text)
+                                                                  IsBlank(inpTrxFPickSearch.Text) Or StartsWith(name, inpTrxFPickSearch.Text) Or StartsWith(part_number, inpTrxFPickSearch.Text) Or StartsWith(client_number, inpTrxFPickSearch.Text)
                                                               ),
                                                               {
                                                                   Id: ThisRecord.dis_item_v2,
                                                                   name: ThisRecord.name,
                                                                   description: ThisRecord.description,
                                                                   part: ThisRecord.part_number,
+                                                                  spn: ThisRecord.client_number,
                                                                   uom: Text(ThisRecord.uom),
                                                                   Stock: 0,
                                                                   Limited: false
@@ -827,7 +829,7 @@ Screens:
                                                                           ""
                                                                       )
                                                                   )},
-                                                                  "BPN " & Coalesce(ThisItem.part, "-") & If(IsBlank(rk), "", " · " & rk)
+                                                                  "BPN " & Coalesce(ThisItem.part, "-") & " · SPN " & Coalesce(ThisItem.spn, "-") & If(IsBlank(rk), "", " · " & rk)
                                                               )
                                                             Wrap: =false
                                                       - txtTrxFPickStock:

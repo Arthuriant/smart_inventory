@@ -138,7 +138,7 @@ Screens:
                                           Height: =36
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          Placeholder: ="Name or BPN"
+                                          Placeholder: ="Name, BPN or SPN"
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
@@ -349,7 +349,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =11
-                                          Text: ="BPN"
+                                          Text: ="BPN / SPN"
                                           Wrap: =false
                                     - txtRcvEHCat:
                                         Control: ModernText
@@ -433,7 +433,7 @@ Screens:
                                       =Filter(
                                           colRcvEdit,
                                           IsBlank(ddRcvECat.Selected) Or Item.dis_category_item.dis_category_item = ddRcvECat.Selected.dis_category_item,
-                                          IsBlank(inpRcvESearch.Text) Or StartsWith(Item.name, inpRcvESearch.Text) Or StartsWith(Item.part_number, inpRcvESearch.Text)
+                                          IsBlank(inpRcvESearch.Text) Or StartsWith(Item.name, inpRcvESearch.Text) Or StartsWith(Item.part_number, inpRcvESearch.Text) Or StartsWith(Item.client_number, inpRcvESearch.Text)
                                       )
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
@@ -494,7 +494,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =13
-                                                Text: =Coalesce(ThisItem.Item.part_number, "-")
+                                                Text: =Coalesce(ThisItem.Item.part_number, "-") & " / " & Coalesce(ThisItem.Item.client_number, "-")
                                                 Wrap: =false
                                           - txtRcvECat:
                                               Control: ModernText

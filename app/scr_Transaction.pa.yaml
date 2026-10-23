@@ -1127,7 +1127,7 @@ Screens:
                                                 Height: =36
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                Placeholder: ="Item name or BPN"
+                                                Placeholder: ="Item name, BPN or SPN"
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
                                                 RadiusTopLeft: =8
@@ -1211,7 +1211,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="BPN"
+                                                Text: ="BPN / SPN"
                                                 Wrap: =false
                                           - txtTrxLDHName:
                                               Control: ModernText
@@ -1324,7 +1324,7 @@ Screens:
                                                 (
                                                     IsBlank(inpTrxLDSearch.Text) ||
                                                     StartsWith(item.name, inpTrxLDSearch.Text) ||
-                                                    StartsWith(item.part_number, inpTrxLDSearch.Text)
+                                                    StartsWith(item.part_number, inpTrxLDSearch.Text) Or StartsWith(item.client_number, inpTrxLDSearch.Text)
                                                 )
                                             )
                                           LayoutMinHeight: =0
@@ -1346,7 +1346,7 @@ Screens:
                                                 (
                                                     IsBlank(inpTrxLDSearch.Text) ||
                                                     StartsWith(item.name, inpTrxLDSearch.Text) ||
-                                                    StartsWith(item.part_number, inpTrxLDSearch.Text)
+                                                    StartsWith(item.part_number, inpTrxLDSearch.Text) Or StartsWith(item.client_number, inpTrxLDSearch.Text)
                                                 )
                                             ))
                                         Children:
@@ -1383,7 +1383,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =ThisItem.item.part_number
+                                                      Text: =Coalesce(ThisItem.item.part_number, "-") & " / " & Coalesce(ThisItem.item.client_number, "-")
                                                       Wrap: =false
                                                 - txtTrxLDName:
                                                     Control: ModernText
@@ -1501,7 +1501,7 @@ Screens:
                                                 (
                                                     IsBlank(inpTrxLDSearch.Text) ||
                                                     StartsWith(item.name, inpTrxLDSearch.Text) ||
-                                                    StartsWith(item.part_number, inpTrxLDSearch.Text)
+                                                    StartsWith(item.part_number, inpTrxLDSearch.Text) Or StartsWith(item.client_number, inpTrxLDSearch.Text)
                                                 )
                                             ))
                                           Wrap: =false

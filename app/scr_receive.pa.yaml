@@ -906,7 +906,7 @@ Screens:
                               PaddingRight: =0
                               PaddingTop: =0
                               Size: =11
-                              Text: ="BPN"
+                              Text: ="BPN / SPN"
                               Wrap: =false
                         - txtRcvDetHName:
                             Control: ModernText
@@ -1045,7 +1045,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =13
-                                    Text: =Coalesce(ThisItem.item.part_number, "-")
+                                    Text: =Coalesce(ThisItem.item.part_number, "-") & " / " & Coalesce(ThisItem.item.client_number, "-")
                                     Wrap: =false
                               - txtRcvDetName:
                                   Control: ModernText
