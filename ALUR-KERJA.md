@@ -190,3 +190,9 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   cek stok & rak di Find Item, File > Save.
 - [2026-10-23, TERMINAL] app/scr_frm_receive.pa.yaml | Field Note dihapus dari New Receive (header Receive disimpan
   tanpa note). | status: compile OK (0 error) | cek manual di Studio: File > Save.
+- [2026-10-23, TERMINAL] app/scr_receive.pa.yaml | List Receive dirombak: baris galeri tanpa container (posisi X/Y):
+  ikon terima (Image SVG tile hijau) + kolom Nomor (atas) / Tanggal (bawah) + "Received to area" (area_to saja) + Edit/Delete.
+  Kolom Type & Note dihapus, search hanya nomor. Tabel detail di bawah (conRcvDetailCard) dihapus; diganti popup
+  conRcvDetOverlay (BPN, Item, Category, Qty, UOM, Rack sekarang) yang dibuka dengan klik 2x baris (emulasi: 2 klik
+  di baris sama < 600 ms, galRcv.OnSelect). | status: compile OK (0 error) | cek manual di Studio: ikon tampil, klik 2x
+  membuka popup, baris tidak hitam, File > Save.
