@@ -200,3 +200,11 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   urutan header kacau): penyebabnya nama kontrol lama dipakai ulang setelah dipindah keluar container baris. Semua
   kontrol header/baris diberi nama baru (txtRcvHd*, *RcvRow*). | status: compile OK, sync ulang = sama dengan repo |
   cek manual di Studio: baris tampil benar, File > Save.
+- [2026-10-23, TERMINAL] app/scr_receive.pa.yaml, app/scr_edt_receive.pa.yaml (baru) | List Receive: klik 2x dihapus,
+  diganti tombol mata `btnRcvRowView` (aksi jadi 112 px: lihat/edit/hapus). Edit Receive tidak lagi ke
+  scr_frm_Transaction tapi ke screen baru scr_edt_receive: filter Search + Kategori + "Receive to area" (bisa diganti),
+  satu card daftar item transaksi itu saja (colRcvEdit {Detail, Item, OldQty, Qty, Rack}) dengan Qty & Rak bisa diubah,
+  tombol Cancel/Save di bawah. Save mengoreksi stok dengan benar (area sama: qty - lama + baru; area beda: lama keluar
+  dari area lama, baru masuk ke area baru), update qty detail, area_to header, rak di stok. Tambah/hapus item tidak bisa.
+  | status: compile OK (0 error) | cek manual di Studio: ikon mata buka popup, Edit -> nilai awal benar, ubah qty 1 item
+  lalu Save -> cek stok di Find Item, File > Save.
