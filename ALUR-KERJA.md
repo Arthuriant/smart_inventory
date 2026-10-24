@@ -272,3 +272,12 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   diagram. | status: compile OK (0 error, 22 warning delegasi lama) | cek manual di Studio: dropdown Requirement di footer
   Consume tidak kosong, Consume tanpa Requirement ditolak, Consume dengan Requirement -> cek kolom requirement di
   dis_trx_headers; form Transaksi tipe Consume menampilkan Requirement (dropdown form tidak kosong / "Depends on"); File > Save.
+- [2026-10-24, TERMINAL] app/scr_dashboard.pa.yaml | Card "Recent Transactions" (conDashRecentCard + galDashRecent dst.)
+  diganti card baru `conDashReqCard` "Consume by Requirement": pemilih bulan `ddDashMonth` (12 bulan terakhir, default bulan
+  berjalan), donat SVG `imgDashReqDonut` (Image data URI, total transaksi di tengah) dan legenda `galDashReq` (warna,
+  nama, jumlah transaksi, persen). Hitungan = JUMLAH TRANSAKSI Consume (bukan qty) per requirement di bulan terpilih;
+  tanpa requirement = "Unspecified" abu. Warna: Workshop navy #00126B, Material Request biru #2E9BD6, Unit oranye
+  #E8A33D, Unspecified #A0A8B5. Tombol "View all" (ke scr_Transaction) dipindah ke header card (btnDashReqAll). Batas
+  tanggal dihitung dulu (m0/m1 DateTime) supaya filter 'Created On' terdelegasi. Belum dibatasi area user (itu
+  perbaikan #5). | status: compile OK (0 error, 22 warning delegasi lama) | cek manual di Studio: donat & legenda tampil,
+  ganti bulan -> angka berubah, baris legenda tidak hitam (ketik ulang TemplateFill galDashReq bila hitam); File > Save.

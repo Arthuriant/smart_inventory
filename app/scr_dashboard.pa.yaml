@@ -535,7 +535,7 @@ Screens:
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
                             Children:
-                              - conDashRecentCard:
+                              - conDashReqCard:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
@@ -557,16 +557,16 @@ Screens:
                                     RadiusTopLeft: =12
                                     RadiusTopRight: =12
                                   Children:
-                                    - conDashRecentHead:
+                                    - conDashReqHead:
                                         Control: GroupContainer
                                         Variant: AutoLayout
                                         Properties:
                                           DropShadow: =DropShadow.None
                                           FillPortions: =0
-                                          Height: =28
+                                          Height: =36
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
-                                          LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                          LayoutGap: =8
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           RadiusBottomLeft: =0
@@ -574,7 +574,7 @@ Screens:
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
                                         Children:
-                                          - txtDashRecentTitle:
+                                          - txtDashReqTitle:
                                               Control: ModernText
                                               Properties:
                                                 AlignInContainer: =AlignInContainer.Center
@@ -590,12 +590,40 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =16
-                                                Text: ="Recent Transactions"
+                                                Text: ="Consume by Requirement"
                                                 Wrap: =false
-                                          - btnDashSeeAll:
+                                          - ddDashMonth:
+                                              Control: ModernDropdown
+                                              Properties:
+                                                AccessibleLabel: ="Month"
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Appearance: =Appearance.Outline
+                                                Default: |-
+                                                  ={Label: Text(Date(Year(Today()), Month(Today()), 1), "mmmm yyyy", "en-US"), Start: Date(Year(Today()), Month(Today()), 1)}
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Label
+                                                Items: |-
+                                                  =// 12 bulan terakhir, bulan berjalan paling atas
+                                                  ForAll(
+                                                      Sequence(12, 0),
+                                                      With(
+                                                          {d: DateAdd(Date(Year(Today()), Month(Today()), 1), -Value, TimeUnit.Months)},
+                                                          {Label: Text(d, "mmmm yyyy", "en-US"), Start: d}
+                                                      )
+                                                  )
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =13
+                                                Width: =168
+                                          - btnDashReqAll:
                                               Control: ModernButton
                                               Properties:
-                                                AccessibleLabel: ="View all"
+                                                AccessibleLabel: ="View all transactions"
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Appearance: =ButtonAppearance.Subtle
                                                 Color: =RGBA(56, 96, 178, 1)
@@ -604,7 +632,7 @@ Screens:
                                                 Icon: ="ArrowRight"
                                                 Layout: =ButtonLayout.IconAfter
                                                 LayoutMinHeight: =0
-                                                LayoutMinWidth: =132
+                                                LayoutMinWidth: =104
                                                 OnSelect: =Navigate(scr_Transaction)
                                                 RadiusBottomLeft: =8
                                                 RadiusBottomRight: =8
@@ -612,220 +640,179 @@ Screens:
                                                 RadiusTopRight: =8
                                                 Size: =13
                                                 Text: ="View all"
-                                                Width: =132
-                                    - conDashRecentCols:
+                                                Width: =104
+                                    - conDashReqBody:
                                         Control: GroupContainer
                                         Variant: AutoLayout
                                         Properties:
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(241, 244, 250, 1)
-                                          FillPortions: =0
-                                          Height: =36
+                                          FillPortions: =1
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
-                                          LayoutGap: =8
+                                          LayoutGap: =16
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          PaddingLeft: =13
-                                          PaddingRight: =13
-                                          RadiusBottomLeft: =8
-                                          RadiusBottomRight: =8
-                                          RadiusTopLeft: =8
-                                          RadiusTopRight: =8
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
                                         Children:
-                                          - txtDashRecentHNo:
-                                              Control: ModernText
+                                          - imgDashReqDonut:
+                                              Control: Image
                                               Properties:
+                                                AccessibleLabel: |-
+                                                  ="Consume transactions by requirement: " & Concat(galDashReq.AllItems, Name & " " & Text(Cnt), ", ")
                                                 AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =2
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
+                                                Height: =240
+                                                Image: |-
+                                                  =// Donut SVG: satu lingkaran per Requirement (stroke-dasharray), keliling r=60 -> 376.99
+                                                  With(
+                                                      {rows: galDashReq.AllItems, tot: Sum(galDashReq.AllItems, Cnt)},
+                                                      "data:image/svg+xml;utf8," & EncodeUrl(
+                                                          "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'>" &
+                                                          "<circle cx='90' cy='90' r='60' fill='none' stroke='#E2E6EF' stroke-width='26'/>" &
+                                                          If(
+                                                              tot = 0,
+                                                              "",
+                                                              Concat(
+                                                                  Sequence(CountRows(rows)),
+                                                                  With(
+                                                                      {r: Index(rows, Value), off: Sum(FirstN(rows, Value - 1), Cnt)},
+                                                                      If(
+                                                                          r.Cnt = 0,
+                                                                          "",
+                                                                          "<circle cx='90' cy='90' r='60' fill='none' stroke='" & r.Hex & "' stroke-width='26' stroke-dasharray='" &
+                                                                          Text(r.Cnt / tot * 376.99, "0.00", "en-US") & " 376.99' stroke-dashoffset='" &
+                                                                          Text(-off / tot * 376.99, "0.00", "en-US") & "' transform='rotate(-90 90 90)'/>"
+                                                                      )
+                                                                  )
+                                                              )
+                                                          ) &
+                                                          "<text x='90' y='92' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='30' font-weight='600' fill='#1F2937'>" & Text(tot) & "</text>" &
+                                                          "<text x='90' y='112' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='11' fill='#647082'>consume trx</text>" &
+                                                          "</svg>"
+                                                      )
+                                                  )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="NUMBER"
-                                                Wrap: =false
-                                          - txtDashRecentHDate:
-                                              Control: ModernText
+                                                Width: =240
+                                          - galDashReq:
+                                              Control: Gallery
+                                              Variant: Vertical
                                               Properties:
+                                                AccessibleLabel: ="Consume by requirement legend"
                                                 AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
+                                                Fill: =RGBA(255, 255, 255, 1)
+                                                FillPortions: =1
+                                                Height: =232
+                                                Items: |-
+                                                  =// Jumlah TRANSAKSI Consume per Requirement di bulan terpilih; tanpa Requirement = Unspecified
+                                                  With(
+                                                      {
+                                                          m0: DateTimeValue(Text(Coalesce(ddDashMonth.Selected.Start, Date(Year(Today()), Month(Today()), 1)), "yyyy-mm-dd")),
+                                                          m1: DateTimeValue(Text(DateAdd(Coalesce(ddDashMonth.Selected.Start, Date(Year(Today()), Month(Today()), 1)), 1, TimeUnit.Months), "yyyy-mm-dd"))
+                                                      },
+                                                      With(
+                                                          {
+                                                              base: Filter(
+                                                                  dis_trx_headers,
+                                                                  type = 'type (dis_trx_headers)'.Consume,
+                                                                  'Created On' >= m0,
+                                                                  'Created On' < m1
+                                                              )
+                                                          },
+                                                          With(
+                                                              {
+                                                                  rows: Table(
+                                                                      {Name: "Workshop", Hex: "#00126B", Swatch: RGBA(0, 18, 107, 1), Cnt: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.Workshop))},
+                                                                      {Name: "Material Request", Hex: "#2E9BD6", Swatch: RGBA(46, 155, 214, 1), Cnt: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.'Material Request'))},
+                                                                      {Name: "Unit", Hex: "#E8A33D", Swatch: RGBA(232, 163, 61, 1), Cnt: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.Unit))},
+                                                                      {Name: "Unspecified", Hex: "#A0A8B5", Swatch: RGBA(160, 168, 181, 1), Cnt: CountRows(Filter(base, IsBlank(requirement)))}
+                                                                  )
+                                                              },
+                                                              With(
+                                                                  {tot: Sum(rows, Cnt)},
+                                                                  AddColumns(rows, Pct, If(tot = 0, 0, Cnt / tot))
+                                                              )
+                                                          )
+                                                      )
+                                                  )
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="DATE"
-                                                Width: =88
-                                                Wrap: =false
-                                          - txtDashRecentHType:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="TYPE"
-                                                Width: =88
-                                                Wrap: =false
-                                          - txtDashRecentHArea:
-                                              Control: ModernText
-                                              Properties:
-                                                AlignInContainer: =AlignInContainer.Center
-                                                Color: =RGBA(100, 112, 130, 1)
-                                                FillPortions: =2
-                                                Font: =Font.'Segoe UI'
-                                                FontWeight: =FontWeight.Semibold
-                                                Height: =18
-                                                LayoutMinHeight: =0
-                                                LayoutMinWidth: =0
-                                                PaddingBottom: =0
-                                                PaddingLeft: =0
-                                                PaddingRight: =0
-                                                PaddingTop: =0
-                                                Size: =11
-                                                Text: ="AREA"
-                                                Wrap: =false
-                                    - galDashRecent:
-                                        Control: Gallery
-                                        Variant: Vertical
-                                        Properties:
-                                          AccessibleLabel: ="Recent transactions"
-                                          Fill: =RGBA(226, 230, 239, 1)
-                                          FillPortions: =0
-                                          Height: =244
-                                          Items: =FirstN(Sort(dis_trx_headers, 'Created On', SortOrder.Descending), 10)
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
-                                          Selectable: =false
-                                          TabIndex: =0
-                                          TemplateFill: =If(ThisItem.IsSelected, RGBA(232, 238, 252, 1), RGBA(255, 255, 255, 1))
-                                          TemplatePadding: =1
-                                          TemplateSize: =48
-                                          Visible: =!IsEmpty(dis_trx_headers)
-                                        Children:
-                                          - conDashRecentRow:
-                                              Control: GroupContainer
-                                              Variant: AutoLayout
-                                              Properties:
-                                                DropShadow: =DropShadow.None
-                                                Fill: =RGBA(0, 0, 0, 0)
-                                                Height: =Parent.TemplateHeight
-                                                LayoutAlignItems: =LayoutAlignItems.Center
-                                                LayoutDirection: =LayoutDirection.Horizontal
-                                                LayoutGap: =8
-                                                PaddingLeft: =12
-                                                PaddingRight: =12
-                                                RadiusBottomLeft: =0
-                                                RadiusBottomRight: =0
-                                                RadiusTopLeft: =0
-                                                RadiusTopRight: =0
-                                                Width: =Parent.TemplateWidth
+                                                Selectable: =false
+                                                TabIndex: =0
+                                                TemplateFill: =RGBA(255, 255, 255, 1)
+                                                TemplatePadding: =0
+                                                TemplateSize: =58
                                               Children:
-                                                - txtDashRecentNo:
+                                                - txtDashReqSwatch:
                                                     Control: ModernText
                                                     Properties:
-                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Fill: =ThisItem.Swatch
+                                                      Height: =14
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      RadiusBottomLeft: =4
+                                                      RadiusBottomRight: =4
+                                                      RadiusTopLeft: =4
+                                                      RadiusTopRight: =4
+                                                      Text: =""
+                                                      Width: =14
+                                                      X: =4
+                                                      Y: =13
+                                                - txtDashReqName:
+                                                    Control: ModernText
+                                                    Properties:
                                                       Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =2
                                                       Font: =Font.'Segoe UI'
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =20
-                                                      LayoutMinHeight: =0
-                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =ThisItem.transaction_number
+                                                      Text: =ThisItem.Name
+                                                      Width: =Parent.TemplateWidth - 96
                                                       Wrap: =false
-                                                - txtDashRecentDate:
+                                                      X: =26
+                                                      Y: =10
+                                                - txtDashReqPct:
                                                     Control: ModernText
                                                     Properties:
-                                                      AlignInContainer: =AlignInContainer.Center
+                                                      Align: =Align.Right
                                                       Color: =RGBA(31, 41, 55, 1)
                                                       Font: =Font.'Segoe UI'
-                                                      Height: =20
-                                                      LayoutMinHeight: =0
-                                                      LayoutMinWidth: =0
-                                                      PaddingBottom: =0
-                                                      PaddingLeft: =0
-                                                      PaddingRight: =0
-                                                      PaddingTop: =0
-                                                      Size: =13
-                                                      Text: =Text(ThisItem.'Created On', "dd/mm/yyyy")
-                                                      Width: =88
-                                                      Wrap: =false
-                                                - bdgDashRecentType:
-                                                    Control: Badge
-                                                    Properties:
-                                                      AccessibleLabel: ="Type " & Text(ThisItem.type)
-                                                      AlignInContainer: =AlignInContainer.Center
-                                                      Appearance: ='BadgeCanvas.Appearance'.Tint
-                                                      Content: =Text(ThisItem.type)
-                                                      FontSize: =12
                                                       FontWeight: =FontWeight.Semibold
-                                                      Height: =24
-                                                      LayoutMinHeight: =0
-                                                      LayoutMinWidth: =0
-                                                      Shape: ='BadgeCanvas.Shape'.Rounded
-                                                      ThemeColor: =Switch(Text(ThisItem.type), "Receive", 'BadgeCanvas.ThemeColor'.Success, "Consume", 'BadgeCanvas.ThemeColor'.Warning, "Transfer", 'BadgeCanvas.ThemeColor'.Brand, 'BadgeCanvas.ThemeColor'.Subtle)
-                                                      Width: =88
-                                                - txtDashRecentArea:
-                                                    Control: ModernText
-                                                    Properties:
-                                                      AlignInContainer: =AlignInContainer.Center
-                                                      Color: =RGBA(31, 41, 55, 1)
-                                                      FillPortions: =2
-                                                      Font: =Font.'Segoe UI'
                                                       Height: =20
-                                                      LayoutMinHeight: =0
-                                                      LayoutMinWidth: =0
                                                       PaddingBottom: =0
                                                       PaddingLeft: =0
                                                       PaddingRight: =0
                                                       PaddingTop: =0
-                                                      Size: =13
-                                                      Text: =Coalesce(ThisItem.area_to.Name, ThisItem.area_form.Name, "-")
+                                                      Size: =14
+                                                      Text: =Text(Round(ThisItem.Pct * 100, 0)) & "%"
+                                                      Width: =64
                                                       Wrap: =false
-                                    - txtDashRecentEmpty:
-                                        Control: ModernText
-                                        Properties:
-                                          Align: =Align.Center
-                                          AlignInContainer: =AlignInContainer.Stretch
-                                          Color: =RGBA(100, 112, 130, 1)
-                                          Font: =Font.'Segoe UI'
-                                          Height: =244
-                                          LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
-                                          PaddingBottom: =0
-                                          PaddingLeft: =0
-                                          PaddingRight: =0
-                                          PaddingTop: =0
-                                          Size: =13
-                                          Text: ="No transactions yet."
-                                          Visible: =IsEmpty(dis_trx_headers)
-                                          Wrap: =false
+                                                      X: =Parent.TemplateWidth - 68
+                                                      Y: =10
+                                                - txtDashReqCnt:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      Color: =RGBA(100, 112, 130, 1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =18
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Size: =11
+                                                      Text: =Text(ThisItem.Cnt) & " transaction(s)"
+                                                      Width: =Parent.TemplateWidth - 30
+                                                      Wrap: =false
+                                                      X: =26
+                                                      Y: =32
                               - conDashLowCard:
                                   Control: GroupContainer
                                   Variant: AutoLayout
