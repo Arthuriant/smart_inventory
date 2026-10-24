@@ -281,3 +281,11 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   tanggal dihitung dulu (m0/m1 DateTime) supaya filter 'Created On' terdelegasi. Belum dibatasi area user (itu
   perbaikan #5). | status: compile OK (0 error, 22 warning delegasi lama) | cek manual di Studio: donat & legenda tampil,
   ganti bulan -> angka berubah, baris legenda tidak hitam (ketik ulang TemplateFill galDashReq bila hitam); File > Save.
+- [2026-10-24, TERMINAL] app/scr_dashboard.pa.yaml | Dashboard per area Sub Business Line user (admin juga). Bar baru
+  `conDashAreaBar` di atas KPI: dropdown `ddDashArea` ("All my areas" = nfMyAreaIds, atau satu area; sentinel GUID nol)
+  + teks `txtDashAreaHint` (nama business line, jumlah area / pesan bila user tanpa Sub BL). Semua isi memakai area
+  terpilih (With ids): KPI Total Item = jumlah item berbeda dengan stok > 0 di area (caption "Items with stock in
+  area"), Stock below minimum = nfLowStock di area, Today's transactions = area_form atau area_to di area, daftar stok
+  rendah galDashLow, dan donat Consume (area_form). nfMyAreas/App.pa.yaml tidak diubah. | status: compile OK (0 error,
+  22 warning delegasi lama) | cek manual di Studio: dropdown Area terisi (tidak kosong), ganti area -> KPI, daftar
+  stok rendah, dan donat ikut berubah; login sebagai user tanpa Sub BL -> angka 0 + pesan; File > Save.
