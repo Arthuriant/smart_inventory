@@ -260,3 +260,15 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   input jadi lebih lebar (lebar kartu - 112), baris qty di Y 302. colConsSel tidak berubah. | status: compile OK (0 error,
   22 warning delegasi lama) | cek manual di Studio: angka qty terlihat penuh di antara tombol, ketik qty manual, tombol
   -/+ jalan; File > Save.
+- [2026-10-24, TERMINAL] Dataverse + app/scr_consume.pa.yaml, app/scr_frm_Transaction.pa.yaml | Requirement untuk Consume.
+  Kolom choice baru `cr8a3_requirement` (Power Fx requirement, 'requirement (dis_trx_headers)': Workshop 542060000 /
+  Material Request 542060001 / Unit 542060002, tidak wajib di DB) di cr8a3_dis_trx_header, solution Cr25417, dibuat via
+  Web API (flow-excel/tools/add-requirement-column.ps1); data source di-Refresh user di Studio. Consume: `txtConsReqLbl` +
+  dropdown `ddConsReq` di footer, wajib (tombol Consume nonaktif + Notify bila kosong), disimpan di setiap header Consume,
+  di-reset setelah simpan / Clear. Form transaksi lama: kartu `requirement_DataCard1_TrxF` (ModernCombobox
+  DataCardValueReq_TrxF) baris ke-3, hanya tampil & wajib untuk tipe Consume (tipe lain menyimpan kosong), note pindah ke
+  baris 4; Save nonaktif + pesan bila Consume tanpa Requirement. Sebelum edit, kedua file disalin dari Studio (Badge ->
+  ModernBadge di Consume, nama kolom di form ditulis ulang Studio). Consume lama tanpa Requirement = "Unspecified" nanti di
+  diagram. | status: compile OK (0 error, 22 warning delegasi lama) | cek manual di Studio: dropdown Requirement di footer
+  Consume tidak kosong, Consume tanpa Requirement ditolak, Consume dengan Requirement -> cek kolom requirement di
+  dis_trx_headers; form Transaksi tipe Consume menampilkan Requirement (dropdown form tidak kosong / "Depends on"); File > Save.

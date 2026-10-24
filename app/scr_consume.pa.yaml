@@ -445,19 +445,18 @@ Screens:
                                                       Text: =ThisItem.dis_item_v2.name
                                                       VerticalAlign: =VerticalAlign.Top
                                                 - bdgConsStock:
-                                                    Control: Badge
+                                                    Control: ModernBadge
                                                     Properties:
                                                       AccessibleLabel: ="Stock " & Text(ThisItem.qty)
                                                       AlignInContainer: =AlignInContainer.Start
-                                                      Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: ="Stock " & Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
-                                                      FontSize: =12
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
+                                                      Intent: =If(ThisItem.qty <= 0, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Informative)
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      Shape: ='BadgeCanvas.Shape'.Rounded
-                                                      ThemeColor: =If(ThisItem.qty <= 0, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Informative)
+                                                      Shape: =BadgeShape.Rounded
+                                                      Size: =12
                                                       Width: =120
                                                 - txtConsArea:
                                                     Control: ModernText
@@ -476,19 +475,18 @@ Screens:
                                                       Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · SPN " & Coalesce(ThisItem.dis_item_v2.client_number, "-") & " · Area " & ThisItem.dis_area.Name
                                                       Wrap: =false
                                                 - bdgConsRack:
-                                                    Control: Badge
+                                                    Control: ModernBadge
                                                     Properties:
                                                       AccessibleLabel: =If(IsBlank(ThisItem.rack), "No rack assigned", "Stored in rack " & ThisItem.rack.Name)
                                                       AlignInContainer: =AlignInContainer.Start
-                                                      Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: =If(IsBlank(ThisItem.rack), "No rack", "Rack " & ThisItem.rack.Name)
-                                                      FontSize: =12
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
+                                                      Intent: =If(IsBlank(ThisItem.rack), 'BadgeCanvas.ThemeColor'.Subtle, 'BadgeCanvas.ThemeColor'.Brand)
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      Shape: ='BadgeCanvas.Shape'.Rounded
-                                                      ThemeColor: =If(IsBlank(ThisItem.rack), 'BadgeCanvas.ThemeColor'.Subtle, 'BadgeCanvas.ThemeColor'.Brand)
+                                                      Shape: =BadgeShape.Rounded
+                                                      Size: =12
                                                       Width: =180
                                                 - txtConsQtySpace:
                                                     Control: ModernText
@@ -684,7 +682,6 @@ Screens:
                                           PaddingTop: =0
                                           Size: =12
                                           Text: ="Set " & locConsNa.name & " to non-active? It is hidden from Consume, Receive and Transfer (History stays). Receiving or transferring it later makes it active again."
-                                          Wrap: =true
                                     - btnConsNaYes:
                                         Control: ModernButton
                                         Properties:
@@ -766,8 +763,45 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: =Text(CountRows(colConsSel)) & " item(s) selected"
+                                          Text: =Text(CountRows(colConsSel)) & " item(s) selected" & If(!IsEmpty(colConsSel) And IsBlank(ddConsReq.Selected), " · choose a Requirement", "")
                                           Wrap: =false
+                                    - txtConsReqLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Right
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="Requirement *"
+                                          Width: =104
+                                          Wrap: =false
+                                    - ddConsReq:
+                                        Control: ModernDropdown
+                                        Properties:
+                                          AccessibleLabel: ="Requirement (required)"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =Appearance.Outline
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          ItemDisplayText: =ThisItem.Value
+                                          Items: =Choices([@dis_trx_headers].requirement)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Width: =200
                                     - btnConsActClear:
                                         Control: ModernButton
                                         Properties:
@@ -783,6 +817,7 @@ Screens:
                                           LayoutMinWidth: =132
                                           OnSelect: |-
                                             =Clear(colConsSel);
+                                            Reset(ddConsReq);
                                             Reset(galCons)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
@@ -801,6 +836,7 @@ Screens:
                                           DisplayMode: |-
                                             =If(
                                                 IsEmpty(colConsSel) ||
+                                                IsBlank(ddConsReq.Selected) ||
                                                 CountRows(Filter(colConsSel, qty > avail)) > 0,
                                                 DisplayMode.Disabled,
                                                 DisplayMode.Edit
@@ -815,6 +851,9 @@ Screens:
                                             If(
                                                 IsEmpty(colConsSel),
                                                 Notify("Enter a quantity (Qty) for at least 1 item to consume!", NotificationType.Error),
+
+                                                IsBlank(ddConsReq.Selected),
+                                                Notify("Choose a Requirement (Workshop / Material Request / Unit)!", NotificationType.Error),
 
                                                 // Cek terhadap stok terbaru (pilihan bisa tersembunyi oleh filter)
                                                 CountRows(Filter(colConsSel As c, c.qty > LookUp(dis_stocks, dis_stock = c.stockId).qty)) > 0,
@@ -850,6 +889,7 @@ Screens:
                                                                             {
                                                                                 transaction_number: trxNo,
                                                                                 type: 'type (dis_trx_headers)'.Consume,
+                                                                                requirement: ddConsReq.Selected.Value,
                                                                                 area_form: LookUp(dis_areas, dis_area = aId)
                                                                             }
                                                                         )
@@ -881,6 +921,7 @@ Screens:
                                                 );
                                                 // 4. Bersihkan input, notifikasi
                                                 Clear(colConsSel);
+                                                Reset(ddConsReq);
                                                 Reset(galCons);
                                                 Notify("Consume transaction saved and stock has been reduced!", NotificationType.Success)
                                             )

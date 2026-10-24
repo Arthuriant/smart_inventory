@@ -136,8 +136,8 @@ Screens:
                                           BorderColor: =RGBA(0, 18, 107, 1)
                                           DataField: ="cr8a3_transaction_number"
                                           Default: =ThisItem.transaction_number
-                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_transaction_number')
-                                          MaxLength: =DataSourceInfo([@dis_trx_headers], DataSourceInfo.MaxLength, 'cr8a3_transaction_number')
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,transaction_number)
+                                          MaxLength: =DataSourceInfo([@dis_trx_headers], DataSourceInfo.MaxLength, transaction_number)
                                           Required: =true
                                           Update: =DataCardValue4_TrxF.Text
                                           Width: =Parent.Width / 2
@@ -166,7 +166,7 @@ Screens:
                                                 Default: |-
                                                   =With(
                                                       {
-                                                          varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).cr8a3_transaction_number
+                                                          varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
                                                       },
                                                       With(
                                                           {
@@ -220,7 +220,7 @@ Screens:
                                                 frmTrxF.Mode = FormMode.New And gblTrxNewType = "Transfer", 'type (dis_trx_headers)'.Transfer,
                                                 ThisItem.type
                                             )
-                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_type')
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,type)
                                           Required: =true
                                           Update: =DataCardValue7_TrxF.Selected.Value
                                           Width: =Parent.Width / 2
@@ -293,7 +293,7 @@ Screens:
                                           BorderColor: =RGBA(180, 214, 250, 1)
                                           DataField: ="cr8a3_area_from"
                                           Default: =ThisItem.area_form
-                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_area_from')
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,area_form)
                                           Required: =false
                                           Update: =cmbTrxFAreaFrom.Selected
                                           Width: =Parent.Width / 2
@@ -369,7 +369,7 @@ Screens:
                                           BorderColor: =RGBA(0, 18, 107, 1)
                                           DataField: ="cr8a3_area_to"
                                           Default: =ThisItem.area_to
-                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_area_to')
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,area_to)
                                           Required: =false
                                           Update: =DataCardValue33_TrxF.Selected
                                           Width: =Parent.Width / 2
@@ -438,6 +438,80 @@ Screens:
                                                 Width: =Parent.Width - 48
                                                 X: =24
                                                 Y: =DataCardValue33_TrxF.Y + DataCardValue33_TrxF.Height
+                                    - requirement_DataCard1_TrxF:
+                                        Control: TypedDataCard
+                                        Variant: ModernComboBoxOptionSetSingleEdit
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          DataField: ="cr8a3_requirement"
+                                          Default: =ThisItem.requirement
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,requirement)
+                                          Required: =Text(DataCardValue7_TrxF.Selected.Value) = "Consume"
+                                          Update: =If(Text(DataCardValue7_TrxF.Selected.Value) = "Consume", DataCardValueReq_TrxF.Selected.Value, Blank())
+                                          Visible: =Text(DataCardValue7_TrxF.Selected.Value) = "Consume"
+                                          Width: =Parent.Width / 2
+                                          X: =0
+                                          Y: =2
+                                        Children:
+                                          - DataCardKeyReq_TrxF:
+                                              Control: ModernText
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Size: =14
+                                                Text: ="Requirement"
+                                                Width: =Parent.Width - 48
+                                                Wrap: =false
+                                                X: =24
+                                                Y: =10
+                                          - DataCardValueReq_TrxF:
+                                              Control: ModernCombobox
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                AccessibleLabel: =Parent.DisplayName
+                                                Appearance: =Appearance.Outline
+                                                DefaultSelectedItems: =If(IsBlank(Parent.Default), Blank(), [Parent.Default])
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Segoe UI'
+                                                Height: =32
+                                                ItemDisplayText: =ThisItem.Value
+                                                Items: =Choices([@dis_trx_headers].requirement)
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                SelectMultiple: =false
+                                                Size: =13
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardKeyReq_TrxF.Y + DataCardKeyReq_TrxF.Height + 4
+                                          - ErrorMessageReq_TrxF:
+                                              Control: ModernText
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                Height: =30
+                                                Size: =14
+                                                Text: =Parent.Error
+                                                Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =Parent.Width - 48
+                                                X: =24
+                                                Y: =DataCardValueReq_TrxF.Y + DataCardValueReq_TrxF.Height
+                                          - StarVisibleReq_TrxF:
+                                              Control: ModernText
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =Color.Red
+                                                Height: =DataCardKeyReq_TrxF.Height
+                                                PaddingBottom: =0
+                                                PaddingTop: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Y: =DataCardKeyReq_TrxF.Y
                                     - note_DataCard1_TrxF:
                                         Control: TypedDataCard
                                         Variant: ModernTextualMultilineEdit
@@ -445,13 +519,13 @@ Screens:
                                           BorderColor: =RGBA(0, 18, 107, 1)
                                           DataField: ="cr8a3_note"
                                           Default: =ThisItem.note
-                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,'cr8a3_note')
-                                          MaxLength: =DataSourceInfo([@dis_trx_headers], DataSourceInfo.MaxLength, 'cr8a3_note')
+                                          DisplayName: =DataSourceInfo([@dis_trx_headers],DataSourceInfo.DisplayName,note)
+                                          MaxLength: =DataSourceInfo([@dis_trx_headers], DataSourceInfo.MaxLength, note)
                                           Required: =false
                                           Update: =DataCardValue8_TrxF.Text
                                           Width: =Parent.Width
                                           X: =0
-                                          Y: =2
+                                          Y: =3
                                         Children:
                                           - DataCardKey8_TrxF:
                                               Control: ModernText
@@ -581,14 +655,12 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: =Text(CountRows(colTempDetails)) & " item(s) · " & Text(Sum(colTempDetails, Qty)) & " pcs"
-                                          Width: =200
                                           Wrap: =false
                               - conTrxFSplit:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     DropShadow: =DropShadow.None
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     FillPortions: =0
                                     Height: =440
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -606,7 +678,6 @@ Screens:
                                         Variant: AutoLayout
                                         Properties:
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =3
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -623,7 +694,6 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =RGBA(0, 0, 0, 0)
                                                 FillPortions: =0
                                                 Height: =36
                                                 LayoutAlignItems: =LayoutAlignItems.Center
@@ -711,7 +781,6 @@ Screens:
                                               Properties:
                                                 AccessibleLabel: ="Items to add"
                                                 Fill: =RGBA(226, 230, 239, 1)
-                                                FillPortions: =1
                                                 Items: |-
                                                   =Sort(
                                                       If(
@@ -769,7 +838,6 @@ Screens:
                                                     Variant: AutoLayout
                                                     Properties:
                                                       DropShadow: =DropShadow.None
-                                                      Fill: =RGBA(0, 0, 0, 0)
                                                       Height: =Parent.TemplateHeight
                                                       LayoutAlignItems: =LayoutAlignItems.Center
                                                       LayoutDirection: =LayoutDirection.Horizontal
@@ -957,7 +1025,6 @@ Screens:
                                         Variant: AutoLayout
                                         Properties:
                                           DropShadow: =DropShadow.None
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =2
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -1048,7 +1115,6 @@ Screens:
                                               Properties:
                                                 AccessibleLabel: ="Item cart"
                                                 Fill: =RGBA(226, 230, 239, 1)
-                                                FillPortions: =1
                                                 Items: =colTempDetails
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
@@ -1063,7 +1129,6 @@ Screens:
                                                     Variant: AutoLayout
                                                     Properties:
                                                       DropShadow: =DropShadow.None
-                                                      Fill: =RGBA(0, 0, 0, 0)
                                                       Height: =Parent.TemplateHeight
                                                       LayoutAlignItems: =LayoutAlignItems.Center
                                                       LayoutDirection: =LayoutDirection.Horizontal
@@ -1138,7 +1203,8 @@ Screens:
                                                             Layout: =ButtonLayout.IconOnly
                                                             LayoutMinHeight: =0
                                                             LayoutMinWidth: =32
-                                                            OnSelect: "=If(ThisItem.Qty <= 1, Remove(colTempDetails, ThisItem), Patch(colTempDetails, ThisItem, {Qty: ThisItem.Qty - 1}))"
+                                                            OnSelect: |-
+                                                              =If(ThisItem.Qty <= 1, Remove(colTempDetails, ThisItem), Patch(colTempDetails, ThisItem, {Qty: ThisItem.Qty - 1}))
                                                             PaddingBottom: =0
                                                             PaddingLeft: =0
                                                             PaddingRight: =0
@@ -1196,7 +1262,8 @@ Screens:
                                                             Layout: =ButtonLayout.IconOnly
                                                             LayoutMinHeight: =0
                                                             LayoutMinWidth: =32
-                                                            OnSelect: "=Patch(colTempDetails, ThisItem, {Qty: ThisItem.Qty + 1})"
+                                                            OnSelect: |-
+                                                              =Patch(colTempDetails, ThisItem, {Qty: ThisItem.Qty + 1})
                                                             PaddingBottom: =0
                                                             PaddingLeft: =0
                                                             PaddingRight: =0
@@ -1252,7 +1319,6 @@ Screens:
                                                 Size: =13
                                                 Text: ="The cart is empty. Click + on an item to add it."
                                                 Visible: =IsEmpty(colTempDetails)
-                                                Wrap: =true
                         - conTrxFActions:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -1287,7 +1353,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =12
-                                    Text: =If(IsEmpty(colTempDetails), "Add at least one item to the cart.", "Some cart qty exceeds the stock in the From area (shown in red).")
+                                    Text: =If(IsEmpty(colTempDetails), "Add at least one item to the cart.", Text(DataCardValue7_TrxF.Selected.Value) = "Consume" And IsBlank(DataCardValueReq_TrxF.Selected), "Choose a Requirement for this Consume.", "Some cart qty exceeds the stock in the From area (shown in red).")
                                     Visible: =btnTrxFSave.DisplayMode = DisplayMode.Disabled
                                     Wrap: =false
                               - btnTrxFBack:
@@ -1321,7 +1387,8 @@ Screens:
                                     BasePaletteColor: =RGBA(0, 18, 107, 1)
                                     DisplayMode: |-
                                       =If(
-                                          IsEmpty(colTempDetails) Or (
+                                          IsEmpty(colTempDetails) Or
+                                          (Text(DataCardValue7_TrxF.Selected.Value) = "Consume" And IsBlank(DataCardValueReq_TrxF.Selected)) Or (
                                               Text(DataCardValue7_TrxF.Selected.Value) in ["Transfer", "Consume"] And frmTrxF.Mode = FormMode.New And
                                               !IsEmpty(Filter(colTempDetails As c, c.Qty > Coalesce(LookUp(dis_stocks, dis_item_v2.dis_item_v2 = c.Id And dis_area.dis_area = cmbTrxFAreaFrom.Selected.dis_area).qty, 0)))
                                           ),
