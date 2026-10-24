@@ -295,3 +295,14 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   diganti), putih + garis, tinggi 56, padding 24. File diambil dari Studio dulu. | status: compile OK (0 error, 22 warning
   delegasi lama), sync ulang: urutan TopBar, Body, Footer | cek manual: footer Area selalu terlihat, ganti area -> isi
   berubah, dropdown tidak kosong; File > Save.
+- [2026-10-24, TERMINAL] Dataverse + app/scr_consume.pa.yaml, app/scr_dashboard.pa.yaml | (1) Label pilihan requirement
+  542060000 "Workshop" -> "Workshop/TLM" (UpdateOptionValue, nilai tetap; flow-excel/tools/rename-requirement-workshop.ps1),
+  data source di-Refresh user. ddConsReq Default = Workshop/TLM (Reset kembali ke default). (2) Perbaikan tampilan kartu
+  Consume (badge "AB" besar di atas kartu, isi tergeser): badge stok/rak sudah di-upgrade Studio ke ModernBadge tetapi
+  Intent masih enum Badge lama ('BadgeCanvas.ThemeColor'.*) -> dibuat ulang sebagai bdgConsStockB / bdgConsRackB dengan
+  BadgeAppearance.Tint + BadgeIntent (Critical/Informative, Neutral/Highlight). (3) Donat menghitung JUMLAH BARIS BARANG
+  (dis_trx_details) Consume per requirement (keputusan user), legenda "n item(s) · m transaction(s)", tengah donat "items
+  consumed". Detail diambil terdelegasi (Created On >= awal bulan) lalu dicocokkan ke header bulan/area terpilih di app.
+  Kedua file diambil dari Studio dulu. | status: compile OK (0 error, 22 warning delegasi lama) | cek manual: kartu Consume
+  normal (badge kecil Stock/Rack, tombol -/+ tidak menutupi teks), Requirement terisi Workshop/TLM, donat menghitung item;
+  bila tombol + ungu / dropdown kosong = gejala "binding" (ketik ulang BasePaletteColor / hapus "Depends on"); File > Save.

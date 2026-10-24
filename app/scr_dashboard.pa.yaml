@@ -666,7 +666,7 @@ Screens:
                                               Control: Image
                                               Properties:
                                                 AccessibleLabel: |-
-                                                  ="Consume transactions by requirement: " & Concat(galDashReq.AllItems, Name & " " & Text(Cnt), ", ")
+                                                  ="Consumed items by requirement: " & Concat(galDashReq.AllItems, Name & " " & Text(Cnt), ", ")
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Height: =240
                                                 Image: |-
@@ -694,7 +694,7 @@ Screens:
                                                               )
                                                           ) &
                                                           "<text x='90' y='92' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='30' font-weight='600' fill='#1F2937'>" & Text(tot) & "</text>" &
-                                                          "<text x='90' y='112' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='11' fill='#647082'>consume trx</text>" &
+                                                          "<text x='90' y='112' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='11' fill='#647082'>items consumed</text>" &
                                                           "</svg>"
                                                       )
                                                   )
@@ -710,7 +710,8 @@ Screens:
                                                 Fill: =RGBA(255, 255, 255, 1)
                                                 Height: =232
                                                 Items: |-
-                                                  =// Jumlah TRANSAKSI Consume per Requirement di bulan terpilih; tanpa Requirement = Unspecified
+                                                  =// Jumlah BARIS BARANG (detail) Consume per Requirement di bulan & area terpilih (Trx = jumlah transaksi);
+                                                  // tanpa Requirement = Unspecified
                                                   With(
                                                       {
                                                           m0: DateTimeValue(Text(Coalesce(ddDashMonth.Selected.Start, Date(Year(Today()), Month(Today()), 1)), "yyyy-mm-dd")),
@@ -725,15 +726,17 @@ Screens:
                                                                   'Created On' >= m0,
                                                                   'Created On' < m1,
                                                                   area_form.dis_area in ids
-                                                              )
+                                                              ),
+                                                              // detail dibuat sejak awal bulan (terdelegasi), dicocokkan ke header di app
+                                                              ln: ForAll(Filter(dis_trx_details, 'Created On' >= m0), {H: ThisRecord.header_id.dis_trx_header})
                                                           },
                                                           With(
                                                               {
                                                                   rows: Table(
-                                                                      {Name: "Workshop", Hex: "#00126B", Swatch: RGBA(0, 18, 107, 1), Cnt: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.Workshop))},
-                                                                      {Name: "Material Request", Hex: "#2E9BD6", Swatch: RGBA(46, 155, 214, 1), Cnt: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.'Material Request'))},
-                                                                      {Name: "Unit", Hex: "#E8A33D", Swatch: RGBA(232, 163, 61, 1), Cnt: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.Unit))},
-                                                                      {Name: "Unspecified", Hex: "#A0A8B5", Swatch: RGBA(160, 168, 181, 1), Cnt: CountRows(Filter(base, IsBlank(requirement)))}
+                                                                      {Name: "Workshop/TLM", Hex: "#00126B", Swatch: RGBA(0, 18, 107, 1), Trx: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.'Workshop/TLM')), Cnt: CountRows(Filter(ln, H in ForAll(Filter(base, requirement = 'requirement (dis_trx_headers)'.'Workshop/TLM'), ThisRecord.dis_trx_header)))},
+                                                                      {Name: "Material Request", Hex: "#2E9BD6", Swatch: RGBA(46, 155, 214, 1), Trx: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.'Material Request')), Cnt: CountRows(Filter(ln, H in ForAll(Filter(base, requirement = 'requirement (dis_trx_headers)'.'Material Request'), ThisRecord.dis_trx_header)))},
+                                                                      {Name: "Unit", Hex: "#E8A33D", Swatch: RGBA(232, 163, 61, 1), Trx: CountRows(Filter(base, requirement = 'requirement (dis_trx_headers)'.Unit)), Cnt: CountRows(Filter(ln, H in ForAll(Filter(base, requirement = 'requirement (dis_trx_headers)'.Unit), ThisRecord.dis_trx_header)))},
+                                                                      {Name: "Unspecified", Hex: "#A0A8B5", Swatch: RGBA(160, 168, 181, 1), Trx: CountRows(Filter(base, IsBlank(requirement))), Cnt: CountRows(Filter(ln, H in ForAll(Filter(base, IsBlank(requirement)), ThisRecord.dis_trx_header)))}
                                                                   )
                                                               },
                                                               With(
@@ -814,7 +817,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =11
-                                                      Text: =Text(ThisItem.Cnt) & " transaction(s)"
+                                                      Text: =Text(ThisItem.Cnt) & " item(s) · " & Text(ThisItem.Trx) & " transaction(s)"
                                                       Width: =Parent.TemplateWidth - 30
                                                       Wrap: =false
                                                       X: =26

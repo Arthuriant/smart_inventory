@@ -444,7 +444,7 @@ Screens:
                                                       Size: =13
                                                       Text: =ThisItem.dis_item_v2.name
                                                       VerticalAlign: =VerticalAlign.Top
-                                                - bdgConsStock:
+                                                - bdgConsStockB:
                                                     Control: ModernBadge
                                                     Properties:
                                                       AccessibleLabel: ="Stock " & Text(ThisItem.qty)
@@ -452,7 +452,8 @@ Screens:
                                                       Content: ="Stock " & Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
-                                                      Intent: =If(ThisItem.qty <= 0, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Informative)
+                                                      Appearance: =BadgeAppearance.Tint
+                                                      Intent: =If(ThisItem.qty <= 0, BadgeIntent.Critical, BadgeIntent.Informative)
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       Shape: =BadgeShape.Rounded
@@ -474,7 +475,7 @@ Screens:
                                                       Size: =11
                                                       Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · SPN " & Coalesce(ThisItem.dis_item_v2.client_number, "-") & " · Area " & ThisItem.dis_area.Name
                                                       Wrap: =false
-                                                - bdgConsRack:
+                                                - bdgConsRackB:
                                                     Control: ModernBadge
                                                     Properties:
                                                       AccessibleLabel: =If(IsBlank(ThisItem.rack), "No rack assigned", "Stored in rack " & ThisItem.rack.Name)
@@ -482,7 +483,8 @@ Screens:
                                                       Content: =If(IsBlank(ThisItem.rack), "No rack", "Rack " & ThisItem.rack.Name)
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
-                                                      Intent: =If(IsBlank(ThisItem.rack), 'BadgeCanvas.ThemeColor'.Subtle, 'BadgeCanvas.ThemeColor'.Brand)
+                                                      Appearance: =BadgeAppearance.Tint
+                                                      Intent: =If(IsBlank(ThisItem.rack), BadgeIntent.Neutral, BadgeIntent.Highlight)
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       Shape: =BadgeShape.Rounded
@@ -792,6 +794,8 @@ Screens:
                                           Appearance: =Appearance.Outline
                                           Font: =Font.'Segoe UI'
                                           Height: =36
+                                          Default: |-
+                                            =LookUp(Choices([@dis_trx_headers].requirement), Value = 'requirement (dis_trx_headers)'.'Workshop/TLM')
                                           ItemDisplayText: =ThisItem.Value
                                           Items: =Choices([@dis_trx_headers].requirement)
                                           LayoutMinHeight: =0
