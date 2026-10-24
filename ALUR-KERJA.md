@@ -289,3 +289,9 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   rendah galDashLow, dan donat Consume (area_form). nfMyAreas/App.pa.yaml tidak diubah. | status: compile OK (0 error,
   22 warning delegasi lama) | cek manual di Studio: dropdown Area terisi (tidak kosong), ganti area -> KPI, daftar
   stok rendah, dan donat ikut berubah; login sebagai user tanpa Sub BL -> angka 0 + pesan; File > Save.
+- [2026-10-24, TERMINAL] app/scr_dashboard.pa.yaml | Pemilih Area Dashboard jadi footer tetap: Studio ternyata menaruh
+  conDashAreaBar di AKHIR conDashBody (harus scroll). Dipindah ke conDashMain setelah conDashBody (di luar area scroll) dan
+  diberi nama baru conDashAreaFoot / ddDashAreaFt / txtDashAreaFtLbl / txtDashAreaFtHint (semua referensi ddDashArea.
+  diganti), putih + garis, tinggi 56, padding 24. File diambil dari Studio dulu. | status: compile OK (0 error, 22 warning
+  delegasi lama), sync ulang: urutan TopBar, Body, Footer | cek manual: footer Area selalu terlihat, ganti area -> isi
+  berubah, dropdown tidak kosong; File > Save.

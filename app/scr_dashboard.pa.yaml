@@ -75,87 +75,6 @@ Screens:
                         RadiusTopLeft: =0
                         RadiusTopRight: =0
                       Children:
-                        - conDashAreaBar:
-                            Control: GroupContainer
-                            Variant: AutoLayout
-                            Properties:
-                              DropShadow: =DropShadow.None
-                              FillPortions: =0
-                              Height: =36
-                              LayoutAlignItems: =LayoutAlignItems.Center
-                              LayoutDirection: =LayoutDirection.Horizontal
-                              LayoutGap: =8
-                              LayoutMinHeight: =0
-                              LayoutMinWidth: =0
-                              RadiusBottomLeft: =0
-                              RadiusBottomRight: =0
-                              RadiusTopLeft: =0
-                              RadiusTopRight: =0
-                            Children:
-                              - txtDashAreaLbl:
-                                  Control: ModernText
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Center
-                                    Color: =RGBA(31, 41, 55, 1)
-                                    Font: =Font.'Segoe UI'
-                                    FontWeight: =FontWeight.Semibold
-                                    Height: =20
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =0
-                                    PaddingBottom: =0
-                                    PaddingLeft: =0
-                                    PaddingRight: =0
-                                    PaddingTop: =0
-                                    Size: =13
-                                    Text: ="Area"
-                                    Width: =40
-                                    Wrap: =false
-                              - ddDashArea:
-                                  Control: ModernDropdown
-                                  Properties:
-                                    AccessibleLabel: ="Dashboard area"
-                                    AlignInContainer: =AlignInContainer.Center
-                                    Appearance: =Appearance.Outline
-                                    Default: |-
-                                      ={Label: "All my areas", AreaId: GUID("00000000-0000-0000-0000-000000000000")}
-                                    Font: =Font.'Segoe UI'
-                                    Height: =32
-                                    ItemDisplayText: =ThisItem.Label
-                                    Items: |-
-                                      =// "All my areas" = semua area di Sub Business Line user (admin juga), lalu tiap area
-                                      Ungroup(
-                                          Table(
-                                              {Rows: Table({Label: "All my areas", AreaId: GUID("00000000-0000-0000-0000-000000000000")})},
-                                              {Rows: ForAll(Sort(nfMyAreas, Name), {Label: ThisRecord.Name, AreaId: ThisRecord.dis_area})}
-                                          ),
-                                          Rows
-                                      )
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =0
-                                    RadiusBottomLeft: =8
-                                    RadiusBottomRight: =8
-                                    RadiusTopLeft: =8
-                                    RadiusTopRight: =8
-                                    Size: =13
-                                    Width: =240
-                              - txtDashAreaHint:
-                                  Control: ModernText
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Center
-                                    Color: =RGBA(100, 112, 130, 1)
-                                    FillPortions: =1
-                                    Font: =Font.'Segoe UI'
-                                    Height: =20
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =0
-                                    PaddingBottom: =0
-                                    PaddingLeft: =0
-                                    PaddingRight: =0
-                                    PaddingTop: =0
-                                    Size: =12
-                                    Text: |-
-                                      =If(IsEmpty(nfMyAreas), "Your user has no Sub Business Line, so no area data is shown.", "Business line " & Coalesce(nfMyBl.Name, "-") & " · " & Text(CountRows(nfMyAreas)) & " area(s)")
-                                    Wrap: =false
                         - conDashKpis:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -252,7 +171,7 @@ Screens:
                                               Control: ModernText
                                               Properties:
                                                 AccessibleLabel: |-
-                                                  ="Total Item " & Text(With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, CountRows(Distinct(Filter(dis_stocks, dis_area.dis_area in ids, qty > 0), dis_item_v2.dis_item_v2))))
+                                                  ="Total Item " & Text(With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, CountRows(Distinct(Filter(dis_stocks, dis_area.dis_area in ids, qty > 0), dis_item_v2.dis_item_v2))))
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(31, 41, 55, 1)
                                                 Font: =Font.'Segoe UI'
@@ -266,7 +185,7 @@ Screens:
                                                 PaddingTop: =0
                                                 Size: =28
                                                 Text: |-
-                                                  =With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, Text(CountRows(Distinct(Filter(dis_stocks, dis_area.dis_area in ids, qty > 0), dis_item_v2.dis_item_v2))))
+                                                  =With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, Text(CountRows(Distinct(Filter(dis_stocks, dis_area.dis_area in ids, qty > 0), dis_item_v2.dis_item_v2))))
                                                 Wrap: =false
                                           - txtDashKpiItemsCap:
                                               Control: ModernText
@@ -363,7 +282,7 @@ Screens:
                                               Control: ModernText
                                               Properties:
                                                 AccessibleLabel: |-
-                                                  ="Stock below minimum " & Text(With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, CountRows(Filter(nfLowStock, dis_area.dis_area in ids))))
+                                                  ="Stock below minimum " & Text(With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, CountRows(Filter(nfLowStock, dis_area.dis_area in ids))))
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(31, 41, 55, 1)
                                                 Font: =Font.'Segoe UI'
@@ -377,7 +296,7 @@ Screens:
                                                 PaddingTop: =0
                                                 Size: =28
                                                 Text: |-
-                                                  =With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, Text(CountRows(Filter(nfLowStock, dis_area.dis_area in ids))))
+                                                  =With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, Text(CountRows(Filter(nfLowStock, dis_area.dis_area in ids))))
                                                 Wrap: =false
                                           - txtDashKpiLowCap:
                                               Control: ModernText
@@ -474,7 +393,7 @@ Screens:
                                               Control: ModernText
                                               Properties:
                                                 AccessibleLabel: |-
-                                                  ="Today's transactions " & Text(With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, CountRows(Filter(dis_trx_headers, 'Created On' >= Today(), 'Created On' < DateAdd(Today(), 1, TimeUnit.Days), area_form.dis_area in ids Or area_to.dis_area in ids))))
+                                                  ="Today's transactions " & Text(With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, CountRows(Filter(dis_trx_headers, 'Created On' >= Today(), 'Created On' < DateAdd(Today(), 1, TimeUnit.Days), area_form.dis_area in ids Or area_to.dis_area in ids))))
                                                 AlignInContainer: =AlignInContainer.Stretch
                                                 Color: =RGBA(31, 41, 55, 1)
                                                 Font: =Font.'Segoe UI'
@@ -488,7 +407,7 @@ Screens:
                                                 PaddingTop: =0
                                                 Size: =28
                                                 Text: |-
-                                                  =With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, Text(CountRows(Filter(dis_trx_headers, 'Created On' >= Today(), 'Created On' < DateAdd(Today(), 1, TimeUnit.Days), area_form.dis_area in ids Or area_to.dis_area in ids))))
+                                                  =With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, Text(CountRows(Filter(dis_trx_headers, 'Created On' >= Today(), 'Created On' < DateAdd(Today(), 1, TimeUnit.Days), area_form.dis_area in ids Or area_to.dis_area in ids))))
                                                 Wrap: =false
                                           - txtDashKpiTodayCap:
                                               Control: ModernText
@@ -733,7 +652,6 @@ Screens:
                                         Variant: AutoLayout
                                         Properties:
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =1
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =16
@@ -790,14 +708,13 @@ Screens:
                                                 AccessibleLabel: ="Consume by requirement legend"
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Fill: =RGBA(255, 255, 255, 1)
-                                                FillPortions: =1
                                                 Height: =232
                                                 Items: |-
                                                   =// Jumlah TRANSAKSI Consume per Requirement di bulan terpilih; tanpa Requirement = Unspecified
                                                   With(
                                                       {
                                                           m0: DateTimeValue(Text(Coalesce(ddDashMonth.Selected.Start, Date(Year(Today()), Month(Today()), 1)), "yyyy-mm-dd")),
-                                                          ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId})),
+                                                          ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId})),
                                                           m1: DateTimeValue(Text(DateAdd(Coalesce(ddDashMonth.Selected.Start, Date(Year(Today()), Month(Today()), 1)), 1, TimeUnit.Months), "yyyy-mm-dd"))
                                                       },
                                                       With(
@@ -950,7 +867,7 @@ Screens:
                                           FillPortions: =0
                                           Height: =288
                                           Items: |-
-                                            =With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, FirstN(Sort(Filter(nfLowStock, dis_area.dis_area in ids), qty, SortOrder.Ascending), 10))
+                                            =With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, FirstN(Sort(Filter(nfLowStock, dis_area.dis_area in ids), qty, SortOrder.Ascending), 10))
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           Selectable: =false
@@ -959,14 +876,13 @@ Screens:
                                           TemplatePadding: =1
                                           TemplateSize: =56
                                           Visible: |-
-                                            =With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, !IsEmpty(Filter(nfLowStock, dis_area.dis_area in ids)))
+                                            =With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, !IsEmpty(Filter(nfLowStock, dis_area.dis_area in ids)))
                                         Children:
                                           - conDashLowRow:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
                                                 DropShadow: =DropShadow.None
-                                                Fill: =RGBA(0, 0, 0, 0)
                                                 Height: =Parent.TemplateHeight
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Horizontal
@@ -1028,5 +944,90 @@ Screens:
                                           Size: =13
                                           Text: ="All stock in this area is above minimum."
                                           Visible: |-
-                                            =With({ids: If(IsBlank(ddDashArea.Selected) Or ddDashArea.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashArea.Selected.AreaId}))}, IsEmpty(Filter(nfLowStock, dis_area.dis_area in ids)))
+                                            =With({ids: If(IsBlank(ddDashAreaFt.Selected) Or ddDashAreaFt.Selected.AreaId = GUID("00000000-0000-0000-0000-000000000000"), nfMyAreaIds, Table({Value: ddDashAreaFt.Selected.AreaId}))}, IsEmpty(Filter(nfLowStock, dis_area.dis_area in ids)))
                                           Wrap: =false
+                  - conDashAreaFoot:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(226, 230, 239, 1)
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =56
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtDashAreaFtLbl:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(31, 41, 55, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =20
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =13
+                              Text: ="Area"
+                              Width: =40
+                              Wrap: =false
+                        - ddDashAreaFt:
+                            Control: ModernDropdown
+                            Properties:
+                              AccessibleLabel: ="Dashboard area"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =Appearance.Outline
+                              Default: |-
+                                ={Label: "All my areas", AreaId: GUID("00000000-0000-0000-0000-000000000000")}
+                              Font: =Font.'Segoe UI'
+                              Height: =32
+                              ItemDisplayText: =ThisItem.Label
+                              Items: |-
+                                =// "All my areas" = semua area di Sub Business Line user (admin juga), lalu tiap area
+                                Ungroup(
+                                    Table(
+                                        {Rows: Table({Label: "All my areas", AreaId: GUID("00000000-0000-0000-0000-000000000000")})},
+                                        {Rows: ForAll(Sort(nfMyAreas, Name), {Label: ThisRecord.Name, AreaId: ThisRecord.dis_area})}
+                                    ),
+                                    Rows
+                                )
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Width: =240
+                        - txtDashAreaFtHint:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              Height: =20
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =12
+                              Text: =If(IsEmpty(nfMyAreas), "Your user has no Sub Business Line, so no area data is shown.", "Business line " & Coalesce(nfMyBl.Name, "-") & " · " & Text(CountRows(nfMyAreas)) & " area(s)")
+                              Wrap: =false
