@@ -254,3 +254,9 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   (0 error, 22 warning delegasi lama), sync ulang = berisi semua perubahan | cek manual di Studio: kartu Consume tidak
   hitam (ketik ulang Fill conConsRow bila hitam), tombol -/+ dan ketik qty, pilih qty -> search item lain -> kembali,
   qty tetap; Consume 2 item -> stok turun, pilihan kosong; fitur Non-active ada di Item/Receive/Transfer; File > Save.
+- [2026-10-24, TERMINAL] app/scr_consume.pa.yaml | Revisi qty Consume (permintaan user: tombol terlalu besar, menutupi
+  angka): numConsQtyVal (ModernNumberInput, ada panah spin) diganti `inpConsQty` (ModernTextInput, tanpa panah, ketik
+  manual, placeholder "0", TriggerOutput Delayed, teks bukan angka = 0). Tombol -/+ diperkecil 64x48 -> 40x40 (huruf 18),
+  input jadi lebih lebar (lebar kartu - 112), baris qty di Y 302. colConsSel tidak berubah. | status: compile OK (0 error,
+  22 warning delegasi lama) | cek manual di Studio: angka qty terlihat penuh di antara tombol, ketik qty manual, tombol
+  -/+ jalan; File > Save.
