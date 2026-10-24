@@ -244,3 +244,13 @@ Format: `- [tanggal] file yang diubah | ringkasan | status: belum compile / comp
   "Show non-active"; barang Non-Active yang di-receive/transfer otomatis jadi Active lagi. History tetap utuh. |
   status: compile OK (0 error, tanpa warning baru) | cek manual: set 1 barang non-active, cek hilang dari Consume/
   Receive/Transfer, receive via "Show non-active" -> jadi Active, File > Save.
+- [2026-10-24, TERMINAL] app/scr_consume.pa.yaml | Consume ramah tablet: numConsQty diganti tombol besar `btnConsMinus`
+  (abu) / `numConsQtyVal` (ketik qty, rata tengah) / `btnConsPlus` (navy), 64x48, ditaruh langsung di template galCons
+  (X/Y di bawah kartu, tanpa container bersarang; slot lama diisi spacer `txtConsQtySpace`). Qty pilihan disimpan di
+  koleksi `colConsSel` {stockId, itemRec, areaId, avail, qty} sehingga tidak hilang saat search/filter/ganti rak;
+  footer "n item(s) selected", Clear, dan Consume memakai colConsSel (cek qty > stok terbaru sebelum simpan). Patch
+  header/detail/stok tidak diubah. Sesi Studio ternyata belum berisi commit Non-active (198be31), jadi scr_item,
+  scr_frm_receive, scr_frm_transfer, scr_frm_Transaction ikut dikirim dari repo (tanpa perubahan). | status: compile OK
+  (0 error, 22 warning delegasi lama), sync ulang = berisi semua perubahan | cek manual di Studio: kartu Consume tidak
+  hitam (ketik ulang Fill conConsRow bila hitam), tombol -/+ dan ketik qty, pilih qty -> search item lain -> kembali,
+  qty tetap; Consume 2 item -> stok turun, pilihan kosong; fitur Non-active ada di Item/Receive/Transfer; File > Save.

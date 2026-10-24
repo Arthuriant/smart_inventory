@@ -391,8 +391,8 @@ Screens:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
-                                                BorderColor: =If(numConsQty.Value > 0, RGBA(15, 108, 189, 1), RGBA(226, 230, 239, 1))
-                                                BorderThickness: =If(numConsQty.Value > 0, 2, 1)
+                                                BorderColor: =If(Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) > 0, RGBA(15, 108, 189, 1), RGBA(226, 230, 239, 1))
+                                                BorderThickness: =If(Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) > 0, 2, 1)
                                                 DropShadow: =DropShadow.None
                                                 Fill: =RGBA(255, 255, 255, 1)
                                                 Height: =Parent.TemplateHeight
@@ -490,26 +490,19 @@ Screens:
                                                       Shape: ='BadgeCanvas.Shape'.Rounded
                                                       ThemeColor: =If(IsBlank(ThisItem.rack), 'BadgeCanvas.ThemeColor'.Subtle, 'BadgeCanvas.ThemeColor'.Brand)
                                                       Width: =180
-                                                - numConsQty:
-                                                    Control: ModernNumberInput
+                                                - txtConsQtySpace:
+                                                    Control: ModernText
                                                     Properties:
-                                                      AccessibleLabel: ="Consume qty " & ThisItem.dis_item_v2.name
                                                       AlignInContainer: =AlignInContainer.Stretch
-                                                      Appearance: =Appearance.Outline
-                                                      DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
-                                                      Font: =Font.'Segoe UI'
                                                       Height: =48
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
-                                                      Min: =0
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      Text: =""
                                                       Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
-                                                      OnChange: =If(IsBlank(Self.Value), Reset(Self))
-                                                      RadiusBottomLeft: =8
-                                                      RadiusBottomRight: =8
-                                                      RadiusTopLeft: =8
-                                                      RadiusTopRight: =8
-                                                      Size: =16
-                                                      ValidationState: =If(Self.Value > ThisItem.qty || Self.Value < 0, ValidationState.Error, ValidationState.None)
                                                 - btnConsNa:
                                                     Control: ModernButton
                                                     Properties:
@@ -547,8 +540,89 @@ Screens:
                                                       PaddingTop: =0
                                                       Size: =11
                                                       Text: ="Qty exceeds stock"
-                                                      Visible: =numConsQty.Value > ThisItem.qty
+                                                      Visible: =Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) > ThisItem.qty
                                                       Wrap: =false
+                                          - btnConsMinus:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Decrease qty " & ThisItem.dis_item_v2.name
+                                                BasePaletteColor: =RGBA(100, 112, 130, 1)
+                                                DisplayMode: =If(Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) <= 0, DisplayMode.Disabled, DisplayMode.Edit)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =48
+                                                Layout: =ButtonLayout.TextOnly
+                                                OnSelect: |-
+                                                  =// Qty pilihan disimpan di colConsSel supaya tidak hilang saat search/filter
+                                                  With(
+                                                      {q: Max(0, Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) - 1)},
+                                                      RemoveIf(colConsSel, stockId = ThisItem.dis_stock);
+                                                      If(q > 0, Collect(colConsSel, {stockId: ThisItem.dis_stock, itemRec: ThisItem.dis_item_v2, areaId: ThisItem.dis_area.dis_area, avail: ThisItem.qty, qty: q}))
+                                                  )
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =24
+                                                Text: ="−"
+                                                Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
+                                                Width: =64
+                                                X: =8
+                                                Y: =298
+                                          - numConsQtyVal:
+                                              Control: ModernNumberInput
+                                              Properties:
+                                                AccessibleLabel: ="Consume qty " & ThisItem.dis_item_v2.name
+                                                Align: =Align.Center
+                                                Appearance: =Appearance.Outline
+                                                Default: =Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0)
+                                                DisplayMode: =If(ThisItem.qty <= 0, DisplayMode.Disabled, DisplayMode.Edit)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =48
+                                                Min: =0
+                                                OnChange: |-
+                                                  =With(
+                                                      {q: Max(0, Round(Coalesce(Self.Value, 0), 0))},
+                                                      RemoveIf(colConsSel, stockId = ThisItem.dis_stock);
+                                                      If(q > 0, Collect(colConsSel, {stockId: ThisItem.dis_stock, itemRec: ThisItem.dis_item_v2, areaId: ThisItem.dis_area.dis_area, avail: ThisItem.qty, qty: q}))
+                                                  )
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =18
+                                                ValidationState: =If(Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) > ThisItem.qty, ValidationState.Error, ValidationState.None)
+                                                Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
+                                                Width: =Parent.TemplateWidth - 160
+                                                X: =80
+                                                Y: =298
+                                          - btnConsPlus:
+                                              Control: ModernButton
+                                              Properties:
+                                                AccessibleLabel: ="Increase qty " & ThisItem.dis_item_v2.name
+                                                BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                                DisplayMode: =If(ThisItem.qty <= 0 Or Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) >= ThisItem.qty, DisplayMode.Disabled, DisplayMode.Edit)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =48
+                                                Layout: =ButtonLayout.TextOnly
+                                                OnSelect: |-
+                                                  =With(
+                                                      {q: Min(ThisItem.qty, Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) + 1)},
+                                                      RemoveIf(colConsSel, stockId = ThisItem.dis_stock);
+                                                      If(q > 0, Collect(colConsSel, {stockId: ThisItem.dis_stock, itemRec: ThisItem.dis_item_v2, areaId: ThisItem.dis_area.dis_area, avail: ThisItem.qty, qty: q}))
+                                                  )
+                                                RadiusBottomLeft: =8
+                                                RadiusBottomRight: =8
+                                                RadiusTopLeft: =8
+                                                RadiusTopRight: =8
+                                                Size: =24
+                                                Text: ="+"
+                                                Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
+                                                Width: =64
+                                                X: =Parent.TemplateWidth - 72
+                                                Y: =298
                                     - txtConsEmpty:
                                         Control: ModernText
                                         Properties:
@@ -689,7 +763,7 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =13
-                                          Text: =Text(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0))) & " item(s) selected"
+                                          Text: =Text(CountRows(colConsSel)) & " item(s) selected"
                                           Wrap: =false
                                     - btnConsActClear:
                                         Control: ModernButton
@@ -698,13 +772,15 @@ Screens:
                                           AlignInContainer: =AlignInContainer.Center
                                           Appearance: =ButtonAppearance.Secondary
                                           Color: =RGBA(31, 41, 55, 1)
-                                          DisplayMode: =If(CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0, DisplayMode.Disabled, DisplayMode.Edit)
+                                          DisplayMode: =If(IsEmpty(colConsSel), DisplayMode.Disabled, DisplayMode.Edit)
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           Icon: ="ArrowReset"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =132
-                                          OnSelect: =Reset(galCons)
+                                          OnSelect: |-
+                                            =Clear(colConsSel);
+                                            Reset(galCons)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
@@ -721,8 +797,8 @@ Screens:
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
                                           DisplayMode: |-
                                             =If(
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0 ||
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > qty || numConsQty.Value < 0)) > 0,
+                                                IsEmpty(colConsSel) ||
+                                                CountRows(Filter(colConsSel, qty > avail)) > 0,
                                                 DisplayMode.Disabled,
                                                 DisplayMode.Edit
                                             )
@@ -734,18 +810,19 @@ Screens:
                                           OnSelect: |-
                                             =// 1. Validasi: ada qty, dan tidak ada qty > stok (area tidak wajib, diambil dari tiap baris stok)
                                             If(
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > 0)) = 0,
+                                                IsEmpty(colConsSel),
                                                 Notify("Enter a quantity (Qty) for at least 1 item to consume!", NotificationType.Error),
 
-                                                CountRows(Filter(galCons.AllItems, numConsQty.Value > qty || numConsQty.Value < 0)) > 0,
+                                                // Cek terhadap stok terbaru (pilihan bisa tersembunyi oleh filter)
+                                                CountRows(Filter(colConsSel As c, c.qty > LookUp(dis_stocks, dis_stock = c.stockId).qty)) > 0,
                                                 Notify("Qty exceeds available stock!", NotificationType.Error),
 
                                                 With(
                                                     {
-                                                        // Snapshot baris yang diisi qty; area diambil dari dis_stocks
+                                                        // Snapshot pilihan dari colConsSel (termasuk yang tersembunyi oleh filter)
                                                         selRows: ForAll(
-                                                            Filter(galCons.AllItems, numConsQty.Value > 0),
-                                                            {stockId: dis_stock, itemRec: dis_item_v2, areaId: dis_area.dis_area, amt: numConsQty.Value}
+                                                            colConsSel As c,
+                                                            {stockId: c.stockId, itemRec: c.itemRec, areaId: c.areaId, amt: c.qty}
                                                         ),
                                                         varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
                                                     },
@@ -800,6 +877,7 @@ Screens:
                                                     )
                                                 );
                                                 // 4. Bersihkan input, notifikasi
+                                                Clear(colConsSel);
                                                 Reset(galCons);
                                                 Notify("Consume transaction saved and stock has been reduced!", NotificationType.Success)
                                             )
