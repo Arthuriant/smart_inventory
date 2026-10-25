@@ -464,14 +464,17 @@ Screens:
                                       =With(
                                           // items made non-active in the picked area (dis_stocks.inactive)
                                           {off: ForAll(Filter(dis_stocks, dis_area.dis_area = ddRcvFArea.Selected.dis_area, inactive = true), dis_item_v2.dis_item_v2)},
-                                          Sort(
-                                              Filter(
-                                                  dis_item_v2S,
-                                                  IsBlank(ddRcvFCat.Selected) Or dis_category_item.dis_category_item = ddRcvFCat.Selected.dis_category_item,
-                                                  chkRcvFShowNA.Checked Or Not(dis_item_v2 in off),
-                                                  IsBlank(inpRcvFSearch.Text) Or StartsWith(name, inpRcvFSearch.Text) Or StartsWith(part_number, inpRcvFSearch.Text) Or StartsWith(client_number, inpRcvFSearch.Text)
-                                              ),
-                                              name
+                                          // Dataverse rejects Not(x in table), so the non-active check runs locally on the server result
+                                          Filter(
+                                              Sort(
+                                                  Filter(
+                                                      dis_item_v2S,
+                                                      IsBlank(ddRcvFCat.Selected) Or dis_category_item.dis_category_item = ddRcvFCat.Selected.dis_category_item,
+                                                      IsBlank(inpRcvFSearch.Text) Or StartsWith(name, inpRcvFSearch.Text) Or StartsWith(part_number, inpRcvFSearch.Text) Or StartsWith(client_number, inpRcvFSearch.Text)
+                                                  ),
+                                                  name
+                                              ) As it,
+                                              chkRcvFShowNA.Checked Or IsBlank(LookUp(off, Value = it.dis_item_v2))
                                           )
                                       )
                                     LayoutMinHeight: =0
