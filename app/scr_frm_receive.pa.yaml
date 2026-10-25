@@ -231,18 +231,17 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =0
+                                          FillPortions: =1
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =140
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Width: =220
                                         Children:
                                           - txtRcvFSearchLbl:
                                               Control: ModernText
