@@ -1,0 +1,910 @@
+Screens:
+  scr_bulk:
+    Properties:
+      Fill: =RGBA(244, 246, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - conBlkRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(244, 246, 250, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpBlkSidebar:
+                Control: CanvasComponent
+                ComponentName: Sidebar
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =224
+                  Width: =224
+                  activemenu: ="Bulk Import"
+            - conBlkMain:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(244, 246, 250, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpBlkTopBar:
+                      Control: CanvasComponent
+                      ComponentName: TopBar
+                      Properties:
+                        ActiveMenu: ="Bulk Import"
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =64
+                        LayoutMinHeight: =64
+                        LayoutMinWidth: =0
+                        Subtitle: ="Paste rows from Excel to add items to areas; unknown items are added to the catalog"
+                        Width: =912
+                  - conBlkBody:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(244, 246, 250, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =24
+                        PaddingLeft: =24
+                        PaddingRight: =24
+                        PaddingTop: =20
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - conBlkPasteCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =268
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - txtBlkPasteTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: ="1. Paste rows from Excel"
+                                    Wrap: =false
+                              - txtBlkPasteSub:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =32
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: |-
+                                      ="Columns in this order: Area | Item name | BPN | SPN | Category (code or name) | UOM | Qty | Min in area | Rack. A header row starting with ""Area"" is skipped. Items are matched by BPN, else by name; Category and UOM are only needed for new items."
+                              - inpBlkPaste:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    AccessibleLabel: ="Rows pasted from Excel"
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    Font: =Font.'Segoe UI'
+                                    Height: =120
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Placeholder: ="Select the cells in Excel, copy (Ctrl+C) and paste them here (Ctrl+V)"
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =12
+                                    Type: =TextInputType.Multiline
+                              - conBlkPasteActs:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - btnBlkCheck:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Check the pasted rows"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          DisplayMode: =If(IsBlank(Trim(inpBlkPaste.Text)), DisplayMode.Disabled, DisplayMode.Edit)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="CheckmarkCircle"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =120
+                                          OnSelect: |-
+                                            =With(
+                                                {
+                                                    // non-empty pasted lines; a header row (first cell "Area") is skipped
+                                                    lines: Filter(
+                                                        Split(Substitute(inpBlkPaste.Text, Char(13), ""), Char(10)) As ln,
+                                                        !IsBlank(Trim(Substitute(ln.Value, Char(9), ""))),
+                                                        Lower(Trim(First(Split(ln.Value, Char(9))).Value)) <> "area"
+                                                    )
+                                                },
+                                                With(
+                                                    {
+                                                        // one record per line; tabs are appended so every column exists
+                                                        rows: ForAll(
+                                                            Sequence(CountRows(lines)) As i,
+                                                            With(
+                                                                {c: Split(Index(lines, i.Value).Value & Concat(Sequence(9), Char(9)), Char(9))},
+                                                                {
+                                                                    Row: i.Value,
+                                                                    AreaName: Trim(Index(c, 1).Value),
+                                                                    Name: Trim(Index(c, 2).Value),
+                                                                    Bpn: Trim(Index(c, 3).Value),
+                                                                    Spn: Trim(Index(c, 4).Value),
+                                                                    CatTxt: Trim(Index(c, 5).Value),
+                                                                    UomTxt: Trim(Index(c, 6).Value),
+                                                                    QtyTxt: Trim(Index(c, 7).Value),
+                                                                    MinTxt: Trim(Index(c, 8).Value),
+                                                                    RackName: Trim(Index(c, 9).Value)
+                                                                }
+                                                            )
+                                                        )
+                                                    },
+                                                    ClearCollect(
+                                                        colBlk,
+                                                        ForAll(
+                                                            rows As r,
+                                                            With(
+                                                                {
+                                                                    ar: If(IsBlank(r.AreaName), Blank(), With({an: r.AreaName}, LookUp(nfMyAreas, Name = an))),
+                                                                    it: With(
+                                                                        {bpn: r.Bpn, nm: r.Name},
+                                                                        If(
+                                                                            !IsBlank(bpn), LookUp(dis_item_v2S, part_number = bpn),
+                                                                            !IsBlank(nm), LookUp(dis_item_v2S, name = nm),
+                                                                            Blank()
+                                                                        )
+                                                                    ),
+                                                                    qBad: !IsBlank(r.QtyTxt) And IfError(Value(r.QtyTxt) < 0, true),
+                                                                    mBad: !IsBlank(r.MinTxt) And IfError(Value(r.MinTxt) < 0, true),
+                                                                    key: Lower(r.AreaName) & "|" & Lower(If(IsBlank(r.Bpn), r.Name, r.Bpn))
+                                                                },
+                                                                With(
+                                                                    {
+                                                                        cat: If(IsBlank(r.CatTxt), Blank(), With({ct: r.CatTxt}, LookUp(dis_category_items, code = ct Or name = ct))),
+                                                                        um: If(IsBlank(r.UomTxt), Blank(), LookUp(Choices([@dis_item_v2S].uom), Lower(Text(Value)) = Lower(r.UomTxt))),
+                                                                        rk: If(IsBlank(r.RackName) Or IsBlank(ar), Blank(), With({rn: r.RackName, raid: ar.dis_area}, LookUp(dis_racks, Name = rn And area.dis_area = raid))),
+                                                                        dup: CountIf(rows As o, Lower(o.AreaName) & "|" & Lower(If(IsBlank(o.Bpn), o.Name, o.Bpn)) = key) > 1,
+                                                                        noId: IsBlank(r.Name) And IsBlank(r.Bpn)
+                                                                    },
+                                                                    {
+                                                                        Row: r.Row,
+                                                                        AreaName: r.AreaName,
+                                                                        Name: r.Name,
+                                                                        Bpn: r.Bpn,
+                                                                        Spn: r.Spn,
+                                                                        CatTxt: r.CatTxt,
+                                                                        UomTxt: r.UomTxt,
+                                                                        RackName: r.RackName,
+                                                                        Area: ar,
+                                                                        Item: it,
+                                                                        Cat: cat,
+                                                                        UomVal: um.Value,
+                                                                        Rack: rk,
+                                                                        Qty: If(IsBlank(r.QtyTxt) Or qBad, 0, Value(r.QtyTxt)),
+                                                                        Min: If(IsBlank(r.MinTxt) Or mBad, Blank(), Round(Value(r.MinTxt), 0)),
+                                                                        IsNew: IsBlank(it) And !noId,
+                                                                        ItemKey: Lower(If(IsBlank(r.Bpn), r.Name, r.Bpn)),
+                                                                        Err: Trim(
+                                                                            Concatenate(
+                                                                                If(IsBlank(r.AreaName), "Area is empty. ", IsBlank(ar), "Area '" & r.AreaName & "' is not in your business line. ", ""),
+                                                                                If(noId, "Item name or BPN is needed. ", ""),
+                                                                                If(qBad, "Qty must be a number of 0 or more. ", ""),
+                                                                                If(mBad, "Min must be a number of 0 or more. ", ""),
+                                                                                If(!IsBlank(r.RackName) And !IsBlank(ar) And IsBlank(rk), "Rack '" & r.RackName & "' is not in this area. ", ""),
+                                                                                If(IsBlank(it) And !noId And IsBlank(r.Name), "A new item needs a name. ", ""),
+                                                                                If(IsBlank(it) And !noId And IsBlank(cat), "Category '" & r.CatTxt & "' not found (needed for a new item). ", ""),
+                                                                                If(IsBlank(it) And !noId And IsBlank(um), "UOM '" & r.UomTxt & "' is not valid (needed for a new item). ", ""),
+                                                                                If(dup, "This item and area appear more than once. ", "")
+                                                                            )
+                                                                        )
+                                                                    }
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            );
+                                            If(
+                                                IsEmpty(colBlk),
+                                                Notify("No rows found in the pasted text.", NotificationType.Warning),
+                                                IsEmpty(Filter(colBlk, Err <> "")),
+                                                Notify(Text(CountRows(colBlk)) & " row(s) are OK. Press Import to save them.", NotificationType.Success),
+                                                Notify(Text(CountRows(Filter(colBlk, Err <> ""))) & " row(s) have errors (in red). Fix them in Excel and paste again.", NotificationType.Error)
+                                            )
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Check"
+                                          Width: =120
+                                    - btnBlkClear:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Clear the pasted rows and the preview"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =ButtonAppearance.Secondary
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Dismiss"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =96
+                                          OnSelect: |-
+                                            =Clear(colBlk);
+                                            Reset(inpBlkPaste)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Clear"
+                                          Width: =104
+                                    - txtBlkPasteHint:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="Qty > 0 is saved as a Receive (one per area). Qty 0 or empty only adds the item to the area."
+                                          Wrap: =false
+                        - conBlkPrevCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(226, 230, 239, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - txtBlkPrevTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: ="2. Check and import"
+                                    Wrap: =false
+                              - conBlkTHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(241, 244, 250, 1)
+                                    FillPortions: =0
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =12
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - txtBlkHNo:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="#"
+                                          Width: =28
+                                          Wrap: =false
+                                    - txtBlkHArea:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="AREA"
+                                          Width: =130
+                                          Wrap: =false
+                                    - txtBlkHItem:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="ITEM · BPN · SPN"
+                                          Wrap: =false
+                                    - txtBlkHCat:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="CAT / UOM"
+                                          Width: =100
+                                          Wrap: =false
+                                    - txtBlkHQty:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Right
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="QTY"
+                                          Width: =52
+                                          Wrap: =false
+                                    - txtBlkHMin:
+                                        Control: ModernText
+                                        Properties:
+                                          Align: =Align.Right
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="MIN"
+                                          Width: =44
+                                          Wrap: =false
+                                    - txtBlkHRack:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="RACK"
+                                          Width: =90
+                                          Wrap: =false
+                                    - txtBlkHStatus:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="STATUS"
+                                          Wrap: =false
+                              - galBlk:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Rows to import"
+                                    Fill: =RGBA(226, 230, 239, 1)
+                                    Items: =colBlk
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    TemplateFill: =If(ThisItem.Err <> "", RGBA(253, 237, 236, 1), RGBA(255, 255, 255, 1))
+                                    TemplatePadding: =1
+                                    TemplateSize: =44
+                                    Visible: =!IsEmpty(colBlk)
+                                  Children:
+                                    - conBlkRow:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(0, 0, 0, 0)
+                                          Height: =Parent.TemplateHeight
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =12
+                                          PaddingRight: =12
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.TemplateWidth
+                                        Children:
+                                          - txtBlkNo:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =Text(ThisItem.Row)
+                                                Width: =28
+                                                Wrap: =false
+                                          - txtBlkArea:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =Coalesce(ThisItem.Area.Name, ThisItem.AreaName, "-")
+                                                Width: =130
+                                                Wrap: =false
+                                          - txtBlkItem:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =Coalesce(ThisItem.Item.name, ThisItem.Name, "-") & "  ·  " & Coalesce(ThisItem.Item.part_number, ThisItem.Bpn, "-") & "  ·  " & Coalesce(ThisItem.Item.client_number, ThisItem.Spn, "-")
+                                                Wrap: =false
+                                          - txtBlkCat:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(100, 112, 130, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =If(ThisItem.IsNew, Coalesce(ThisItem.Cat.code, ThisItem.CatTxt, "-") & " / " & Coalesce(ThisItem.UomTxt, "-"), Coalesce(ThisItem.Item.dis_category_item.code, "-") & " / " & Text(ThisItem.Item.uom))
+                                                Width: =100
+                                                Wrap: =false
+                                          - txtBlkQty:
+                                              Control: ModernText
+                                              Properties:
+                                                Align: =Align.Right
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =Text(ThisItem.Qty)
+                                                Width: =52
+                                                Wrap: =false
+                                          - txtBlkMin:
+                                              Control: ModernText
+                                              Properties:
+                                                Align: =Align.Right
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =If(IsBlank(ThisItem.Min), "-", Text(ThisItem.Min))
+                                                Width: =44
+                                                Wrap: =false
+                                          - txtBlkRack:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(31, 41, 55, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =Coalesce(ThisItem.Rack.Name, ThisItem.RackName, "-")
+                                                Width: =90
+                                                Wrap: =false
+                                          - txtBlkStatus:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =If(ThisItem.Err <> "", RGBA(196, 43, 28, 1), ThisItem.IsNew, RGBA(188, 118, 0, 1), RGBA(16, 124, 65, 1))
+                                                FillPortions: =1
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =36
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =11
+                                                Text: =If(ThisItem.Err <> "", ThisItem.Err, ThisItem.IsNew, "OK - new item, added to the catalog", "OK")
+                              - txtBlkEmpty:
+                                  Control: ModernText
+                                  Properties:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Color: =RGBA(100, 112, 130, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Segoe UI'
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Paste rows above and press Check to see them here."
+                                    Visible: =IsEmpty(colBlk)
+                                    Wrap: =false
+                              - conBlkFoot:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtBlkSum:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: |-
+                                            =Text(CountRows(colBlk)) & " row(s) · " &
+                                            Text(CountRows(Filter(colBlk, Err <> ""))) & " with errors · " &
+                                            Text(CountRows(Distinct(Filter(colBlk, IsNew, Err = ""), ItemKey))) & " new catalog item(s) · total qty " &
+                                            Text(Sum(colBlk, Qty))
+                                          Wrap: =false
+                                    - btnBlkImport:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Import the checked rows"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          DisplayMode: =If(IsEmpty(colBlk) Or !IsEmpty(Filter(colBlk, Err <> "")), DisplayMode.Disabled, DisplayMode.Edit)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="ArrowUpload"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =120
+                                          OnSelect: |-
+                                            =If(
+                                                IsEmpty(colBlk) Or !IsEmpty(Filter(colBlk, Err <> "")),
+                                                Notify("Fix the rows marked in red first, then press Check again.", NotificationType.Error),
+                                                // 1. new catalog items, once per BPN (or name)
+                                                ForAll(
+                                                    Distinct(Filter(colBlk, IsNew), ItemKey) As k,
+                                                    With(
+                                                        {r: LookUp(colBlk, IsNew And ItemKey = k.Value)},
+                                                        If(
+                                                            IsBlank(With({bpn: r.Bpn, nm: r.Name}, If(IsBlank(bpn), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn)))),
+                                                            Patch(
+                                                                dis_item_v2S,
+                                                                Defaults(dis_item_v2S),
+                                                                {
+                                                                    name: r.Name,
+                                                                    part_number: If(IsBlank(r.Bpn), Blank(), r.Bpn),
+                                                                    client_number: If(IsBlank(r.Spn), Blank(), r.Spn),
+                                                                    dis_category_item: r.Cat,
+                                                                    uom: r.UomVal,
+                                                                    status: 'status (dis_item_v2S)'.Active,
+                                                                    min_qty: Coalesce(r.Min, 0)
+                                                                }
+                                                            )
+                                                        )
+                                                    )
+                                                );
+                                                // 2. one Receive header per area that gets qty
+                                                With(
+                                                    {
+                                                        withQty: Distinct(Filter(colBlk, Qty > 0), Area.dis_area),
+                                                        varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
+                                                    },
+                                                    Clear(colBlkHdr);
+                                                    ForAll(
+                                                        Sequence(CountRows(withQty)) As n,
+                                                        With(
+                                                            {
+                                                                aid: Index(withQty, n.Value).Value,
+                                                                trxNo: Text(Now(), "dd/mm/yy/") & Text(If(IsBlank(varLastTrx), 0, Value(Right(varLastTrx, 4))) + n.Value, "0000")
+                                                            },
+                                                            Collect(
+                                                                colBlkHdr,
+                                                                {
+                                                                    AreaId: aid,
+                                                                    TrxNo: trxNo,
+                                                                    Hdr: Patch(
+                                                                        dis_trx_headers,
+                                                                        Defaults(dis_trx_headers),
+                                                                        {
+                                                                            transaction_number: trxNo,
+                                                                            type: 'type (dis_trx_headers)'.Receive,
+                                                                            area_to: LookUp(dis_areas, dis_area = aid),
+                                                                            note: "Bulk import"
+                                                                        }
+                                                                    )
+                                                                }
+                                                            )
+                                                        )
+                                                    )
+                                                );
+                                                // 3. per row: detail line (qty > 0) and the stock row in the area (same rules as Receive)
+                                                ForAll(
+                                                    colBlk As r,
+                                                    With(
+                                                        {
+                                                            itm: If(
+                                                                IsBlank(r.Item),
+                                                                With({bpn: r.Bpn, nm: r.Name}, If(IsBlank(bpn), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn))),
+                                                                r.Item
+                                                            )
+                                                        },
+                                                        With(
+                                                            {iid: itm.dis_item_v2, aid: r.Area.dis_area},
+                                                            With(
+                                                                {
+                                                                    st: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = iid And dis_area.dis_area = aid),
+                                                                    h: LookUp(colBlkHdr, AreaId = aid)
+                                                                },
+                                                                If(
+                                                                    r.Qty > 0,
+                                                                    Patch(
+                                                                        dis_trx_details,
+                                                                        Defaults(dis_trx_details),
+                                                                        {header_id: h.Hdr, PK: h.TrxNo & "-" & Text(r.Row), item: itm, qty: r.Qty}
+                                                                    )
+                                                                );
+                                                                If(
+                                                                    IsBlank(st),
+                                                                    Patch(
+                                                                        dis_stocks,
+                                                                        Defaults(dis_stocks),
+                                                                        {
+                                                                            PK: "STK-" & Text(Now(), "yyMMddHHmmss") & "-" & Text(r.Row),
+                                                                            dis_item_v2: itm,
+                                                                            dis_area: r.Area,
+                                                                            qty: r.Qty,
+                                                                            rack: r.Rack,
+                                                                            min_qty: r.Min
+                                                                        }
+                                                                    ),
+                                                                    Patch(
+                                                                        dis_stocks,
+                                                                        st,
+                                                                        {
+                                                                            qty: st.qty + r.Qty,
+                                                                            rack: If(IsBlank(r.Rack), st.rack, r.Rack),
+                                                                            inactive: false,
+                                                                            min_qty: If(IsBlank(r.Min), st.min_qty, r.Min)
+                                                                        }
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                );
+                                                If(
+                                                    IsEmpty(Errors(dis_item_v2S)) And IsEmpty(Errors(dis_trx_headers)) And IsEmpty(Errors(dis_trx_details)) And IsEmpty(Errors(dis_stocks)),
+                                                    Notify("Imported " & Text(CountRows(colBlk)) & " row(s): " & Text(CountRows(colBlkHdr)) & " Receive transaction(s).", NotificationType.Success);
+                                                    Clear(colBlk);
+                                                    Reset(inpBlkPaste),
+                                                    Notify(
+                                                        "Some rows failed. " & Coalesce(First(Errors(dis_stocks)).Message, First(Errors(dis_trx_details)).Message, First(Errors(dis_trx_headers)).Message, First(Errors(dis_item_v2S)).Message),
+                                                        NotificationType.Error
+                                                    )
+                                                )
+                                            )
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Import"
+                                          Width: =140

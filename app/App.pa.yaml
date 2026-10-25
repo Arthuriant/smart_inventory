@@ -105,6 +105,13 @@ App:
               Group: "Transaction"
           },
           {
+              TextValue: "Bulk Import",
+              AdminOnly: true,
+              Icon: "ArrowUpload",
+              NavigateScreen: scr_bulk,
+              Group: "Transaction"
+          },
+          {
               TextValue: "Find Item",
               AdminOnly: false,
               Icon: "Search",
