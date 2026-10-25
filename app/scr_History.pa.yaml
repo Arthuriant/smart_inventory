@@ -527,6 +527,8 @@ Screens:
                                                 Search(
                                                     Filter(
                                                         dis_trx_headers,
+                                                        // RBAC: only transactions from/to areas in the user's sub business line
+                                                        area_form.dis_area in nfMyAreaIds Or area_to.dis_area in nfMyAreaIds,
                                                         IsBlank(locHistType) || type = locHistType,
                                                         (IsBlank(datHistDate.SelectedDate) Or
                                                             ('Created On' >= datHistDate.SelectedDate And 'Created On' < DateAdd(datHistDate.SelectedDate, 1, TimeUnit.Days))
@@ -550,6 +552,8 @@ Screens:
                                                 Search(
                                                     Filter(
                                                         dis_trx_headers,
+                                                        // RBAC: only transactions from/to areas in the user's sub business line
+                                                        area_form.dis_area in nfMyAreaIds Or area_to.dis_area in nfMyAreaIds,
                                                         IsBlank(locHistType) || type = locHistType,
                                                         (IsBlank(datHistDate.SelectedDate) Or
                                                             ('Created On' >= datHistDate.SelectedDate And 'Created On' < DateAdd(datHistDate.SelectedDate, 1, TimeUnit.Days))
@@ -689,6 +693,8 @@ Screens:
                                                 Search(
                                                     Filter(
                                                         dis_trx_headers,
+                                                        // RBAC: only transactions from/to areas in the user's sub business line
+                                                        area_form.dis_area in nfMyAreaIds Or area_to.dis_area in nfMyAreaIds,
                                                         IsBlank(locHistType) || type = locHistType,
                                                         (IsBlank(datHistDate.SelectedDate) Or
                                                             ('Created On' >= datHistDate.SelectedDate And 'Created On' < DateAdd(datHistDate.SelectedDate, 1, TimeUnit.Days))
