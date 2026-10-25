@@ -122,18 +122,17 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =0
+                                          FillPortions: =4
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =140
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Width: =240
                                         Children:
                                           - txtRcvFAreaLbl:
                                               Control: ModernText
@@ -178,18 +177,17 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =0
+                                          FillPortions: =3
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
                                           LayoutGap: =4
                                           LayoutMinHeight: =0
-                                          LayoutMinWidth: =0
+                                          LayoutMinWidth: =120
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Width: =180
                                         Children:
                                           - txtRcvFCatLbl:
                                               Control: ModernText
@@ -231,7 +229,7 @@ Screens:
                                         Properties:
                                           AlignInContainer: =AlignInContainer.End
                                           DropShadow: =DropShadow.None
-                                          FillPortions: =1
+                                          FillPortions: =4
                                           Height: =56
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Vertical
@@ -289,7 +287,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           Size: =13
-                                          Width: =150
+                                          Width: =140
                                     - btnRcvFCart:
                                         Control: ModernButton
                                         Properties:
