@@ -988,8 +988,9 @@ Screens:
                                     Appearance: =ButtonAppearance.Subtle
                                     Color: =RGBA(100, 112, 130, 1)
                                     Font: =Font.'Segoe UI'
+                                    DisplayMode: =If(IsBlank(ThisItem.Rack), DisplayMode.Disabled, DisplayMode.Edit)
                                     Height: =32
-                                    Icon: ="Dismiss"
+                                    Icon: =If(IsBlank(ThisItem.Rack), "", "Dismiss")
                                     Layout: =ButtonLayout.IconOnly
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =32
@@ -1001,7 +1002,6 @@ Screens:
                                     RadiusTopRight: =8
                                     Size: =13
                                     Text: ="Remove rack"
-                                    Visible: =!IsBlank(ThisItem.Rack)
                                     Width: =32
                               - btnRcvFCDel:
                                   Control: ModernButton
