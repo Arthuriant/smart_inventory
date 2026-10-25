@@ -50,6 +50,17 @@ Flow menyimpan file sementara di OneDrive **akun yang dipakai untuk koneksi** (k
 Jika import/turn on gagal dengan pesan tentang **data policy (DLP)**, berarti konektor OneDrive/Excel
 diblokir di environment ini; minta admin Power Platform mengizinkan keduanya (kelompok *Business*).
 
+## Langkah 2b – Pilih Drive di aksi Excel (wajib, sekali setelah import)
+
+Drive ID OneDrive berbeda per akun, jadi tidak bisa dibawa di solution. Tanpa langkah ini flow gagal dengan
+`WorkflowOperationParametersRuntimeMissingValue ... 'drive'`.
+
+1. Buka flow > **Edit** > aksi **List rows present in a table**.
+2. **Location**: *OneDrive for Business* · **Document Library**: *OneDrive*.
+3. **File**: klik isian > **Expression (fx)** > `outputs('Create_file')?['body/Id']`.
+4. **Table**: **Enter custom value** > `tblImport`.
+5. **Save**.
+
 ## Langkah 3 – Tes flow (tanpa app)
 
 1. Di halaman flow: **Test** > **Manually** > **Test**.

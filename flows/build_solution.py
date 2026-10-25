@@ -93,6 +93,8 @@ definition = {
                 },
                 "parameters": {
                     "source": "me",
+                    # OneDrive's Create file returns no DriveId and the drive id differs per account:
+                    # after import, pick Location/Document Library in the designer (README, step 2b)
                     "drive": "@outputs('Create_file')?['body/DriveId']",
                     "file": "@outputs('Create_file')?['body/Id']",
                     "table": TABLE,
