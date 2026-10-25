@@ -748,8 +748,8 @@ Screens:
                                                   =With(
                                                       {iid: ThisItem.dis_item_v2.dis_item_v2, tid: ddTfrFTo.Selected.dis_area},
                                                       With(
-                                                          {rk: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = iid And dis_area.dis_area = tid).rack},
-                                                          If(IsBlank(rk), Blank(), LookUp(dis_racks, dis_rack = rk.dis_rack))
+                                                          {rk: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = iid And dis_area.dis_area = tid).rack.dis_rack},
+                                                          If(IsBlank(rk), Blank(), LookUp(dis_racks, dis_rack = rk))
                                                       )
                                                   )
                                                 DisplayMode: =If(IsBlank(ddTfrFTo.Selected), DisplayMode.Disabled, DisplayMode.Edit)

@@ -586,7 +586,7 @@ Screens:
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Appearance: =Appearance.Outline
                                                 Default: |-
-                                                  =With({rk: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.dis_item_v2 And dis_area.dis_area = ddRcvFArea.Selected.dis_area).rack}, If(IsBlank(rk), Blank(), LookUp(dis_racks, dis_rack = rk.dis_rack)))
+                                                  =With({rk: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.dis_item_v2 And dis_area.dis_area = ddRcvFArea.Selected.dis_area).rack.dis_rack}, If(IsBlank(rk), Blank(), LookUp(dis_racks, dis_rack = rk)))
                                                 DisplayMode: =If(IsBlank(ddRcvFArea.Selected), DisplayMode.Disabled, DisplayMode.Edit)
                                                 Font: =Font.'Segoe UI'
                                                 Height: =36
