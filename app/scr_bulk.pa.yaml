@@ -141,6 +141,7 @@ Screens:
                                     Height: =120
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    Default: =locBlkPasteText
                                     Placeholder: ="Select the cells in Excel, copy (Ctrl+C) and paste them here (Ctrl+V)"
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
@@ -302,6 +303,7 @@ Screens:
                                           LayoutMinWidth: =96
                                           OnSelect: |-
                                             =Clear(colBlk);
+                                            UpdateContext({locBlkPasteText: ""});
                                             Reset(inpBlkPaste)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
@@ -331,6 +333,28 @@ Screens:
                                           Size: =13
                                           Text: ="Reference"
                                           Width: =124
+                                    - btnBlkUpload:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Upload a filled-in Bulk Import template"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =ButtonAppearance.Secondary
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="ArrowUpload"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =128
+                                          OnSelect: |-
+                                            =Reset(attBlkUp);
+                                            UpdateContext({locBlkUp: true})
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Upload Excel"
+                                          Width: =140
                                     - txtBlkPasteHint:
                                         Control: ModernText
                                         Properties:
@@ -1205,3 +1229,220 @@ Screens:
                         Size: =12
                         Text: |-
                           ="UOM: " & Concat(Choices([@dis_item_v2S].uom), Text(Value), ", ")
+      - conBlkUpOverlay:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(17, 24, 39, 0.45)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =locBlkUp
+            Width: =Parent.Width
+          Children:
+            - conBlkUpCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderColor: =RGBA(226, 230, 239, 1)
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.Bold
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =380
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =20
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =560
+                Children:
+                  - conBlkUpHead:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtBlkUpTitle:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(0, 18, 107, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =24
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =15
+                              Text: ="Upload Excel"
+                              Wrap: =false
+                        - btnBlkUpX:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Close upload"
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =RGBA(100, 112, 130, 1)
+                              DisplayMode: =If(locBlkUpBusy, DisplayMode.Disabled, DisplayMode.Edit)
+                              Font: =Font.'Segoe UI'
+                              Height: =32
+                              Icon: ="Dismiss"
+                              Layout: =ButtonLayout.IconOnly
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =32
+                              OnSelect: |-
+                                =UpdateContext({locBlkUp: false})
+                              RadiusBottomLeft: =6
+                              RadiusBottomRight: =6
+                              RadiusTopLeft: =6
+                              RadiusTopRight: =6
+                              Size: =13
+                              Text: ="Close"
+                              Width: =32
+                  - txtBlkUpSub:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Color: =RGBA(100, 112, 130, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =32
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: ="Use the Bulk Import template (.xlsx) and keep its table 'tblImport'. The rows are put in the paste box and checked automatically."
+                  - attBlkUp:
+                      Control: ModernAttachments
+                      Properties:
+                        AccessibleLabel: ="Excel file to import"
+                        AlignInContainer: =AlignInContainer.Stretch
+                        DisplayMode: =If(locBlkUpBusy, DisplayMode.Disabled, DisplayMode.Edit)
+                        DropShadow: =DropShadow.None
+                        DropZoneText: ="Drag the .xlsx file here or click to browse"
+                        Font: =Font.'Segoe UI'
+                        Height: =170
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Items: |-
+                          =FirstN(Table({DisplayName: "", Id: "", AbsoluteUri: "", Value: SampleImage}), 0)
+                        MaxAttachments: =1
+                        MaxAttachmentSize: =10
+                        NoAttachmentsText: ="No file chosen"
+                  - conBlkUpFoot:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - txtBlkUpStatus:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              Height: =20
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =12
+                              Text: =If(locBlkUpBusy, "Reading the file, please wait...", "")
+                              Wrap: =false
+                        - btnBlkUpRead:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: ="Read the uploaded file"
+                              AlignInContainer: =AlignInContainer.Center
+                              BasePaletteColor: =RGBA(0, 18, 107, 1)
+                              DisplayMode: =If(locBlkUpBusy Or attBlkUp.AttachmentsCount = 0, DisplayMode.Disabled, DisplayMode.Edit)
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: ="DocumentArrowRight"
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =120
+                              OnSelect: |-
+                                =With(
+                                    {f: First(attBlkUp.Attachments)},
+                                    If(
+                                        IsBlank(f),
+                                        Notify("Choose an .xlsx file first.", NotificationType.Error),
+                                        !EndsWith(Lower(f.DisplayName), ".xlsx"),
+                                        Notify("Only .xlsx files (the Bulk Import template) can be read.", NotificationType.Error),
+                                        UpdateContext({locBlkUpBusy: true});
+                                        With(
+                                            {
+                                                res: IfError(
+                                                    // the file goes as a data URI text (base64); the flow turns it back into a file
+                                                    'SmartInventory-BulkImportReadExcel'.Run(Substitute(JSON(f.Value, JSONFormat.IncludeBinaryData), Char(34), "")),
+                                                    {rows: "", error: "The file could not be sent to Power Automate. " & FirstError.Message}
+                                                )
+                                            },
+                                            UpdateContext({locBlkUpBusy: false});
+                                            If(
+                                                !IsBlank(res.error),
+                                                Notify(res.error, NotificationType.Error),
+                                                IsBlank(Trim(Substitute(Substitute(res.rows, Char(9), ""), Char(10), ""))),
+                                                Notify("The table 'tblImport' in the file has no rows.", NotificationType.Warning),
+                                                // same path as a paste: fill the box, then run Check
+                                                UpdateContext({locBlkPasteText: res.rows, locBlkUp: false});
+                                                Reset(inpBlkPaste);
+                                                Select(btnBlkCheck)
+                                            )
+                                        )
+                                    )
+                                )
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: ="Read file"
+                              Width: =140
