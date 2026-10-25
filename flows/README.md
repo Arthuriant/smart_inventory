@@ -4,7 +4,7 @@ Isi folder ini:
 
 | File | Fungsi |
 |---|---|
-| `SmartInventoryFlows_1_0_0_1.zip` | Solution (unmanaged) berisi 1 cloud flow + 2 connection reference. Ini yang di-import. |
+| `SmartInventoryFlows_1_0_0_2.zip` | Solution (unmanaged) berisi 1 cloud flow + 2 connection reference. Ini yang di-import. |
 | `build_solution.py` | Sumber solution di atas. Ubah di sini lalu jalankan `python build_solution.py` untuk membuat zip baru. |
 | `Bulk_Import_Template.xlsx` | Template Excel. Sheet **Import** berisi Excel Table **`tblImport`** yang dibaca flow. |
 
@@ -39,7 +39,7 @@ Flow menyimpan file sementara di OneDrive **akun yang dipakai untuk koneksi** (k
 ## Langkah 2 – Import solution
 
 1. Buka https://make.powerapps.com, pilih environment **ING | Well Construction - TLM** (kanan atas).
-2. Menu kiri **Solutions** > **Import solution** > **Browse** > pilih `SmartInventoryFlows_1_0_0_1.zip` > **Next**.
+2. Menu kiri **Solutions** > **Import solution** > **Browse** > pilih `SmartInventoryFlows_1_0_0_2.zip` > **Next**.
 3. Halaman **Connections**: untuk tiap connection reference pilih koneksi yang sudah ada, atau **+ New connection**:
    - *Smart Inventory - OneDrive for Business* → koneksi **OneDrive for Business** akun kamu.
    - *Smart Inventory - Excel Online (Business)* → koneksi **Excel Online (Business)** akun kamu.
@@ -61,6 +61,19 @@ Drive ID OneDrive berbeda per akun, jadi tidak bisa dibawa di solution. Tanpa la
 4. **Table**: **Enter custom value** > `tblImport`.
 5. **Save**.
 
+## Update ke v1.0.0.2 (cek isi file + pesan error yang jelas)
+
+Perubahan: flow mengecek dulu isi file dari app. Jika kosong/terlalu pendek, app menerima pesan
+*"The app sent no file content. Received: '...'"* (berisi potongan yang diterima, untuk diagnosa).
+Isi file boleh data URI (`data:...;base64,...`) atau base64 biasa. Pesan error lain kini menyertakan
+alasan asli dari OneDrive/Excel. Input flow tetap sama (`fileContent`), jadi app tidak perlu diubah.
+
+1. make.powerapps.com > **Solutions** > **Import solution** > pilih `SmartInventoryFlows_1_0_0_2.zip` > **Next**
+   > **Import** (pilih koneksi yang sama seperti sebelumnya bila diminta).
+2. Ulangi **Langkah 2b** (Drive di aksi *List rows present in a table* kosong lagi setelah import).
+   Aksi itu sekarang ada di dalam blok **Check file content** > **True**.
+3. Pastikan flow **On**. Di Studio: panel **Power Automate** > flow ini > **...** > **Refresh**, lalu **File > Save**.
+
 ## Update ke v1.0.0.1 (input File diganti teks)
 
 Kontrol upload di app tidak punya tipe *Blob*, jadi file dikirim sebagai teks base64 (data URI).
@@ -74,7 +87,7 @@ Flow yang sudah ter-import (v1.0.0.0) cukup diubah manual, **tanpa import ulang*
 5. Power Apps Studio > panel **Power Automate** > pada flow ini klik **...** > **Refresh**
    (jika tidak ada: hapus flow dari app lalu **Add flow** lagi). Lalu **File > Save**.
 
-Alternatif: import `SmartInventoryFlows_1_0_0_1.zip` (upgrade), lalu ulangi **Langkah 2b** (Drive kosong lagi) dan langkah 5 di atas.
+Alternatif: import `SmartInventoryFlows_1_0_0_2.zip` (upgrade), lalu ulangi **Langkah 2b** (Drive kosong lagi) dan langkah 5 di atas.
 
 ## Langkah 3 – Tes flow (tanpa app)
 

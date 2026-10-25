@@ -17,7 +17,7 @@ import sys
 import zipfile
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.0.0.1"
+VERSION = "1.0.0.2"
 SOLUTION = "SmartInventoryFlows"
 FLOW_NAME = "Smart Inventory - Bulk Import Read Excel"
 # fixed ids so a rebuilt zip updates the same flow on re-import
@@ -31,6 +31,21 @@ COLUMNS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in 
 TAB = "decodeUriComponent('%09')"
 NL = "decodeUriComponent('%0A')"
 line_expr = "concat(" + f", {TAB}, ".join(f"coalesce(string(item()?['{c}']), '')" for c in COLUMNS) + ")"
+
+# file content from the app: data URI or plain base64
+FILE_BODY = ("@if(startsWith(triggerBody()?['text'], 'data:'), dataUriToBinary(triggerBody()?['text']), "
+             "base64ToBinary(triggerBody()?['text']))")
+RESPONSE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "rows": {"title": "rows", "x-ms-dynamically-added": True, "type": "string"},
+        "error": {"title": "error", "x-ms-dynamically-added": True, "type": "string"},
+    },
+}
+# the real reason (OneDrive or Excel) is passed to the app
+ERROR_TEXT = ("@{concat('The file could not be read (', coalesce(outputs('List_rows_present_in_a_table')?['body']?['error']?['message'], "
+              "outputs('Create_file')?['body']?['message'], outputs('Create_file')?['body']?['error']?['message'], 'see the flow run'), "
+              "'). Use the Bulk Import template and keep the table tblImport on the Import sheet.')}")
 
 definition = {
     "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
@@ -61,108 +76,115 @@ definition = {
         }
     },
     "actions": {
-        "Create_file": {
+        # what the app sent; a data URI ("data:...;base64,...") or plain base64 is accepted
+        "Check_file_content": {
             "runAfter": {},
-            "type": "OpenApiConnection",
-            "inputs": {
-                "host": {
-                    "connectionName": "shared_onedriveforbusiness",
-                    "operationId": "CreateFile",
-                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+            "type": "If",
+            "expression": {"greater": ["@length(coalesce(triggerBody()?['text'], ''))", 100]},
+            "actions": {
+                "Create_file": {
+                    "runAfter": {},
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "host": {
+                            "connectionName": "shared_onedriveforbusiness",
+                            "operationId": "CreateFile",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                        },
+                        "parameters": {
+                            "folderPath": FOLDER,
+                            "name": "@{guid()}.xlsx",
+                            "body": FILE_BODY,
+                        },
+                        "authentication": "@parameters('$authentication')",
+                    },
+                    "runtimeConfiguration": {"contentTransfer": {"transferMode": "Chunked"}},
                 },
-                "parameters": {
-                    "folderPath": FOLDER,
-                    "name": "@{guid()}.xlsx",
-                    "body": "@dataUriToBinary(triggerBody()?['text'])",
+                "List_rows_present_in_a_table": {
+                    "runAfter": {"Create_file": ["Succeeded"]},
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "host": {
+                            "connectionName": "shared_excelonlinebusiness",
+                            "operationId": "GetItems",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+                        },
+                        "parameters": {
+                            "source": "me",
+                            # OneDrive's Create file returns no DriveId and the drive id differs per account:
+                            # after import, pick Location/Document Library in the designer (README, step 2b)
+                            "drive": "@outputs('Create_file')?['body/DriveId']",
+                            "file": "@outputs('Create_file')?['body/Id']",
+                            "table": TABLE,
+                        },
+                        "authentication": "@parameters('$authentication')",
+                    },
+                    "runtimeConfiguration": {"paginationPolicy": {"minimumItemCount": 5000}},
+                    "retryPolicy": {"type": "fixed", "count": 4, "interval": "PT5S"},
                 },
-                "authentication": "@parameters('$authentication')",
-            },
-            "runtimeConfiguration": {"contentTransfer": {"transferMode": "Chunked"}},
-        },
-        "List_rows_present_in_a_table": {
-            "runAfter": {"Create_file": ["Succeeded"]},
-            "type": "OpenApiConnection",
-            "inputs": {
-                "host": {
-                    "connectionName": "shared_excelonlinebusiness",
-                    "operationId": "GetItems",
-                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+                "Select_lines": {
+                    "runAfter": {"List_rows_present_in_a_table": ["Succeeded"]},
+                    "type": "Select",
+                    "inputs": {
+                        "from": "@outputs('List_rows_present_in_a_table')?['body/value']",
+                        "select": "@" + line_expr,
+                    },
                 },
-                "parameters": {
-                    "source": "me",
-                    # OneDrive's Create file returns no DriveId and the drive id differs per account:
-                    # after import, pick Location/Document Library in the designer (README, step 2b)
-                    "drive": "@outputs('Create_file')?['body/DriveId']",
-                    "file": "@outputs('Create_file')?['body/Id']",
-                    "table": TABLE,
+                "Respond_to_app_rows": {
+                    "runAfter": {"Select_lines": ["Succeeded"]},
+                    "type": "Response",
+                    "kind": "PowerApp",
+                    "inputs": {
+                        "statusCode": 200,
+                        "body": {"rows": f"@{{join(body('Select_lines'), {NL})}}", "error": ""},
+                        "schema": RESPONSE_SCHEMA,
+                    },
                 },
-                "authentication": "@parameters('$authentication')",
-            },
-            "runtimeConfiguration": {"paginationPolicy": {"minimumItemCount": 5000}},
-            "retryPolicy": {"type": "fixed", "count": 4, "interval": "PT5S"},
-        },
-        "Select_lines": {
-            "runAfter": {"List_rows_present_in_a_table": ["Succeeded"]},
-            "type": "Select",
-            "inputs": {
-                "from": "@outputs('List_rows_present_in_a_table')?['body/value']",
-                "select": "@" + line_expr,
-            },
-        },
-        "Delete_temp_file": {
-            # after the app got its answer (exactly one of the two responses runs, the other is skipped)
-            "runAfter": {
-                "Respond_to_app_rows": ["Succeeded", "Failed", "Skipped"],
-                "Respond_to_app_error": ["Succeeded", "Failed", "Skipped"],
-            },
-            "type": "OpenApiConnection",
-            "inputs": {
-                "host": {
-                    "connectionName": "shared_onedriveforbusiness",
-                    "operationId": "DeleteFile",
-                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                "Respond_to_app_error": {
+                    # Create file failed (List rows skipped) or the table could not be read
+                    "runAfter": {"List_rows_present_in_a_table": ["Failed", "TimedOut", "Skipped"]},
+                    "type": "Response",
+                    "kind": "PowerApp",
+                    "inputs": {
+                        "statusCode": 200,
+                        "body": {"rows": "", "error": ERROR_TEXT},
+                        "schema": RESPONSE_SCHEMA,
+                    },
                 },
-                "parameters": {"id": "@outputs('Create_file')?['body/Id']"},
-                "authentication": "@parameters('$authentication')",
-            },
-        },
-        "Respond_to_app_rows": {
-            "runAfter": {"Select_lines": ["Succeeded"]},
-            "type": "Response",
-            "kind": "PowerApp",
-            "inputs": {
-                "statusCode": 200,
-                "body": {
-                    "rows": f"@{{join(body('Select_lines'), {NL})}}",
-                    "error": "",
-                },
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "rows": {"title": "rows", "x-ms-dynamically-added": True, "type": "string"},
-                        "error": {"title": "error", "x-ms-dynamically-added": True, "type": "string"},
+                "Delete_temp_file": {
+                    # after the app got its answer (exactly one of the two responses runs, the other is skipped)
+                    "runAfter": {
+                        "Respond_to_app_rows": ["Succeeded", "Failed", "Skipped"],
+                        "Respond_to_app_error": ["Succeeded", "Failed", "Skipped"],
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "host": {
+                            "connectionName": "shared_onedriveforbusiness",
+                            "operationId": "DeleteFile",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                        },
+                        "parameters": {"id": "@outputs('Create_file')?['body/Id']"},
+                        "authentication": "@parameters('$authentication')",
                     },
                 },
             },
-        },
-        "Respond_to_app_error": {
-            # Skipped = the upload to OneDrive already failed
-            "runAfter": {"List_rows_present_in_a_table": ["Failed", "TimedOut", "Skipped"]},
-            "type": "Response",
-            "kind": "PowerApp",
-            "inputs": {
-                "statusCode": 200,
-                "body": {
-                    "rows": "",
-                    "error": "The file could not be read. Use the Bulk Import template and keep the table 'tblImport' on the Import sheet.",
-                },
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "rows": {"title": "rows", "x-ms-dynamically-added": True, "type": "string"},
-                        "error": {"title": "error", "x-ms-dynamically-added": True, "type": "string"},
-                    },
-                },
+            "else": {
+                "actions": {
+                    "Respond_to_app_no_file": {
+                        "runAfter": {},
+                        "type": "Response",
+                        "kind": "PowerApp",
+                        "inputs": {
+                            "statusCode": 200,
+                            "body": {
+                                "rows": "",
+                                "error": "@{concat('The app sent no file content. Received: ''', take(coalesce(triggerBody()?['text'], '(nothing)'), 80), '''')}",
+                            },
+                            "schema": RESPONSE_SCHEMA,
+                        },
+                    }
+                }
             },
         },
     },
