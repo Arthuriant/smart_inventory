@@ -1,4 +1,4 @@
-"""Builds SmartInventoryFlows_<version>.zip: an unmanaged Dataverse solution with one cloud flow.
+"""Builds SmartInventoryFlows_<version>.zip: an unmanaged Dataverse solution with two cloud flows.
 
 Flow "Smart Inventory - Bulk Import Read Excel" (Power Apps V2 trigger):
   1. receives the uploaded .xlsx from the app as a data URI text (input "fileContent"; the app builds it with
@@ -9,6 +9,14 @@ Flow "Smart Inventory - Bulk Import Read Excel" (Power Apps V2 trigger):
   5. deletes the temporary file and returns the text to the app ("rows").
 The app puts that text into inpBlkPaste and runs the existing Check, so all rules stay in the app.
 
+Flow "Smart Inventory - Bulk Import Template" (Power Apps V2 trigger):
+  1. receives the current lists of the user's business line as JSON text (input "listsJson":
+     {areas:[{a}], cats:[{c,n}], racks:[{r,a}] sorted by area}),
+  2. copies the master template /Apps/SmartInventory/Bulk_Import_Template_Master.xlsx (see build_template.py),
+  3. fills its tables tblArea, tblCategory and tblRack (sheet Lists) one row at a time, in order,
+  4. creates an organization view link and returns it to the app ("url"), which downloads it,
+  5. deletes the copy after 15 minutes.
+
 Usage: python build_solution.py <output folder>
 """
 import json
@@ -17,13 +25,19 @@ import sys
 import zipfile
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.0.0.2"
+VERSION = "1.1.0.0"
 SOLUTION = "SmartInventoryFlows"
 FLOW_NAME = "Smart Inventory - Bulk Import Read Excel"
 # fixed ids so a rebuilt zip updates the same flow on re-import
 FLOW_ID = "6b1d2f3a-4c5e-4f60-9a71-8b2c3d4e5f60"
 CR_ONEDRIVE = "cr8a3_sharedonedriveforbusiness_sinv"
 CR_EXCEL = "cr8a3_sharedexcelonlinebusiness_sinv"
+# OneDrive (flow owner ARianto2) drive id for the Excel actions; Create file does not return it.
+# Another owner: pick Location/Document Library once in each Excel action (README) or change this value.
+DRIVE_ID = "b!Pu5E4zGfBEG3nzDH_B0Xe6FOFTIKA_RFl_1YdZpKsqbratFKyU_NSI1tsjkc69Jm"
+FLOW2_NAME = "Smart Inventory - Bulk Import Template"
+FLOW2_ID = "7c2e3f4b-5d6f-4071-8b82-9c3d4e5f6071"
+MASTER = "/Apps/SmartInventory/Bulk_Import_Template_Master.xlsx"
 FOLDER = "/Apps/SmartInventory/BulkImport"
 TABLE = "tblImport"
 COLUMNS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack"]
@@ -111,9 +125,7 @@ definition = {
                         },
                         "parameters": {
                             "source": "me",
-                            # OneDrive's Create file returns no DriveId and the drive id differs per account:
-                            # after import, pick Location/Document Library in the designer (README, step 2b)
-                            "drive": "@outputs('Create_file')?['body/DriveId']",
+                            "drive": DRIVE_ID,
                             "file": "@outputs('Create_file')?['body/Id']",
                             "table": TABLE,
                         },
@@ -191,7 +203,195 @@ definition = {
     "outputs": {},
 }
 
-flow_json = {
+
+# ---------- flow 2: Bulk Import Template ----------
+def excel_add(table, item):
+    return {
+        "type": "OpenApiConnection",
+        "inputs": {
+            "host": {
+                "connectionName": "shared_excelonlinebusiness",
+                "operationId": "AddRowV2",
+                "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+            },
+            "parameters": {
+                "source": "me",
+                "drive": DRIVE_ID,
+                "file": "@outputs('Create_copy')?['body/Id']",
+                "table": table,
+                "item": item,
+            },
+            "authentication": "@parameters('$authentication')",
+        },
+        "retryPolicy": {"type": "fixed", "count": 4, "interval": "PT5S"},
+    }
+
+
+def loop(after, items_expr, inner_name, inner):
+    # one row at a time, so racks stay grouped by area as sent by the app
+    return {
+        "runAfter": after,
+        "type": "Foreach",
+        "foreach": items_expr,
+        "actions": {inner_name: inner},
+        "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
+    }
+
+
+ITEM_SCHEMA = lambda props: {"type": "array", "items": {"type": "object", "properties": {p: {"type": "string"} for p in props}}}
+URL_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "url": {"title": "url", "x-ms-dynamically-added": True, "type": "string"},
+        "error": {"title": "error", "x-ms-dynamically-added": True, "type": "string"},
+    },
+}
+
+definition2 = {
+    "$schema": definition["$schema"],
+    "contentVersion": "1.0.0.0",
+    "parameters": definition["parameters"],
+    "triggers": {
+        "manual": {
+            "type": "Request",
+            "kind": "PowerAppV2",
+            "inputs": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "title": "listsJson",
+                            "type": "string",
+                            "x-ms-dynamically-added": True,
+                            "description": "Current areas, categories and racks of the user's business line (JSON)",
+                            "x-ms-content-hint": "TEXT",
+                        }
+                    },
+                    "required": ["text"],
+                }
+            },
+        }
+    },
+    "actions": {
+        "Parse_lists": {
+            "runAfter": {},
+            "type": "ParseJson",
+            "inputs": {
+                "content": "@triggerBody()?['text']",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "areas": ITEM_SCHEMA(["a"]),
+                        "cats": ITEM_SCHEMA(["c", "n"]),
+                        "racks": ITEM_SCHEMA(["r", "a"]),
+                    },
+                },
+            },
+        },
+        "Get_master": {
+            "runAfter": {"Parse_lists": ["Succeeded"]},
+            "type": "OpenApiConnection",
+            "inputs": {
+                "host": {
+                    "connectionName": "shared_onedriveforbusiness",
+                    "operationId": "GetFileContentByPath",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                },
+                "parameters": {"path": MASTER, "inferContentType": False},
+                "authentication": "@parameters('$authentication')",
+            },
+        },
+        "Create_copy": {
+            "runAfter": {"Get_master": ["Succeeded"]},
+            "type": "OpenApiConnection",
+            "inputs": {
+                "host": {
+                    "connectionName": "shared_onedriveforbusiness",
+                    "operationId": "CreateFile",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                },
+                "parameters": {
+                    "folderPath": FOLDER,
+                    "name": "@{concat('Bulk_Import_Template_', formatDateTime(utcNow(), 'yyyyMMdd_HHmmss'), '_', take(guid(), 4), '.xlsx')}",
+                    "body": "@body('Get_master')",
+                },
+                "authentication": "@parameters('$authentication')",
+            },
+            "runtimeConfiguration": {"contentTransfer": {"transferMode": "Chunked"}},
+        },
+    },
+    "outputs": {},
+}
+acts = definition2["actions"]
+acts["Add_areas"] = loop({"Create_copy": ["Succeeded"]}, "@body('Parse_lists')?['areas']",
+                         "Add_area_row", excel_add("tblArea", {"Area": "@items('Add_areas')?['a']"}))
+acts["Add_categories"] = loop({"Add_areas": ["Succeeded"]}, "@body('Parse_lists')?['cats']",
+                              "Add_category_row", excel_add("tblCategory",
+                                                            {"Category code": "@items('Add_categories')?['c']",
+                                                             "Category name": "@items('Add_categories')?['n']"}))
+acts["Add_racks"] = loop({"Add_categories": ["Succeeded"]}, "@body('Parse_lists')?['racks']",
+                         "Add_rack_row", excel_add("tblRack",
+                                                   {"Rack": "@items('Add_racks')?['r']",
+                                                    "Rack is in area": "@items('Add_racks')?['a']"}))
+acts["Create_link"] = {
+    "runAfter": {"Add_racks": ["Succeeded"]},
+    "type": "OpenApiConnection",
+    "inputs": {
+        "host": {
+            "connectionName": "shared_onedriveforbusiness",
+            "operationId": "CreateShareLinkV2",
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+        },
+        "parameters": {"id": "@outputs('Create_copy')?['body/Id']", "type": "View", "scope": "Organization"},
+        "authentication": "@parameters('$authentication')",
+    },
+}
+acts["Respond_to_app_url"] = {
+    "runAfter": {"Create_link": ["Succeeded"]},
+    "type": "Response",
+    "kind": "PowerApp",
+    "inputs": {"statusCode": 200, "body": {"url": "@{outputs('Create_link')?['body/WebUrl']}", "error": ""},
+               "schema": URL_SCHEMA},
+}
+acts["Respond_to_app_error"] = {
+    # any earlier step failed (the later ones are skipped)
+    "runAfter": {"Create_link": ["Failed", "Skipped", "TimedOut"]},
+    "type": "Response",
+    "kind": "PowerApp",
+    "inputs": {
+        "statusCode": 200,
+        "body": {
+            "url": "",
+            "error": ("@{concat('The template could not be created (', coalesce(outputs('Get_master')?['body']?['message'], "
+                      "outputs('Create_copy')?['body']?['message'], outputs('Create_link')?['body']?['message'], 'see the flow run'), "
+                      "'). Check that ', '" + MASTER + "', ' exists in the OneDrive of the flow owner.')}"),
+        },
+        "schema": URL_SCHEMA,
+    },
+}
+acts["Wait_15_minutes"] = {
+    "runAfter": {"Respond_to_app_url": ["Succeeded", "Failed", "Skipped"],
+                 "Respond_to_app_error": ["Succeeded", "Failed", "Skipped"]},
+    "type": "Wait",
+    "inputs": {"interval": {"count": 15, "unit": "Minute"}},
+}
+acts["Delete_copy"] = {
+    "runAfter": {"Wait_15_minutes": ["Succeeded"]},
+    "type": "OpenApiConnection",
+    "inputs": {
+        "host": {
+            "connectionName": "shared_onedriveforbusiness",
+            "operationId": "DeleteFile",
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+        },
+        "parameters": {"id": "@outputs('Create_copy')?['body/Id']"},
+        "authentication": "@parameters('$authentication')",
+    },
+}
+
+
+def wrap(defn):
+    return {
     "properties": {
         "connectionReferences": {
             "shared_onedriveforbusiness": {
@@ -205,13 +405,18 @@ flow_json = {
                 "api": {"name": "shared_excelonlinebusiness"},
             },
         },
-        "definition": definition,
+        "definition": defn,
         "templateName": "",
     },
     "schemaVersion": "1.0.0.0",
-}
+    }
 
-flow_file = f"Workflows/SmartInventory-BulkImportReadExcel-{FLOW_ID.upper()}.json"
+
+FLOWS = [
+    (FLOW_ID, FLOW_NAME, f"Workflows/SmartInventory-BulkImportReadExcel-{FLOW_ID.upper()}.json", definition),
+    (FLOW2_ID, FLOW2_NAME, f"Workflows/SmartInventory-BulkImportTemplate-{FLOW2_ID.upper()}.json", definition2),
+]
+
 
 solution_xml = f"""<?xml version="1.0" encoding="utf-8"?>
 <ImportExportXml version="9.2.26094.160" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26094.160" OrganizationSchemaType="Standard">
@@ -296,19 +501,16 @@ solution_xml = f"""<?xml version="1.0" encoding="utf-8"?>
     </Publisher>
     <RootComponents>
       <RootComponent type="29" id="{{{FLOW_ID}}}" behavior="0" />
+      <RootComponent type="29" id="{{{FLOW2_ID}}}" behavior="0" />
     </RootComponents>
     <MissingDependencies />
   </SolutionManifest>
 </ImportExportXml>
 """
 
-customizations_xml = f"""<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26094.160" OrganizationSchemaType="Standard">
-  <Entities />
-  <Roles />
-  <Workflows>
-    <Workflow WorkflowId="{{{FLOW_ID}}}" Name="{FLOW_NAME}">
-      <JsonFileName>/{flow_file}</JsonFileName>
+WORKFLOWS_XML = "".join(
+    f"""    <Workflow WorkflowId="{{{fid}}}" Name="{fname}">
+      <JsonFileName>/{ffile}</JsonFileName>
       <Type>1</Type>
       <Subprocess>0</Subprocess>
       <Category>5</Category>
@@ -329,10 +531,19 @@ customizations_xml = f"""<?xml version="1.0" encoding="utf-8"?>
       <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
       <PrimaryEntity>none</PrimaryEntity>
       <LocalizedNames>
-        <LocalizedName languagecode="1033" description="{FLOW_NAME}" />
+        <LocalizedName languagecode="1033" description="{fname}" />
       </LocalizedNames>
     </Workflow>
-  </Workflows>
+"""
+    for fid, fname, ffile, _ in FLOWS
+)
+
+customizations_xml = f"""<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26094.160" OrganizationSchemaType="Standard">
+  <Entities />
+  <Roles />
+  <Workflows>
+{WORKFLOWS_XML}  </Workflows>
   <FieldSecurityProfiles />
   <Templates />
   <EntityMaps />
@@ -370,5 +581,6 @@ with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
     z.writestr("[Content_Types].xml", content_types)
     z.writestr("solution.xml", solution_xml)
     z.writestr("customizations.xml", customizations_xml)
-    z.writestr(flow_file, json.dumps(flow_json, indent=2))
+    for _, _, ffile, defn in FLOWS:
+        z.writestr(ffile, json.dumps(wrap(defn), indent=2))
 print(zip_path)
