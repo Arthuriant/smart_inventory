@@ -4,13 +4,13 @@ Isi folder ini:
 
 | File | Fungsi |
 |---|---|
-| `SmartInventoryFlows_1_0_0_0.zip` | Solution (unmanaged) berisi 1 cloud flow + 2 connection reference. Ini yang di-import. |
+| `SmartInventoryFlows_1_0_0_1.zip` | Solution (unmanaged) berisi 1 cloud flow + 2 connection reference. Ini yang di-import. |
 | `build_solution.py` | Sumber solution di atas. Ubah di sini lalu jalankan `python build_solution.py` untuk membuat zip baru. |
 | `Bulk_Import_Template.xlsx` | Template Excel. Sheet **Import** berisi Excel Table **`tblImport`** yang dibaca flow. |
 
 ## Cara kerja flow "Smart Inventory - Bulk Import Read Excel"
 
-1. App mengirim file .xlsx yang sudah diisi user (trigger **Power Apps (V2)**, input `File`).
+1. App mengirim file .xlsx yang sudah diisi user sebagai teks *data URI* base64 (trigger **Power Apps (V2)**, input teks `fileContent`).
 2. File disimpan sementara di OneDrive pemilik koneksi: `/Apps/SmartInventory/BulkImport/<guid>.xlsx`.
 3. **Excel Online (Business) – List rows present in a table** membaca tabel `tblImport`.
 4. Setiap baris diubah menjadi teks dipisah tab, **format yang sama dengan copy-paste dari Excel**.
@@ -39,7 +39,7 @@ Flow menyimpan file sementara di OneDrive **akun yang dipakai untuk koneksi** (k
 ## Langkah 2 – Import solution
 
 1. Buka https://make.powerapps.com, pilih environment **ING | Well Construction - TLM** (kanan atas).
-2. Menu kiri **Solutions** > **Import solution** > **Browse** > pilih `SmartInventoryFlows_1_0_0_0.zip` > **Next**.
+2. Menu kiri **Solutions** > **Import solution** > **Browse** > pilih `SmartInventoryFlows_1_0_0_1.zip` > **Next**.
 3. Halaman **Connections**: untuk tiap connection reference pilih koneksi yang sudah ada, atau **+ New connection**:
    - *Smart Inventory - OneDrive for Business* → koneksi **OneDrive for Business** akun kamu.
    - *Smart Inventory - Excel Online (Business)* → koneksi **Excel Online (Business)** akun kamu.
@@ -61,10 +61,25 @@ Drive ID OneDrive berbeda per akun, jadi tidak bisa dibawa di solution. Tanpa la
 4. **Table**: **Enter custom value** > `tblImport`.
 5. **Save**.
 
+## Update ke v1.0.0.1 (input File diganti teks)
+
+Kontrol upload di app tidak punya tipe *Blob*, jadi file dikirim sebagai teks base64 (data URI).
+Flow yang sudah ter-import (v1.0.0.0) cukup diubah manual, **tanpa import ulang** (pengaturan Drive tetap):
+
+1. Buka flow > **Edit** > klik trigger **When Power Apps calls a flow (V2)**.
+2. Hapus input **File** (ikon ... > Delete). Klik **+ Add an input** > **Text**, beri nama `fileContent`.
+3. Klik aksi **Create file** > isian **File Content** > hapus isinya > **Expression (fx)** >
+   `dataUriToBinary(triggerBody()?['text'])` > **Add/Update**.
+4. **Save**.
+5. Power Apps Studio > panel **Power Automate** > pada flow ini klik **...** > **Refresh**
+   (jika tidak ada: hapus flow dari app lalu **Add flow** lagi). Lalu **File > Save**.
+
+Alternatif: import `SmartInventoryFlows_1_0_0_1.zip` (upgrade), lalu ulangi **Langkah 2b** (Drive kosong lagi) dan langkah 5 di atas.
+
 ## Langkah 3 – Tes flow (tanpa app)
 
 1. Di halaman flow: **Test** > **Manually** > **Test**.
-2. Upload `Bulk_Import_Template.xlsx` (masih berisi 5 baris contoh) > **Run flow**.
+2. Tes paling mudah sekarang lewat app (tombol **Upload Excel** di Bulk Import), karena input-nya teks base64.
 3. Buka run-nya: aksi **Respond to app rows** harus berisi 5 baris teks (kolom dipisah tab).
    Cek juga file di `BulkImport` sudah terhapus.
 

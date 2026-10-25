@@ -1,7 +1,8 @@
-"""Builds SmartInventoryFlows_1_0_0_0.zip: an unmanaged Dataverse solution with one cloud flow.
+"""Builds SmartInventoryFlows_<version>.zip: an unmanaged Dataverse solution with one cloud flow.
 
 Flow "Smart Inventory - Bulk Import Read Excel" (Power Apps V2 trigger):
-  1. receives the uploaded .xlsx from the app (file input "File"),
+  1. receives the uploaded .xlsx from the app as a data URI text (input "fileContent"; the app builds it with
+     JSON(<attachment>, JSONFormat.IncludeBinaryData), because a standalone attachments control has no Blob type),
   2. saves it in the flow owner's OneDrive under /Apps/SmartInventory/BulkImport,
   3. reads the Excel table "tblImport" (sheet Import of the template),
   4. turns the rows into tab-separated text, the same format as a paste from Excel,
@@ -16,7 +17,7 @@ import sys
 import zipfile
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.0.0.0"
+VERSION = "1.0.0.1"
 SOLUTION = "SmartInventoryFlows"
 FLOW_NAME = "Smart Inventory - Bulk Import Read Excel"
 # fixed ids so a rebuilt zip updates the same flow on re-import
@@ -46,19 +47,15 @@ definition = {
                 "schema": {
                     "type": "object",
                     "properties": {
-                        "file": {
-                            "title": "File",
-                            "type": "object",
+                        "text": {
+                            "title": "fileContent",
+                            "type": "string",
                             "x-ms-dynamically-added": True,
-                            "description": "The filled-in Bulk Import template (.xlsx)",
-                            "x-ms-content-hint": "FILE",
-                            "properties": {
-                                "name": {"type": "string"},
-                                "contentBytes": {"type": "string", "format": "byte"},
-                            },
+                            "description": "The filled-in Bulk Import template (.xlsx) as a data URI",
+                            "x-ms-content-hint": "TEXT",
                         }
                     },
-                    "required": ["file"],
+                    "required": ["text"],
                 }
             },
         }
@@ -76,7 +73,7 @@ definition = {
                 "parameters": {
                     "folderPath": FOLDER,
                     "name": "@{guid()}.xlsx",
-                    "body": "@base64ToBinary(triggerBody()?['file']?['contentBytes'])",
+                    "body": "@dataUriToBinary(triggerBody()?['text'])",
                 },
                 "authentication": "@parameters('$authentication')",
             },
