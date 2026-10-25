@@ -615,7 +615,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =11
-                                                Text: ="MIN"
+                                                Text: ="DEF. MIN"
                                                 Width: =64
                                                 Wrap: =false
                                           - txtItmLHUom:

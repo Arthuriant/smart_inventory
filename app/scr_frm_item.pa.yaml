@@ -233,7 +233,7 @@ Screens:
                                                 PaddingBottom: =0
                                                 PaddingTop: =0
                                                 Size: =14
-                                                Text: ="Qty Minimum"
+                                                Text: ="Default min qty (all areas)"
                                                 Width: =Parent.Width - 48
                                                 Wrap: =false
                                                 X: =24

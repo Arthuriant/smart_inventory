@@ -631,7 +631,7 @@ Screens:
                                                 - bdgFindStock:
                                                     Control: Badge
                                                     Properties:
-                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty) & If(ThisItem.qty < ThisItem.dis_item_v2.min_qty, ", below minimum", "")
+                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty) & If(ThisItem.qty < Coalesce(ThisItem.min_qty, ThisItem.dis_item_v2.min_qty), ", below minimum", "")
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
                                                       Content: =Text(ThisItem.qty)
@@ -641,7 +641,7 @@ Screens:
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       Shape: ='BadgeCanvas.Shape'.Rounded
-                                                      ThemeColor: =If(ThisItem.qty < ThisItem.dis_item_v2.min_qty, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Success)
+                                                      ThemeColor: =If(ThisItem.qty < Coalesce(ThisItem.min_qty, ThisItem.dis_item_v2.min_qty), 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Success)
                                                       Width: =80
                                                 - txtFindUom:
                                                     Control: ModernText
@@ -777,7 +777,7 @@ Screens:
                   DropShadow: =DropShadow.Bold
                   Fill: =RGBA(255, 255, 255, 1)
                   FillPortions: =0
-                  Height: =420
+                  Height: =470
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =16
@@ -939,7 +939,7 @@ Screens:
                                     - bdgFindDetStock:
                                         Control: Badge
                                         Properties:
-                                          AccessibleLabel: ="Stock " & Text(locFindDetail.qty) & If(locFindDetail.qty < locFindDetail.dis_item_v2.min_qty, ", below minimum", "")
+                                          AccessibleLabel: ="Stock " & Text(locFindDetail.qty) & If(locFindDetail.qty < Coalesce(locFindDetail.min_qty, locFindDetail.dis_item_v2.min_qty), ", below minimum", "")
                                           AlignInContainer: =AlignInContainer.Center
                                           Appearance: ='BadgeCanvas.Appearance'.Tint
                                           Content: ="Stock " & Text(locFindDetail.qty) & " " & Text(locFindDetail.dis_item_v2.uom)
@@ -949,7 +949,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           Shape: ='BadgeCanvas.Shape'.Rounded
-                                          ThemeColor: =If(locFindDetail.qty < locFindDetail.dis_item_v2.min_qty, 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Success)
+                                          ThemeColor: =If(locFindDetail.qty < Coalesce(locFindDetail.min_qty, locFindDetail.dis_item_v2.min_qty), 'BadgeCanvas.ThemeColor'.Danger, 'BadgeCanvas.ThemeColor'.Success)
                                           Width: =120
                                     - bdgFindDetStatus:
                                         Control: Badge
@@ -1032,7 +1032,7 @@ Screens:
                                             Coalesce(locFindDetail.dis_item_v2.client_number, "-") & Char(10) &
                                             Coalesce(locFindDetail.dis_item_v2.dis_category_item.name, "-") & Char(10) &
                                             Coalesce(Text(locFindDetail.dis_item_v2.uom), "-") & Char(10) &
-                                            Coalesce(Text(locFindDetail.dis_item_v2.min_qty), "-")
+                                            Coalesce(Text(Coalesce(locFindDetail.min_qty, locFindDetail.dis_item_v2.min_qty)), "-") & If(IsBlank(locFindDetail.min_qty) And !IsBlank(locFindDetail.dis_item_v2.min_qty), " (item default)", "")
                                     - txtFindDetLbl2:
                                         Control: ModernText
                                         Properties:
@@ -1071,6 +1071,112 @@ Screens:
                                             Coalesce(locFindDetail.dis_area.Name, "-") & Char(10) &
                                             Text(locFindDetail.qty) & " " & Text(locFindDetail.dis_item_v2.uom) & Char(10) &
                                             Text(locFindDetail.'Modified On', "dd mmm yyyy hh:mm")
+                              - conFindDetMin:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtFindDetMinLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="Min. stock in this area"
+                                          Width: =150
+                                          Wrap: =false
+                                    - inpFindDetMin:
+                                        Control: ModernTextInput
+                                        Properties:
+                                          AccessibleLabel: ="Minimum stock in " & locFindDetail.dis_area.Name
+                                          Align: =Align.Center
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =Appearance.Outline
+                                          Default: =If(IsBlank(locFindDetail.min_qty), "", Text(locFindDetail.min_qty))
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Placeholder: =Coalesce(Text(locFindDetail.dis_item_v2.min_qty), "0")
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          ValidationState: =If(!IsBlank(Self.Text) And (IsError(Value(Self.Text)) Or Value(Self.Text) < 0), ValidationState.Error, ValidationState.None)
+                                          Width: =90
+                                    - btnFindDetMinSave:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Save minimum stock"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          DisplayMode: |-
+                                            =If(
+                                                inpFindDetMin.Text = If(IsBlank(locFindDetail.min_qty), "", Text(locFindDetail.min_qty)) Or
+                                                (!IsBlank(inpFindDetMin.Text) And (IsError(Value(inpFindDetMin.Text)) Or Value(inpFindDetMin.Text) < 0)),
+                                                DisplayMode.Disabled,
+                                                DisplayMode.Edit
+                                            )
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Save"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =96
+                                          OnSelect: |-
+                                            =// blank = no own minimum, the item's default min qty applies
+                                            Patch(dis_stocks, LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock), {min_qty: If(IsBlank(inpFindDetMin.Text), Blank(), Round(Value(inpFindDetMin.Text), 0))});
+                                            If(
+                                                IsEmpty(Errors(dis_stocks)),
+                                                UpdateContext({locFindDetail: LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock)});
+                                                Notify("Minimum stock saved for " & locFindDetail.dis_area.Name & ".", NotificationType.Success),
+                                                Notify("Failed to save minimum stock. " & First(Errors(dis_stocks)).Message, NotificationType.Error)
+                                            )
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Save min"
+                                          Width: =112
+                                    - txtFindDetMinHint:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="Empty = item default (" & Coalesce(Text(locFindDetail.dis_item_v2.min_qty), "none") & ")"
+                                          Wrap: =false
                   - conFindDetFoot:
                       Control: GroupContainer
                       Variant: AutoLayout

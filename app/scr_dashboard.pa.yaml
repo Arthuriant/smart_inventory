@@ -918,10 +918,10 @@ Screens:
                                                 - bdgDashLowQty:
                                                     Control: Badge
                                                     Properties:
-                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty) & " of minimum " & Text(ThisItem.dis_item_v2.min_qty)
+                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty) & " of minimum " & Text(ThisItem.MinQty)
                                                       AlignInContainer: =AlignInContainer.Center
                                                       Appearance: ='BadgeCanvas.Appearance'.Tint
-                                                      Content: =Text(ThisItem.qty) & " / " & Text(ThisItem.dis_item_v2.min_qty)
+                                                      Content: =Text(ThisItem.qty) & " / " & Text(ThisItem.MinQty)
                                                       FontSize: =12
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
