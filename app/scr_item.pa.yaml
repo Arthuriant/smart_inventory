@@ -670,7 +670,7 @@ Screens:
                                                 PaddingTop: =0
                                                 Size: =11
                                                 Text: ="ACTIONS"
-                                                Width: =108
+                                                Width: =72
                                                 Wrap: =false
                                     - galItmL:
                                         Control: Gallery
@@ -845,41 +845,6 @@ Screens:
                                                       Shape: ='BadgeCanvas.Shape'.Rounded
                                                       ThemeColor: =If(Text(ThisItem.status) = "Active", 'BadgeCanvas.ThemeColor'.Success, 'BadgeCanvas.ThemeColor'.Subtle)
                                                       Width: =96
-                                                - btnItmLToggle:
-                                                    Control: ModernButton
-                                                    Properties:
-                                                      AccessibleLabel: =If(ThisItem.status = 'status (dis_item_v2S)'.'Non-Active', "Activate ", "Set non-active ") & ThisItem.name
-                                                      AlignInContainer: =AlignInContainer.Center
-                                                      Appearance: =ButtonAppearance.Subtle
-                                                      Color: =If(ThisItem.status = 'status (dis_item_v2S)'.'Non-Active', RGBA(16, 124, 16, 1), RGBA(100, 112, 130, 1))
-                                                      Font: =Font.'Segoe UI'
-                                                      Height: =32
-                                                      Icon: =If(ThisItem.status = 'status (dis_item_v2S)'.'Non-Active', "Eye", "EyeOff")
-                                                      Layout: =ButtonLayout.IconOnly
-                                                      LayoutMinHeight: =0
-                                                      LayoutMinWidth: =32
-                                                      OnSelect: |-
-                                                        =With(
-                                                            {na: ThisItem.status = 'status (dis_item_v2S)'.'Non-Active'},
-                                                            Patch(dis_item_v2S, ThisItem, {status: If(na, 'status (dis_item_v2S)'.Active, 'status (dis_item_v2S)'.'Non-Active')});
-                                                            If(
-                                                                IsEmpty(Errors(dis_item_v2S)),
-                                                                Notify(ThisItem.name & If(na, " is active again.", " is now non-active and hidden from Consume, Receive and Transfer."), NotificationType.Success),
-                                                                Notify("Failed to update item. " & First(Errors(dis_item_v2S)).Message, NotificationType.Error)
-                                                            )
-                                                        )
-                                                      PaddingBottom: =0
-                                                      PaddingLeft: =0
-                                                      PaddingRight: =0
-                                                      PaddingTop: =0
-                                                      RadiusBottomLeft: =6
-                                                      RadiusBottomRight: =6
-                                                      RadiusTopLeft: =6
-                                                      RadiusTopRight: =6
-                                                      Size: =13
-                                                      Text: =If(ThisItem.status = 'status (dis_item_v2S)'.'Non-Active', "Activate ", "Set non-active ") & ThisItem.name
-                                                      Tooltip: =If(ThisItem.status = 'status (dis_item_v2S)'.'Non-Active', "Activate", "Set non-active (not restocked)")
-                                                      Width: =32
                                                 - btnItmLEdit:
                                                     Control: ModernButton
                                                     Properties:

@@ -378,13 +378,13 @@ Screens:
                                         Properties:
                                           AccessibleLabel: ="Available stock"
                                           Fill: =RGBA(244, 246, 250, 1)
-                                          Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 2c. Barang Non-Active (tidak direstok lagi) disembunyikan\n    Not(dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active'),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text) Or StartsWith(dis_item_v2.client_number, inpConsSearch.Text)\n)"
+                                          Items: "=Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 2c. Stok yang di-nonaktifkan di area ini (tidak direstok lagi) disembunyikan\n    Not(inactive = true),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text) Or StartsWith(dis_item_v2.client_number, inpConsSearch.Text)\n)"
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           TabIndex: =0
                                           TemplatePadding: =8
                                           TemplateSize: =376
-                                          Visible: "=!IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 2c. Barang Non-Active (tidak direstok lagi) disembunyikan\n    Not(dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active'),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text) Or StartsWith(dis_item_v2.client_number, inpConsSearch.Text)\n))"
+                                          Visible: "=!IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 2c. Stok yang di-nonaktifkan di area ini (tidak direstok lagi) disembunyikan\n    Not(inactive = true),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text) Or StartsWith(dis_item_v2.client_number, inpConsSearch.Text)\n))"
                                           WrapCount: =4
                                         Children:
                                           - conConsRow:
@@ -502,11 +502,11 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Text: =""
-                                                      Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
+                                                      Visible: =ThisItem.qty > 0
                                                 - btnConsNa:
                                                     Control: ModernButton
                                                     Properties:
-                                                      AccessibleLabel: ="Set " & ThisItem.dis_item_v2.name & " to non-active"
+                                                      AccessibleLabel: ="Set " & ThisItem.dis_item_v2.name & " non-active in " & ThisItem.dis_area.Name
                                                       AlignInContainer: =AlignInContainer.Stretch
                                                       Appearance: =ButtonAppearance.Secondary
                                                       Color: =RGBA(196, 43, 28, 1)
@@ -516,14 +516,14 @@ Screens:
                                                       LayoutMinHeight: =0
                                                       LayoutMinWidth: =0
                                                       OnSelect: |-
-                                                        =UpdateContext({locConsNa: ThisItem.dis_item_v2})
+                                                        =UpdateContext({locConsOff: ThisItem})
                                                       RadiusBottomLeft: =8
                                                       RadiusBottomRight: =8
                                                       RadiusTopLeft: =8
                                                       RadiusTopRight: =8
                                                       Size: =13
-                                                      Text: ="Non-active (not restocked)"
-                                                      Visible: =nfIsAdmin And ThisItem.qty <= 0
+                                                      Text: ="Non-active in this area"
+                                                      Visible: =ThisItem.qty <= 0
                                                 - txtConsWarn:
                                                     Control: ModernText
                                                     Properties:
@@ -565,7 +565,7 @@ Screens:
                                                 RadiusTopRight: =8
                                                 Size: =18
                                                 Text: ="−"
-                                                Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
+                                                Visible: =ThisItem.qty > 0
                                                 Width: =40
                                                 X: =8
                                                 Y: =302
@@ -596,7 +596,7 @@ Screens:
                                                 Size: =16
                                                 TriggerOutput: =TriggerOutput.Delayed
                                                 ValidationState: =If(Coalesce(LookUp(colConsSel, stockId = ThisItem.dis_stock).qty, 0) > ThisItem.qty, ValidationState.Error, ValidationState.None)
-                                                Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
+                                                Visible: =ThisItem.qty > 0
                                                 Width: =Parent.TemplateWidth - 112
                                                 X: =56
                                                 Y: =302
@@ -622,7 +622,7 @@ Screens:
                                                 RadiusTopRight: =8
                                                 Size: =18
                                                 Text: ="+"
-                                                Visible: =!(nfIsAdmin And ThisItem.qty <= 0)
+                                                Visible: =ThisItem.qty > 0
                                                 Width: =40
                                                 X: =Parent.TemplateWidth - 48
                                                 Y: =302
@@ -642,7 +642,7 @@ Screens:
                                           PaddingTop: =0
                                           Size: =13
                                           Text: ="No stock matches the filter."
-                                          Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 2c. Barang Non-Active (tidak direstok lagi) disembunyikan\n    Not(dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active'),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text) Or StartsWith(dis_item_v2.client_number, inpConsSearch.Text)\n))"
+                                          Visible: "=IsEmpty(Filter(\n    dis_stocks,\n    \n    // 1. Filter Kategori (Langsung 1 level)\n    IsBlank(ddConsCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddConsCat.Selected.dis_category_item,\n    \n    // 2. Filter Area (opsional, hanya filter tampilan)\n    IsBlank(ddConsArea.Selected) Or dis_area.dis_area = ddConsArea.Selected.dis_area,\n    \n    // 2a. Filter Rak (opsional)\n    IsBlank(ddConsRack.Selected) Or rack.dis_rack = ddConsRack.Selected.dis_rack,\n    \n    // 2b. RBAC: non-admin hanya melihat stok di area yang di-assign\n    dis_area.dis_area in nfMyAreaIds,\n    \n    // 2c. Stok yang di-nonaktifkan di area ini (tidak direstok lagi) disembunyikan\n    Not(inactive = true),\n    \n    // 3. Pencarian Teks (Ganti 'in' dengan 'StartsWith' yang lebih ramah delegasi)\n    IsBlank(inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.name, inpConsSearch.Text) Or \n    StartsWith(dis_item_v2.part_number, inpConsSearch.Text) Or StartsWith(dis_item_v2.client_number, inpConsSearch.Text)\n))"
                                           Wrap: =false
                               - conConsNaBar:
                                   Control: GroupContainer
@@ -665,7 +665,7 @@ Screens:
                                     RadiusBottomRight: =10
                                     RadiusTopLeft: =10
                                     RadiusTopRight: =10
-                                    Visible: =!IsBlank(locConsNa)
+                                    Visible: =!IsBlank(locConsOff)
                                   Children:
                                     - txtConsNaMsg:
                                         Control: ModernText
@@ -683,7 +683,8 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =12
-                                          Text: ="Set " & locConsNa.name & " to non-active? It is hidden from Consume, Receive and Transfer (History stays). Receiving or transferring it later makes it active again."
+                                          Text: ="Set " & locConsOff.dis_item_v2.name & " non-active in " & locConsOff.dis_area.Name & "? It is hidden there from Consume, Receive and Transfer (other areas and History are not affected). Receiving or transferring it into this area makes it active again."
+                                          Wrap: =true
                                     - btnConsNaYes:
                                         Control: ModernButton
                                         Properties:
@@ -697,13 +698,13 @@ Screens:
                                           LayoutMinWidth: =120
                                           OnSelect: |-
                                             =With(
-                                                {it: locConsNa},
-                                                Patch(dis_item_v2S, LookUp(dis_item_v2S, dis_item_v2 = it.dis_item_v2), {status: 'status (dis_item_v2S)'.'Non-Active'});
+                                                {st: locConsOff},
+                                                Patch(dis_stocks, LookUp(dis_stocks, dis_stock = st.dis_stock), {inactive: true});
                                                 If(
-                                                    IsEmpty(Errors(dis_item_v2S)),
-                                                    UpdateContext({locConsNa: Blank()});
-                                                    Notify(it.name & " is now non-active and hidden. Re-activate it in Item.", NotificationType.Success),
-                                                    Notify("Failed to update item. " & First(Errors(dis_item_v2S)).Message, NotificationType.Error)
+                                                    IsEmpty(Errors(dis_stocks)),
+                                                    UpdateContext({locConsOff: Blank()});
+                                                    Notify(st.dis_item_v2.name & " is now hidden in " & st.dis_area.Name & ". Re-activate it in Find Item > Detail.", NotificationType.Success),
+                                                    Notify("Failed to update stock. " & First(Errors(dis_stocks)).Message, NotificationType.Error)
                                                 )
                                             )
                                           RadiusBottomLeft: =8
@@ -725,7 +726,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =96
                                           OnSelect: |-
-                                            =UpdateContext({locConsNa: Blank()})
+                                            =UpdateContext({locConsOff: Blank()})
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8

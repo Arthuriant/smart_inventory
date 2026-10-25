@@ -791,7 +791,7 @@ Screens:
                                                                   dis_area.dis_area = cmbTrxFAreaFrom.Selected.dis_area,
                                                                   qty > 0,
                                                                   IsBlank(ddTrxFPickCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddTrxFPickCat.Selected.dis_category_item,
-                                                                  Not(dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active'),
+                                                                  Not(inactive = true),
                                                                   IsBlank(inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.name, inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.part_number, inpTrxFPickSearch.Text) Or StartsWith(dis_item_v2.client_number, inpTrxFPickSearch.Text)
                                                               ),
                                                               {
@@ -809,7 +809,6 @@ Screens:
                                                               Filter(
                                                                   dis_item_v2S,
                                                                   IsBlank(ddTrxFPickCat.Selected) Or dis_category_item.dis_category_item = ddTrxFPickCat.Selected.dis_category_item,
-                                                                  Not(status = 'status (dis_item_v2S)'.'Non-Active'),
                                                                   IsBlank(inpTrxFPickSearch.Text) Or StartsWith(name, inpTrxFPickSearch.Text) Or StartsWith(part_number, inpTrxFPickSearch.Text) Or StartsWith(client_number, inpTrxFPickSearch.Text)
                                                               ),
                                                               {

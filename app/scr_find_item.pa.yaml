@@ -1184,6 +1184,36 @@ Screens:
                               Text: ="Remove rack"
                               Visible: =!IsBlank(locFindDetail.rack)
                               Width: =36
+                        - btnFindDetActive:
+                            Control: ModernButton
+                            Properties:
+                              AccessibleLabel: =If(locFindDetail.inactive = true, "Activate in this area", "Set non-active in this area")
+                              AlignInContainer: =AlignInContainer.Center
+                              Appearance: =ButtonAppearance.Secondary
+                              Color: =If(locFindDetail.inactive = true, RGBA(16, 124, 16, 1), RGBA(196, 43, 28, 1))
+                              Font: =Font.'Segoe UI'
+                              Height: =36
+                              Icon: =If(locFindDetail.inactive = true, "Eye", "EyeOff")
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =150
+                              OnSelect: |-
+                                =With(
+                                    {off: !(locFindDetail.inactive = true)},
+                                    Patch(dis_stocks, LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock), {inactive: off});
+                                    If(
+                                        IsEmpty(Errors(dis_stocks)),
+                                        UpdateContext({locFindDetail: LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock)});
+                                        Notify(If(off, "Hidden in " & locFindDetail.dis_area.Name & " (Consume, Receive, Transfer).", "Active again in " & locFindDetail.dis_area.Name & "."), NotificationType.Success),
+                                        Notify("Failed to update stock. " & First(Errors(dis_stocks)).Message, NotificationType.Error)
+                                    )
+                                )
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Size: =13
+                              Text: =If(locFindDetail.inactive = true, "Activate in area", "Non-active in area")
+                              Width: =160
                         - btnFindDetClose:
                             Control: ModernButton
                             Properties:

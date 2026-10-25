@@ -462,14 +462,18 @@ Screens:
                                     AccessibleLabel: ="Items to receive"
                                     Fill: =RGBA(226, 230, 239, 1)
                                     Items: |-
-                                      =Sort(
-                                          Filter(
-                                              dis_item_v2S,
-                                              IsBlank(ddRcvFCat.Selected) Or dis_category_item.dis_category_item = ddRcvFCat.Selected.dis_category_item,
-                                              chkRcvFShowNA.Checked Or Not(status = 'status (dis_item_v2S)'.'Non-Active'),
-                                              IsBlank(inpRcvFSearch.Text) Or StartsWith(name, inpRcvFSearch.Text) Or StartsWith(part_number, inpRcvFSearch.Text) Or StartsWith(client_number, inpRcvFSearch.Text)
-                                          ),
-                                          name
+                                      =With(
+                                          // items made non-active in the picked area (dis_stocks.inactive)
+                                          {off: ForAll(Filter(dis_stocks, dis_area.dis_area = ddRcvFArea.Selected.dis_area, inactive = true), dis_item_v2.dis_item_v2)},
+                                          Sort(
+                                              Filter(
+                                                  dis_item_v2S,
+                                                  IsBlank(ddRcvFCat.Selected) Or dis_category_item.dis_category_item = ddRcvFCat.Selected.dis_category_item,
+                                                  chkRcvFShowNA.Checked Or Not(dis_item_v2 in off),
+                                                  IsBlank(inpRcvFSearch.Text) Or StartsWith(name, inpRcvFSearch.Text) Or StartsWith(part_number, inpRcvFSearch.Text) Or StartsWith(client_number, inpRcvFSearch.Text)
+                                              ),
+                                              name
+                                          )
                                       )
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
@@ -513,7 +517,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =13
-                                                Text: =ThisItem.name & If(ThisItem.status = 'status (dis_item_v2S)'.'Non-Active', "  (non-active)", "")
+                                                Text: =ThisItem.name
                                                 Wrap: =false
                                           - txtRcvFBpn:
                                               Control: ModernText
@@ -552,7 +556,7 @@ Screens:
                                                       "Pick an area",
                                                       With(
                                                           {st: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = ThisItem.dis_item_v2 And dis_area.dis_area = ddRcvFArea.Selected.dis_area)},
-                                                          Text(Coalesce(st.qty, 0)) & " " & Text(ThisItem.uom) & If(IsBlank(st.rack), "", " · Rack " & st.rack.Name)
+                                                          Text(Coalesce(st.qty, 0)) & " " & Text(ThisItem.uom) & If(IsBlank(st.rack), "", " · Rack " & st.rack.Name) & If(st.inactive, " · non-active here", "")
                                                       )
                                                   )
                                                 Width: =170
@@ -1111,16 +1115,10 @@ Screens:
                                                                     rack: c.Rack
                                                                 }
                                                             ),
-                                                            Patch(dis_stocks, st, {qty: st.qty + c.Qty, rack: If(IsBlank(c.Rack), st.rack, c.Rack)})
+                                                            Patch(dis_stocks, st, {qty: st.qty + c.Qty, rack: If(IsBlank(c.Rack), st.rack, c.Rack), inactive: false})
                                                         )
                                                     )
                                                 );
-                                                // items that were Non-Active come back to Active once they are received
-                                                ForAll(
-                                                    Filter(colRcvCart, Item.status = 'status (dis_item_v2S)'.'Non-Active') As na,
-                                                    Patch(dis_item_v2S, na.Item, {status: 'status (dis_item_v2S)'.Active})
-                                                );
-
                                                 Set(
                                                     gblReceipt,
                                                     {

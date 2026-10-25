@@ -638,7 +638,7 @@ Screens:
                                           dis_stocks,
                                           dis_area.dis_area = ddTfrFFrom.Selected.dis_area,
                                           IsBlank(ddTfrFCat.Selected) Or dis_item_v2.dis_category_item.dis_category_item = ddTfrFCat.Selected.dis_category_item,
-                                          chkTfrFShowNA.Checked Or Not(dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active'),
+                                          chkTfrFShowNA.Checked Or Not(inactive = true),
                                           IsBlank(inpTfrFSearch.Text) Or StartsWith(dis_item_v2.name, inpTfrFSearch.Text) Or StartsWith(dis_item_v2.part_number, inpTfrFSearch.Text) Or StartsWith(dis_item_v2.client_number, inpTfrFSearch.Text)
                                       )
                                     LayoutMinHeight: =0
@@ -684,7 +684,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =13
-                                                Text: =ThisItem.dis_item_v2.name & If(ThisItem.dis_item_v2.status = 'status (dis_item_v2S)'.'Non-Active', "  (non-active)", "")
+                                                Text: =ThisItem.dis_item_v2.name & If(ThisItem.inactive, "  (non-active here)", "")
                                                 Wrap: =false
                                           - txtTfrFBpn:
                                               Control: ModernText
@@ -1417,7 +1417,7 @@ Screens:
                                                                         rack: rk
                                                                     }
                                                                 ),
-                                                                Patch(dis_stocks, st, {qty: st.qty + tot, rack: If(IsBlank(rk), st.rack, rk)})
+                                                                Patch(dis_stocks, st, {qty: st.qty + tot, rack: If(IsBlank(rk), st.rack, rk), inactive: If(tot > 0, false, st.inactive)})
                                                             )
                                                         )
                                                     )
@@ -1433,12 +1433,6 @@ Screens:
                                                         )
                                                     )
                                                 );
-                                                // items that were Non-Active come back to Active once they are transferred
-                                                ForAll(
-                                                    Filter(colTfrCart, Item.status = 'status (dis_item_v2S)'.'Non-Active') As na,
-                                                    Patch(dis_item_v2S, na.Item, {status: 'status (dis_item_v2S)'.Active})
-                                                );
-
                                                 Set(
                                                     gblReceipt,
                                                     {
