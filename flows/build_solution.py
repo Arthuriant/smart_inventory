@@ -11,11 +11,13 @@ The app puts that text into inpBlkPaste and runs the existing Check, so all rule
 
 Flow "Smart Inventory - Bulk Import Template" (Power Apps V2 trigger):
   1. receives the current lists of the user's business line as JSON text (input "listsJson":
-     {areas:[{a}], cats:[{c,n}], racks:[{r,a}] sorted by area}),
-  2. copies the master template /Apps/SmartInventory/Bulk_Import_Template_Master.xlsx (see build_template.py),
-  3. fills its tables tblArea, tblCategory and tblRack (sheet Lists) one row at a time, in order,
-  4. creates an organization view link and returns it to the app ("url"), which downloads it,
-  5. deletes the copy after 15 minutes.
+     {areas:[{a}], cats:[{c,n}], racks:[{r,a}]}); the racks sent by the app are ignored since v1.2.0.0,
+  2. reads the active racks from Dataverse (dis_racks) and keeps those whose area is in the app's area list,
+  3. copies the master template /Apps/SmartInventory/Bulk_Import_Template_Master.xlsx (see build_template.py),
+  4. fills its tables tblArea, tblCategory and tblRack (sheet Lists) one row at a time; racks are written
+     area by area, because the Rack dropdown in Excel takes one block per area,
+  5. creates an organization view link and returns it to the app ("url"), which downloads it,
+  6. deletes the copy after 15 minutes.
 
 Usage: python build_solution.py <output folder>
 """
@@ -25,13 +27,14 @@ import sys
 import zipfile
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.1.0.0"
+VERSION = "1.2.0.0"
 SOLUTION = "SmartInventoryFlows"
 FLOW_NAME = "Smart Inventory - Bulk Import Read Excel"
 # fixed ids so a rebuilt zip updates the same flow on re-import
 FLOW_ID = "6b1d2f3a-4c5e-4f60-9a71-8b2c3d4e5f60"
 CR_ONEDRIVE = "cr8a3_sharedonedriveforbusiness_sinv"
 CR_EXCEL = "cr8a3_sharedexcelonlinebusiness_sinv"
+CR_DATAVERSE = "cr8a3_sharedcommondataserviceforapps_sinv"
 # OneDrive (flow owner ARianto2) drive id for the Excel actions; Create file does not return it.
 # Another owner: pick Location/Document Library once in each Excel action (README) or change this value.
 DRIVE_ID = "b!Pu5E4zGfBEG3nzDH_B0Xe6FOFTIKA_RFl_1YdZpKsqbratFKyU_NSI1tsjkc69Jm"
@@ -228,7 +231,7 @@ def excel_add(table, item):
 
 
 def loop(after, items_expr, inner_name, inner):
-    # one row at a time, so racks stay grouped by area as sent by the app
+    # one row at a time, in the order the app sent
     return {
         "runAfter": after,
         "type": "Foreach",
@@ -329,10 +332,54 @@ acts["Add_categories"] = loop({"Add_areas": ["Succeeded"]}, "@body('Parse_lists'
                               "Add_category_row", excel_add("tblCategory",
                                                             {"Category code": "@items('Add_categories')?['c']",
                                                              "Category name": "@items('Add_categories')?['n']"}))
-acts["Add_racks"] = loop({"Add_categories": ["Succeeded"]}, "@body('Parse_lists')?['racks']",
-                         "Add_rack_row", excel_add("tblRack",
-                                                   {"Rack": "@items('Add_racks')?['r']",
-                                                    "Rack is in area": "@items('Add_racks')?['a']"}))
+# racks come from Dataverse, not from the app (the app's list arrived empty); the formatted value of the
+# area lookup is the area name, the same text the app sends in "areas"
+AREA_NAME = "_cr8a3_area_value@OData.Community.Display.V1.FormattedValue"
+acts["List_racks"] = {
+    "runAfter": {"Parse_lists": ["Succeeded"]},
+    "type": "OpenApiConnection",
+    "inputs": {
+        "host": {
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "ListRecords",
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+        },
+        "parameters": {
+            "entityName": "cr8a3_dis_racks",
+            "$select": "cr8a3_name,_cr8a3_area_value",
+            "$filter": "statecode eq 0",
+            "$orderby": "cr8a3_name asc",
+        },
+        "authentication": "@parameters('$authentication')",
+    },
+}
+acts["Add_racks"] = {
+    # one block per area, in the order of the app's area list
+    "runAfter": {"Add_categories": ["Succeeded"], "List_racks": ["Succeeded"]},
+    "type": "Foreach",
+    "foreach": "@body('Parse_lists')?['areas']",
+    "actions": {
+        "Racks_in_area": {
+            "runAfter": {},
+            "type": "Query",
+            "inputs": {
+                "from": "@coalesce(outputs('List_racks')?['body/value'], json('[]'))",
+                "where": f"@equals(item()?['{AREA_NAME}'], items('Add_racks')?['a'])",
+            },
+        },
+        "Add_area_racks": {
+            "runAfter": {"Racks_in_area": ["Succeeded"]},
+            "type": "Foreach",
+            "foreach": "@body('Racks_in_area')",
+            "actions": {
+                "Add_rack_row": excel_add("tblRack", {"Rack": "@items('Add_area_racks')?['cr8a3_name']",
+                                                      "Rack is in area": "@items('Add_racks')?['a']"}),
+            },
+            "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
+        },
+    },
+    "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
+}
 acts["Create_link"] = {
     "runAfter": {"Add_racks": ["Succeeded"]},
     "type": "OpenApiConnection",
@@ -363,7 +410,8 @@ acts["Respond_to_app_error"] = {
         "body": {
             "url": "",
             "error": ("@{concat('The template could not be created (', coalesce(outputs('Get_master')?['body']?['message'], "
-                      "outputs('Create_copy')?['body']?['message'], outputs('Create_link')?['body']?['message'], 'see the flow run'), "
+                      "outputs('Create_copy')?['body']?['message'], outputs('List_racks')?['body']?['error']?['message'], "
+                      "outputs('Create_link')?['body']?['message'], 'see the flow run'), "
                       "'). Check that ', '" + MASTER + "', ' exists in the OneDrive of the flow owner.')}"),
         },
         "schema": URL_SCHEMA,
@@ -403,6 +451,11 @@ def wrap(defn):
                 "runtimeSource": "embedded",
                 "connection": {"connectionReferenceLogicalName": CR_EXCEL},
                 "api": {"name": "shared_excelonlinebusiness"},
+            },
+            "shared_commondataserviceforapps": {
+                "runtimeSource": "embedded",
+                "connection": {"connectionReferenceLogicalName": CR_DATAVERSE},
+                "api": {"name": "shared_commondataserviceforapps"},
             },
         },
         "definition": defn,
@@ -563,6 +616,13 @@ customizations_xml = f"""<?xml version="1.0" encoding="utf-8"?>
     <connectionreference connectionreferencelogicalname="{CR_EXCEL}">
       <connectionreferencedisplayname>Smart Inventory - Excel Online (Business)</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="{CR_DATAVERSE}">
+      <connectionreferencedisplayname>Smart Inventory - Microsoft Dataverse</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
       <iscustomizable>1</iscustomizable>
       <statecode>0</statecode>
       <statuscode>1</statuscode>

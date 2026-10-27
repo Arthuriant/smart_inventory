@@ -2,14 +2,16 @@
 
 | File | Fungsi |
 |---|---|
-| `SmartInventoryFlows_1_1_0_0.zip` | Solution (unmanaged): 2 cloud flow + 2 connection reference. **Ini yang di-import.** |
+| `SmartInventoryFlows_1_2_0_0.zip` | Solution (unmanaged): 2 cloud flow + 3 connection reference (OneDrive, Excel, Dataverse). **Ini yang di-import.** |
 | `Bulk_Import_Template_Master.xlsx` | File master template. Disimpan sekali di OneDrive (lihat Langkah 1). |
 | `build_solution.py` / `build_template.py` | Sumber zip dan file master. Ubah di sini lalu jalankan ulang (`python build_solution.py`, `python build_template.py`). |
 
 ## Dua flow di solution ini
 
 **Smart Inventory - Bulk Import Template** (tombol **Template** di Bulk Import)
-1. App mengirim data terkini business line user (area, kategori, rak — teks JSON, input `listsJson`).
+1. App mengirim data terkini business line user (area, kategori — teks JSON, input `listsJson`).
+   Sejak v1.2.0.0 rak dibaca flow sendiri dari Dataverse (`dis_racks` aktif yang areanya ada di daftar area dari app);
+   daftar rak dari app diabaikan.
 2. Flow menyalin `Apps/SmartInventory/Bulk_Import_Template_Master.xlsx`, mengisi tabel `tblArea`,
    `tblCategory`, `tblRack` di sheet *Lists* (dropdown Area/Category/Rack), membuat link (organisasi, view)
    dan mengirimnya ke app, yang langsung men-download file.
@@ -20,7 +22,8 @@
 2. Flow menyimpannya sementara, membaca tabel `tblImport`, mengembalikan baris sebagai teks (format paste),
    lalu menghapus file. App menjalankan **Check** seperti biasa.
 
-Kedua flow hanya memakai konektor **standar** (OneDrive for Business, Excel Online Business) dan tidak menyentuh Dataverse.
+Kedua flow hanya memakai konektor **standar** (OneDrive for Business, Excel Online Business, Microsoft Dataverse).
+Flow Template hanya **membaca** tabel `dis_racks`; tidak ada data Dataverse yang diubah.
 Semua file ada di OneDrive **pemilik koneksi** (ARianto2): folder `Apps/SmartInventory` dan `Apps/SmartInventory/BulkImport`.
 
 ---
@@ -35,7 +38,9 @@ Semua file ada di OneDrive **pemilik koneksi** (ARianto2): folder `Apps/SmartInv
 ## Langkah 2 – Import solution
 
 1. https://make.powerapps.com > environment **ING | Well Construction - TLM** > **Solutions** > **Import solution**
-   > pilih `SmartInventoryFlows_1_1_0_0.zip` > **Next** > pilih koneksi OneDrive & Excel yang sama seperti sebelumnya > **Import**.
+   > pilih `SmartInventoryFlows_1_2_0_0.zip` > **Next** > pilih koneksi OneDrive & Excel yang sama seperti sebelumnya,
+   dan untuk **Smart Inventory - Microsoft Dataverse** pilih/buat koneksi Dataverse (login ARianto2) > **Import**.
+   Muncul pertanyaan upgrade: pilih **Upgrade** (default).
 2. Buka solution **Smart Inventory Flows**: pastikan **kedua** flow statusnya **On** (jika Off: buka flow > **Turn on**).
 
 Drive OneDrive sudah tertanam di solution (milik ARianto2), jadi aksi Excel **tidak perlu diatur ulang**.
@@ -49,6 +54,9 @@ Jika pemilik flow diganti orang lain: di setiap aksi Excel (*List rows present i
 2. Pada flow **Smart Inventory - Bulk Import Read Excel**: **...** > **Refresh**.
 3. **File > Save**. (Setelah itu Claude meng-compile tombol **Template** di screen Bulk Import.)
 
+Update flow saja (app sudah terhubung): import zip versi baru, lalu di Studio flow **Smart Inventory - Bulk Import Template**
+> **...** > **Refresh** dan **File > Save**. Input/output flow tidak berubah, jadi app tidak perlu di-compile.
+
 ## Tes
 
 - **Template**: klik di app > tunggu ±10–30 detik > file ter-download. Buka sheet *Import*, cek dropdown Area/Category/Rack.
@@ -59,4 +67,6 @@ Jika pemilik flow diganti orang lain: di setiap aksi Excel (*List rows present i
 
 - Jangan hapus/ganti nama tabel **`tblImport`** dan judul kolomnya: `Area | Item name | BPN | SPN | Category | UOM | Qty | Min in area | Rack`.
 - Jangan ubah sheet **Lists** (diisi otomatis saat download).
+- Dropdown membaca sheet Lists lewat `INDIRECT(...)`: baris yang ditambahkan flow menggeser referensi biasa
+  sehingga dropdown kosong (diperbaiki 2026-10-27; master lama di OneDrive harus diganti).
 - Baris kosong di dalam tabel diabaikan.
