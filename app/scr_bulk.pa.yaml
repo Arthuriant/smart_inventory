@@ -130,7 +130,7 @@ Screens:
                                     PaddingTop: =0
                                     Size: =11
                                     Text: |-
-                                      ="Columns in this order: Area | Item name | BPN | SPN | Category (code or name) | UOM | Qty | Min in area | Rack. A header row starting with ""Area"" is skipped. Items are matched by BPN, else by name; Category and UOM are only needed for new items."
+                                      ="Columns in this order: Area | Item name | BPN | SPN | Category (code or name) | UOM | Qty | Min in area | Rack. A header row starting with ""Area"" is skipped. Items are matched by SPN, else by name, else by BPN (one BPN can have several SPN alternatives); Category and UOM are only needed for new items."
                               - inpBlkPaste:
                                   Control: ModernTextInput
                                   Properties:
@@ -218,24 +218,26 @@ Screens:
                                                                 {
                                                                     ar: If(IsBlank(r.AreaName), Blank(), With({an: r.AreaName}, LookUp(nfMyAreas, Name = an))),
                                                                     it: With(
-                                                                        {bpn: r.Bpn, nm: r.Name},
+                                                                        {spn: r.Spn, bpn: r.Bpn, nm: r.Name},
+                                                                        // an item is one SPN: a BPN is the parent of several alternative SPNs
                                                                         If(
-                                                                            !IsBlank(bpn), LookUp(dis_item_v2S, part_number = bpn),
+                                                                            !IsBlank(spn), LookUp(dis_item_v2S, client_number = spn),
                                                                             !IsBlank(nm), LookUp(dis_item_v2S, name = nm),
+                                                                            !IsBlank(bpn), LookUp(dis_item_v2S, part_number = bpn),
                                                                             Blank()
                                                                         )
                                                                     ),
                                                                     qBad: !IsBlank(r.QtyTxt) And IfError(Value(r.QtyTxt) < 0, true),
                                                                     mBad: !IsBlank(r.MinTxt) And IfError(Value(r.MinTxt) < 0, true),
-                                                                    key: Lower(r.AreaName) & "|" & Lower(If(IsBlank(r.Bpn), r.Name, r.Bpn))
+                                                                    key: Lower(r.AreaName) & "|" & Lower(Coalesce(r.Spn, r.Name, r.Bpn))
                                                                 },
                                                                 With(
                                                                     {
                                                                         cat: If(IsBlank(r.CatTxt), Blank(), With({ct: r.CatTxt}, LookUp(dis_category_items, code = ct Or name = ct))),
                                                                         um: If(IsBlank(r.UomTxt), Blank(), LookUp(Choices([@dis_item_v2S].uom), Lower(Text(Value)) = Lower(r.UomTxt))),
                                                                         rk: If(IsBlank(r.RackName) Or IsBlank(ar), Blank(), With({rn: r.RackName, raid: ar.dis_area}, LookUp(dis_racks, Name = rn And area.dis_area = raid))),
-                                                                        dup: CountIf(rows As o, Lower(o.AreaName) & "|" & Lower(If(IsBlank(o.Bpn), o.Name, o.Bpn)) = key) > 1,
-                                                                        noId: IsBlank(r.Name) And IsBlank(r.Bpn)
+                                                                        dup: CountIf(rows As o, Lower(o.AreaName) & "|" & Lower(Coalesce(o.Spn, o.Name, o.Bpn)) = key) > 1,
+                                                                        noId: IsBlank(r.Name) And IsBlank(r.Bpn) And IsBlank(r.Spn)
                                                                     },
                                                                     {
                                                                         Row: r.Row,
@@ -254,11 +256,11 @@ Screens:
                                                                         Qty: If(IsBlank(r.QtyTxt) Or qBad, 0, Value(r.QtyTxt)),
                                                                         Min: If(IsBlank(r.MinTxt) Or mBad, Blank(), Round(Value(r.MinTxt), 0)),
                                                                         IsNew: IsBlank(it) And !noId,
-                                                                        ItemKey: Lower(If(IsBlank(r.Bpn), r.Name, r.Bpn)),
+                                                                        ItemKey: Lower(Coalesce(r.Spn, r.Name, r.Bpn)),
                                                                         Err: Trim(
                                                                             Concatenate(
                                                                                 If(IsBlank(r.AreaName), "Area is empty. ", IsBlank(ar), "Area '" & r.AreaName & "' is not in your business line. ", ""),
-                                                                                If(noId, "Item name or BPN is needed. ", ""),
+                                                                                If(noId, "Item name, BPN or SPN is needed. ", ""),
                                                                                 If(qBad, "Qty must be a number of 0 or more. ", ""),
                                                                                 If(mBad, "Min must be a number of 0 or more. ", ""),
                                                                                 If(!IsBlank(r.RackName) And !IsBlank(ar) And IsBlank(rk), "Rack '" & r.RackName & "' is not in this area. ", ""),
@@ -857,13 +859,13 @@ Screens:
                                             =If(
                                                 IsEmpty(colBlk) Or !IsEmpty(Filter(colBlk, Err <> "")),
                                                 Notify("Fix the rows marked in red first, then press Check again.", NotificationType.Error),
-                                                // 1. new catalog items, once per BPN (or name)
+                                                // 1. new catalog items, once per SPN (or name, or BPN)
                                                 ForAll(
                                                     Distinct(Filter(colBlk, IsNew), ItemKey) As k,
                                                     With(
                                                         {r: LookUp(colBlk, IsNew And ItemKey = k.Value)},
                                                         If(
-                                                            IsBlank(With({bpn: r.Bpn, nm: r.Name}, If(IsBlank(bpn), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn)))),
+                                                            IsBlank(With({spn: r.Spn, nm: r.Name, bpn: r.Bpn}, If(!IsBlank(spn), LookUp(dis_item_v2S, client_number = spn), !IsBlank(nm), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn)))),
                                                             Patch(
                                                                 dis_item_v2S,
                                                                 Defaults(dis_item_v2S),
@@ -921,7 +923,7 @@ Screens:
                                                         {
                                                             itm: If(
                                                                 IsBlank(r.Item),
-                                                                With({bpn: r.Bpn, nm: r.Name}, If(IsBlank(bpn), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn))),
+                                                                With({spn: r.Spn, nm: r.Name, bpn: r.Bpn}, If(!IsBlank(spn), LookUp(dis_item_v2S, client_number = spn), !IsBlank(nm), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn))),
                                                                 r.Item
                                                             )
                                                         },
