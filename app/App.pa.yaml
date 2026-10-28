@@ -107,7 +107,7 @@ App:
           {
               TextValue: "Bulk Import",
               AdminOnly: true,
-              Icon: "ArrowUpload",
+              Icon: "ArrowImport",
               NavigateScreen: scr_bulk,
               Group: "Transaction"
           },
