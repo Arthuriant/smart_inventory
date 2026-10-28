@@ -12,6 +12,7 @@ import os
 import sys
 
 from openpyxl import Workbook
+from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.worksheet.table import Table, TableStyleInfo
@@ -74,11 +75,21 @@ for i, u in enumerate(UOMS, 3):
 ls.row_dimensions[2].hidden = True
 ls.cell(row=1, column=11, value="Filled automatically when the template is downloaded from the app. Do not edit.").font = \
     Font(name=F, italic=True, color="64707F")
+# the only entry of the Rack dropdown when the row has no area yet / the area has no racks
+# (column M is outside every list table, so the flow's inserts never move these cells)
+HINT_NO_AREA = "M3"
+HINT_NO_RACK = "M4"
+ls.cell(row=3, column=13, value="(Select the Area first)").font = Font(name=F, italic=True, color="64707F")
+ls.cell(row=4, column=13, value="(No rack in this area)").font = Font(name=F, italic=True, color="64707F")
 
 
-def dv(formula, rng, title, msg):
+def dv(formula, rng, title, msg, prompt=None):
     v = DataValidation(type="list", formula1=formula, allow_blank=True, showErrorMessage=True,
                        errorStyle="warning", errorTitle=title, error=msg)
+    if prompt:
+        v.showInputMessage = True
+        v.promptTitle = title
+        v.prompt = prompt
     ws.add_data_validation(v)
     v.add(rng)
 
@@ -95,11 +106,17 @@ dv(f"OFFSET({lst('$C$3')},0,0,MAX(1,COUNTA({lst(f'$C$3:$C${LAST}')})),1)", "E2:E
    "Use a category code from the Lists sheet (the name also works).")
 dv(lst(f"$F$3:$F${len(UOMS) + 2}"), "F2:F200", "UOM", "UOM must be one of the values in the Lists sheet.")
 # only the racks of the row's area: the block in column H that starts at the first match of the area in column I;
-# all racks while the row has no area yet
-dv(f"IF($A2=\"\",OFFSET({lst('$H$3')},0,0,MAX(1,COUNTA({lst(f'$H$3:$H${LAST}')})),1),"
-   f"OFFSET({lst('$H$2')},IFERROR(MATCH($A2,{lst(f'$I$3:$I${LAST}')},0),{LAST - 2}),0,"
-   f"MAX(1,COUNTIF({lst(f'$I$3:$I${LAST}')},$A2)),1))",
-   "I2:I200", "Rack", "This rack is not in the area of this row (see the Lists sheet).")
+# a single hint entry while the row has no area yet, or when the area has no racks
+dv(f"IF($A2=\"\",{lst('$' + HINT_NO_AREA[0] + '$' + HINT_NO_AREA[1:])},"
+   f"IF(COUNTIF({lst(f'$I$3:$I${LAST}')},$A2)=0,{lst('$' + HINT_NO_RACK[0] + '$' + HINT_NO_RACK[1:])},"
+   f"OFFSET({lst('$H$2')},MATCH($A2,{lst(f'$I$3:$I${LAST}')},0),0,COUNTIF({lst(f'$I$3:$I${LAST}')},$A2),1)))",
+   "I2:I200", "Rack", "This rack is not in the area of this row (see the Lists sheet).",
+   "Select the Area of this row first. The list shows only the racks of that area. Leave empty for no rack.")
+# Rack cell greyed out while the row has no area; red when a rack (or the hint) is filled without an area
+ws.conditional_formatting.add("I2:I200", FormulaRule(formula=['AND($A2="",$I2<>"")'], stopIfTrue=True,
+                                                     fill=PatternFill("solid", fgColor="FDE7E9"),
+                                                     font=Font(color="C42B1C")))
+ws.conditional_formatting.add("I2:I200", FormulaRule(formula=['$A2=""'], fill=PatternFill("solid", fgColor="F1F3F6")))
 num = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True,
                      showErrorMessage=True, errorTitle="Number", error="Enter a number of 0 or more.")
 ws.add_data_validation(num)
@@ -125,7 +142,7 @@ lines = [
     ("Category, UOM: hanya wajib untuk barang BARU (belum ada di katalog).", None),
     ("Qty: > 0 = dicatat sebagai Receive (1 transaksi per area). 0 / kosong = barang hanya ditambahkan ke area.", None),
     ("Min in area: minimum stok di area itu. Kosong = tidak mengubah min yang ada (barang baru: 0).", None),
-    ("Rack: opsional. Dropdown hanya menampilkan rak milik Area di baris itu (isi Area dulu).", None),
+    ("Rack: opsional. Dropdown hanya menampilkan rak milik Area di baris itu. Selama Area kosong, sel Rack abu-abu dan dropdown hanya berisi '(Select the Area first)'; sel jadi merah bila Rack diisi tanpa Area.", None),
     ("", None),
     ("Contoh baris", "h"),
     ("Container Filter | Filter Testing | | | | | 5 | 2 | Oil Filter   (barang lama, +5 stok, min 2, rak Oil Filter)", None),
