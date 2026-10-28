@@ -59,7 +59,8 @@ Update flow saja (app sudah terhubung): import zip versi baru, lalu di Studio fl
 
 ## Tes
 
-- **Template**: klik di app > tunggu ±10–30 detik > file ter-download. Buka sheet *Import*, cek dropdown Area/Category/Rack.
+- **Template**: klik di app > tunggu > file terbuka di Excel Online (tab baru) > **File > Save As > Download a Copy**.
+  Jangan download langsung dari link: isi baru masih di sesi Excel dan file di OneDrive baru ter-update beberapa menit kemudian. Buka sheet *Import*, cek dropdown Area/Category/Rack.
 - **Upload Excel**: isi template > upload > baris masuk ke kotak paste dan Check berjalan.
 - Jika gagal: pesan di app berisi alasan; detail ada di **run history** flow (make.powerautomate.com > My flows > flow > run terakhir).
 

@@ -354,7 +354,10 @@ Screens:
                                                 If(
                                                     !IsBlank(res.error) Or IsBlank(res.url),
                                                     Notify(Coalesce(res.error, "No download link was returned."), NotificationType.Error),
-                                                    Download(res.url & If(IsBlank(Find("?", res.url)), "?download=1", "&download=1"))
+                                                    // open in Excel Online: the rows the flow just added are only in the Excel session at first,
+                                                    // a direct download (?download=1) still returns the empty master for a few minutes
+                                                    Launch(res.url);
+                                                    Notify("The template opened in Excel Online. Download it there: File > Save As > Download a Copy.", NotificationType.Information)
                                                 )
                                             )
                                           RadiusBottomLeft: =8
