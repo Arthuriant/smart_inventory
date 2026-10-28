@@ -94,9 +94,11 @@ dv(f"OFFSET({lst('$A$3')},0,0,MAX(1,COUNTA({lst(f'$A$3:$A${LAST}')})),1)", "A2:A
 dv(f"OFFSET({lst('$C$3')},0,0,MAX(1,COUNTA({lst(f'$C$3:$C${LAST}')})),1)", "E2:E200", "Category",
    "Use a category code from the Lists sheet (the name also works).")
 dv(lst(f"$F$3:$F${len(UOMS) + 2}"), "F2:F200", "UOM", "UOM must be one of the values in the Lists sheet.")
-# only the racks of the row's area: the block in column H that starts at the first match of the area in column I
-dv(f"OFFSET({lst('$H$2')},IFERROR(MATCH($A2,{lst(f'$I$3:$I${LAST}')},0),{LAST - 2}),0,"
-   f"MAX(1,COUNTIF({lst(f'$I$3:$I${LAST}')},$A2)),1)",
+# only the racks of the row's area: the block in column H that starts at the first match of the area in column I;
+# all racks while the row has no area yet
+dv(f"IF($A2=\"\",OFFSET({lst('$H$3')},0,0,MAX(1,COUNTA({lst(f'$H$3:$H${LAST}')})),1),"
+   f"OFFSET({lst('$H$2')},IFERROR(MATCH($A2,{lst(f'$I$3:$I${LAST}')},0),{LAST - 2}),0,"
+   f"MAX(1,COUNTIF({lst(f'$I$3:$I${LAST}')},$A2)),1))",
    "I2:I200", "Rack", "This rack is not in the area of this row (see the Lists sheet).")
 num = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True,
                      showErrorMessage=True, errorTitle="Number", error="Enter a number of 0 or more.")
