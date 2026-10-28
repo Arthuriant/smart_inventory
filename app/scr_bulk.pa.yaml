@@ -633,7 +633,43 @@ Screens:
                                           PaddingRight: =0
                                           PaddingTop: =0
                                           Size: =11
-                                          Text: ="ITEM · BPN · SPN"
+                                          Text: ="ITEM"
+                                          Wrap: =false
+                                    - txtBlkHBpn:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="BPN"
+                                          Width: =110
+                                          Wrap: =false
+                                    - txtBlkHSpn:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: ="SPN"
+                                          Width: =130
                                           Wrap: =false
                                     - txtBlkHCat:
                                         Control: ModernText
@@ -811,7 +847,41 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =12
-                                                Text: =Coalesce(ThisItem.Item.name, ThisItem.Name, "-") & "  ·  " & Coalesce(ThisItem.Item.part_number, ThisItem.Bpn, "-") & "  ·  " & Coalesce(ThisItem.Item.client_number, ThisItem.Spn, "-")
+                                                Text: =Coalesce(ThisItem.Item.name, ThisItem.Name, "-")
+                                                Wrap: =false
+                                          - txtBlkBpn:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(55, 65, 81, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =Coalesce(ThisItem.Bpn, ThisItem.Item.part_number, "-")
+                                                Width: =110
+                                                Wrap: =false
+                                          - txtBlkSpn:
+                                              Control: ModernText
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Color: =RGBA(55, 65, 81, 1)
+                                                Font: =Font.'Segoe UI'
+                                                Height: =20
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: =Coalesce(ThisItem.Spn, ThisItem.Item.client_number, "-")
+                                                Width: =130
                                                 Wrap: =false
                                           - txtBlkCat:
                                               Control: ModernText
