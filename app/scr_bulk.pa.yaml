@@ -65,6 +65,7 @@ Screens:
                         LayoutGap: =16
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
+                        LayoutOverflowY: =LayoutOverflow.Scroll
                         PaddingBottom: =24
                         PaddingLeft: =24
                         PaddingRight: =24
@@ -277,6 +278,7 @@ Screens:
                                                     )
                                                 )
                                             );
+                                            UpdateContext({locBlkFlt: If(IsEmpty(Filter(colBlk, Err <> "")), "All", "Error")});
                                             If(
                                                 IsEmpty(colBlk),
                                                 Notify("No rows found in the pasted text.", NotificationType.Warning),
@@ -305,7 +307,7 @@ Screens:
                                           LayoutMinWidth: =96
                                           OnSelect: |-
                                             =Clear(colBlk);
-                                            UpdateContext({locBlkPasteText: ""});
+                                            UpdateContext({locBlkPasteText: "", locBlkFlt: "All"});
                                             Reset(inpBlkPaste)
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
@@ -416,6 +418,8 @@ Screens:
                               BorderThickness: =1
                               DropShadow: =DropShadow.None
                               Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =720
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =8
@@ -447,6 +451,116 @@ Screens:
                                     Size: =15
                                     Text: ="2. Check and import"
                                     Wrap: =false
+                              - conBlkFltBar:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtBlkFltLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: ="Status:"
+                                          Width: =52
+                                          Wrap: =false
+                                    - btnBlkFltAll:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Show all rows"
+                                          Appearance: =If(Coalesce(locBlkFlt, "All") = "All", ButtonAppearance.Primary, ButtonAppearance.Secondary)
+                                          Color: =If(Coalesce(locBlkFlt, "All") = "All", RGBA(255, 255, 255, 1), RGBA(31, 41, 55, 1))
+                                          Font: =Font.'Segoe UI'
+                                          Height: =32
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =UpdateContext({locBlkFlt: "All"})
+                                          RadiusBottomLeft: =16
+                                          RadiusBottomRight: =16
+                                          RadiusTopLeft: =16
+                                          RadiusTopRight: =16
+                                          Size: =12
+                                          Text: ="All (" & Text(CountRows(colBlk)) & ")"
+                                          Width: =128
+                                    - btnBlkFltErr:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Show errors rows"
+                                          Appearance: =If(Coalesce(locBlkFlt, "All") = "Error", ButtonAppearance.Primary, ButtonAppearance.Secondary)
+                                          Color: =If(Coalesce(locBlkFlt, "All") = "Error", RGBA(255, 255, 255, 1), RGBA(196, 43, 28, 1))
+                                          Font: =Font.'Segoe UI'
+                                          Height: =32
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =UpdateContext({locBlkFlt: "Error"})
+                                          RadiusBottomLeft: =16
+                                          RadiusBottomRight: =16
+                                          RadiusTopLeft: =16
+                                          RadiusTopRight: =16
+                                          Size: =12
+                                          Text: ="Errors (" & Text(CountRows(Filter(colBlk, Err <> ""))) & ")"
+                                          Width: =128
+                                    - btnBlkFltNew:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Show new item rows"
+                                          Appearance: =If(Coalesce(locBlkFlt, "All") = "New", ButtonAppearance.Primary, ButtonAppearance.Secondary)
+                                          Color: =If(Coalesce(locBlkFlt, "All") = "New", RGBA(255, 255, 255, 1), RGBA(188, 118, 0, 1))
+                                          Font: =Font.'Segoe UI'
+                                          Height: =32
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =UpdateContext({locBlkFlt: "New"})
+                                          RadiusBottomLeft: =16
+                                          RadiusBottomRight: =16
+                                          RadiusTopLeft: =16
+                                          RadiusTopRight: =16
+                                          Size: =12
+                                          Text: ="New item (" & Text(CountRows(Filter(colBlk, Err = "" And IsNew))) & ")"
+                                          Width: =128
+                                    - btnBlkFltOk:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Show ok rows"
+                                          Appearance: =If(Coalesce(locBlkFlt, "All") = "OK", ButtonAppearance.Primary, ButtonAppearance.Secondary)
+                                          Color: =If(Coalesce(locBlkFlt, "All") = "OK", RGBA(255, 255, 255, 1), RGBA(16, 124, 65, 1))
+                                          Font: =Font.'Segoe UI'
+                                          Height: =32
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: |-
+                                            =UpdateContext({locBlkFlt: "OK"})
+                                          RadiusBottomLeft: =16
+                                          RadiusBottomRight: =16
+                                          RadiusTopLeft: =16
+                                          RadiusTopRight: =16
+                                          Size: =12
+                                          Text: ="OK (" & Text(CountRows(Filter(colBlk, Err = "" And !IsNew))) & ")"
+                                          Width: =128
                               - conBlkTHead:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -619,13 +733,13 @@ Screens:
                                   Properties:
                                     AccessibleLabel: ="Rows to import"
                                     Fill: =RGBA(226, 230, 239, 1)
-                                    Items: =colBlk
+                                    Items: =Filter(colBlk, Switch(locBlkFlt, "Error", Err <> "", "New", Err = "" And IsNew, "OK", Err = "" And !IsNew, true))
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
                                     TemplateFill: =If(ThisItem.Err <> "", RGBA(253, 237, 236, 1), RGBA(255, 255, 255, 1))
                                     TemplatePadding: =1
                                     TemplateSize: =44
-                                    Visible: =!IsEmpty(colBlk)
+                                    Visible: =!IsEmpty(Filter(colBlk, Switch(locBlkFlt, "Error", Err <> "", "New", Err = "" And IsNew, "OK", Err = "" And !IsNew, true)))
                                   Children:
                                     - conBlkRow:
                                         Control: GroupContainer
@@ -802,8 +916,8 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =13
-                                    Text: ="Paste rows above and press Check to see them here."
-                                    Visible: =IsEmpty(colBlk)
+                                    Text: =If(IsEmpty(colBlk), "Paste rows above and press Check to see them here.", "No rows with this status.")
+                                    Visible: =IsEmpty(Filter(colBlk, Switch(locBlkFlt, "Error", Err <> "", "New", Err = "" And IsNew, "OK", Err = "" And !IsNew, true)))
                                     Wrap: =false
                               - conBlkFoot:
                                   Control: GroupContainer
