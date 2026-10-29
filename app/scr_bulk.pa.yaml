@@ -52,7 +52,7 @@ Screens:
                         Height: =64
                         LayoutMinHeight: =64
                         LayoutMinWidth: =0
-                        Subtitle: ="Paste rows from Excel to add items to areas; unknown items are added to the catalog"
+                        Subtitle: ="Download the Excel template, fill it in and upload it to add items to areas; unknown items are added to the catalog"
                         Width: =912
                   - conBlkBody:
                       Control: GroupContainer
@@ -84,7 +84,7 @@ Screens:
                               DropShadow: =DropShadow.None
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
-                              Height: =268
+                              Height: =150
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =8
@@ -114,7 +114,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =15
-                                    Text: ="1. Paste rows from Excel"
+                                    Text: ="1. Excel template"
                                     Wrap: =false
                               - txtBlkPasteSub:
                                   Control: ModernText
@@ -131,7 +131,7 @@ Screens:
                                     PaddingTop: =0
                                     Size: =11
                                     Text: |-
-                                      ="Columns in this order: Area | Item name | BPN | SPN | Category (code or name) | UOM | Qty | Min in area | Rack. A header row starting with ""Area"" is skipped. Items are matched by SPN, else by name, else by BPN (one BPN can have several SPN alternatives); Category and UOM are only needed for new items."
+                                      ="1) Template: download the Excel with your areas, racks, categories and catalog. 2) Fill in the Import sheet until every Status is OK. 3) Upload Excel: the app checks the rows again, then press Import."
                               - inpBlkPaste:
                                   Control: ModernTextInput
                                   Properties:
@@ -142,6 +142,7 @@ Screens:
                                     Height: =120
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    Visible: =false
                                     Default: =locBlkPasteText
                                     Placeholder: ="Select the cells in Excel, copy (Ctrl+C) and paste them here (Ctrl+V)"
                                     RadiusBottomLeft: =8
@@ -174,6 +175,7 @@ Screens:
                                           AlignInContainer: =AlignInContainer.Center
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
                                           DisplayMode: =If(IsBlank(Trim(inpBlkPaste.Text)), DisplayMode.Disabled, DisplayMode.Edit)
+                                          Visible: =false
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           Icon: ="CheckmarkCircle"
@@ -305,7 +307,7 @@ Screens:
                                                 Notify("No rows found in the pasted text.", NotificationType.Warning),
                                                 IsEmpty(Filter(colBlk, Err <> "")),
                                                 Notify(Text(CountRows(colBlk)) & " row(s) are OK. Press Import to save them.", NotificationType.Success),
-                                                Notify(Text(CountRows(Filter(colBlk, Err <> ""))) & " row(s) have errors (in red). Fix them in Excel and paste again.", NotificationType.Error)
+                                                Notify(Text(CountRows(Filter(colBlk, Err <> ""))) & " row(s) have errors (in red). Fix them in Excel (see the Status column) and upload the file again.", NotificationType.Error)
                                             )
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
@@ -361,13 +363,14 @@ Screens:
                                                                 {
                                                                     areas: ForAll(Sort(nfMyAreas, Name), {a: ThisRecord.Name}),
                                                                     cats: ForAll(Sort(dis_category_items, code), {c: ThisRecord.code, n: ThisRecord.name}),
-                                                                    // racks grouped by area: the Rack dropdown in Excel takes one block per area
-                                                                    racks: ForAll(
-                                                                        SortByColumns(
-                                                                            AddColumns(Filter(dis_racks, area.dis_area in nfMyAreaIds), AreaName, area.Name, RackName, Name),
-                                                                            "AreaName", SortOrder.Ascending, "RackName", SortOrder.Ascending
-                                                                        ),
-                                                                        {r: ThisRecord.RackName, a: ThisRecord.AreaName}
+                                                                    // racks: the flow reads them from Dataverse itself (v1.2.0.0)
+                                                                    // catalog keys for the Status check in Excel, 100 items per text row: |s:<SPN>|n:<name>|b:<BPN>|
+                                                                    catalog: With(
+                                                                        {cat: ForAll(dis_item_v2S As it, {t: "s:" & it.client_number & "|n:" & it.name & "|b:" & it.part_number & "|"})},
+                                                                        ForAll(
+                                                                            Sequence(RoundUp(CountRows(cat) / 100, 0)) As g,
+                                                                            {k: "|" & Concat(FirstN(LastN(cat, CountRows(cat) - (g.Value - 1) * 100), 100), t)}
+                                                                        )
                                                                     )
                                                                 }
                                                             )
@@ -1007,7 +1010,7 @@ Screens:
                                     PaddingRight: =0
                                     PaddingTop: =0
                                     Size: =13
-                                    Text: =If(IsEmpty(colBlk), "Paste rows above and press Check to see them here.", "No rows with this status.")
+                                    Text: =If(IsEmpty(colBlk), "Upload the filled-in template to see its rows here.", "No rows with this status.")
                                     Visible: =IsEmpty(Filter(colBlk, Switch(locBlkFlt, "Error", Err <> "", "New", Err = "" And IsNew, "OK", Err = "" And !IsNew, true)))
                                     Wrap: =false
                               - conBlkFoot:

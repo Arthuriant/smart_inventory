@@ -11,10 +11,11 @@ The app puts that text into inpBlkPaste and runs the existing Check, so all rule
 
 Flow "Smart Inventory - Bulk Import Template" (Power Apps V2 trigger):
   1. receives the current lists of the user's business line as JSON text (input "listsJson":
-     {areas:[{a}], cats:[{c,n}], racks:[{r,a}]}); the racks sent by the app are ignored since v1.2.0.0,
+     {areas:[{a}], cats:[{c,n}], racks:[{r,a}], catalog:[{k}]}); the racks sent by the app are ignored since
+     v1.2.0.0; catalog (v1.3.0.0) = item keys for the Status check in Excel, ~100 items per text row,
   2. reads the active racks from Dataverse (dis_racks) and keeps those whose area is in the app's area list,
   3. copies the master template /Apps/SmartInventory/Bulk_Import_Template_Master.xlsx (see build_template.py),
-  4. fills its tables tblArea, tblCategory and tblRack (sheet Lists) one row at a time; racks are written
+  4. fills its tables tblArea, tblCategory, tblCatalog and tblRack (sheet Lists) one row at a time; racks are written
      area by area, because the Rack dropdown in Excel takes one block per area,
   5. creates an organization view link and returns it to the app ("url"), which downloads it,
   6. deletes the copy after 15 minutes.
@@ -27,7 +28,7 @@ import sys
 import zipfile
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.2.0.0"
+VERSION = "1.3.0.0"
 SOLUTION = "SmartInventoryFlows"
 FLOW_NAME = "Smart Inventory - Bulk Import Read Excel"
 # fixed ids so a rebuilt zip updates the same flow on re-import
@@ -287,6 +288,7 @@ definition2 = {
                         "areas": ITEM_SCHEMA(["a"]),
                         "cats": ITEM_SCHEMA(["c", "n"]),
                         "racks": ITEM_SCHEMA(["r", "a"]),
+                        "catalog": ITEM_SCHEMA(["k"]),
                     },
                 },
             },
@@ -353,9 +355,12 @@ acts["List_racks"] = {
         "authentication": "@parameters('$authentication')",
     },
 }
+# catalog keys for the Status column of the Import sheet: a few long text rows ("|s:spn|n:name|b:bpn|...")
+acts["Add_catalog"] = loop({"Add_categories": ["Succeeded"]}, "@coalesce(body('Parse_lists')?['catalog'], json('[]'))",
+                           "Add_catalog_row", excel_add("tblCatalog", {"Keys": "@items('Add_catalog')?['k']"}))
 acts["Add_racks"] = {
     # one block per area, in the order of the app's area list
-    "runAfter": {"Add_categories": ["Succeeded"], "List_racks": ["Succeeded"]},
+    "runAfter": {"Add_catalog": ["Succeeded"], "List_racks": ["Succeeded"]},
     "type": "Foreach",
     "foreach": "@body('Parse_lists')?['areas']",
     "actions": {

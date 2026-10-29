@@ -2,7 +2,7 @@
 
 | File | Fungsi |
 |---|---|
-| `SmartInventoryFlows_1_2_0_0.zip` | Solution (unmanaged): 2 cloud flow + 3 connection reference (OneDrive, Excel, Dataverse). **Ini yang di-import.** |
+| `SmartInventoryFlows_1_3_0_0.zip` | Solution (unmanaged): 2 cloud flow + 3 connection reference (OneDrive, Excel, Dataverse). **Ini yang di-import.** |
 | `Bulk_Import_Template_Master.xlsx` | File master template. Disimpan sekali di OneDrive (lihat Langkah 1). |
 | `build_solution.py` / `build_template.py` | Sumber zip dan file master. Ubah di sini lalu jalankan ulang (`python build_solution.py`, `python build_template.py`). |
 
@@ -12,6 +12,8 @@
 1. App mengirim data terkini business line user (area, kategori — teks JSON, input `listsJson`).
    Sejak v1.2.0.0 rak dibaca flow sendiri dari Dataverse (`dis_racks` aktif yang areanya ada di daftar area dari app);
    daftar rak dari app diabaikan.
+   Sejak v1.3.0.0 app juga mengirim kunci katalog item (SPN/nama/BPN, ±100 item per baris teks) ke tabel `tblCatalog`
+   supaya kolom **Status** di sheet Import bisa mengecek baris dengan aturan yang sama seperti tombol Check di app.
 2. Flow menyalin `Apps/SmartInventory/Bulk_Import_Template_Master.xlsx`, mengisi tabel `tblArea`,
    `tblCategory`, `tblRack` di sheet *Lists* (dropdown Area/Category/Rack), membuat link (organisasi, view)
    dan mengirimnya ke app, yang langsung men-download file.
@@ -38,7 +40,7 @@ Semua file ada di OneDrive **pemilik koneksi** (ARianto2): folder `Apps/SmartInv
 ## Langkah 2 – Import solution
 
 1. https://make.powerapps.com > environment **ING | Well Construction - TLM** > **Solutions** > **Import solution**
-   > pilih `SmartInventoryFlows_1_2_0_0.zip` > **Next** > pilih koneksi OneDrive & Excel yang sama seperti sebelumnya,
+   > pilih `SmartInventoryFlows_1_3_0_0.zip` > **Next** > pilih koneksi OneDrive & Excel yang sama seperti sebelumnya,
    dan untuk **Smart Inventory - Microsoft Dataverse** pilih/buat koneksi Dataverse (login ARianto2) > **Import**.
    Muncul pertanyaan upgrade: pilih **Upgrade** (default).
 2. Buka solution **Smart Inventory Flows**: pastikan **kedua** flow statusnya **On** (jika Off: buka flow > **Turn on**).
@@ -71,3 +73,6 @@ Update flow saja (app sudah terhubung): import zip versi baru, lalu di Studio fl
 - Dropdown membaca sheet Lists lewat `INDIRECT(...)`: baris yang ditambahkan flow menggeser referensi biasa
   sehingga dropdown kosong (diperbaiki 2026-10-27; master lama di OneDrive harus diganti).
 - Baris kosong di dalam tabel diabaikan.
+- Kolom **Status** (J) dihitung rumus: aturan sama dengan Check di app (area, nama/BPN/SPN, qty/min, rack, item baru
+  butuh Category+UOM, item sama 2x di satu area). Kolom K–M adalah kolom bantu tersembunyi. Upload hanya bila semua OK;
+  app tetap memeriksa ulang saat upload. App tidak lagi punya kotak paste (hanya Template + Upload Excel).

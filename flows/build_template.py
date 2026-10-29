@@ -26,8 +26,11 @@ thin = Side(style="thin", color="E2E6EF")
 BOX = Border(left=thin, right=thin, top=thin, bottom=thin)
 LAST = 500  # last list row the dropdowns look at
 UOMS = ["EA", "M", "SET", "DR", "JT", "BOX", "L", "PR", "SX", "FT", "GAL", "KG", "BBL", "MT"]
-HEADERS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack"]
-WIDTHS = [28, 30, 16, 14, 14, 9, 8, 12, 16]
+HEADERS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack", "Status"]
+WIDTHS = [28, 30, 16, 14, 14, 9, 8, 12, 16, 60]
+# hidden helper columns of the Status check (inside tblImport so they fill down; the upload flow ignores them)
+HELPERS = ["_Spn", "_Key", "_InCatalog"]
+ROWS = 200
 
 wb = Workbook()
 
@@ -47,9 +50,50 @@ for r in range(2, 201):
         cell.border = BOX
         if c in (7, 8):
             cell.number_format = "0"
+for i, h in enumerate(HELPERS, len(HEADERS) + 1):
+    ws.cell(row=1, column=i, value=h).font = Font(name=F, color="FFFFFF")
+    ws.column_dimensions[ws.cell(row=1, column=i).column_letter].hidden = True
+
+# ---------- Status: the same checks as the app's Check (scr_bulk btnBlkCheck) ----------
+# A Area, B Item name, C BPN, D SPN, E Category, F UOM, G Qty, H Min, I Rack, J Status, K _Spn, L _Key, M _InCatalog
+# Item identity: the SPN; a row without SPN takes the SPN of another row with the same item name, else the name,
+# else the BPN. The catalog comes from the app as text chunks "|s:<spn>|n:<name>|b:<bpn>|" in Lists tblCatalog.
+for r in range(2, ROWS + 1):
+    empty = f'COUNTA(A{r}:I{r})=0'
+    ws[f"K{r}"] = (f'=IF(D{r}<>"",D{r},IF(B{r}="","",IFERROR(LOOKUP(2,1/(($B$2:$B${ROWS}=B{r})*($D$2:$D${ROWS}<>"")),'
+                   f'$D$2:$D${ROWS}),"")))')
+    ws[f"L{r}"] = f'=IF({empty},"",A{r}&"|"&IF(K{r}<>"",K{r},IF(B{r}<>"",B{r},C{r})))'
+    inc = lambda prefix, ref: f'SUMPRODUCT(--ISNUMBER(SEARCH("|{prefix}:"&{ref}&"|",tblCatalog[Keys])))>0'
+    ws[f"M{r}"] = (f'=IF(K{r}<>"",{inc("s", f"K{r}")},IF(B{r}<>"",{inc("n", f"B{r}")},'
+                   f'IF(C{r}<>"",{inc("b", f"C{r}")},FALSE)))')
+    no_id = f'AND(B{r}="",C{r}="",D{r}="")'
+    new = f'AND(NOT(M{r}),NOT({no_id}))'
+    bad_num = lambda c: f'AND({c}{r}<>"",IFERROR(--{c}{r}<0,TRUE))'
+    errs = "&".join([
+        f'IF(A{r}="","Area is empty. ",IF(COUNTIF(tblArea[Area],A{r})=0,"Area is not in your business line. ",""))',
+        f'IF({no_id},"Item name, BPN or SPN is needed. ","")',
+        f'IF({bad_num("G")},"Qty must be a number of 0 or more. ","")',
+        f'IF({bad_num("H")},"Min must be a number of 0 or more. ","")',
+        f'IF(AND(I{r}<>"",A{r}<>"",COUNTIF(tblArea[Area],A{r})>0,'
+        f'COUNTIFS(tblRack[Rack],I{r},tblRack[Rack is in area],A{r})=0),"Rack is not in this area. ","")',
+        f'IF(AND({new},B{r}=""),"A new item needs a name. ","")',
+        f'IF(AND({new},OR(E{r}="",COUNTIF(tblCategory[Category code],E{r})+COUNTIF(tblCategory[Category name],E{r})=0)),'
+        f'"Category not found (needed for a new item). ","")',
+        f'IF(AND({new},OR(F{r}="",COUNTIF(tblUom[UOM],F{r})=0)),"UOM is not valid (needed for a new item). ","")',
+        f'IF(AND(L{r}<>"",COUNTIF($L$2:$L${ROWS},L{r})>1),"Same item appears more than once in this area '
+        f'(one rack per item per area: merge the rows). ","")',
+    ])
+    ws[f"J{r}"] = f'=IF({empty},"",IF(({errs})="",IF(M{r},"OK","OK - new item"),TRIM({errs})))'
+    ws[f"J{r}"].font = Font(name=F, size=9)
+    ws[f"J{r}"].border = BOX
+# a row is red until its Status is OK; new items amber
+ws.conditional_formatting.add(f"A2:J{ROWS}", FormulaRule(formula=['AND($J2<>"",LEFT($J2,2)<>"OK")'], stopIfTrue=True,
+                                                         fill=PatternFill("solid", fgColor="FDE7E9")))
+ws.conditional_formatting.add(f"J2:J{ROWS}", FormulaRule(formula=['$J2="OK - new item"'], font=Font(color="BC7600")))
+ws.conditional_formatting.add(f"J2:J{ROWS}", FormulaRule(formula=['$J2="OK"'], font=Font(color="107C41")))
 ws.row_dimensions[1].height = 22
 ws.freeze_panes = "A2"
-t = Table(displayName="tblImport", ref="A1:I200")
+t = Table(displayName="tblImport", ref=f"A1:M{ROWS}")
 t.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=False)
 ws.add_table(t)
 
@@ -72,6 +116,13 @@ for name, col, heads in lists:
     ls.add_table(tb)
 for i, u in enumerate(UOMS, 3):
     ls.cell(row=i, column=6, value=u).font = Font(name=F)
+# catalog keys for the Status column (filled by the flow, a few long text rows); hidden
+ls.cell(row=1, column=15, value="Keys").font = Font(name=F, bold=True, color="FFFFFF")
+ls.cell(row=1, column=15).fill = HDR
+tc = Table(displayName="tblCatalog", ref="O1:O2")
+tc.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=False)
+ls.add_table(tc)
+ls.column_dimensions["O"].hidden = True
 ls.row_dimensions[2].hidden = True
 ls.cell(row=1, column=11, value="Filled automatically when the template is downloaded from the app. Do not edit.").font = \
     Font(name=F, italic=True, color="64707F")
@@ -131,14 +182,14 @@ lines = [
     ("", None),
     ("Cara pakai", "h"),
     ("1. Isi sheet 'Import' mulai baris 2. Dropdown Area, Category, UOM dan Rack berisi data terkini business line Anda.", None),
-    ("2. Simpan file, lalu di app: Transaction > Bulk Import > Upload Excel > Read file.", None),
-    ("   (Atau: blok sel Area sampai Rack, Ctrl+C, lalu Ctrl+V ke kotak di app dan klik Check.)", None),
-    ("3. Perbaiki baris yang merah, upload/paste lagi. Jika semua OK, klik Import.", None),
+    ("2. Lihat kolom Status: baris merah masih error (alasannya tertulis). Perbaiki sampai semua 'OK' / 'OK - new item'.", None),
+    ("3. Simpan file, lalu di app: Transaction > Bulk Import > Upload Excel > Read file. App memeriksa lagi; jika semua OK, klik Import.", None),
     ("", None),
     ("Kolom", "h"),
     ("Area (wajib): pilih dari dropdown (area business line Anda).", None),
-    ("Item name / BPN: minimal salah satu. Barang dicocokkan lewat BPN; jika BPN kosong, lewat nama.", None),
-    ("SPN: opsional, hanya untuk barang baru.", None),
+    ("Item name / BPN / SPN: minimal salah satu. 1 SPN = 1 barang (1 BPN bisa punya beberapa SPN alternatif).", None),
+    ("Barang dicocokkan lewat SPN; baris tanpa SPN memakai SPN baris lain dengan nama yang sama, lalu nama, lalu BPN.", None),
+    ("Status: diisi otomatis (jangan diketik). 'OK - new item' = barang baru yang akan ditambahkan ke katalog.", None),
     ("Category, UOM: hanya wajib untuk barang BARU (belum ada di katalog).", None),
     ("Qty: > 0 = dicatat sebagai Receive (1 transaksi per area). 0 / kosong = barang hanya ditambahkan ke area.", None),
     ("Min in area: minimum stok di area itu. Kosong = tidak mengubah min yang ada (barang baru: 0).", None),
@@ -150,7 +201,7 @@ lines = [
     ("", None),
     ("Catatan", "h"),
     ("Jangan hapus/ganti nama tabel 'tblImport' dan judul kolomnya; jangan ubah sheet 'Lists'.", None),
-    ("Satu barang + area yang sama hanya boleh muncul sekali per import.", None),
+    ("Satu barang + area yang sama hanya boleh muncul sekali per import (1 rak per barang per area).", None),
     ("Download template baru dari app bila ada area/rak/kategori baru.", None),
 ]
 for i, (text, kind) in enumerate(lines, 1):
