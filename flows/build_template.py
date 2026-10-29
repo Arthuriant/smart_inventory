@@ -26,8 +26,8 @@ thin = Side(style="thin", color="E2E6EF")
 BOX = Border(left=thin, right=thin, top=thin, bottom=thin)
 LAST = 500  # last list row the dropdowns look at
 UOMS = ["EA", "M", "SET", "DR", "JT", "BOX", "L", "PR", "SX", "FT", "GAL", "KG", "BBL", "MT"]
-HEADERS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack", "Status"]
-WIDTHS = [28, 30, 16, 14, 14, 9, 8, 12, 16, 60]
+HEADERS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack", "Note", "Status"]
+WIDTHS = [28, 30, 16, 14, 14, 9, 8, 12, 16, 30, 60]
 # hidden helper columns of the Status check (inside tblImport so they fill down; the upload flow ignores them)
 HELPERS = ["_Spn", "_Key", "_InCatalog"]
 ROWS = 200
@@ -44,7 +44,7 @@ for c, h in enumerate(HEADERS, 1):
     cell.alignment = Alignment(horizontal="center", vertical="center")
     ws.column_dimensions[cell.column_letter].width = WIDTHS[c - 1]
 for r in range(2, 201):
-    for c in range(1, 10):
+    for c in range(1, 11):
         cell = ws.cell(row=r, column=c)
         cell.font = Font(name=F)
         cell.border = BOX
@@ -55,19 +55,19 @@ for i, h in enumerate(HELPERS, len(HEADERS) + 1):
     ws.column_dimensions[ws.cell(row=1, column=i).column_letter].hidden = True
 
 # ---------- Status: the same checks as the app's Check (scr_bulk btnBlkCheck) ----------
-# A Area, B Item name, C BPN, D SPN, E Category, F UOM, G Qty, H Min, I Rack, J Status, K _Spn, L _Key, M _InCatalog
+# A Area, B Item name, C BPN, D SPN, E Category, F UOM, G Qty, H Min, I Rack, J Note, K Status, L _Spn, M _Key, N _InCatalog
 # Item identity: the SPN; a row without SPN takes the SPN of another row with the same item name, else the name,
 # else the BPN. The catalog comes from the app as text chunks "|s:<spn>|n:<name>|b:<bpn>|" in Lists tblCatalog.
 for r in range(2, ROWS + 1):
     empty = f'COUNTA(A{r}:I{r})=0'
-    ws[f"K{r}"] = (f'=IF(D{r}<>"",D{r},IF(B{r}="","",IFERROR(LOOKUP(2,1/(($B$2:$B${ROWS}=B{r})*($D$2:$D${ROWS}<>"")),'
+    ws[f"L{r}"] = (f'=IF(D{r}<>"",D{r},IF(B{r}="","",IFERROR(LOOKUP(2,1/(($B$2:$B${ROWS}=B{r})*($D$2:$D${ROWS}<>"")),'
                    f'$D$2:$D${ROWS}),"")))')
-    ws[f"L{r}"] = f'=IF({empty},"",A{r}&"|"&IF(K{r}<>"",K{r},IF(B{r}<>"",B{r},C{r})))'
+    ws[f"M{r}"] = f'=IF({empty},"",A{r}&"|"&IF(L{r}<>"",L{r},IF(B{r}<>"",B{r},C{r})))'
     inc = lambda prefix, ref: f'SUMPRODUCT(--ISNUMBER(SEARCH("|{prefix}:"&{ref}&"|",tblCatalog[Keys])))>0'
-    ws[f"M{r}"] = (f'=IF(K{r}<>"",{inc("s", f"K{r}")},IF(B{r}<>"",{inc("n", f"B{r}")},'
+    ws[f"N{r}"] = (f'=IF(L{r}<>"",{inc("s", f"L{r}")},IF(B{r}<>"",{inc("n", f"B{r}")},'
                    f'IF(C{r}<>"",{inc("b", f"C{r}")},FALSE)))')
     no_id = f'AND(B{r}="",C{r}="",D{r}="")'
-    new = f'AND(NOT(M{r}),NOT({no_id}))'
+    new = f'AND(NOT(N{r}),NOT({no_id}))'
     bad_num = lambda c: f'AND({c}{r}<>"",IFERROR(--{c}{r}<0,TRUE))'
     errs = "&".join([
         f'IF(A{r}="","Area is empty. ",IF(COUNTIF(tblArea[Area],A{r})=0,"Area is not in your business line. ",""))',
@@ -80,20 +80,20 @@ for r in range(2, ROWS + 1):
         f'IF(AND({new},OR(E{r}="",COUNTIF(tblCategory[Category code],E{r})+COUNTIF(tblCategory[Category name],E{r})=0)),'
         f'"Category not found (needed for a new item). ","")',
         f'IF(AND({new},OR(F{r}="",COUNTIF(tblUom[UOM],F{r})=0)),"UOM is not valid (needed for a new item). ","")',
-        f'IF(AND(L{r}<>"",COUNTIF($L$2:$L${ROWS},L{r})>1),"Same item appears more than once in this area '
+        f'IF(AND(M{r}<>"",COUNTIF($M$2:$M${ROWS},M{r})>1),"Same item appears more than once in this area '
         f'(one rack per item per area: merge the rows). ","")',
     ])
-    ws[f"J{r}"] = f'=IF({empty},"",IF(({errs})="",IF(M{r},"OK","OK - new item"),TRIM({errs})))'
-    ws[f"J{r}"].font = Font(name=F, size=9)
-    ws[f"J{r}"].border = BOX
+    ws[f"K{r}"] = f'=IF({empty},"",IF(({errs})="",IF(N{r},"OK","OK - new item"),TRIM({errs})))'
+    ws[f"K{r}"].font = Font(name=F, size=9)
+    ws[f"K{r}"].border = BOX
 # a row is red until its Status is OK; new items amber
-ws.conditional_formatting.add(f"A2:J{ROWS}", FormulaRule(formula=['AND($J2<>"",LEFT($J2,2)<>"OK")'], stopIfTrue=True,
+ws.conditional_formatting.add(f"A2:K{ROWS}", FormulaRule(formula=['AND($K2<>"",LEFT($K2,2)<>"OK")'], stopIfTrue=True,
                                                          fill=PatternFill("solid", fgColor="FDE7E9")))
-ws.conditional_formatting.add(f"J2:J{ROWS}", FormulaRule(formula=['$J2="OK - new item"'], font=Font(color="BC7600")))
-ws.conditional_formatting.add(f"J2:J{ROWS}", FormulaRule(formula=['$J2="OK"'], font=Font(color="107C41")))
+ws.conditional_formatting.add(f"K2:K{ROWS}", FormulaRule(formula=['$K2="OK - new item"'], font=Font(color="BC7600")))
+ws.conditional_formatting.add(f"K2:K{ROWS}", FormulaRule(formula=['$K2="OK"'], font=Font(color="107C41")))
 ws.row_dimensions[1].height = 22
 ws.freeze_panes = "A2"
-t = Table(displayName="tblImport", ref=f"A1:M{ROWS}")
+t = Table(displayName="tblImport", ref=f"A1:N{ROWS}")
 t.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=False)
 ws.add_table(t)
 
@@ -193,6 +193,7 @@ lines = [
     ("Category, UOM: hanya wajib untuk barang BARU (belum ada di katalog).", None),
     ("Qty: > 0 = dicatat sebagai Receive (1 transaksi per area). 0 / kosong = barang hanya ditambahkan ke area.", None),
     ("Min in area: minimum stok di area itu. Kosong = tidak mengubah min yang ada (barang baru: 0).", None),
+    ("Note: opsional. Catatan posisi sisa barang di rak lain (mis. 'sisa 2 di Cartridge Filter 2'); kosong = note lama tidak diubah.", None),
     ("Rack: opsional. Dropdown hanya menampilkan rak milik Area di baris itu. Selama Area kosong, sel Rack abu-abu dan dropdown hanya berisi '(Select the Area first)'; sel jadi merah bila Rack diisi tanpa Area.", None),
     ("", None),
     ("Contoh baris", "h"),

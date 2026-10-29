@@ -44,7 +44,7 @@ FLOW2_ID = "7c2e3f4b-5d6f-4071-8b82-9c3d4e5f6071"
 MASTER = "/Apps/SmartInventory/Bulk_Import_Template_Master.xlsx"
 FOLDER = "/Apps/SmartInventory/BulkImport"
 TABLE = "tblImport"
-COLUMNS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack"]
+COLUMNS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack", "Note"]
 
 TAB = "decodeUriComponent('%09')"
 NL = "decodeUriComponent('%0A')"
