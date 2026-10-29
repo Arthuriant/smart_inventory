@@ -211,15 +211,34 @@ Screens:
                                                             )
                                                         )
                                                     },
+                                                    With(
+                                                    {
+                                                        // item identity per row: the SPN; a row without SPN takes the SPN of another
+                                                        // row with the same item name (same item on another rack), else the name, else the BPN
+                                                        keyed: ForAll(
+                                                            rows As r,
+                                                            With(
+                                                                {sp: Coalesce(r.Spn, LookUp(rows As o, !IsBlank(o.Spn) And Lower(o.Name) = Lower(r.Name) And !IsBlank(r.Name)).Spn)},
+                                                                {
+                                                                    Row: r.Row,
+                                                                    Spn: sp,
+                                                                    Id: Lower(Coalesce(sp, r.Name, r.Bpn)),
+                                                                    K: Lower(r.AreaName) & "|" & Lower(Coalesce(sp, r.Name, r.Bpn))
+                                                                }
+                                                            )
+                                                        )
+                                                    },
                                                     ClearCollect(
                                                         colBlk,
                                                         ForAll(
                                                             rows As r,
                                                             With(
+                                                                {kr: LookUp(keyed, Row = r.Row)},
+                                                            With(
                                                                 {
                                                                     ar: If(IsBlank(r.AreaName), Blank(), With({an: r.AreaName}, LookUp(nfMyAreas, Name = an))),
                                                                     it: With(
-                                                                        {spn: r.Spn, bpn: r.Bpn, nm: r.Name},
+                                                                        {spn: kr.Spn, bpn: r.Bpn, nm: r.Name},
                                                                         // an item is one SPN: a BPN is the parent of several alternative SPNs
                                                                         If(
                                                                             !IsBlank(spn), LookUp(dis_item_v2S, client_number = spn),
@@ -230,14 +249,14 @@ Screens:
                                                                     ),
                                                                     qBad: !IsBlank(r.QtyTxt) And IfError(Value(r.QtyTxt) < 0, true),
                                                                     mBad: !IsBlank(r.MinTxt) And IfError(Value(r.MinTxt) < 0, true),
-                                                                    key: Lower(r.AreaName) & "|" & Lower(Coalesce(r.Spn, r.Name, r.Bpn))
+                                                                    key: kr.K
                                                                 },
                                                                 With(
                                                                     {
                                                                         cat: If(IsBlank(r.CatTxt), Blank(), With({ct: r.CatTxt}, LookUp(dis_category_items, code = ct Or name = ct))),
                                                                         um: If(IsBlank(r.UomTxt), Blank(), LookUp(Choices([@dis_item_v2S].uom), Lower(Text(Value)) = Lower(r.UomTxt))),
                                                                         rk: If(IsBlank(r.RackName) Or IsBlank(ar), Blank(), With({rn: r.RackName, raid: ar.dis_area}, LookUp(dis_racks, Name = rn And area.dis_area = raid))),
-                                                                        dup: CountIf(rows As o, Lower(o.AreaName) & "|" & Lower(Coalesce(o.Spn, o.Name, o.Bpn)) = key) > 1,
+                                                                        dupRows: Concat(Filter(keyed, K = key, Row <> r.Row), Text(Row), ", "),
                                                                         noId: IsBlank(r.Name) And IsBlank(r.Bpn) And IsBlank(r.Spn)
                                                                     },
                                                                     {
@@ -245,7 +264,7 @@ Screens:
                                                                         AreaName: r.AreaName,
                                                                         Name: r.Name,
                                                                         Bpn: r.Bpn,
-                                                                        Spn: r.Spn,
+                                                                        Spn: kr.Spn,
                                                                         CatTxt: r.CatTxt,
                                                                         UomTxt: r.UomTxt,
                                                                         RackName: r.RackName,
@@ -257,7 +276,7 @@ Screens:
                                                                         Qty: If(IsBlank(r.QtyTxt) Or qBad, 0, Value(r.QtyTxt)),
                                                                         Min: If(IsBlank(r.MinTxt) Or mBad, Blank(), Round(Value(r.MinTxt), 0)),
                                                                         IsNew: IsBlank(it) And !noId,
-                                                                        ItemKey: Lower(Coalesce(r.Spn, r.Name, r.Bpn)),
+                                                                        ItemKey: kr.Id,
                                                                         Err: Trim(
                                                                             Concatenate(
                                                                                 If(IsBlank(r.AreaName), "Area is empty. ", IsBlank(ar), "Area '" & r.AreaName & "' is not in your business line. ", ""),
@@ -268,13 +287,15 @@ Screens:
                                                                                 If(IsBlank(it) And !noId And IsBlank(r.Name), "A new item needs a name. ", ""),
                                                                                 If(IsBlank(it) And !noId And IsBlank(cat), "Category '" & r.CatTxt & "' not found (needed for a new item). ", ""),
                                                                                 If(IsBlank(it) And !noId And IsBlank(um), "UOM '" & r.UomTxt & "' is not valid (needed for a new item). ", ""),
-                                                                                If(dup, "This item and area appear more than once. ", "")
+                                                                                If(!IsBlank(dupRows), "Same item as row " & dupRows & " in this area (one rack per item per area: merge the rows). ", "")
                                                                             )
                                                                         )
                                                                     }
                                                                 )
                                                             )
+                                                            )
                                                         )
+                                                    )
                                                     )
                                                 )
                                             );
