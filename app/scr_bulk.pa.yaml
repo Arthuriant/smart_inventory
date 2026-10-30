@@ -325,6 +325,7 @@ Screens:
                                           AlignInContainer: =AlignInContainer.Center
                                           Appearance: =ButtonAppearance.Secondary
                                           Color: =RGBA(31, 41, 55, 1)
+                                          DisplayMode: =If(locBlkImp, DisplayMode.Disabled, DisplayMode.Edit)
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           Icon: ="Dismiss"
@@ -1059,7 +1060,7 @@ Screens:
                                           AccessibleLabel: ="Import the checked rows"
                                           AlignInContainer: =AlignInContainer.Center
                                           BasePaletteColor: =RGBA(0, 18, 107, 1)
-                                          DisplayMode: =If(IsEmpty(colBlk) Or !IsEmpty(Filter(colBlk, Err <> "")), DisplayMode.Disabled, DisplayMode.Edit)
+                                          DisplayMode: =If(locBlkImp Or IsEmpty(colBlk) Or !IsEmpty(Filter(colBlk, Err <> "")), DisplayMode.Disabled, DisplayMode.Edit)
                                           Font: =Font.'Segoe UI'
                                           Height: =36
                                           Icon: ="ArrowUpload"
@@ -1068,138 +1069,263 @@ Screens:
                                           OnSelect: |-
                                             =If(
                                                 IsEmpty(colBlk) Or !IsEmpty(Filter(colBlk, Err <> "")),
-                                                Notify("Fix the rows marked in red first, then press Check again.", NotificationType.Error),
-                                                // 1. new catalog items, once per SPN (or name, or BPN)
+                                                Notify("Fix the rows marked in red first, then upload the file again.", NotificationType.Error),
+                                                // Check already validated every row, so everything is written in a few table Patches;
+                                                // when one step fails the later steps are skipped and everything written so far is undone (rollback)
+                                                UpdateContext({locBlkImp: true, locBlkFail: "", locBlkStamp: Text(Now(), "yyMMddHHmmss"), locBlkT0: DateAdd(Now(), -2, TimeUnit.Minutes)});
+                                                // 0. the current stock rows of the areas in the file, read once (an area at the row limit is looked up per row)
+                                                Clear(colBlkSt);
+                                                Clear(colBlkStBig);
                                                 ForAll(
-                                                    Distinct(Filter(colBlk, IsNew), ItemKey) As k,
-                                                    With(
-                                                        {r: LookUp(colBlk, IsNew And ItemKey = k.Value)},
-                                                        If(
-                                                            IsBlank(With({spn: r.Spn, nm: r.Name, bpn: r.Bpn}, If(!IsBlank(spn), LookUp(dis_item_v2S, client_number = spn), !IsBlank(nm), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn)))),
+                                                    Distinct(colBlk, Area.dis_area) As a,
+                                                    Collect(colBlkSt, Filter(dis_stocks, dis_area.dis_area = a.Value));
+                                                    If(CountRows(Filter(colBlkSt, dis_area.dis_area = a.Value)) >= 500, Collect(colBlkStBig, {Aid: a.Value}))
+                                                );
+                                                // 1. new catalog items, once per SPN (or name, or BPN)
+                                                ClearCollect(colBlkNewSrc, ForAll(Distinct(Filter(colBlk, IsNew), ItemKey) As k, LookUp(colBlk, IsNew And ItemKey = k.Value)));
+                                                Clear(colBlkNewOut);
+                                                If(
+                                                    !IsEmpty(colBlkNewSrc),
+                                                    IfError(
+                                                        IsEmpty(ClearCollect(
+                                                            colBlkNewOut,
                                                             Patch(
                                                                 dis_item_v2S,
-                                                                Defaults(dis_item_v2S),
-                                                                {
-                                                                    name: r.Name,
-                                                                    part_number: If(IsBlank(r.Bpn), Blank(), r.Bpn),
-                                                                    client_number: If(IsBlank(r.Spn), Blank(), r.Spn),
-                                                                    dis_category_item: r.Cat,
-                                                                    uom: r.UomVal,
-                                                                    status: 'status (dis_item_v2S)'.Active,
-                                                                    min_qty: Coalesce(r.Min, 0)
-                                                                }
+                                                                ForAll(colBlkNewSrc, Defaults(dis_item_v2S)),
+                                                                ForAll(
+                                                                    colBlkNewSrc As r,
+                                                                    {
+                                                                        name: r.Name,
+                                                                        part_number: If(IsBlank(r.Bpn), Blank(), r.Bpn),
+                                                                        client_number: If(IsBlank(r.Spn), Blank(), r.Spn),
+                                                                        dis_category_item: r.Cat,
+                                                                        uom: r.UomVal,
+                                                                        status: 'status (dis_item_v2S)'.Active,
+                                                                        min_qty: Coalesce(r.Min, 0)
+                                                                    }
+                                                                )
                                                             )
-                                                        )
+                                                        )),
+                                                        UpdateContext({locBlkFail: "New catalog items: " & FirstError.Message})
                                                     )
                                                 );
                                                 // 2. one Receive header per area that gets qty
-                                                With(
-                                                    {
-                                                        withQty: Distinct(Filter(colBlk, Qty > 0), Area.dis_area),
-                                                        varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
-                                                    },
-                                                    Clear(colBlkHdr);
-                                                    ForAll(
-                                                        Sequence(CountRows(withQty)) As n,
-                                                        With(
-                                                            {
-                                                                aid: Index(withQty, n.Value).Value,
-                                                                trxNo: Text(Now(), "dd/mm/yy/") & Text(If(IsBlank(varLastTrx), 0, Value(Right(varLastTrx, 4))) + n.Value, "0000")
-                                                            },
-                                                            Collect(
-                                                                colBlkHdr,
-                                                                {
-                                                                    AreaId: aid,
-                                                                    TrxNo: trxNo,
-                                                                    Hdr: Patch(
-                                                                        dis_trx_headers,
-                                                                        Defaults(dis_trx_headers),
-                                                                        {
-                                                                            transaction_number: trxNo,
-                                                                            type: 'type (dis_trx_headers)'.Receive,
-                                                                            area_to: LookUp(dis_areas, dis_area = aid),
-                                                                            note: "Bulk import"
-                                                                        }
-                                                                    )
-                                                                }
-                                                            )
-                                                        )
-                                                    )
-                                                );
-                                                // 3. per row: detail line (qty > 0) and the stock row in the area (same rules as Receive)
-                                                ForAll(
-                                                    colBlk As r,
+                                                Clear(colBlkHdr);
+                                                Clear(colBlkErr);
+                                                If(
+                                                    locBlkFail = "",
                                                     With(
                                                         {
-                                                            itm: If(
-                                                                IsBlank(r.Item),
-                                                                With({spn: r.Spn, nm: r.Name, bpn: r.Bpn}, If(!IsBlank(spn), LookUp(dis_item_v2S, client_number = spn), !IsBlank(nm), LookUp(dis_item_v2S, name = nm), LookUp(dis_item_v2S, part_number = bpn))),
-                                                                r.Item
-                                                            )
+                                                            withQty: Distinct(Filter(colBlk, Qty > 0), Area.dis_area),
+                                                            varLastTrx: First(Sort(dis_trx_headers, 'Created On', SortOrder.Descending)).transaction_number
                                                         },
-                                                        With(
-                                                            {iid: itm.dis_item_v2, aid: r.Area.dis_area},
+                                                        ForAll(
+                                                            Sequence(CountRows(withQty)) As n,
                                                             With(
                                                                 {
-                                                                    st: LookUp(dis_stocks, dis_item_v2.dis_item_v2 = iid And dis_area.dis_area = aid),
-                                                                    h: LookUp(colBlkHdr, AreaId = aid)
+                                                                    aid: Index(withQty, n.Value).Value,
+                                                                    trxNo: Text(Now(), "dd/mm/yy/") & Text(If(IsBlank(varLastTrx), 0, Value(Right(varLastTrx, 4))) + n.Value, "0000")
                                                                 },
-                                                                If(
-                                                                    r.Qty > 0,
-                                                                    Patch(
-                                                                        dis_trx_details,
-                                                                        Defaults(dis_trx_details),
-                                                                        {header_id: h.Hdr, PK: h.TrxNo & "-" & Text(r.Row), item: itm, qty: r.Qty}
-                                                                    )
-                                                                );
-                                                                If(
-                                                                    IsBlank(st),
-                                                                    Patch(
-                                                                        dis_stocks,
-                                                                        Defaults(dis_stocks),
+                                                                IfError(
+                                                                    IsEmpty(Collect(
+                                                                        colBlkHdr,
                                                                         {
-                                                                            PK: "STK-" & Text(Now(), "yyMMddHHmmss") & "-" & Text(r.Row),
-                                                                            dis_item_v2: itm,
-                                                                            dis_area: r.Area,
-                                                                            qty: r.Qty,
-                                                                            rack: r.Rack,
-                                                                            min_qty: r.Min,
-                                                                            note: If(IsBlank(r.Note), Blank(), r.Note)
+                                                                            AreaId: aid,
+                                                                            TrxNo: trxNo,
+                                                                            Hdr: Patch(
+                                                                                dis_trx_headers,
+                                                                                Defaults(dis_trx_headers),
+                                                                                {
+                                                                                    transaction_number: trxNo,
+                                                                                    type: 'type (dis_trx_headers)'.Receive,
+                                                                                    area_to: LookUp(dis_areas, dis_area = aid),
+                                                                                    note: "Bulk import"
+                                                                                }
+                                                                            )
                                                                         }
-                                                                    ),
-                                                                    Patch(
-                                                                        dis_stocks,
-                                                                        st,
-                                                                        {
-                                                                            qty: st.qty + r.Qty,
-                                                                            rack: If(IsBlank(r.Rack), st.rack, r.Rack),
-                                                                            inactive: false,
-                                                                            min_qty: If(IsBlank(r.Min), st.min_qty, r.Min),
-                                                                            note: If(IsBlank(r.Note), st.note, r.Note)
-                                                                        }
-                                                                    )
+                                                                    )),
+                                                                    IsEmpty(Collect(colBlkErr, {Msg: FirstError.Message}))
                                                                 )
                                                             )
                                                         )
+                                                    );
+                                                    If(!IsEmpty(colBlkErr), UpdateContext({locBlkFail: "Receive transactions: " & First(colBlkErr).Msg}))
+                                                );
+                                                // 3. the plan per row: item record, the stock row it updates (blank = new stock row) and its header
+                                                Clear(colBlkPlan);
+                                                If(
+                                                    locBlkFail = "",
+                                                    ClearCollect(
+                                                        colBlkPlan,
+                                                        ForAll(
+                                                            colBlk As r,
+                                                            With(
+                                                                {
+                                                                    itm: If(
+                                                                        IsBlank(r.Item),
+                                                                        LookUp(
+                                                                            colBlkNewOut,
+                                                                            If(!IsBlank(r.Spn), Lower(client_number) = Lower(r.Spn), !IsBlank(r.Name), Lower(name) = Lower(r.Name), Lower(part_number) = Lower(r.Bpn))
+                                                                        ),
+                                                                        r.Item
+                                                                    ),
+                                                                    aid: r.Area.dis_area
+                                                                },
+                                                                With(
+                                                                    {
+                                                                        st: If(
+                                                                            IsBlank(LookUp(colBlkStBig, Aid = aid)),
+                                                                            LookUp(colBlkSt, dis_item_v2.dis_item_v2 = itm.dis_item_v2 And dis_area.dis_area = aid),
+                                                                            With({iid: itm.dis_item_v2}, LookUp(dis_stocks, dis_item_v2.dis_item_v2 = iid And dis_area.dis_area = aid))
+                                                                        ),
+                                                                        h: LookUp(colBlkHdr, AreaId = aid)
+                                                                    },
+                                                                    {Row: r.Row, Itm: itm, Area: r.Area, St: st, NewSt: IsBlank(st), Qty: r.Qty, Rack: r.Rack, Min: r.Min, Note: r.Note, Hdr: h.Hdr, TrxNo: h.TrxNo}
+                                                                )
+                                                            )
+                                                        )
+                                                    );
+                                                    If(
+                                                        !IsEmpty(Filter(colBlkPlan, IsBlank(Itm))),
+                                                        UpdateContext({locBlkFail: "The new item of row " & First(Filter(colBlkPlan, IsBlank(Itm))).Row & " was not found after it was created."})
+                                                    )
+                                                );
+                                                // 4. transaction lines (rows with qty)
+                                                If(
+                                                    locBlkFail = "" And !IsEmpty(Filter(colBlkPlan, Qty > 0)),
+                                                    IfError(
+                                                        IsEmpty(Patch(
+                                                            dis_trx_details,
+                                                            ForAll(Filter(colBlkPlan, Qty > 0), Defaults(dis_trx_details)),
+                                                            ForAll(Filter(colBlkPlan, Qty > 0) As p, {header_id: p.Hdr, PK: p.TrxNo & "-" & Text(p.Row), item: p.Itm, qty: p.Qty})
+                                                        )),
+                                                        UpdateContext({locBlkFail: "Transaction lines: " & FirstError.Message})
+                                                    )
+                                                );
+                                                // 5. new stock rows
+                                                If(
+                                                    locBlkFail = "" And !IsEmpty(Filter(colBlkPlan, NewSt)),
+                                                    IfError(
+                                                        IsEmpty(Patch(
+                                                            dis_stocks,
+                                                            ForAll(Filter(colBlkPlan, NewSt), Defaults(dis_stocks)),
+                                                            ForAll(
+                                                                Filter(colBlkPlan, NewSt) As p,
+                                                                {
+                                                                    PK: "STK-" & locBlkStamp & "-" & Text(p.Row),
+                                                                    dis_item_v2: p.Itm,
+                                                                    dis_area: p.Area,
+                                                                    qty: p.Qty,
+                                                                    rack: p.Rack,
+                                                                    min_qty: p.Min,
+                                                                    note: If(IsBlank(p.Note), Blank(), p.Note)
+                                                                }
+                                                            )
+                                                        )),
+                                                        UpdateContext({locBlkFail: "New stock rows: " & FirstError.Message})
+                                                    )
+                                                );
+                                                // 6. existing stock rows (same rules as Receive)
+                                                If(
+                                                    locBlkFail = "" And !IsEmpty(Filter(colBlkPlan, !NewSt)),
+                                                    IfError(
+                                                        IsEmpty(Patch(
+                                                            dis_stocks,
+                                                            ForAll(Filter(colBlkPlan, !NewSt) As p, p.St),
+                                                            ForAll(
+                                                                Filter(colBlkPlan, !NewSt) As p,
+                                                                {
+                                                                    qty: p.St.qty + p.Qty,
+                                                                    rack: If(IsBlank(p.Rack), p.St.rack, p.Rack),
+                                                                    inactive: false,
+                                                                    min_qty: If(IsBlank(p.Min), p.St.min_qty, p.Min),
+                                                                    note: If(IsBlank(p.Note), p.St.note, p.Note)
+                                                                }
+                                                            )
+                                                        )),
+                                                        UpdateContext({locBlkFail: "Stock update: " & FirstError.Message})
                                                     )
                                                 );
                                                 If(
-                                                    IsEmpty(Errors(dis_item_v2S)) And IsEmpty(Errors(dis_trx_headers)) And IsEmpty(Errors(dis_trx_details)) And IsEmpty(Errors(dis_stocks)),
+                                                    locBlkFail = "",
                                                     Notify("Imported " & Text(CountRows(colBlk)) & " row(s): " & Text(CountRows(colBlkHdr)) & " Receive transaction(s).", NotificationType.Success);
                                                     Clear(colBlk);
+                                                    UpdateContext({locBlkFlt: "All"});
                                                     Reset(inpBlkPaste),
+                                                    // rollback: put the old values back on the existing stock rows, then delete what this import created
+                                                    // (looked up again on the server, so it also finds what a failed step wrote before it stopped)
+                                                    Clear(colBlkErr);
+                                                    If(
+                                                        !IsEmpty(Filter(colBlkPlan, !NewSt)),
+                                                        IfError(
+                                                            IsEmpty(Patch(
+                                                                dis_stocks,
+                                                                ForAll(Filter(colBlkPlan, !NewSt) As p, p.St),
+                                                                ForAll(
+                                                                    Filter(colBlkPlan, !NewSt) As p,
+                                                                    {qty: p.St.qty, rack: p.St.rack, inactive: p.St.inactive, min_qty: p.St.min_qty, note: p.St.note}
+                                                                )
+                                                            )),
+                                                            IsEmpty(Collect(colBlkErr, {Msg: FirstError.Message}))
+                                                        )
+                                                    );
+                                                    ForAll(
+                                                        Filter(colBlkPlan, NewSt) As p,
+                                                        IfError(
+                                                            With({k: "STK-" & locBlkStamp & "-" & Text(p.Row)}, With({x: LookUp(dis_stocks, PK = k)}, If(!IsBlank(x), IsEmpty(Remove(dis_stocks, x)), false))),
+                                                            IsEmpty(Collect(colBlkErr, {Msg: FirstError.Message}))
+                                                        )
+                                                    );
+                                                    ForAll(
+                                                        colBlkHdr As h,
+                                                        ForAll(
+                                                            Filter(colBlk, Area.dis_area = h.AreaId And Qty > 0) As r,
+                                                            IfError(
+                                                                With({k: h.TrxNo & "-" & Text(r.Row)}, With({x: LookUp(dis_trx_details, PK = k)}, If(!IsBlank(x), IsEmpty(Remove(dis_trx_details, x)), false))),
+                                                                IsEmpty(Collect(colBlkErr, {Msg: FirstError.Message}))
+                                                            )
+                                                        );
+                                                        IfError(
+                                                            With(
+                                                                {x: LookUp(dis_trx_headers, transaction_number = h.TrxNo And 'Created On' >= locBlkT0)},
+                                                                If(!IsBlank(x), IsEmpty(Remove(dis_trx_headers, x)), false)
+                                                            ),
+                                                            IsEmpty(Collect(colBlkErr, {Msg: FirstError.Message}))
+                                                        )
+                                                    );
+                                                    ForAll(
+                                                        colBlkNewSrc As r,
+                                                        IfError(
+                                                            With(
+                                                                {
+                                                                    x: If(
+                                                                        !IsBlank(r.Spn), LookUp(dis_item_v2S, client_number = r.Spn And 'Created On' >= locBlkT0),
+                                                                        !IsBlank(r.Name), LookUp(dis_item_v2S, name = r.Name And 'Created On' >= locBlkT0),
+                                                                        LookUp(dis_item_v2S, part_number = r.Bpn And 'Created On' >= locBlkT0)
+                                                                    )
+                                                                },
+                                                                If(!IsBlank(x), IsEmpty(Remove(dis_item_v2S, x)), false)
+                                                            ),
+                                                            IsEmpty(Collect(colBlkErr, {Msg: FirstError.Message}))
+                                                        )
+                                                    );
                                                     Notify(
-                                                        "Some rows failed. " & Coalesce(First(Errors(dis_stocks)).Message, First(Errors(dis_trx_details)).Message, First(Errors(dis_trx_headers)).Message, First(Errors(dis_item_v2S)).Message),
+                                                        If(
+                                                            !IsEmpty(colBlkErr),
+                                                            "Import failed and could not be fully undone (" & locBlkFail & "). Check transactions " & Concat(colBlkHdr, TrxNo, ", ") & " in History before importing again.",
+                                                            "Import failed, nothing was saved. " & locBlkFail
+                                                        ),
                                                         NotificationType.Error
                                                     )
-                                                )
+                                                );
+                                                UpdateContext({locBlkImp: false})
                                             )
                                           RadiusBottomLeft: =8
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
                                           Size: =13
-                                          Text: ="Import"
+                                          Text: =If(locBlkImp, "Importing...", "Import")
                                           Width: =140
       - conBlkUpOverlay:
           Control: GroupContainer
