@@ -2,7 +2,8 @@
 
 | File | Fungsi |
 |---|---|
-| `SmartInventoryFlows_1_3_0_0.zip` | Solution (unmanaged): 2 cloud flow + 3 connection reference (OneDrive, Excel, Dataverse). **Ini yang di-import.** |
+| `SmartInventoryFlows_1_4_0_0.zip` | Solution (unmanaged): 2 cloud flow + 3 connection reference (OneDrive, Excel, Dataverse). **Ini yang di-import.** |
+| `FillTemplateLists.ts` | Office Script **SmartInventoryFillLists** yang dipanggil flow Template (sejak v1.4.0.0). Dibuat sekali di Excel Online (lihat Langkah 1b). |
 | `Bulk_Import_Template_Master.xlsx` | File master template. Disimpan sekali di OneDrive (lihat Langkah 1). |
 | `build_solution.py` / `build_template.py` | Sumber zip dan file master. Ubah di sini lalu jalankan ulang (`python build_solution.py`, `python build_template.py`). |
 
@@ -15,7 +16,8 @@
    Sejak v1.3.0.0 app juga mengirim nama item katalog (±100 nama per baris teks) ke tabel `tblCatalog`
    supaya kolom **Status** di sheet Import bisa mengecek baris dengan aturan yang sama seperti tombol Check di app.
 2. Flow menyalin `Apps/SmartInventory/Bulk_Import_Template_Master.xlsx`, mengisi tabel `tblArea`,
-   `tblCategory`, `tblRack` di sheet *Lists* (dropdown Area/Category/Rack), membuat link (organisasi, view)
+   `tblCategory`, `tblRack`, `tblCatalog` di sheet *Lists* (sejak v1.4.0.0 sekaligus lewat satu Office Script, dulu satu
+   panggilan per baris) (dropdown Area/Category/Rack), membuat link (organisasi, view)
    dan mengirimnya ke app, yang langsung men-download file.
 3. Salinan dihapus otomatis 15 menit kemudian.
 
@@ -37,17 +39,25 @@ Semua file ada di OneDrive **pemilik koneksi** (ARianto2): folder `Apps/SmartInv
 2. Upload `Bulk_Import_Template_Master.xlsx` ke **`Apps/SmartInventory`** (bukan ke BulkImport).
    Nama file harus persis `Bulk_Import_Template_Master.xlsx`.
 
+## Langkah 1b – Office Script (sekali saja, sejak v1.4.0.0)
+
+1. Buka file Excel apa saja di Excel Online (login ARianto2) > tab **Automate** > **New Script**.
+2. Hapus isi editor, tempel seluruh isi `FillTemplateLists.ts`, beri nama **SmartInventoryFillLists**, **Save script**.
+   Skrip tersimpan di OneDrive `Documents/Office Scripts/SmartInventoryFillLists.osts`.
+
 ## Langkah 2 – Import solution
 
 1. https://make.powerapps.com > environment **ING | Well Construction - TLM** > **Solutions** > **Import solution**
-   > pilih `SmartInventoryFlows_1_3_0_0.zip` > **Next** > pilih koneksi OneDrive & Excel yang sama seperti sebelumnya,
+   > pilih `SmartInventoryFlows_1_4_0_0.zip` > **Next** > pilih koneksi OneDrive & Excel yang sama seperti sebelumnya,
    dan untuk **Smart Inventory - Microsoft Dataverse** pilih/buat koneksi Dataverse (login ARianto2) > **Import**.
    Muncul pertanyaan upgrade: pilih **Upgrade** (default).
-2. Buka solution **Smart Inventory Flows**: pastikan **kedua** flow statusnya **On** (jika Off: buka flow > **Turn on**).
+2. Sejak v1.4.0.0: buka flow **Smart Inventory - Bulk Import Template** > **Edit** > aksi **Fill_lists** (Run script) >
+   **Script** pilih **SmartInventoryFillLists** > field **listsJson** isi dengan ekspresi `string(outputs('Compose_lists'))` >
+   **Save**. (Id skrip berbeda per OneDrive, jadi tidak bisa tertanam di zip.)
+3. Buka solution **Smart Inventory Flows**: pastikan **kedua** flow statusnya **On** (jika Off: buka flow > **Turn on**).
 
 Drive OneDrive sudah tertanam di solution (milik ARianto2), jadi aksi Excel **tidak perlu diatur ulang**.
-Jika pemilik flow diganti orang lain: di setiap aksi Excel (*List rows present in a table*, *Add area row*,
-*Add category row*, *Add rack row*) pilih **Location** = OneDrive for Business dan **Document Library** = OneDrive, lalu Save
+Jika pemilik flow diganti orang lain: di setiap aksi Excel (*List rows present in a table*, *Fill_lists*) pilih **Location** = OneDrive for Business dan **Document Library** = OneDrive, lalu Save
 (atau ubah `DRIVE_ID` di `build_solution.py`).
 
 ## Langkah 3 – Hubungkan ke app

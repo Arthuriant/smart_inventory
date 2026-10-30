@@ -28,7 +28,7 @@ import sys
 import zipfile
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
-VERSION = "1.3.0.0"
+VERSION = "1.4.0.0"
 SOLUTION = "SmartInventoryFlows"
 FLOW_NAME = "Smart Inventory - Bulk Import Read Excel"
 # fixed ids so a rebuilt zip updates the same flow on re-import
@@ -209,39 +209,6 @@ definition = {
 
 
 # ---------- flow 2: Bulk Import Template ----------
-def excel_add(table, item):
-    return {
-        "type": "OpenApiConnection",
-        "inputs": {
-            "host": {
-                "connectionName": "shared_excelonlinebusiness",
-                "operationId": "AddRowV2",
-                "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
-            },
-            "parameters": {
-                "source": "me",
-                "drive": DRIVE_ID,
-                "file": "@outputs('Create_copy')?['body/Id']",
-                "table": table,
-                "item": item,
-            },
-            "authentication": "@parameters('$authentication')",
-        },
-        "retryPolicy": {"type": "fixed", "count": 4, "interval": "PT5S"},
-    }
-
-
-def loop(after, items_expr, inner_name, inner):
-    # one row at a time, in the order the app sent
-    return {
-        "runAfter": after,
-        "type": "Foreach",
-        "foreach": items_expr,
-        "actions": {inner_name: inner},
-        "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
-    }
-
-
 ITEM_SCHEMA = lambda props: {"type": "array", "items": {"type": "object", "properties": {p: {"type": "string"} for p in props}}}
 URL_SCHEMA = {
     "type": "object",
@@ -328,12 +295,6 @@ definition2 = {
     "outputs": {},
 }
 acts = definition2["actions"]
-acts["Add_areas"] = loop({"Create_copy": ["Succeeded"]}, "@body('Parse_lists')?['areas']",
-                         "Add_area_row", excel_add("tblArea", {"Area": "@items('Add_areas')?['a']"}))
-acts["Add_categories"] = loop({"Add_areas": ["Succeeded"]}, "@body('Parse_lists')?['cats']",
-                              "Add_category_row", excel_add("tblCategory",
-                                                            {"Category code": "@items('Add_categories')?['c']",
-                                                             "Category name": "@items('Add_categories')?['n']"}))
 # racks come from Dataverse, not from the app (the app's list arrived empty); the formatted value of the
 # area lookup is the area name, the same text the app sends in "areas"
 AREA_NAME = "_cr8a3_area_value@OData.Community.Display.V1.FormattedValue"
@@ -355,38 +316,50 @@ acts["List_racks"] = {
         "authentication": "@parameters('$authentication')",
     },
 }
-# catalog keys for the Status column of the Import sheet: a few long text rows ("|s:spn|n:name|b:bpn|...")
-acts["Add_catalog"] = loop({"Add_categories": ["Succeeded"]}, "@coalesce(body('Parse_lists')?['catalog'], json('[]'))",
-                           "Add_catalog_row", excel_add("tblCatalog", {"Keys": "@items('Add_catalog')?['k']"}))
-acts["Add_racks"] = {
-    # one block per area, in the order of the app's area list
-    "runAfter": {"Add_catalog": ["Succeeded"], "List_racks": ["Succeeded"]},
-    "type": "Foreach",
-    "foreach": "@body('Parse_lists')?['areas']",
-    "actions": {
-        "Racks_in_area": {
-            "runAfter": {},
-            "type": "Query",
-            "inputs": {
-                "from": "@coalesce(outputs('List_racks')?['body/value'], json('[]'))",
-                "where": f"@equals(item()?['{AREA_NAME}'], items('Add_racks')?['a'])",
-            },
-        },
-        "Add_area_racks": {
-            "runAfter": {"Racks_in_area": ["Succeeded"]},
-            "type": "Foreach",
-            "foreach": "@body('Racks_in_area')",
-            "actions": {
-                "Add_rack_row": excel_add("tblRack", {"Rack": "@items('Add_area_racks')?['cr8a3_name']",
-                                                      "Rack is in area": "@items('Add_racks')?['a']"}),
-            },
-            "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
-        },
+acts["Select_racks"] = {
+    "runAfter": {"List_racks": ["Succeeded"]},
+    "type": "Select",
+    "inputs": {
+        "from": "@coalesce(outputs('List_racks')?['body/value'], json('[]'))",
+        "select": {"r": "@item()?['cr8a3_name']", "a": f"@item()?['{AREA_NAME}']"},
     },
-    "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
+}
+acts["Compose_lists"] = {
+    "runAfter": {"Select_racks": ["Succeeded"]},
+    "type": "Compose",
+    "inputs": {
+        "areas": "@coalesce(body('Parse_lists')?['areas'], json('[]'))",
+        "cats": "@coalesce(body('Parse_lists')?['cats'], json('[]'))",
+        "racks": "@body('Select_racks')",
+        # catalog names for the Status column of the Import sheet: a few long text rows ("|n:name|n:name|...")
+        "catalog": "@coalesce(body('Parse_lists')?['catalog'], json('[]'))",
+    },
+}
+# the Office Script SmartInventoryFillLists (flows/FillTemplateLists.ts) fills all list tables in one call;
+# its id is the OneDrive file id of the .osts, so after importing pick the script once in this action
+SCRIPT_ID = "SELECT-THE-SCRIPT-SmartInventoryFillLists"
+acts["Fill_lists"] = {
+    "runAfter": {"Create_copy": ["Succeeded"], "Compose_lists": ["Succeeded"]},
+    "type": "OpenApiConnection",
+    "inputs": {
+        "host": {
+            "connectionName": "shared_excelonlinebusiness",
+            "operationId": "RunScriptProd",
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+        },
+        "parameters": {
+            "source": "me",
+            "drive": DRIVE_ID,
+            "file": "@outputs('Create_copy')?['body/Id']",
+            "scriptId": SCRIPT_ID,
+            "ScriptParameters/listsJson": "@{string(outputs('Compose_lists'))}",
+        },
+        "authentication": "@parameters('$authentication')",
+    },
+    "retryPolicy": {"type": "fixed", "count": 2, "interval": "PT5S"},
 }
 acts["Create_link"] = {
-    "runAfter": {"Add_racks": ["Succeeded"]},
+    "runAfter": {"Fill_lists": ["Succeeded"]},
     "type": "OpenApiConnection",
     "inputs": {
         "host": {
@@ -416,6 +389,7 @@ acts["Respond_to_app_error"] = {
             "url": "",
             "error": ("@{concat('The template could not be created (', coalesce(outputs('Get_master')?['body']?['message'], "
                       "outputs('Create_copy')?['body']?['message'], outputs('List_racks')?['body']?['error']?['message'], "
+                      "outputs('Fill_lists')?['body']?['message'], "
                       "outputs('Create_link')?['body']?['message'], 'see the flow run'), "
                       "'). Check that ', '" + MASTER + "', ' exists in the OneDrive of the flow owner.')}"),
         },
