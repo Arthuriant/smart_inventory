@@ -447,9 +447,9 @@ Screens:
                                                 - bdgConsStockB:
                                                     Control: ModernBadge
                                                     Properties:
-                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty)
+                                                      AccessibleLabel: ="Stock " & Text(ThisItem.qty) & " in " & ThisItem.dis_area.Name
                                                       AlignInContainer: =AlignInContainer.Start
-                                                      Content: ="Stock " & Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom)
+                                                      Content: =Text(ThisItem.qty) & " " & Text(ThisItem.dis_item_v2.uom) & " · " & ThisItem.dis_area.Name
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
                                                       Appearance: =BadgeAppearance.Tint
@@ -458,7 +458,7 @@ Screens:
                                                       LayoutMinWidth: =0
                                                       Shape: =BadgeShape.Rounded
                                                       Size: =12
-                                                      Width: =120
+                                                      Width: =180
                                                 - txtConsArea:
                                                     Control: ModernText
                                                     Properties:
@@ -473,15 +473,14 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =11
-                                                      Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · SPN " & Coalesce(ThisItem.dis_item_v2.client_number, "-") & " · Area " & ThisItem.dis_area.Name
+                                                      Text: ="BPN " & Coalesce(ThisItem.dis_item_v2.part_number, "-") & " · SPN " & Coalesce(ThisItem.dis_item_v2.client_number, "-")
                                                       Wrap: =false
                                                 - bdgConsRackB:
                                                     Control: ModernBadge
                                                     Properties:
-                                                      AccessibleLabel: |-
-                                                        =If(IsBlank(ThisItem.rack), "No rack assigned", "Stored in rack " & ThisItem.rack.Name) & If(IsBlank(ThisItem.note), "", ". Note: " & ThisItem.note)
+                                                      AccessibleLabel: =If(IsBlank(ThisItem.rack), "No rack assigned", "Stored in rack " & ThisItem.rack.Name)
                                                       AlignInContainer: =AlignInContainer.Start
-                                                      Content: =If(IsBlank(ThisItem.rack), "No rack", "Rack " & ThisItem.rack.Name) & If(IsBlank(ThisItem.note), "", " · " & ThisItem.note)
+                                                      Content: =If(IsBlank(ThisItem.rack), "No rack", "Rack " & ThisItem.rack.Name)
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
                                                       Appearance: =BadgeAppearance.Tint
