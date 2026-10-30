@@ -12,7 +12,7 @@
 1. App mengirim data terkini business line user (area, kategori — teks JSON, input `listsJson`).
    Sejak v1.2.0.0 rak dibaca flow sendiri dari Dataverse (`dis_racks` aktif yang areanya ada di daftar area dari app);
    daftar rak dari app diabaikan.
-   Sejak v1.3.0.0 app juga mengirim kunci katalog item (SPN/nama/BPN, ±100 item per baris teks) ke tabel `tblCatalog`
+   Sejak v1.3.0.0 app juga mengirim nama item katalog (±100 nama per baris teks) ke tabel `tblCatalog`
    supaya kolom **Status** di sheet Import bisa mengecek baris dengan aturan yang sama seperti tombol Check di app.
 2. Flow menyalin `Apps/SmartInventory/Bulk_Import_Template_Master.xlsx`, mengisi tabel `tblArea`,
    `tblCategory`, `tblRack` di sheet *Lists* (dropdown Area/Category/Rack), membuat link (organisasi, view)
@@ -73,6 +73,7 @@ Update flow saja (app sudah terhubung): import zip versi baru, lalu di Studio fl
 - Dropdown membaca sheet Lists lewat `INDIRECT(...)`: baris yang ditambahkan flow menggeser referensi biasa
   sehingga dropdown kosong (diperbaiki 2026-10-27; master lama di OneDrive harus diganti).
 - Baris kosong di dalam tabel diabaikan.
-- Kolom **Status** (J) dihitung rumus: aturan sama dengan Check di app (area, nama/BPN/SPN, qty/min, rack, item baru
-  butuh Category+UOM, item sama 2x di satu area). Kolom K–M adalah kolom bantu tersembunyi. Upload hanya bila semua OK;
+- Kolom **Status** (K) dihitung rumus: aturan sama dengan Check di app (area, nama item wajib, qty/min, rack, item baru
+  butuh Category+UOM, nama item sama 2x di satu area). Nama item = identitas barang; BPN/SPN boleh sama.
+  Kolom L–M adalah kolom bantu tersembunyi. Status mencakup seluruh baris tabel (1000 baris siap, baris tempelan ikut). Upload hanya bila semua OK;
   app tetap memeriksa ulang saat upload. App tidak lagi punya kotak paste (hanya Template + Upload Excel).

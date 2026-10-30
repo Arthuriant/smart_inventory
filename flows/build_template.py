@@ -29,7 +29,7 @@ UOMS = ["EA", "M", "SET", "DR", "JT", "BOX", "L", "PR", "SX", "FT", "GAL", "KG",
 HEADERS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in area", "Rack", "Note", "Status"]
 WIDTHS = [28, 30, 16, 14, 14, 9, 8, 12, 16, 30, 60]
 # hidden helper columns of the Status check (inside tblImport so they fill down; the upload flow ignores them)
-HELPERS = ["_Spn", "_Key", "_InCatalog"]
+HELPERS = ["_Key", "_InCatalog"]
 ROWS = 1000  # rows prepared with formulas; rows pasted below them get the formulas from the table
 
 wb = Workbook()
@@ -55,9 +55,9 @@ for i, h in enumerate(HELPERS, len(HEADERS) + 1):
     ws.column_dimensions[ws.cell(row=1, column=i).column_letter].hidden = True
 
 # ---------- Status: the same checks as the app's Check (scr_bulk btnBlkCheck) ----------
-# A Area, B Item name, C BPN, D SPN, E Category, F UOM, G Qty, H Min, I Rack, J Note, K Status, L _Spn, M _Key, N _InCatalog
-# Item identity: the SPN; a row without SPN takes the SPN of another row with the same item name, else the name,
-# else the BPN. The catalog comes from the app as text chunks "|s:<spn>|n:<name>|b:<bpn>|" in Lists tblCatalog.
+# A Area, B Item name, C BPN, D SPN, E Category, F UOM, G Qty, H Min, I Rack, J Note, K Status, L _Key, M _InCatalog
+# Item identity: the item name (description); SPN and BPN may repeat. The catalog names come from the app as
+# text chunks "|n:<name>|n:<name>|" in Lists tblCatalog.
 # The formulas use table references so they cover every row of tblImport (also rows pasted below row ROWS:
 # the columns are calculated columns, Excel fills them into new rows). Text compares are exact
 # (no COUNTIF/SEARCH: their * ? ~ wildcards gave wrong matches) and, like the app, ignore case.
@@ -70,18 +70,14 @@ def tc(col):
 
 
 AREA, NAME, BPN, SPN, CAT, UOM, QTY, MIN, RACK = (tr(h) for h in HEADERS[:9])
-XSPN, XKEY, XINC = (tr(h) for h in HELPERS)
+XKEY, XINC = (tr(h) for h in HELPERS)
 in_cat = lambda prefix, ref: f'SUMPRODUCT(--ISNUMBER(FIND(LOWER("|{prefix}:"&{ref}&"|"),LOWER(tblCatalog[Keys]))))>0'
 in_list = lambda col, ref: f'SUMPRODUCT(--({col}={ref}))>0'
 FORMULAS = {
-    "_Spn": (f'IF({SPN}<>"",TRIM({SPN}),IF({NAME}="","",IFERROR(LOOKUP(2,1/(({tc("Item name")}={NAME})*'
-             f'({tc("SPN")}<>"")),{tc("SPN")}),"")))'),
-    "_Key": (f'IF(COUNTA(tblImport[[#This Row],[Area]:[Rack]])=0,"",'
-             f'TRIM({AREA})&"|"&IF({XSPN}<>"",{XSPN},IF({NAME}<>"",TRIM({NAME}),TRIM({BPN}))))'),
-    "_InCatalog": (f'IF({XSPN}<>"",{in_cat("s", XSPN)},IF({NAME}<>"",{in_cat("n", f"TRIM({NAME})")},'
-                   f'IF({BPN}<>"",{in_cat("b", f"TRIM({BPN})")},FALSE)))'),
+    "_Key": f'IF(OR(COUNTA(tblImport[[#This Row],[Area]:[Rack]])=0,TRIM({NAME})=""),"",TRIM({AREA})&"|"&TRIM({NAME}))',
+    "_InCatalog": f'IF(TRIM({NAME})="",FALSE,{in_cat("n", f"TRIM({NAME})")})',
 }
-no_id = f'AND({NAME}="",{BPN}="",{SPN}="")'
+no_id = f'TRIM({NAME})=""'
 new_item = f'AND(NOT({XINC}),NOT({no_id}))'
 bad_num = lambda ref: f'AND({ref}<>"",IFERROR(--{ref}<0,TRUE))'
 area_ok = in_list("tblArea[Area]", AREA)
@@ -92,18 +88,17 @@ dup_row = (f'IFERROR(IF({first}<>ROW(),{first},ROW()+MATCH({XKEY},'
 dup_n = f'SUMPRODUCT(--({tc("_Key")}={XKEY}))'
 errs = "&".join([
     f'IF({AREA}="","Area is empty. ",IF(NOT({area_ok}),"Area \'"&{AREA}&"\' is not in your business line. ",""))',
-    f'IF({no_id},"Item name, BPN or SPN is needed. ","")',
+    f'IF({no_id},"Item name is needed (it identifies the item). ","")',
     f'IF({bad_num(QTY)},"Qty must be a number of 0 or more. ","")',
     f'IF({bad_num(MIN)},"Min must be a number of 0 or more. ","")',
     f'IF(AND({RACK}<>"",{AREA}<>"",{area_ok},SUMPRODUCT(--(tblRack[Rack]={RACK}),--(tblRack[Rack is in area]={AREA}))=0),'
     f'"Rack \'"&{RACK}&"\' is not in this area. ","")',
-    f'IF(AND({new_item},{NAME}=""),"A new item needs a name. ","")',
     f'IF(AND({new_item},OR({CAT}="",NOT(OR({in_list("tblCategory[Category code]", CAT)},'
     f'{in_list("tblCategory[Category name]", CAT)})))),"Category \'"&{CAT}&"\' not found (needed for a new item). ","")',
     f'IF(AND({new_item},OR({UOM}="",NOT({in_list("tblUom[UOM]", UOM)}))),'
     f'"UOM \'"&{UOM}&"\' is not valid (needed for a new item). ","")',
-    f'IF(AND({XKEY}<>"",{dup_n}>1),"Same item as row "&{dup_row}&IF({dup_n}>2," (and "&({dup_n}-2)&" more)","")&'
-    f'" in this area (one rack per item per area: merge the rows). ","")',
+    f'IF(AND({XKEY}<>"",{dup_n}>1),"Same item name as row "&{dup_row}&IF({dup_n}>2," (and "&({dup_n}-2)&" more)","")&'
+    f'" in this area (one rack per item per area: merge the rows, or give the item on the other rack its own name). ","")',
 ])
 FORMULAS["Status"] = (f'IF(COUNTA(tblImport[[#This Row],[Area]:[Rack]])=0,"",'
                       f'IF(({errs})="",IF({XINC},"OK","OK - new item"),TRIM({errs})))')
@@ -122,7 +117,7 @@ ws.conditional_formatting.add(f"K2:K{ROWS}", FormulaRule(formula=['$K2="OK - new
 ws.conditional_formatting.add(f"K2:K{ROWS}", FormulaRule(formula=['$K2="OK"'], font=Font(color="107C41")))
 ws.row_dimensions[1].height = 22
 ws.freeze_panes = "A2"
-t = Table(displayName="tblImport", ref=f"A1:N{ROWS}")
+t = Table(displayName="tblImport", ref=f"A1:M{ROWS}")
 t.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=False)
 # calculated columns: Excel fills these formulas into rows added to the table (also by pasting below it)
 t.tableColumns = [TableColumn(id=i, name=n, calculatedColumnFormula=TableFormula(attr_text=FORMULAS[n]) if n in FORMULAS else None)
@@ -219,8 +214,8 @@ lines = [
     ("", None),
     ("Kolom", "h"),
     ("Area (wajib): pilih dari dropdown (area business line Anda).", None),
-    ("Item name / BPN / SPN: minimal salah satu. 1 SPN = 1 barang (1 BPN bisa punya beberapa SPN alternatif).", None),
-    ("Barang dicocokkan lewat SPN; baris tanpa SPN memakai SPN baris lain dengan nama yang sama, lalu nama, lalu BPN.", None),
+    ("Item name: wajib. Nama barang adalah identitasnya: barang dicocokkan ke katalog lewat nama, dan dua barang tidak boleh bernama sama.", None),
+    ("BPN / SPN: opsional dan boleh sama di beberapa barang. SPN yang sama di dua rak dalam satu area = dua barang dengan nama berbeda (mis. tambahkan nama rak).", None),
     ("Status: diisi otomatis (jangan diketik). 'OK - new item' = barang baru yang akan ditambahkan ke katalog.", None),
     ("Category, UOM: hanya wajib untuk barang BARU (belum ada di katalog).", None),
     ("Qty: > 0 = dicatat sebagai Receive (1 transaksi per area). 0 / kosong = barang hanya ditambahkan ke area.", None),
@@ -234,7 +229,7 @@ lines = [
     ("", None),
     ("Catatan", "h"),
     ("Jangan hapus/ganti nama tabel 'tblImport' dan judul kolomnya; jangan ubah sheet 'Lists'.", None),
-    ("Satu barang + area yang sama hanya boleh muncul sekali per import (1 rak per barang per area).", None),
+    ("Nama barang + area yang sama hanya boleh muncul sekali per import (1 rak per barang per area). Barang yang sama di rak lain: beri nama berbeda, atau tulis posisi sisanya di kolom Note.", None),
     ("Download template baru dari app bila ada area/rak/kategori baru.", None),
 ]
 for i, (text, kind) in enumerate(lines, 1):

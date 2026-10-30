@@ -841,7 +841,21 @@ Screens:
                                     Icon: ="Save"
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =160
-                                    OnSelect: =SubmitForm(frmItmF)
+                                    OnSelect: |-
+                                      =// the item name identifies the item: two items cannot have the same name
+                                      With(
+                                          {nm: Trim(DataCardValue49_ItmF.Text), me: If(frmItmF.Mode = FormMode.Edit, galItmL.Selected.dis_item_v2, Blank())},
+                                          With(
+                                              {dup: LookUp(dis_item_v2S, name = nm)},
+                                              If(
+                                                  IsBlank(nm),
+                                                  Notify("The item name is required.", NotificationType.Error),
+                                                  !IsBlank(dup) And (IsBlank(me) Or dup.dis_item_v2 <> me),
+                                                  Notify("An item named '" & nm & "' already exists. Give this item a different name (e.g. add the rack or a short description).", NotificationType.Error),
+                                                  SubmitForm(frmItmF)
+                                              )
+                                          )
+                                      )
                                     RadiusBottomLeft: =8
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8

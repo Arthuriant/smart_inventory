@@ -216,19 +216,11 @@ Screens:
                                                     },
                                                     With(
                                                     {
-                                                        // item identity per row: the SPN; a row without SPN takes the SPN of another
-                                                        // row with the same item name (same item on another rack), else the name, else the BPN
+                                                        // item identity per row: the item name (description); SPN and BPN may repeat
+                                                        // (the same SPN on two racks of one area is two items with different names)
                                                         keyed: ForAll(
                                                             rows As r,
-                                                            With(
-                                                                {sp: Coalesce(r.Spn, LookUp(rows As o, !IsBlank(o.Spn) And Lower(o.Name) = Lower(r.Name) And !IsBlank(r.Name)).Spn)},
-                                                                {
-                                                                    Row: r.Row,
-                                                                    Spn: sp,
-                                                                    Id: Lower(Coalesce(sp, r.Name, r.Bpn)),
-                                                                    K: Lower(r.AreaName) & "|" & Lower(Coalesce(sp, r.Name, r.Bpn))
-                                                                }
-                                                            )
+                                                            {Row: r.Row, Id: Lower(r.Name), K: Lower(r.AreaName) & "|" & Lower(r.Name)}
                                                         )
                                                     },
                                                     ClearCollect(
@@ -240,16 +232,7 @@ Screens:
                                                             With(
                                                                 {
                                                                     ar: If(IsBlank(r.AreaName), Blank(), With({an: r.AreaName}, LookUp(nfMyAreas, Name = an))),
-                                                                    it: With(
-                                                                        {spn: kr.Spn, bpn: r.Bpn, nm: r.Name},
-                                                                        // an item is one SPN: a BPN is the parent of several alternative SPNs
-                                                                        If(
-                                                                            !IsBlank(spn), LookUp(dis_item_v2S, client_number = spn),
-                                                                            !IsBlank(nm), LookUp(dis_item_v2S, name = nm),
-                                                                            !IsBlank(bpn), LookUp(dis_item_v2S, part_number = bpn),
-                                                                            Blank()
-                                                                        )
-                                                                    ),
+                                                                    it: If(IsBlank(r.Name), Blank(), With({nm: r.Name}, LookUp(dis_item_v2S, name = nm))),
                                                                     qBad: !IsBlank(r.QtyTxt) And IfError(Value(r.QtyTxt) < 0, true),
                                                                     mBad: !IsBlank(r.MinTxt) And IfError(Value(r.MinTxt) < 0, true),
                                                                     key: kr.K
@@ -259,15 +242,15 @@ Screens:
                                                                         cat: If(IsBlank(r.CatTxt), Blank(), With({ct: r.CatTxt}, LookUp(dis_category_items, code = ct Or name = ct))),
                                                                         um: If(IsBlank(r.UomTxt), Blank(), LookUp(Choices([@dis_item_v2S].uom), Lower(Text(Value)) = Lower(r.UomTxt))),
                                                                         rk: If(IsBlank(r.RackName) Or IsBlank(ar), Blank(), With({rn: r.RackName, raid: ar.dis_area}, LookUp(dis_racks, Name = rn And area.dis_area = raid))),
-                                                                        dupRows: Concat(Filter(keyed, K = key, Row <> r.Row), Text(Row), ", "),
-                                                                        noId: IsBlank(r.Name) And IsBlank(r.Bpn) And IsBlank(r.Spn)
+                                                                        dupRows: If(IsBlank(r.Name), "", Concat(Filter(keyed, K = key, Row <> r.Row), Text(Row), ", ")),
+                                                                        noId: IsBlank(r.Name)
                                                                     },
                                                                     {
                                                                         Row: r.Row,
                                                                         AreaName: r.AreaName,
                                                                         Name: r.Name,
                                                                         Bpn: r.Bpn,
-                                                                        Spn: kr.Spn,
+                                                                        Spn: r.Spn,
                                                                         CatTxt: r.CatTxt,
                                                                         UomTxt: r.UomTxt,
                                                                         RackName: r.RackName,
@@ -284,14 +267,13 @@ Screens:
                                                                         Err: Trim(
                                                                             Concatenate(
                                                                                 If(IsBlank(r.AreaName), "Area is empty. ", IsBlank(ar), "Area '" & r.AreaName & "' is not in your business line. ", ""),
-                                                                                If(noId, "Item name, BPN or SPN is needed. ", ""),
+                                                                                If(noId, "Item name is needed (it identifies the item). ", ""),
                                                                                 If(qBad, "Qty must be a number of 0 or more. ", ""),
                                                                                 If(mBad, "Min must be a number of 0 or more. ", ""),
                                                                                 If(!IsBlank(r.RackName) And !IsBlank(ar) And IsBlank(rk), "Rack '" & r.RackName & "' is not in this area. ", ""),
-                                                                                If(IsBlank(it) And !noId And IsBlank(r.Name), "A new item needs a name. ", ""),
                                                                                 If(IsBlank(it) And !noId And IsBlank(cat), "Category '" & r.CatTxt & "' not found (needed for a new item). ", ""),
                                                                                 If(IsBlank(it) And !noId And IsBlank(um), "UOM '" & r.UomTxt & "' is not valid (needed for a new item). ", ""),
-                                                                                If(!IsBlank(dupRows), "Same item as row " & dupRows & " in this area (one rack per item per area: merge the rows). ", "")
+                                                                                If(!IsBlank(dupRows), "Same item name as row " & dupRows & " in this area (one rack per item per area: merge the rows, or give the item on the other rack its own name). ", "")
                                                                             )
                                                                         )
                                                                     }
@@ -367,9 +349,9 @@ Screens:
                                                                     areas: ForAll(Sort(nfMyAreas, Name), {a: ThisRecord.Name}),
                                                                     cats: ForAll(Sort(dis_category_items, code), {c: ThisRecord.code, n: ThisRecord.name}),
                                                                     // racks: the flow reads them from Dataverse itself (v1.2.0.0)
-                                                                    // catalog keys for the Status check in Excel, 100 items per text row: |s:<SPN>|n:<name>|b:<BPN>|
+                                                                    // catalog names for the Status check in Excel, 100 items per text row: |n:<name>|n:<name>|
                                                                     catalog: With(
-                                                                        {cat: ForAll(dis_item_v2S As it, {t: "s:" & it.client_number & "|n:" & it.name & "|b:" & it.part_number & "|"})},
+                                                                        {cat: ForAll(dis_item_v2S As it, {t: "n:" & it.name & "|"})},
                                                                         ForAll(
                                                                             Sequence(RoundUp(CountRows(cat) / 100, 0)) As g,
                                                                             {k: "|" & Concat(FirstN(LastN(cat, CountRows(cat) - (g.Value - 1) * 100), 100), t)}
@@ -1081,7 +1063,7 @@ Screens:
                                                     Collect(colBlkSt, Filter(dis_stocks, dis_area.dis_area = a.Value));
                                                     If(CountRows(Filter(colBlkSt, dis_area.dis_area = a.Value)) >= 500, Collect(colBlkStBig, {Aid: a.Value}))
                                                 );
-                                                // 1. new catalog items, once per SPN (or name, or BPN)
+                                                // 1. new catalog items, once per name
                                                 ClearCollect(colBlkNewSrc, ForAll(Distinct(Filter(colBlk, IsNew), ItemKey) As k, LookUp(colBlk, IsNew And ItemKey = k.Value)));
                                                 Clear(colBlkNewOut);
                                                 If(
@@ -1165,7 +1147,7 @@ Screens:
                                                                         IsBlank(r.Item),
                                                                         LookUp(
                                                                             colBlkNewOut,
-                                                                            If(!IsBlank(r.Spn), Lower(client_number) = Lower(r.Spn), !IsBlank(r.Name), Lower(name) = Lower(r.Name), Lower(part_number) = Lower(r.Bpn))
+                                                                            Lower(name) = Lower(r.Name)
                                                                         ),
                                                                         r.Item
                                                                     ),
@@ -1298,11 +1280,7 @@ Screens:
                                                         IfError(
                                                             With(
                                                                 {
-                                                                    x: If(
-                                                                        !IsBlank(r.Spn), LookUp(dis_item_v2S, client_number = r.Spn And 'Created On' >= locBlkT0),
-                                                                        !IsBlank(r.Name), LookUp(dis_item_v2S, name = r.Name And 'Created On' >= locBlkT0),
-                                                                        LookUp(dis_item_v2S, part_number = r.Bpn And 'Created On' >= locBlkT0)
-                                                                    )
+                                                                    x: With({nm: r.Name}, LookUp(dis_item_v2S, name = nm And 'Created On' >= locBlkT0))
                                                                 },
                                                                 If(!IsBlank(x), IsEmpty(Remove(dis_item_v2S, x)), false)
                                                             ),
