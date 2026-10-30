@@ -15,7 +15,7 @@ from openpyxl import Workbook
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.worksheet.datavalidation import DataValidation
-from openpyxl.worksheet.table import Table, TableStyleInfo
+from openpyxl.worksheet.table import Table, TableColumn, TableFormula, TableStyleInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "Bulk_Import_Template_Master.xlsx")
@@ -30,7 +30,7 @@ HEADERS = ["Area", "Item name", "BPN", "SPN", "Category", "UOM", "Qty", "Min in 
 WIDTHS = [28, 30, 16, 14, 14, 9, 8, 12, 16, 30, 60]
 # hidden helper columns of the Status check (inside tblImport so they fill down; the upload flow ignores them)
 HELPERS = ["_Spn", "_Key", "_InCatalog"]
-ROWS = 200
+ROWS = 1000  # rows prepared with formulas; rows pasted below them get the formulas from the table
 
 wb = Workbook()
 
@@ -43,7 +43,7 @@ for c, h in enumerate(HEADERS, 1):
     cell.fill = HDR
     cell.alignment = Alignment(horizontal="center", vertical="center")
     ws.column_dimensions[cell.column_letter].width = WIDTHS[c - 1]
-for r in range(2, 201):
+for r in range(2, ROWS + 1):
     for c in range(1, 11):
         cell = ws.cell(row=r, column=c)
         cell.font = Font(name=F)
@@ -58,34 +58,63 @@ for i, h in enumerate(HELPERS, len(HEADERS) + 1):
 # A Area, B Item name, C BPN, D SPN, E Category, F UOM, G Qty, H Min, I Rack, J Note, K Status, L _Spn, M _Key, N _InCatalog
 # Item identity: the SPN; a row without SPN takes the SPN of another row with the same item name, else the name,
 # else the BPN. The catalog comes from the app as text chunks "|s:<spn>|n:<name>|b:<bpn>|" in Lists tblCatalog.
-for r in range(2, ROWS + 1):
-    empty = f'COUNTA(A{r}:I{r})=0'
-    ws[f"L{r}"] = (f'=IF(D{r}<>"",D{r},IF(B{r}="","",IFERROR(LOOKUP(2,1/(($B$2:$B${ROWS}=B{r})*($D$2:$D${ROWS}<>"")),'
-                   f'$D$2:$D${ROWS}),"")))')
-    ws[f"M{r}"] = f'=IF({empty},"",A{r}&"|"&IF(L{r}<>"",L{r},IF(B{r}<>"",B{r},C{r})))'
-    inc = lambda prefix, ref: f'SUMPRODUCT(--ISNUMBER(SEARCH("|{prefix}:"&{ref}&"|",tblCatalog[Keys])))>0'
-    ws[f"N{r}"] = (f'=IF(L{r}<>"",{inc("s", f"L{r}")},IF(B{r}<>"",{inc("n", f"B{r}")},'
-                   f'IF(C{r}<>"",{inc("b", f"C{r}")},FALSE)))')
-    no_id = f'AND(B{r}="",C{r}="",D{r}="")'
-    new = f'AND(NOT(N{r}),NOT({no_id}))'
-    bad_num = lambda c: f'AND({c}{r}<>"",IFERROR(--{c}{r}<0,TRUE))'
-    errs = "&".join([
-        f'IF(A{r}="","Area is empty. ",IF(COUNTIF(tblArea[Area],A{r})=0,"Area is not in your business line. ",""))',
-        f'IF({no_id},"Item name, BPN or SPN is needed. ","")',
-        f'IF({bad_num("G")},"Qty must be a number of 0 or more. ","")',
-        f'IF({bad_num("H")},"Min must be a number of 0 or more. ","")',
-        f'IF(AND(I{r}<>"",A{r}<>"",COUNTIF(tblArea[Area],A{r})>0,'
-        f'COUNTIFS(tblRack[Rack],I{r},tblRack[Rack is in area],A{r})=0),"Rack is not in this area. ","")',
-        f'IF(AND({new},B{r}=""),"A new item needs a name. ","")',
-        f'IF(AND({new},OR(E{r}="",COUNTIF(tblCategory[Category code],E{r})+COUNTIF(tblCategory[Category name],E{r})=0)),'
-        f'"Category not found (needed for a new item). ","")',
-        f'IF(AND({new},OR(F{r}="",COUNTIF(tblUom[UOM],F{r})=0)),"UOM is not valid (needed for a new item). ","")',
-        f'IF(AND(M{r}<>"",COUNTIF($M$2:$M${ROWS},M{r})>1),"Same item appears more than once in this area '
-        f'(one rack per item per area: merge the rows). ","")',
-    ])
-    ws[f"K{r}"] = f'=IF({empty},"",IF(({errs})="",IF(N{r},"OK","OK - new item"),TRIM({errs})))'
-    ws[f"K{r}"].font = Font(name=F, size=9)
-    ws[f"K{r}"].border = BOX
+# The formulas use table references so they cover every row of tblImport (also rows pasted below row ROWS:
+# the columns are calculated columns, Excel fills them into new rows). Text compares are exact
+# (no COUNTIF/SEARCH: their * ? ~ wildcards gave wrong matches) and, like the app, ignore case.
+def tr(col):
+    return f"tblImport[[#This Row],[{col}]]"
+
+
+def tc(col):
+    return f"tblImport[{col}]"
+
+
+AREA, NAME, BPN, SPN, CAT, UOM, QTY, MIN, RACK = (tr(h) for h in HEADERS[:9])
+XSPN, XKEY, XINC = (tr(h) for h in HELPERS)
+in_cat = lambda prefix, ref: f'SUMPRODUCT(--ISNUMBER(FIND(LOWER("|{prefix}:"&{ref}&"|"),LOWER(tblCatalog[Keys]))))>0'
+in_list = lambda col, ref: f'SUMPRODUCT(--({col}={ref}))>0'
+FORMULAS = {
+    "_Spn": (f'IF({SPN}<>"",TRIM({SPN}),IF({NAME}="","",IFERROR(LOOKUP(2,1/(({tc("Item name")}={NAME})*'
+             f'({tc("SPN")}<>"")),{tc("SPN")}),"")))'),
+    "_Key": (f'IF(COUNTA(tblImport[[#This Row],[Area]:[Rack]])=0,"",'
+             f'TRIM({AREA})&"|"&IF({XSPN}<>"",{XSPN},IF({NAME}<>"",TRIM({NAME}),TRIM({BPN}))))'),
+    "_InCatalog": (f'IF({XSPN}<>"",{in_cat("s", XSPN)},IF({NAME}<>"",{in_cat("n", f"TRIM({NAME})")},'
+                   f'IF({BPN}<>"",{in_cat("b", f"TRIM({BPN})")},FALSE)))'),
+}
+no_id = f'AND({NAME}="",{BPN}="",{SPN}="")'
+new_item = f'AND(NOT({XINC}),NOT({no_id}))'
+bad_num = lambda ref: f'AND({ref}<>"",IFERROR(--{ref}<0,TRUE))'
+area_ok = in_list("tblArea[Area]", AREA)
+# the sheet row of the first other row with the same key (the row above it if there is one, else the next one)
+first = f'MATCH({XKEY},{tc("_Key")},0)+1'
+dup_row = (f'IFERROR(IF({first}<>ROW(),{first},ROW()+MATCH({XKEY},'
+           f'INDEX({tc("_Key")},ROW()):INDEX({tc("_Key")},ROWS({tc("_Key")})),0)),"?")')
+dup_n = f'SUMPRODUCT(--({tc("_Key")}={XKEY}))'
+errs = "&".join([
+    f'IF({AREA}="","Area is empty. ",IF(NOT({area_ok}),"Area \'"&{AREA}&"\' is not in your business line. ",""))',
+    f'IF({no_id},"Item name, BPN or SPN is needed. ","")',
+    f'IF({bad_num(QTY)},"Qty must be a number of 0 or more. ","")',
+    f'IF({bad_num(MIN)},"Min must be a number of 0 or more. ","")',
+    f'IF(AND({RACK}<>"",{AREA}<>"",{area_ok},SUMPRODUCT(--(tblRack[Rack]={RACK}),--(tblRack[Rack is in area]={AREA}))=0),'
+    f'"Rack \'"&{RACK}&"\' is not in this area. ","")',
+    f'IF(AND({new_item},{NAME}=""),"A new item needs a name. ","")',
+    f'IF(AND({new_item},OR({CAT}="",NOT(OR({in_list("tblCategory[Category code]", CAT)},'
+    f'{in_list("tblCategory[Category name]", CAT)})))),"Category \'"&{CAT}&"\' not found (needed for a new item). ","")',
+    f'IF(AND({new_item},OR({UOM}="",NOT({in_list("tblUom[UOM]", UOM)}))),'
+    f'"UOM \'"&{UOM}&"\' is not valid (needed for a new item). ","")',
+    f'IF(AND({XKEY}<>"",{dup_n}>1),"Same item as row "&{dup_row}&IF({dup_n}>2," (and "&({dup_n}-2)&" more)","")&'
+    f'" in this area (one rack per item per area: merge the rows). ","")',
+])
+FORMULAS["Status"] = (f'IF(COUNTA(tblImport[[#This Row],[Area]:[Rack]])=0,"",'
+                      f'IF(({errs})="",IF({XINC},"OK","OK - new item"),TRIM({errs})))')
+COLS = HEADERS + HELPERS
+for name, f in FORMULAS.items():
+    c = COLS.index(name) + 1
+    for r in range(2, ROWS + 1):
+        cell = ws.cell(row=r, column=c, value="=" + f)
+        if name == "Status":
+            cell.font = Font(name=F, size=9)
+            cell.border = BOX
 # a row is red until its Status is OK; new items amber
 ws.conditional_formatting.add(f"A2:K{ROWS}", FormulaRule(formula=['AND($K2<>"",LEFT($K2,2)<>"OK")'], stopIfTrue=True,
                                                          fill=PatternFill("solid", fgColor="FDE7E9")))
@@ -95,6 +124,9 @@ ws.row_dimensions[1].height = 22
 ws.freeze_panes = "A2"
 t = Table(displayName="tblImport", ref=f"A1:N{ROWS}")
 t.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=False)
+# calculated columns: Excel fills these formulas into rows added to the table (also by pasting below it)
+t.tableColumns = [TableColumn(id=i, name=n, calculatedColumnFormula=TableFormula(attr_text=FORMULAS[n]) if n in FORMULAS else None)
+                  for i, n in enumerate(COLS, 1)]
 ws.add_table(t)
 
 # ---------- Lists (filled by the flow) ----------
@@ -151,27 +183,27 @@ def lst(rng):
     return f'INDIRECT("Lists!{rng}")'
 
 
-dv(f"OFFSET({lst('$A$3')},0,0,MAX(1,COUNTA({lst(f'$A$3:$A${LAST}')})),1)", "A2:A200", "Area",
+dv(f"OFFSET({lst('$A$3')},0,0,MAX(1,COUNTA({lst(f'$A$3:$A${LAST}')})),1)", f"A2:A{ROWS}", "Area",
    "This area is not in your business line. The app will mark the row red.")
-dv(f"OFFSET({lst('$C$3')},0,0,MAX(1,COUNTA({lst(f'$C$3:$C${LAST}')})),1)", "E2:E200", "Category",
+dv(f"OFFSET({lst('$C$3')},0,0,MAX(1,COUNTA({lst(f'$C$3:$C${LAST}')})),1)", f"E2:E{ROWS}", "Category",
    "Use a category code from the Lists sheet (the name also works).")
-dv(lst(f"$F$3:$F${len(UOMS) + 2}"), "F2:F200", "UOM", "UOM must be one of the values in the Lists sheet.")
+dv(lst(f"$F$3:$F${len(UOMS) + 2}"), f"F2:F{ROWS}", "UOM", "UOM must be one of the values in the Lists sheet.")
 # only the racks of the row's area: the block in column H that starts at the first match of the area in column I;
 # a single hint entry while the row has no area yet, or when the area has no racks
 dv(f"IF($A2=\"\",{lst('$' + HINT_NO_AREA[0] + '$' + HINT_NO_AREA[1:])},"
    f"IF(COUNTIF({lst(f'$I$3:$I${LAST}')},$A2)=0,{lst('$' + HINT_NO_RACK[0] + '$' + HINT_NO_RACK[1:])},"
    f"OFFSET({lst('$H$2')},MATCH($A2,{lst(f'$I$3:$I${LAST}')},0),0,COUNTIF({lst(f'$I$3:$I${LAST}')},$A2),1)))",
-   "I2:I200", "Rack", "This rack is not in the area of this row (see the Lists sheet).",
+   f"I2:I{ROWS}", "Rack", "This rack is not in the area of this row (see the Lists sheet).",
    "Select the Area of this row first. The list shows only the racks of that area. Leave empty for no rack.")
 # Rack cell greyed out while the row has no area; red when a rack (or the hint) is filled without an area
-ws.conditional_formatting.add("I2:I200", FormulaRule(formula=['AND($A2="",$I2<>"")'], stopIfTrue=True,
+ws.conditional_formatting.add(f"I2:I{ROWS}", FormulaRule(formula=['AND($A2="",$I2<>"")'], stopIfTrue=True,
                                                      fill=PatternFill("solid", fgColor="FDE7E9"),
                                                      font=Font(color="C42B1C")))
-ws.conditional_formatting.add("I2:I200", FormulaRule(formula=['$A2=""'], fill=PatternFill("solid", fgColor="F1F3F6")))
+ws.conditional_formatting.add(f"I2:I{ROWS}", FormulaRule(formula=['$A2=""'], fill=PatternFill("solid", fgColor="F1F3F6")))
 num = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True,
                      showErrorMessage=True, errorTitle="Number", error="Enter a number of 0 or more.")
 ws.add_data_validation(num)
-num.add("G2:H200")
+num.add(f"G2:H{ROWS}")
 
 # ---------- Petunjuk ----------
 gs = wb.create_sheet("Petunjuk", 0)
