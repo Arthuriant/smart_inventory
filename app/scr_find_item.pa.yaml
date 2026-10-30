@@ -692,7 +692,7 @@ Screens:
                                                       PaddingRight: =0
                                                       PaddingTop: =0
                                                       Size: =13
-                                                      Text: =Coalesce(ThisItem.rack.Name, "-")
+                                                      Text: =Coalesce(ThisItem.rack.Name, "-") & If(IsBlank(ThisItem.note), "", " · " & ThisItem.note)
                                                       Wrap: =false
                                                 - btnFindDetail:
                                                     Control: ModernButton
@@ -777,7 +777,7 @@ Screens:
                   DropShadow: =DropShadow.Bold
                   Fill: =RGBA(255, 255, 255, 1)
                   FillPortions: =0
-                  Height: =470
+                  Height: =516
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =16
@@ -1177,6 +1177,86 @@ Screens:
                                           Size: =11
                                           Text: ="Empty = item default (" & Coalesce(Text(locFindDetail.dis_item_v2.min_qty), "none") & ")"
                                           Wrap: =false
+                              - conFindDetNote:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - txtFindDetNoteLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Color: =RGBA(100, 112, 130, 1)
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =20
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =13
+                                          Text: ="Note (other racks)"
+                                          Width: =150
+                                          Wrap: =false
+                                    - inpFindDetNote:
+                                        Control: ModernTextInput
+                                        Properties:
+                                          AccessibleLabel: ="Note for this item in " & locFindDetail.dis_area.Name
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: =Appearance.Outline
+                                          Default: =locFindDetail.note
+                                          FillPortions: =1
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Placeholder: ="e.g. 2 more in Cartridge Filter 2"
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                    - btnFindDetNoteSave:
+                                        Control: ModernButton
+                                        Properties:
+                                          AccessibleLabel: ="Save note"
+                                          AlignInContainer: =AlignInContainer.Center
+                                          BasePaletteColor: =RGBA(0, 18, 107, 1)
+                                          DisplayMode: =If(Trim(inpFindDetNote.Text) = Coalesce(locFindDetail.note, ""), DisplayMode.Disabled, DisplayMode.Edit)
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          Icon: ="Save"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =96
+                                          OnSelect: |-
+                                            =Patch(dis_stocks, LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock), {note: If(IsBlank(Trim(inpFindDetNote.Text)), Blank(), Trim(inpFindDetNote.Text))});
+                                            If(
+                                                IsEmpty(Errors(dis_stocks)),
+                                                UpdateContext({locFindDetail: LookUp(dis_stocks, dis_stock = locFindDetail.dis_stock)});
+                                                Notify("Note saved for " & locFindDetail.dis_area.Name & ".", NotificationType.Success),
+                                                Notify("Failed to save note. " & First(Errors(dis_stocks)).Message, NotificationType.Error)
+                                            )
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =13
+                                          Text: ="Save note"
+                                          Width: =112
                   - conFindDetFoot:
                       Control: GroupContainer
                       Variant: AutoLayout

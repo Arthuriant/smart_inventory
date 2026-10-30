@@ -717,7 +717,7 @@ Screens:
                                                 PaddingRight: =0
                                                 PaddingTop: =0
                                                 Size: =12
-                                                Text: =Text(ThisItem.qty + If(!IsBlank(gblTfrEdit) And ddTfrFFrom.Selected.dis_area = gblTfrEdit.area_form.dis_area, Sum(Filter(colTfrOrig, iid = ThisItem.dis_item_v2.dis_item_v2), Qty), 0)) & " " & Text(ThisItem.dis_item_v2.uom) & If(IsBlank(ThisItem.rack), "", " · Rack " & ThisItem.rack.Name)
+                                                Text: =Text(ThisItem.qty + If(!IsBlank(gblTfrEdit) And ddTfrFFrom.Selected.dis_area = gblTfrEdit.area_form.dis_area, Sum(Filter(colTfrOrig, iid = ThisItem.dis_item_v2.dis_item_v2), Qty), 0)) & " " & Text(ThisItem.dis_item_v2.uom) & If(IsBlank(ThisItem.rack), "", " · Rack " & ThisItem.rack.Name) & If(IsBlank(ThisItem.note), "", " · " & ThisItem.note)
                                                 Width: =180
                                                 Wrap: =false
                                           - numTfrFQty:

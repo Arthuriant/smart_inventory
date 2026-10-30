@@ -478,9 +478,10 @@ Screens:
                                                 - bdgConsRackB:
                                                     Control: ModernBadge
                                                     Properties:
-                                                      AccessibleLabel: =If(IsBlank(ThisItem.rack), "No rack assigned", "Stored in rack " & ThisItem.rack.Name)
+                                                      AccessibleLabel: |-
+                                                        =If(IsBlank(ThisItem.rack), "No rack assigned", "Stored in rack " & ThisItem.rack.Name) & If(IsBlank(ThisItem.note), "", ". Note: " & ThisItem.note)
                                                       AlignInContainer: =AlignInContainer.Start
-                                                      Content: =If(IsBlank(ThisItem.rack), "No rack", "Rack " & ThisItem.rack.Name)
+                                                      Content: =If(IsBlank(ThisItem.rack), "No rack", "Rack " & ThisItem.rack.Name) & If(IsBlank(ThisItem.note), "", " · " & ThisItem.note)
                                                       FontWeight: =FontWeight.Semibold
                                                       Height: =24
                                                       Appearance: =BadgeAppearance.Tint

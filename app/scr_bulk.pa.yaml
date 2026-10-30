@@ -197,7 +197,7 @@ Screens:
                                                         rows: ForAll(
                                                             Sequence(CountRows(lines)) As i,
                                                             With(
-                                                                {c: Split(Index(lines, i.Value).Value & Concat(Sequence(9), Char(9)), Char(9))},
+                                                                {c: Split(Index(lines, i.Value).Value & Concat(Sequence(10), Char(9)), Char(9))},
                                                                 {
                                                                     Row: i.Value,
                                                                     AreaName: Trim(Index(c, 1).Value),
@@ -208,7 +208,8 @@ Screens:
                                                                     UomTxt: Trim(Index(c, 6).Value),
                                                                     QtyTxt: Trim(Index(c, 7).Value),
                                                                     MinTxt: Trim(Index(c, 8).Value),
-                                                                    RackName: Trim(Index(c, 9).Value)
+                                                                    RackName: Trim(Index(c, 9).Value),
+                                                                    NoteTxt: Trim(Index(c, 10).Value)
                                                                 }
                                                             )
                                                         )
@@ -270,6 +271,7 @@ Screens:
                                                                         CatTxt: r.CatTxt,
                                                                         UomTxt: r.UomTxt,
                                                                         RackName: r.RackName,
+                                                                        Note: r.NoteTxt,
                                                                         Area: ar,
                                                                         Item: it,
                                                                         Cat: cat,
@@ -1161,7 +1163,8 @@ Screens:
                                                                             dis_area: r.Area,
                                                                             qty: r.Qty,
                                                                             rack: r.Rack,
-                                                                            min_qty: r.Min
+                                                                            min_qty: r.Min,
+                                                                            note: If(IsBlank(r.Note), Blank(), r.Note)
                                                                         }
                                                                     ),
                                                                     Patch(
@@ -1171,7 +1174,8 @@ Screens:
                                                                             qty: st.qty + r.Qty,
                                                                             rack: If(IsBlank(r.Rack), st.rack, r.Rack),
                                                                             inactive: false,
-                                                                            min_qty: If(IsBlank(r.Min), st.min_qty, r.Min)
+                                                                            min_qty: If(IsBlank(r.Min), st.min_qty, r.Min),
+                                                                            note: If(IsBlank(r.Note), st.note, r.Note)
                                                                         }
                                                                     )
                                                                 )

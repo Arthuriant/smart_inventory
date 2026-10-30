@@ -617,7 +617,7 @@ Screens:
                                                       {ex: LookUp(colRcvCart, Item.dis_item_v2 = ThisItem.dis_item_v2)},
                                                       If(
                                                           IsBlank(ex),
-                                                          Collect(colRcvCart, {Item: ThisItem, Qty: numRcvFQty.Value, Rack: ddRcvFRack.Selected, Min: Value(Blank())}),
+                                                          Collect(colRcvCart, {Item: ThisItem, Qty: numRcvFQty.Value, Rack: ddRcvFRack.Selected, Min: Value(Blank()), Note: ""}),
                                                           Patch(colRcvCart, ex, {Qty: ex.Qty + numRcvFQty.Value, Rack: If(IsBlank(ddRcvFRack.Selected), ex.Rack, ddRcvFRack.Selected)})
                                                       )
                                                   );
@@ -824,6 +824,24 @@ Screens:
                               Text: ="MIN IN AREA"
                               Width: =88
                               Wrap: =false
+                        - txtRcvFCHNote:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Color: =RGBA(100, 112, 130, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =18
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: ="NOTE (OTHER RACKS)"
+                              Width: =180
+                              Wrap: =false
                         - txtRcvFCHRack:
                             Control: ModernText
                             Properties:
@@ -959,6 +977,31 @@ Screens:
                                     Size: =13
                                     TriggerOutput: =TriggerOutput.Delayed
                                     Width: =88
+                              - inpRcvFCNote:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    AccessibleLabel: ="Note for " & ThisItem.Item.name & " in this area"
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: =Appearance.Outline
+                                    Default: =ThisItem.Note
+                                    Font: =Font.'Segoe UI'
+                                    Height: =36
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnChange: |-
+                                      =Patch(colRcvCart, ThisItem, {Note: Trim(Self.Text)})
+                                    Placeholder: |-
+                                      =With(
+                                          {iid: ThisItem.Item.dis_item_v2, aid: ddRcvFArea.Selected.dis_area},
+                                          Coalesce(LookUp(dis_stocks, dis_item_v2.dis_item_v2 = iid And dis_area.dis_area = aid).note, "Optional")
+                                      )
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Size: =13
+                                    TriggerOutput: =TriggerOutput.Delayed
+                                    Width: =180
                               - ddRcvFCRack:
                                   Control: ModernDropdown
                                   Properties:
@@ -1158,10 +1201,11 @@ Screens:
                                                                     dis_area: ar,
                                                                     qty: c.Qty,
                                                                     rack: c.Rack,
-                                                                    min_qty: c.Min
+                                                                    min_qty: c.Min,
+                                                                    note: If(IsBlank(c.Note), Blank(), c.Note)
                                                                 }
                                                             ),
-                                                            Patch(dis_stocks, st, {qty: st.qty + c.Qty, rack: If(IsBlank(c.Rack), st.rack, c.Rack), inactive: false, min_qty: If(IsBlank(c.Min), st.min_qty, c.Min)})
+                                                            Patch(dis_stocks, st, {qty: st.qty + c.Qty, rack: If(IsBlank(c.Rack), st.rack, c.Rack), inactive: false, min_qty: If(IsBlank(c.Min), st.min_qty, c.Min), note: If(IsBlank(c.Note), st.note, c.Note)})
                                                         )
                                                     )
                                                 );
